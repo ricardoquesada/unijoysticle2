@@ -1,0 +1,49 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version 
+Vagrant.configure("2") do |config|
+  # https://docs.vagrantup.com.
+
+  # Every Vagrant development environment requires a box. You can search for
+  # boxes at https://vagrantcloud.com/search.
+  config.vm.box = "debian/stretch64"
+
+  # config.vm.box_check_update = true
+
+  # NOTE: This will enable public access to the opened port
+  # config.vm.network "forwarded_port", guest: 80, host: 8080
+
+  # config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+
+  # Create a private network, which allows host-only access to the machine
+  # using a specific IP.
+  # config.vm.network "private_network", ip: "192.168.58.10"
+
+  # Create a public network, which generally matched to bridged network.
+  # config.vm.network "public_network"
+
+  # Share an additional folder to the guest VM. [host_path], [guest_path]
+  # config.vm.synced_folder "../data", "/vagrant_data"
+
+  # Provider-specific configuration
+  config.vm.provider "virtualbox" do |vb|
+	vb.customize ["modifyvm", :id, "--usb", "on"]
+  #   	vb.customize ["modifyvm", :id, "--usbehci", "on"]
+  # Connect usb serial (ESP) here
+  # sudo vboxmanage list usbhost OR lsusb 
+  # get VendorID and ProductID and fill in here
+	vb.customize ['usbfilter', 'add', '0', 
+	       	'--target', :id, 
+		'--name', 'serial_esp32', 
+		'--vendorid', '0x10c4', 
+		'--productid', '0xea60']
+  end
+
+  # config.vm.provision "shell", inline: <<-SHELL
+  #   apt-get update
+  #   apt-get install -y apache2
+  # SHELL
+  config.vm.provision :shell, path: "bootstrap.sh"
+end
