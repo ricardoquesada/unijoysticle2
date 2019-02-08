@@ -16,6 +16,10 @@ Early develop stages. PoC working on PC. Need the rest.
 
 ## Want to help ?
 
+Development can be done locally or using Vagrant for convinience. It's recommended to read the local instructions once (or the bootstrap.sh script) before using Vagrant.
+
+### Local development 
+
 - Download libusb: https://libusb.info/ (needed to test on PC with bluetooth dongle).
 - Download BlueKitchen: https://github.com/bluekitchen/btstack
 - Download Unijoysticle code: https://gitlab.com/ricardoquesada/unijoysticle
@@ -71,6 +75,32 @@ $ make flash monitor
 ```
 
 Put the gamepad in discovery mode. The gamepad should be recognized and when you press buttons, you should see them on the console.
+
+### Vagrant development
+
+A vagrant file is provided with virtual linux boxes and the previous instructions scripted. VirtualBox provider is required for USB compatibility. Read the instructions inside the vagrant file to fill up the 'VendorID' and 'ProductID' of your ESP32 USB Serial or bluetooth dongle.
+
+#### ESP32 
+
+```sh
+$ cd firmware
+$ vagrant up
+$ vagrant ssh
+$ cd /vagrant/
+#ESP serial will showup in /dev/ttyUSB0. Configure accordingly.
+$ make menuconfig
+$ make flash monitor
+```
+
+#### Virtual linux
+
+```sh
+$ cd firmware/tools
+$ vagrant up
+$ vagrant ssh
+$ make
+$ ./gap_inquiry
+```
 
 ## What works:
 

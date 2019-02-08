@@ -56,7 +56,7 @@ chown $TARGET_USER:$TARGET_USER $TARGET_USER_PROFILE
 #usb permissions
 gpasswd -a vagrant plugdev
 gpasswd -a vagrant dialout
-echo "To build project:
+echo "To build project:"
 echo "vagrant ssh"
 echo "cd /vagrant/"
 echo "make menuconfig"
