@@ -72,7 +72,8 @@ static const unsigned int attribute_value_buffer_size = MAX_ATTRIBUTE_VALUE_SIZE
 static btstack_packet_callback_registration_t hci_event_callback_registration;
 
 static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint16_t size);
-static void handle_sdp_client_query_result(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint16_t size);
+static void handle_sdp_hid_query_result(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint16_t size);
+static void handle_sdp_did_query_result(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint16_t size);
 static void continue_remote_names(void);
 static void start_scan(void);
 static void list_link_keys(void);
@@ -101,12 +102,8 @@ static void hid_host_setup(void){
     setbuf(stdout, NULL);
 }
 
-/* @section SDP parser callback
- *
- * @text The SDP parsers retrieves the BNEP PAN UUID as explained in
- * Section [on SDP BNEP Query example](#sec:sdpbnepqueryExample}.
- */
-static void handle_sdp_client_query_result(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint16_t size) {
+// HID results: HID descriptor, PSM interrupt, PSM control, etc.
+static void handle_sdp_hid_query_result(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint16_t size) {
 
     UNUSED(packet_type);
     UNUSED(channel);
@@ -114,14 +111,9 @@ static void handle_sdp_client_query_result(uint8_t packet_type, uint16_t channel
 
     des_iterator_t  attribute_list_it;
     des_iterator_t  additional_des_it;
-    des_iterator_t  prot_it;
     uint8_t*        des_element;
     uint8_t*        element;
-    uint32_t        uuid;
     my_hid_device_t* device;
-
-    printf("*** handle_sdp_client_query_result() ***\n");
-    printf_hexdump(packet, size);
 
     device = my_hid_device_get_current_device();
     if (device == NULL) {
@@ -130,151 +122,96 @@ static void handle_sdp_client_query_result(uint8_t packet_type, uint16_t channel
     }
 
     switch (hci_event_packet_get_type(packet)){
-        case SDP_EVENT_QUERY_ATTRIBUTE_VALUE:
-            if (sdp_event_query_attribute_byte_get_attribute_length(packet) <= attribute_value_buffer_size) {
-                attribute_value[sdp_event_query_attribute_byte_get_data_offset(packet)] = sdp_event_query_attribute_byte_get_data(packet);
-                if ((uint16_t)(sdp_event_query_attribute_byte_get_data_offset(packet)+1) == sdp_event_query_attribute_byte_get_attribute_length(packet)) {
-                    switch(sdp_event_query_attribute_byte_get_attribute_id(packet)) {
-                        case BLUETOOTH_ATTRIBUTE_PROTOCOL_DESCRIPTOR_LIST:
-                            for (des_iterator_init(&attribute_list_it, attribute_value); des_iterator_has_more(&attribute_list_it); des_iterator_next(&attribute_list_it)) {
-                                if (des_iterator_get_type(&attribute_list_it) != DE_DES) continue;
-                                des_element = des_iterator_get_element(&attribute_list_it);
-                                des_iterator_init(&prot_it, des_element);
-                                element = des_iterator_get_element(&prot_it);
-                                if (de_get_element_type(element) != DE_UUID) continue;
-                                uuid = de_get_uuid32(element);
-                                switch (uuid){
-                                    case BLUETOOTH_PROTOCOL_L2CAP:
-                                        if (!des_iterator_has_more(&prot_it)) continue;
-                                        des_iterator_next(&prot_it);
-                                        de_element_get_uint16(des_iterator_get_element(&prot_it), &device->expected_hid_control_psm);
-                                        printf("SDP HID Control PSM: 0x%04x\n", (int) device->expected_hid_control_psm);
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            }
-                            break;
-                        case BLUETOOTH_ATTRIBUTE_ADDITIONAL_PROTOCOL_DESCRIPTOR_LISTS:
-                            for (des_iterator_init(&attribute_list_it, attribute_value); des_iterator_has_more(&attribute_list_it); des_iterator_next(&attribute_list_it)) {
-                                if (des_iterator_get_type(&attribute_list_it) != DE_DES) continue;
-                                des_element = des_iterator_get_element(&attribute_list_it);
-                                for (des_iterator_init(&additional_des_it, des_element); des_iterator_has_more(&additional_des_it); des_iterator_next(&additional_des_it)) {
-                                    if (des_iterator_get_type(&additional_des_it) != DE_DES) continue;
-                                    des_element = des_iterator_get_element(&additional_des_it);
-                                    des_iterator_init(&prot_it, des_element);
-                                    element = des_iterator_get_element(&prot_it);
-                                    if (de_get_element_type(element) != DE_UUID) continue;
-                                    uuid = de_get_uuid32(element);
-                                    switch (uuid){
-                                        case BLUETOOTH_PROTOCOL_L2CAP:
-                                            if (!des_iterator_has_more(&prot_it)) continue;
-                                            des_iterator_next(&prot_it);
-                                            de_element_get_uint16(des_iterator_get_element(&prot_it), &device->expected_hid_interrupt_psm);
-                                            printf("SDP HID Interrupt PSM: 0x%04x\n", (int) device->expected_hid_interrupt_psm);
-                                            break;
-                                        default:
-                                            break;
-                                    }
-                                }
-                            }
-                            break;
-                        case BLUETOOTH_ATTRIBUTE_HID_DESCRIPTOR_LIST:
-                            for (des_iterator_init(&attribute_list_it, attribute_value); des_iterator_has_more(&attribute_list_it); des_iterator_next(&attribute_list_it)) {
-                                if (des_iterator_get_type(&attribute_list_it) != DE_DES) continue;
-                                des_element = des_iterator_get_element(&attribute_list_it);
-                                for (des_iterator_init(&additional_des_it, des_element); des_iterator_has_more(&additional_des_it); des_iterator_next(&additional_des_it)) {
-                                    if (des_iterator_get_type(&additional_des_it) != DE_STRING) continue;
-                                    element = des_iterator_get_element(&additional_des_it);
-                                    const uint8_t * descriptor = de_get_string(element);
-                                    int descriptor_len = de_get_data_size(element);
-                                    printf("SDP HID Descriptor (%d):\n", descriptor_len);
-                                    my_hid_device_set_hid_descriptor(device, descriptor, descriptor_len);
-                                    printf_hexdump(descriptor, descriptor_len);
-                                }
-                            }
-                            break;
-                        case BLUETOOTH_ATTRIBUTE_VENDOR_ID:
-                            printf("Vendor ID: \n");
-                            printf_hexdump(packet, size);
-                            for (des_iterator_init(&attribute_list_it, attribute_value); des_iterator_has_more(&attribute_list_it); des_iterator_next(&attribute_list_it)) {
-                                if (des_iterator_get_type(&attribute_list_it) != DE_DES) continue;
-                                des_element = des_iterator_get_element(&attribute_list_it);
-                                des_iterator_init(&prot_it, des_element);
-                                element = des_iterator_get_element(&prot_it);
-                                if (de_get_element_type(element) != DE_UUID) continue;
-                                uuid = de_get_uuid32(element);
-                                switch (uuid){
-                                    case BLUETOOTH_PROTOCOL_L2CAP:
-                                        if (!des_iterator_has_more(&prot_it)) continue;
-                                        des_iterator_next(&prot_it);
-                                        de_element_get_uint16(des_iterator_get_element(&prot_it), &device->expected_hid_control_psm);
-                                        printf("SDP HID Control PSM: 0x%04x\n", (int) device->expected_hid_control_psm);
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            }
-                            break;
-                        case BLUETOOTH_ATTRIBUTE_PRODUCT_ID:
-                            printf("Product ID: \n");
-                            printf_hexdump(packet, size);
-                            for (des_iterator_init(&attribute_list_it, attribute_value); des_iterator_has_more(&attribute_list_it); des_iterator_next(&attribute_list_it)) {
-                                if (des_iterator_get_type(&attribute_list_it) != DE_DES) continue;
-                                des_element = des_iterator_get_element(&attribute_list_it);
-                                des_iterator_init(&prot_it, des_element);
-                                element = des_iterator_get_element(&prot_it);
-                                if (de_get_element_type(element) != DE_UUID) continue;
-                                uuid = de_get_uuid32(element);
-                                switch (uuid){
-                                    case BLUETOOTH_PROTOCOL_L2CAP:
-                                        if (!des_iterator_has_more(&prot_it)) continue;
-                                        des_iterator_next(&prot_it);
-                                        de_element_get_uint16(des_iterator_get_element(&prot_it), &device->expected_hid_control_psm);
-                                        printf("SDP HID Control PSM: 0x%04x\n", (int) device->expected_hid_control_psm);
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            }
-                            break;
-                        case BLUETOOTH_ATTRIBUTE_VERSION:
-                            printf("Version: \n");
-                            printf_hexdump(packet, size);
-                            break;
-                        default:
-                            break;
+    case SDP_EVENT_QUERY_ATTRIBUTE_VALUE:
+        if (sdp_event_query_attribute_byte_get_attribute_length(packet) <= attribute_value_buffer_size) {
+            attribute_value[sdp_event_query_attribute_byte_get_data_offset(packet)] = sdp_event_query_attribute_byte_get_data(packet);
+            if ((uint16_t)(sdp_event_query_attribute_byte_get_data_offset(packet)+1) == sdp_event_query_attribute_byte_get_attribute_length(packet)) {
+                switch(sdp_event_query_attribute_byte_get_attribute_id(packet)) {
+                case BLUETOOTH_ATTRIBUTE_HID_DESCRIPTOR_LIST:
+                    for (des_iterator_init(&attribute_list_it, attribute_value); des_iterator_has_more(&attribute_list_it); des_iterator_next(&attribute_list_it)) {
+                        if (des_iterator_get_type(&attribute_list_it) != DE_DES) continue;
+                        des_element = des_iterator_get_element(&attribute_list_it);
+                        for (des_iterator_init(&additional_des_it, des_element); des_iterator_has_more(&additional_des_it); des_iterator_next(&additional_des_it)) {
+                            if (des_iterator_get_type(&additional_des_it) != DE_STRING) continue;
+                            element = des_iterator_get_element(&additional_des_it);
+                            const uint8_t * descriptor = de_get_string(element);
+                            int descriptor_len = de_get_data_size(element);
+                            printf("SDP HID Descriptor (%d):\n", descriptor_len);
+                            my_hid_device_set_hid_descriptor(device, descriptor, descriptor_len);
+                            printf_hexdump(descriptor, descriptor_len);
+                        }
                     }
+                    break;
+                default:
+                    break;
                 }
-            } else {
-                fprintf(stderr, "SDP attribute value buffer size exceeded: available %d, required %d\n", attribute_value_buffer_size, sdp_event_query_attribute_byte_get_attribute_length(packet));
             }
-            break;
-
-        case SDP_EVENT_QUERY_RFCOMM_SERVICE:
-            printf("SDP_EVENT_QUERY_RFCOMM_SERVICE\n");
-            break;
-        case SDP_EVENT_QUERY_ATTRIBUTE_BYTE:
-            printf("SDP_EVENT_QUERY_ATTRIBUTE_BYTE");
-            break;
-        case SDP_EVENT_QUERY_SERVICE_RECORD_HANDLE:
-            printf("SDP_EVENT_QUERY_SERVICE_RECORD_HANDLE\n");
-            break;
-        case SDP_EVENT_QUERY_COMPLETE:
-            printf("SDP_EVENT_QUERY_COMPLETE\n");
-            if (device->expected_hid_control_psm != PSM_HID_CONTROL) {
-                printf("Invalid Control PSM missing. Expecting = 0x%04x, got = 0x%04x\n", PSM_HID_CONTROL, device->expected_hid_control_psm);
-                break;
-            }
-            if (device->expected_hid_interrupt_psm != PSM_HID_INTERRUPT) {
-                printf("Invalid Control PSM missing. Expecting = 0x%04x, got = 0x%04x\n", PSM_HID_INTERRUPT, device->expected_hid_interrupt_psm);
-                break;
-            }
-            printf("Setup HID completed.\n");
-            // We assume that connection + HID discovery is done. set current_device to NULL so that another
-            // SDP query can be done.
+        } else {
+            fprintf(stderr, "SDP attribute value buffer size exceeded: available %d, required %d\n", attribute_value_buffer_size, sdp_event_query_attribute_byte_get_attribute_length(packet));
+        }
+        break;
+    case SDP_EVENT_QUERY_COMPLETE:
+        printf("SDP_EVENT_QUERY_COMPLETE\n");
+        // We assume that connection + HID discovery is done. 
+        // Start the Product ID + Vendor ID query
+        uint8_t status = sdp_client_query_uuid16(&handle_sdp_did_query_result, device->address, BLUETOOTH_SERVICE_CLASS_PNP_INFORMATION);
+        if (status != 0) {
             my_hid_device_set_current_device(NULL);
-            break;
+            printf("FAILED to perform SDP DeviceID query\n");
+        }
+        break;
+    default:
+        break;
+    }
+}
+
+// Device ID results: Vendor ID, Product ID, Version, etc...
+static void handle_sdp_did_query_result(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint16_t size) {
+
+    UNUSED(packet_type);
+    UNUSED(channel);
+    UNUSED(size);
+
+    my_hid_device_t* device;
+    uint16_t        id16;
+
+    device = my_hid_device_get_current_device();
+    if (device == NULL) {
+        printf("ERROR: handle_sdp_client_query_result. current device = NULL\n");
+        return;
+    }
+
+    switch (hci_event_packet_get_type(packet)){
+    case SDP_EVENT_QUERY_ATTRIBUTE_VALUE:
+        if (sdp_event_query_attribute_byte_get_attribute_length(packet) <= attribute_value_buffer_size) {
+            attribute_value[sdp_event_query_attribute_byte_get_data_offset(packet)] = sdp_event_query_attribute_byte_get_data(packet);
+            if ((uint16_t)(sdp_event_query_attribute_byte_get_data_offset(packet)+1) == sdp_event_query_attribute_byte_get_attribute_length(packet)) {
+                switch(sdp_event_query_attribute_byte_get_attribute_id(packet)) {
+                case BLUETOOTH_ATTRIBUTE_VENDOR_ID:
+                    if (de_element_get_uint16(attribute_value, &id16))
+                        my_hid_device_set_vendor_id(device, id16);
+                    else printf("Error getting vendor id\n");
+                    break;
+
+                case BLUETOOTH_ATTRIBUTE_PRODUCT_ID:
+                    if (de_element_get_uint16(attribute_value, &id16))
+                        my_hid_device_set_product_id(device, id16);
+                    else printf("Error getting product id\n");
+                    break;
+                default:
+                    break;
+                }
+            }
+        } else {
+            fprintf(stderr, "SDP attribute value buffer size exceeded: available %d, required %d\n", attribute_value_buffer_size, sdp_event_query_attribute_byte_get_attribute_length(packet));
+        }
+        break;
+    case SDP_EVENT_QUERY_COMPLETE:
+        printf("Vendor ID: 0x%04x - Product ID: 0x%04x\n", my_hid_device_get_vendor_id(device), my_hid_device_get_product_id(device));
+        printf("Setup DID completed.\n");
+        // We assume that connection + SDP is done. set current_device to NULL so that another SDP query can be done.
+        my_hid_device_set_current_device(NULL);
+        break;
     }
 }
 
@@ -507,35 +444,30 @@ static void on_l2cap_channel_opened(uint8_t* packet, uint16_t channel) {
     }
 
     switch (psm){
-        case PSM_HID_CONTROL:
-            device->hid_control_cid = l2cap_event_channel_opened_get_local_cid(packet);
-            printf("HID Control opened, cid 0x%02x\n", device->hid_control_cid);
-            break;
-        case PSM_HID_INTERRUPT:
-            device->hid_interrupt_cid = l2cap_event_channel_opened_get_local_cid(packet);
-            printf("HID Interrupt opened, cid 0x%02x\n", device->hid_interrupt_cid);
-            // Don't request HID descriptor if we already have it.
-            if (!my_hid_device_has_hid_descriptor(device)) {
-                // Needed for the SDP query since it only supports oe SDP query at the time.
-                if (my_hid_device_get_current_device() != NULL) {
-                    printf("Error: Ouch, another SDP query is in progress. Try again later.\n");
-                } else {
-                    my_hid_device_set_current_device(device);
-                    status = sdp_client_query_uuid16(
-                        &handle_sdp_client_query_result,
-                        device->address,
-                        BLUETOOTH_SERVICE_CLASS_HUMAN_INTERFACE_DEVICE_SERVICE
-                        /* BLUETOOTH_SERVICE_CLASS_PNP_INFORMATION */
-                        );
-                    if (status != 0) {
-                        my_hid_device_set_current_device(NULL);
-                        printf("FAILED to perform sdp query\n");
-                    }
+    case PSM_HID_CONTROL:
+        device->hid_control_cid = l2cap_event_channel_opened_get_local_cid(packet);
+        printf("HID Control opened, cid 0x%02x\n", device->hid_control_cid);
+        break;
+    case PSM_HID_INTERRUPT:
+        device->hid_interrupt_cid = l2cap_event_channel_opened_get_local_cid(packet);
+        printf("HID Interrupt opened, cid 0x%02x\n", device->hid_interrupt_cid);
+        // Don't request HID descriptor if we already have it.
+        if (!my_hid_device_has_hid_descriptor(device)) {
+            // Needed for the SDP query since it only supports oe SDP query at the time.
+            if (my_hid_device_get_current_device() != NULL) {
+                printf("Error: Ouch, another SDP query is in progress. Try again later.\n");
+            } else {
+                my_hid_device_set_current_device(device);
+                status = sdp_client_query_uuid16(&handle_sdp_hid_query_result, device->address, BLUETOOTH_SERVICE_CLASS_HUMAN_INTERFACE_DEVICE_SERVICE);
+                if (status != 0) {
+                    my_hid_device_set_current_device(NULL);
+                    printf("FAILED to perform sdp query\n");
                 }
             }
-            break;
-        default:
-            break;
+        }
+        break;
+    default:
+        break;
     }
 
     if (!my_hid_device_is_incoming(device)) {
@@ -668,7 +600,7 @@ static void list_link_keys(void) {
     while (gap_link_key_iterator_get_next(&it, addr, link_key, &type)){
         printf("%s - type %u, key: ", bd_addr_to_str(addr), (int) type);
         printf_hexdump(link_key, 16);
-        gap_drop_link_key_for_bd_addr(addr);
+        // gap_drop_link_key_for_bd_addr(addr);
     }
     printf(".\n");
     gap_link_key_iterator_done(&it);
@@ -682,6 +614,7 @@ int btstack_main(int argc, const char * argv[]) {
     // Honoring with BT copyright + adding own message to avoid confusion
     printf("Unijoysticle (C) 2016-2019 Ricardo Quesada and contributors.\n");
     printf("Bluetooth stack: Copyright (C) 2017 BlueKitchen GmbH.\n");
+    printf("Firmware version: v0.0.1\n");
 
     gpio_joy_init();
     my_hid_device_init();

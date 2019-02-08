@@ -156,8 +156,6 @@ void my_hid_device_set_disconnected(my_hid_device_t* device) {
     device->flags &= ~(FLAGS_CONNECTED | FLAGS_INCOMING);
     device->hid_control_cid = 0;
     device->hid_interrupt_cid = 0;
-    device->expected_hid_control_psm = 0;
-    device->expected_hid_interrupt_psm = 0;
 
     // Joystick-state oriented
     used_joystick_ports &= ~device->joystick_port;
@@ -236,4 +234,20 @@ uint8_t my_hid_device_has_hid_descriptor(my_hid_device_t* device) {
     if (device == NULL) { log_error("ERROR: Invalid device\n"); return 0; }
 
     return !!(device->flags & FLAGS_HAS_HID_DESCRIPTOR);
+}
+
+void my_hid_device_set_product_id(my_hid_device_t* device, uint16_t product_id) {
+    device->product_id = product_id;
+}
+
+uint16_t my_hid_device_get_product_id(my_hid_device_t* device) {
+    return device->product_id;
+}
+
+void my_hid_device_set_vendor_id(my_hid_device_t* device, uint16_t vendor_id) {
+    device->vendor_id = vendor_id;
+}
+
+uint16_t my_hid_device_get_vendor_id(my_hid_device_t* device) {
+    return device->vendor_id;
 }

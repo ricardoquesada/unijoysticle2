@@ -103,6 +103,8 @@ typedef struct  {
     uint8_t                 page_scan_repetition_mode;
     uint16_t                clock_offset;
     uint32_t                cod;
+    uint16_t                vendor_id;
+    uint16_t                product_id;
     char                    name[MAX_NAME_LEN];
 
     uint32_t                flags;
@@ -114,8 +116,6 @@ typedef struct  {
     // Channels
     uint16_t                hid_control_cid;
     uint16_t                hid_interrupt_cid;
-    uint16_t                expected_hid_control_psm;         // must be PSM_HID_CONTROL
-    uint16_t                expected_hid_interrupt_psm;       // must be PSM_HID_INTERRUPT
     enum DEVICE_STATE       state;
 
     // gamepad
@@ -153,5 +153,11 @@ uint8_t my_hid_device_is_incoming(my_hid_device_t* device);
 
 void my_hid_device_set_name(my_hid_device_t* device, const uint8_t* name, int name_len);
 uint8_t my_hid_device_has_name(my_hid_device_t* device);
+
+void my_hid_device_set_product_id(my_hid_device_t* device, uint16_t product_id);
+uint16_t my_hid_device_get_product_id(my_hid_device_t* device);
+
+void my_hid_device_set_vendor_id(my_hid_device_t* device, uint16_t vendor_id);
+uint16_t my_hid_device_get_vendor_id(my_hid_device_t* device);
 
 #endif // MY_HID_DEVICE_H
