@@ -115,9 +115,7 @@ void gpio_joy_init(void) {
 }
 
 void gpio_joy_update_mouse(int32_t delta_x, int32_t delta_y) {
-#if ENABLE_VERBOSE_LOG
-    printf("mouse x=%d, y=%d\n", delta_x, delta_y);
-#endif // ENABLE_VERBOSE_LOG
+    logd("mouse x=%d, y=%d\n", delta_x, delta_y);
 
     // Mouse is implemented using a quadrature encoding
     // FIXMI: Passing values to mouse task using global variables. This is, of course,
@@ -139,10 +137,8 @@ void gpio_joy_update_port_b(joystick_t* joy) {
 }
 
 static void gpio_joy_update_port(joystick_t* joy, gpio_num_t* gpios) {
-#if ENABLE_VERBOSE_LOG
-    printf("up=%d, down=%d, left=%d, right=%d, fire=%d\n",
+    logd("up=%d, down=%d, left=%d, right=%d, fire=%d\n",
         joy->up, joy->down, joy->left, joy->right, joy->fire);
-#endif // ENABLE_VERBOSE_LOG
 
     gpio_set_level(gpios[0], !!joy->up);
     gpio_set_level(gpios[1], !!joy->down);

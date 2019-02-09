@@ -18,7 +18,7 @@ limitations under the License.
 
 #include "hid_parser.h"
 
-#include "uni_config.h"
+#include "uni_debug.h"
 #include "my_hid_device.h"
 #include "gpio_joy.h"
 
@@ -67,7 +67,7 @@ void hid_parser_handle_interrupt_report(my_hid_device_t* device, const uint8_t *
     report_len--;
 
     if (!my_hid_device_has_hid_descriptor(device)) {
-        printf("Device without HID descriptor yet. Ignoring report\n");
+        logi("Device without HID descriptor yet. Ignoring report\n");
         return;
     }
 
@@ -92,7 +92,7 @@ void hid_parser_handle_interrupt_report(my_hid_device_t* device, const uint8_t *
 
         btstack_hid_parser_get_field(&parser, &usage_page, &usage, &value);
 
-        // printf("usage_page = 0x%04x, usage = 0x%04x, value = 0x%x - ", usage_page, usage, value);
+        logd("usage_page = 0x%04x, usage = 0x%04x, value = 0x%x - ", usage_page, usage, value);
         process_usage(device, &parser, &globals, usage_page, usage, value);
     }
     // Debug info
@@ -169,7 +169,7 @@ static void process_usage(my_hid_device_t* device, btstack_hid_parser_t* parser,
             device->gamepad.updated_states |= GAMEPAD_STATE_DPAD;
             break;
         default:
-            printf("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+            logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
             break;
         }
         break;
@@ -184,7 +184,7 @@ static void process_usage(my_hid_device_t* device, btstack_hid_parser_t* parser,
             device->gamepad.updated_states |= GAMEPAD_STATE_BRAKE;
             break;
         default:
-            printf("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+            logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
             break;
         };
         break;
@@ -194,7 +194,7 @@ static void process_usage(my_hid_device_t* device, btstack_hid_parser_t* parser,
             device->gamepad.battery = value;
             break;
         default:
-            printf("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+            logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
             break;
         }
         break;
@@ -248,7 +248,7 @@ static void process_usage(my_hid_device_t* device, btstack_hid_parser_t* parser,
             device->gamepad.updated_states |= GAMEPAD_STATE_BUTTON0;
             break;
         default:
-            printf("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+            logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
             break;
         }
         break;
@@ -264,7 +264,7 @@ static void process_usage(my_hid_device_t* device, btstack_hid_parser_t* parser,
                 device->gamepad.buttons &= ~(1 << button_idx);
             device->gamepad.updated_states |= (GAMEPAD_STATE_BUTTON0 << button_idx);
         } else {
-            printf("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+            logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
         }
         break;
     }
@@ -288,21 +288,20 @@ static void process_usage(my_hid_device_t* device, btstack_hid_parser_t* parser,
                 device->gamepad.misc_buttons &= ~MISC_AC_BACK;
             break;
         default:
-            printf("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+            logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
             break;
         }
         break;
 
     // unknown usage page
     default:
-            printf("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+            logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
         break;
     }
 }
 
 static void print_gamepad(gamepad_t* gamepad) {
-#ifdef ENABLE_VERBOSE_LOG
-    printf("(0x%04x) x=%d, y=%d, z=%d, rx=%d, ry=%d, rz=%d, hat=0x%02x, dpad=0x%02x, accel=%d, brake=%d, buttons=0x%08x, misc=0x%02x\n",
+    logd("(0x%04x) x=%d, y=%d, z=%d, rx=%d, ry=%d, rz=%d, hat=0x%02x, dpad=0x%02x, accel=%d, brake=%d, buttons=0x%08x, misc=0x%02x\n",
         gamepad->updated_states,
         gamepad->x, gamepad->y, gamepad->z,
         gamepad->rx, gamepad->ry, gamepad->rz,
@@ -311,9 +310,6 @@ static void print_gamepad(gamepad_t* gamepad) {
         gamepad->accelerator, gamepad->brake,
         gamepad->buttons,
         gamepad->misc_buttons);
-#else
-    UNUSED(gamepad);
-#endif
 }
 
 // Converts gamepad to joystick.
@@ -362,7 +358,7 @@ static void joystick_update(my_hid_device_t* device) {
             joy.up |= 1;
             break;
         default:
-            printf("Error parsing hat values\n");
+            loge("Error parsing hat values\n");
             break;
         }
     }
@@ -410,7 +406,7 @@ static void joystick_update(my_hid_device_t* device) {
         gpio_joy_update_mouse(gp->x, gp->y);
         break;
     default:
-        printf("Unsupported controller type: %d\n", device->controller_type);
+        loge("Unsupported controller type: %d\n", device->controller_type);
         break;
     }
 }
@@ -447,7 +443,7 @@ static int32_t hid_process_axis(btstack_hid_parser_t* parser, hid_globals_t* glo
 
     // Then we normalize between -512 and 511
     int32_t normalized = centered * AXIS_NORMALIZE_RANGE / range;
-    // printf("original = %d, centered = %d, normalized = %d (range = %d, min=%d, max=%d)\n", value, centered, normalized, range, min, max);
+    logd("original = %d, centered = %d, normalized = %d (range = %d, min=%d, max=%d)\n", value, centered, normalized, range, min, max);
 
     return normalized;
 }
