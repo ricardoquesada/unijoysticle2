@@ -76,6 +76,7 @@ static void handle_sdp_hid_query_result(uint8_t packet_type, uint16_t channel, u
 static void handle_sdp_did_query_result(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint16_t size);
 static void continue_remote_names(void);
 static void start_scan(void);
+static void start_sdp_query(my_hid_device_t* device);
 static void list_link_keys(void);
 
 static void on_l2cap_channel_closed(uint8_t* packet, uint16_t channel);
@@ -377,7 +378,7 @@ static void on_gap_inquiry_result(uint8_t* packet, uint16_t channel) {
     if (my_hid_device_is_cod_supported(cod)) {
         device = my_hid_device_get_instance_for_address(addr);
         if (device != NULL) {
-            printf("Device already in added...\n");
+            printf("Device already added...\n");
             return;
         }
         device = my_hid_device_create(addr);
@@ -453,17 +454,7 @@ static void on_l2cap_channel_opened(uint8_t* packet, uint16_t channel) {
         printf("HID Interrupt opened, cid 0x%02x\n", device->hid_interrupt_cid);
         // Don't request HID descriptor if we already have it.
         if (!my_hid_device_has_hid_descriptor(device)) {
-            // Needed for the SDP query since it only supports oe SDP query at the time.
-            if (my_hid_device_get_current_device() != NULL) {
-                printf("Error: Ouch, another SDP query is in progress. Try again later.\n");
-            } else {
-                my_hid_device_set_current_device(device);
-                status = sdp_client_query_uuid16(&handle_sdp_hid_query_result, device->address, BLUETOOTH_SERVICE_CLASS_HUMAN_INTERFACE_DEVICE_SERVICE);
-                if (status != 0) {
-                    my_hid_device_set_current_device(NULL);
-                    printf("FAILED to perform sdp query\n");
-                }
-            }
+            start_sdp_query(device);
         }
         break;
     default:
@@ -583,6 +574,21 @@ static void continue_remote_names(void) {
 static void start_scan(void) {
     printf("Starting inquiry scan..\n");
     gap_inquiry_start(INQUIRY_INTERVAL);
+}
+
+static void start_sdp_query(my_hid_device_t* device) {
+    // Needed for the SDP query since it only supports oe SDP query at the time.
+    if (my_hid_device_get_current_device() != NULL) {
+        printf("Error: Ouch, another SDP query is in progress. Try again later.\n");
+        return;
+    }
+
+    my_hid_device_set_current_device(device);
+    uint8_t status = sdp_client_query_uuid16(&handle_sdp_hid_query_result, device->address, BLUETOOTH_SERVICE_CLASS_HUMAN_INTERFACE_DEVICE_SERVICE);
+    if (status != 0) {
+        my_hid_device_set_current_device(NULL);
+        printf("FAILED to perform sdp query\n");
+    }
 }
 
 static void list_link_keys(void) {
