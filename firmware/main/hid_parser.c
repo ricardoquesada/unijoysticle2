@@ -18,7 +18,7 @@ limitations under the License.
 
 #include "hid_parser.h"
 
-#include "unijoysticle_config.h"
+#include "uni_config.h"
 #include "my_hid_device.h"
 #include "gpio_joy.h"
 
@@ -169,7 +169,7 @@ static void process_usage(my_hid_device_t* device, btstack_hid_parser_t* parser,
             device->gamepad.updated_states |= GAMEPAD_STATE_DPAD;
             break;
         default:
-            printf("Unsupported usage: 0x%04x for page: 0x%04x. value=0x%x\n", usage, usage_page, value);
+            printf("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
             break;
         }
         break;
@@ -184,7 +184,7 @@ static void process_usage(my_hid_device_t* device, btstack_hid_parser_t* parser,
             device->gamepad.updated_states |= GAMEPAD_STATE_BRAKE;
             break;
         default:
-            printf("Unsupported usage: 0x%04x for page: 0x%04x. value=0x%x\n", usage, usage_page, value);
+            printf("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
             break;
         };
         break;
@@ -194,7 +194,7 @@ static void process_usage(my_hid_device_t* device, btstack_hid_parser_t* parser,
             device->gamepad.battery = value;
             break;
         default:
-            printf("Unsupported usage: 0x%04x for page: 0x%04x. value=0x%x\n", usage, usage_page, value);
+            printf("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
             break;
         }
         break;
@@ -248,7 +248,7 @@ static void process_usage(my_hid_device_t* device, btstack_hid_parser_t* parser,
             device->gamepad.updated_states |= GAMEPAD_STATE_BUTTON0;
             break;
         default:
-            printf("Unsupported usage: 0x%04x for page: 0x%04x. value=0x%x\n", usage, usage_page, value);
+            printf("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
             break;
         }
         break;
@@ -264,7 +264,7 @@ static void process_usage(my_hid_device_t* device, btstack_hid_parser_t* parser,
                 device->gamepad.buttons &= ~(1 << button_idx);
             device->gamepad.updated_states |= (GAMEPAD_STATE_BUTTON0 << button_idx);
         } else {
-            printf("Unsupported usage: 0x%04x for page: 0x%04x. value=0x%x\n", usage, usage_page, value);
+            printf("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
         }
         break;
     }
@@ -288,14 +288,14 @@ static void process_usage(my_hid_device_t* device, btstack_hid_parser_t* parser,
                 device->gamepad.misc_buttons &= ~MISC_AC_BACK;
             break;
         default:
-            printf("Unsupported usage: 0x%04x for page: 0x%04x. value=0x%x\n", usage, usage_page, value);
+            printf("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
             break;
         }
         break;
 
     // unknown usage page
     default:
-        printf("Unsupported usage: 0x%04x for page: 0x%04x. value=0x%x\n", usage, usage_page, value);
+            printf("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
         break;
     }
 }

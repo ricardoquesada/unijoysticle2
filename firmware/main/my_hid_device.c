@@ -33,9 +33,10 @@ enum {
     FLAGS_CONNECTED = (1 << 1),
 
     FLAGS_HAS_COD = (1 << 8),
-    FLAGS_HAS_HID = (1 << 9),
-    FLAGS_HAS_NAME = (1 << 10),
-    FLAGS_HAS_HID_DESCRIPTOR = (1 << 11)
+    FLAGS_HAS_NAME = (1 << 9),
+    FLAGS_HAS_HID_DESCRIPTOR = (1 << 10),
+    FLAGS_HAS_VENDOR_ID = (1 << 11),
+    FLAGS_HAS_PRODUCT_ID = (1 << 12),
 };
 
 static my_hid_device_t devices[MAX_DEVICES];
@@ -238,6 +239,7 @@ uint8_t my_hid_device_has_hid_descriptor(my_hid_device_t* device) {
 
 void my_hid_device_set_product_id(my_hid_device_t* device, uint16_t product_id) {
     device->product_id = product_id;
+    device->flags |= FLAGS_HAS_PRODUCT_ID;
 }
 
 uint16_t my_hid_device_get_product_id(my_hid_device_t* device) {
@@ -246,8 +248,21 @@ uint16_t my_hid_device_get_product_id(my_hid_device_t* device) {
 
 void my_hid_device_set_vendor_id(my_hid_device_t* device, uint16_t vendor_id) {
     device->vendor_id = vendor_id;
+    device->flags |= FLAGS_HAS_VENDOR_ID;
 }
 
 uint16_t my_hid_device_get_vendor_id(my_hid_device_t* device) {
     return device->vendor_id;
+}
+
+void my_hid_device_print_status(my_hid_device_t* device) {
+    printf("%s: flags=0x%04x, control=%d, interrupt=%d\n",
+        bd_addr_to_str(device->address),
+        device->flags,
+        device->hid_control_cid,
+        device->hid_interrupt_cid);
+}
+
+uint8_t my_hid_device_is_orphan(my_hid_device_t* device) {
+    return (device->flags == FLAGS_HAS_COD);
 }

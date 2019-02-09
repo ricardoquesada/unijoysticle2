@@ -24,7 +24,7 @@ limitations under the License.
 #include "freertos/event_groups.h"
 #include "driver/gpio.h"
 
-#include "unijoysticle_config.h"
+#include "uni_debug.h"
 #include "my_hid_device.h"
 
 // GPIO map for MH-ET Live mini-kit board.

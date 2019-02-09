@@ -107,6 +107,7 @@ typedef struct  {
     uint16_t                product_id;
     char                    name[MAX_NAME_LEN];
 
+    // incoming, connected, hid, cod, etc...
     uint32_t                flags;
 
     // SDP
@@ -160,4 +161,8 @@ uint16_t my_hid_device_get_product_id(my_hid_device_t* device);
 void my_hid_device_set_vendor_id(my_hid_device_t* device, uint16_t vendor_id);
 uint16_t my_hid_device_get_vendor_id(my_hid_device_t* device);
 
+void my_hid_device_print_status(my_hid_device_t* device);
+
+// my_hid_device_is_orphan returns true if the it was added to the DB only
+uint8_t my_hid_device_is_orphan(my_hid_device_t* device);
 #endif // MY_HID_DEVICE_H

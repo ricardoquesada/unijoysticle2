@@ -16,11 +16,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ****************************************************************************/
 
-#ifndef UNIJOYSTICLE_CONFIG_H
-#define UNIJOYSTICLE_CONFIG_H
+#ifndef UNI_LOG_H
+#define UNI_LOG_H
 
-// Enable it when testing development. In practice, too much
-// log will trigger the watchdog on the ESP32 (if done in the main thread).
-// #define ENABLE_VERBOSE_LOG  1
+#include "uni_config.h"
 
-#endif // UNIJOYSTICLE_CONFIG_H
+#define loge(fmt, ...) \
+            do { if (UNI_LOG_ERROR) fprintf(stderr, fmt, ## __VA_ARGS__); } while (0)
+#define logi(fmt, ...) \
+            do { if (UNI_LOG_INFO) fprintf(stderr, fmt, ## __VA_ARGS__); } while (0)
+#define logd(fmt, ...) \
+            do { if (UNI_LOG_DEBUG) fprintf(stderr, fmt, ## __VA_ARGS__); } while (0)
+
+#endif // UNI_LOG_H
