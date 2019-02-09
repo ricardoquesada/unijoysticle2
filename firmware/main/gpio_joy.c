@@ -25,7 +25,7 @@ limitations under the License.
 #include "driver/gpio.h"
 
 #include "uni_debug.h"
-#include "my_hid_device.h"
+#include "uni_hid_device.h"
 
 // GPIO map for MH-ET Live mini-kit board.
 // Same GPIOs as Wemos D1 mini (used in Unijoysticle v0.4)

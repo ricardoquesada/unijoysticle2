@@ -16,12 +16,26 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ****************************************************************************/
 
-#ifndef HID_PARSER_H
-#define HID_PARSER_H
+#ifndef UNI_HID_PARSER_H
+#define UNI_HID_PARSER_H
 
 #include <stdint.h>
-#include "my_hid_device.h"
 
-void hid_parser_handle_interrupt_report(my_hid_device_t* device, const uint8_t* report, uint16_t report_len);
+#include "uni_hid_device.h"
 
-#endif // HID_PARSER_H
+// btstack bug:
+// see: https://github.com/bluekitchen/btstack/issues/187
+typedef struct hid_globals_s {
+    int32_t         logical_minimum;
+    int32_t         logical_maximum;
+    uint16_t        usage_page;
+    uint8_t         report_size;
+    uint8_t         report_count;
+    uint8_t         report_id;
+} hid_globals_t;
+
+void hid_parser_handle_interrupt_report(uni_hid_device_t* device, const uint8_t* report, uint16_t report_len);
+int32_t uni_hid_process_axis(hid_globals_t* globals, uint32_t value);
+uint8_t uni_hid_process_hat(hid_globals_t* globals, uint32_t value);
+
+#endif // UNI_HID_PARSER_H

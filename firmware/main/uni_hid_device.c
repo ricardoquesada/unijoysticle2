@@ -16,7 +16,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ****************************************************************************/
 
-#include "my_hid_device.h"
+#include "uni_hid_device.h"
+
+#include "uni_debug.h"
 
 #define MAX_DEVICES                 8
 
@@ -39,17 +41,17 @@ enum {
     FLAGS_HAS_PRODUCT_ID = (1 << 12),
 };
 
-static my_hid_device_t devices[MAX_DEVICES];
-static my_hid_device_t* current_device = NULL;
+static uni_hid_device_t devices[MAX_DEVICES];
+static uni_hid_device_t* current_device = NULL;
 static int device_count = 0;
 static const bd_addr_t zero_addr = {0,0,0,0,0,0};
 static uint32_t used_joystick_ports = 0;            // bitset
 
-void my_hid_device_init(void) {
+void uni_hid_device_init(void) {
     memset(devices, 0, sizeof(devices));
 }
 
-my_hid_device_t* my_hid_device_create(bd_addr_t address) {
+uni_hid_device_t* uni_hid_device_create(bd_addr_t address) {
     for (int j=0; j< MAX_DEVICES; j++){
         if (bd_addr_cmp(devices[j].address, zero_addr) == 0) {
             memcpy(devices[j].address, address, 6);
@@ -59,7 +61,7 @@ my_hid_device_t* my_hid_device_create(bd_addr_t address) {
     return NULL;
 }
 
-my_hid_device_t* my_hid_device_get_instance_for_address(bd_addr_t addr) {
+uni_hid_device_t* uni_hid_device_get_instance_for_address(bd_addr_t addr) {
     for (int j=0; j< MAX_DEVICES; j++) {
         if (bd_addr_cmp(addr, devices[j].address) == 0) {
             return &devices[j];
@@ -68,7 +70,7 @@ my_hid_device_t* my_hid_device_get_instance_for_address(bd_addr_t addr) {
     return NULL;
 }
 
-my_hid_device_t* my_hid_device_get_instance_for_cid(uint16_t cid) {
+uni_hid_device_t* uni_hid_device_get_instance_for_cid(uint16_t cid) {
     if (cid == 0)
         return NULL;
     for (int i=0; i<MAX_DEVICES; i++) {
@@ -79,7 +81,7 @@ my_hid_device_t* my_hid_device_get_instance_for_cid(uint16_t cid) {
     return NULL;
 }
 
-my_hid_device_t* my_hid_device_get_first_device_with_state(int state) {
+uni_hid_device_t* uni_hid_device_get_first_device_with_state(int state) {
     for (int i=0;i<device_count;i++) {
         if (devices[i].state == state)
             return &devices[i];
@@ -87,15 +89,15 @@ my_hid_device_t* my_hid_device_get_first_device_with_state(int state) {
     return NULL;
 }
 
-void my_hid_device_set_current_device(my_hid_device_t* device) {
+void uni_hid_device_set_current_device(uni_hid_device_t* device) {
     current_device = device;
 }
 
-my_hid_device_t* my_hid_device_get_current_device(void) {
+uni_hid_device_t* uni_hid_device_get_current_device(void) {
     return current_device;
 }
 
-void my_hid_device_try_assign_joystick_port(my_hid_device_t* device) {
+void uni_hid_device_try_assign_joystick_port(uni_hid_device_t* device) {
     if (device == NULL) { log_error("ERROR: Invalid device\n"); return; }
 
     // All ports already assigned?
@@ -120,17 +122,17 @@ void my_hid_device_try_assign_joystick_port(my_hid_device_t* device) {
 
     // If wanted port is already assigned, try with the next one
     if (used_joystick_ports & wanted_port) {
-        printf("Port already assigned, trying another one\n");
+        logi("Port already assigned, trying another one\n");
         wanted_port = (~wanted_port) & JOYSTICK_PORT_AB;
     }
 
     used_joystick_ports |= wanted_port;
     device->joystick_port = wanted_port;
-    printf("Assigned joystick port: %d\n", wanted_port);
+    logi("Assigned joystick port: %d\n", wanted_port);
     return;
 }
 
-void my_hid_device_remove_entry_with_channel(uint16_t channel) {
+void uni_hid_device_remove_entry_with_channel(uint16_t channel) {
     if (channel == 0)
         return;
     for (int i=0; i<MAX_DEVICES; i++) {
@@ -141,7 +143,7 @@ void my_hid_device_remove_entry_with_channel(uint16_t channel) {
     }
 }
 
-void my_hid_device_request_inquire(void) {
+void uni_hid_device_request_inquire(void) {
     for (int i=0;i<MAX_DEVICES;i++) {
         // retry remote name request
         if (devices[i].state == REMOTE_NAME_INQUIRED) {
@@ -150,7 +152,7 @@ void my_hid_device_request_inquire(void) {
     }
 }
 
-void my_hid_device_set_disconnected(my_hid_device_t* device) {
+void uni_hid_device_set_disconnected(uni_hid_device_t* device) {
     if (device == NULL) { log_error("ERROR: Invalid device\n"); return; }
 
     // Connection oriented
@@ -164,7 +166,7 @@ void my_hid_device_set_disconnected(my_hid_device_t* device) {
     memset(&device->gamepad, 0, sizeof(device->gamepad));
 }
 
-void my_hid_device_set_cod(my_hid_device_t* device, uint32_t cod) {
+void uni_hid_device_set_cod(uni_hid_device_t* device, uint32_t cod) {
     if (device == NULL) { log_error("ERROR: Invalid device\n"); return; }
 
     device->cod = cod;
@@ -174,7 +176,7 @@ void my_hid_device_set_cod(my_hid_device_t* device, uint32_t cod) {
         device->flags |= FLAGS_HAS_COD;
 }
 
-uint8_t my_hid_device_is_cod_supported(uint32_t cod) {
+uint8_t uni_hid_device_is_cod_supported(uint32_t cod) {
     const uint32_t minor_cod = cod & MASK_COD_MINOR_MASK;
     // Joysticks, mice, gamepads are valid.
     if ((cod & MASK_COD_MAJOR_PERIPHERAL) == MASK_COD_MAJOR_PERIPHERAL) {
@@ -190,7 +192,7 @@ uint8_t my_hid_device_is_cod_supported(uint32_t cod) {
     return 0;
 }
 
-void my_hid_device_set_incoming(my_hid_device_t* device, uint8_t incoming) {
+void uni_hid_device_set_incoming(uni_hid_device_t* device, uint8_t incoming) {
     if (device == NULL) { log_error("ERROR: Invalid device\n"); return; }
 
     if (incoming)
@@ -199,11 +201,11 @@ void my_hid_device_set_incoming(my_hid_device_t* device, uint8_t incoming) {
         device->flags &= ~FLAGS_INCOMING;
 }
 
-uint8_t my_hid_device_is_incoming(my_hid_device_t* device) {
+uint8_t uni_hid_device_is_incoming(uni_hid_device_t* device) {
     return !!(device->flags & FLAGS_INCOMING);
 }
 
-void my_hid_device_set_name(my_hid_device_t* device, const uint8_t* name, int name_len) {
+void uni_hid_device_set_name(uni_hid_device_t* device, const uint8_t* name, int name_len) {
     if (device == NULL) { log_error("ERROR: Invalid device\n"); return; }
     if (name == NULL) { log_error("Invalid name"); return; }
 
@@ -216,13 +218,13 @@ void my_hid_device_set_name(my_hid_device_t* device, const uint8_t* name, int na
     }
 }
 
-uint8_t my_hid_device_has_name(my_hid_device_t* device) {
+uint8_t uni_hid_device_has_name(uni_hid_device_t* device) {
     if (device == NULL) { log_error("ERROR: Invalid device\n"); return 0; }
 
     return !!(device->flags & FLAGS_HAS_NAME);
 }
 
-void my_hid_device_set_hid_descriptor(my_hid_device_t* device, const uint8_t* descriptor, int len) {
+void uni_hid_device_set_hid_descriptor(uni_hid_device_t* device, const uint8_t* descriptor, int len) {
     if (device == NULL) { log_error("ERROR: Invalid device\n"); return; }
 
     int min = btstack_min(MAX_DESCRIPTOR_LEN, len);
@@ -231,38 +233,44 @@ void my_hid_device_set_hid_descriptor(my_hid_device_t* device, const uint8_t* de
     device->flags |= FLAGS_HAS_HID_DESCRIPTOR;
 }
 
-uint8_t my_hid_device_has_hid_descriptor(my_hid_device_t* device) {
+uint8_t uni_hid_device_has_hid_descriptor(uni_hid_device_t* device) {
     if (device == NULL) { log_error("ERROR: Invalid device\n"); return 0; }
 
     return !!(device->flags & FLAGS_HAS_HID_DESCRIPTOR);
 }
 
-void my_hid_device_set_product_id(my_hid_device_t* device, uint16_t product_id) {
+void uni_hid_device_set_product_id(uni_hid_device_t* device, uint16_t product_id) {
     device->product_id = product_id;
     device->flags |= FLAGS_HAS_PRODUCT_ID;
 }
 
-uint16_t my_hid_device_get_product_id(my_hid_device_t* device) {
+uint16_t uni_hid_device_get_product_id(uni_hid_device_t* device) {
     return device->product_id;
 }
 
-void my_hid_device_set_vendor_id(my_hid_device_t* device, uint16_t vendor_id) {
+void uni_hid_device_set_vendor_id(uni_hid_device_t* device, uint16_t vendor_id) {
     device->vendor_id = vendor_id;
     device->flags |= FLAGS_HAS_VENDOR_ID;
 }
 
-uint16_t my_hid_device_get_vendor_id(my_hid_device_t* device) {
+uint16_t uni_hid_device_get_vendor_id(uni_hid_device_t* device) {
     return device->vendor_id;
 }
 
-void my_hid_device_print_status(my_hid_device_t* device) {
-    printf("%s: flags=0x%04x, control=%d, interrupt=%d\n",
+void uni_hid_device_print_status(uni_hid_device_t* device) {
+    logi("%s: flags=0x%04x, control=%d, interrupt=%d\n",
         bd_addr_to_str(device->address),
         device->flags,
         device->hid_control_cid,
         device->hid_interrupt_cid);
 }
 
-uint8_t my_hid_device_is_orphan(my_hid_device_t* device) {
+uint8_t uni_hid_device_is_orphan(uni_hid_device_t* device) {
+    // There is a case with the Apple mouse, and possibly other devices, sends
+    // the on_hci_connection_request but doesn't complete the conneciton.
+    // The device gets added into the DB at on_hci_connection_request time, and
+    // if you later put the device in discovery mode, we won't start a Connection
+    // because it is already added to the DB.
+    // This prevents that scenario.
     return (device->flags == FLAGS_HAS_COD);
 }

@@ -1,3 +1,4 @@
+
 /****************************************************************************
 http://retro.moe/unijoysticle
 
@@ -16,18 +17,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ****************************************************************************/
 
-#ifndef UNI_LOG_H
-#define UNI_LOG_H
+#include "uni_gamepad.h"
 
-#include <stdio.h>
+#include "uni_debug.h"
 
-#include "uni_config.h"
-
-#define loge(fmt, ...) \
-            do { if (UNI_LOG_ERROR) fprintf(stderr, fmt, ## __VA_ARGS__); } while (0)
-#define logi(fmt, ...) \
-            do { if (UNI_LOG_INFO) fprintf(stderr, fmt, ## __VA_ARGS__); } while (0)
-#define logd(fmt, ...) \
-            do { if (UNI_LOG_DEBUG) fprintf(stderr, fmt, ## __VA_ARGS__); } while (0)
-
-#endif // UNI_LOG_H
+void uni_gamepad_dump(uni_gamepad_t* gamepad) {
+    logd("(0x%04x) x=%d, y=%d, z=%d, rx=%d, ry=%d, rz=%d, hat=0x%02x, dpad=0x%02x, accel=%d, brake=%d, buttons=0x%08x, misc=0x%02x\n",
+        gamepad->updated_states,
+        gamepad->x, gamepad->y, gamepad->z,
+        gamepad->rx, gamepad->ry, gamepad->rz,
+        gamepad->hat,
+        gamepad->dpad,
+        gamepad->accelerator, gamepad->brake,
+        gamepad->buttons,
+        gamepad->misc_buttons);
+}

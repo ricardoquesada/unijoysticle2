@@ -16,18 +16,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ****************************************************************************/
 
-#ifndef UNI_LOG_H
-#define UNI_LOG_H
+#ifndef UNI_HID_PARSER_GENERIC_H
+#define UNI_HID_PARSER_GENERIC_H
 
-#include <stdio.h>
+#include <stdint.h>
 
-#include "uni_config.h"
+#include "btstack.h"
 
-#define loge(fmt, ...) \
-            do { if (UNI_LOG_ERROR) fprintf(stderr, fmt, ## __VA_ARGS__); } while (0)
-#define logi(fmt, ...) \
-            do { if (UNI_LOG_INFO) fprintf(stderr, fmt, ## __VA_ARGS__); } while (0)
-#define logd(fmt, ...) \
-            do { if (UNI_LOG_DEBUG) fprintf(stderr, fmt, ## __VA_ARGS__); } while (0)
+#include "uni_gamepad.h"
+#include "uni_hid_parser.h"
 
-#endif // UNI_LOG_H
+// For devices that cannot be recognized what they are
+
+void uni_hid_parser_generic(uni_gamepad_t* gamepad, hid_globals_t* globals, uint16_t usage_page, uint16_t usage, int32_t value);
+
+#endif // UNI_HID_PARSER_GENERIC_H
