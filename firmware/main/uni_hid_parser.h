@@ -22,6 +22,7 @@ limitations under the License.
 #include <stdint.h>
 
 #include "uni_hid_device.h"
+#include "uni_gamepad.h"
 
 // btstack bug:
 // see: https://github.com/bluekitchen/btstack/issues/187
@@ -34,8 +35,11 @@ typedef struct hid_globals_s {
     uint8_t         report_id;
 } hid_globals_t;
 
-void hid_parser_handle_interrupt_report(uni_hid_device_t* device, const uint8_t* report, uint16_t report_len);
+uni_gamepad_t uni_hid_parser(const uint8_t* report, uint16_t report_len,
+        const uint8_t* hid_descriptor, uint16_t hid_descriptor_len);
 int32_t uni_hid_process_axis(hid_globals_t* globals, uint32_t value);
 uint8_t uni_hid_process_hat(hid_globals_t* globals, uint32_t value);
+
+void joystick_update(const uni_gamepad_t* gp, uni_joystick_port_t joy_port, uni_controller_type_t ctl_type);
 
 #endif // UNI_HID_PARSER_H

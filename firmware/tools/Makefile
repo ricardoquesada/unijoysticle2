@@ -52,7 +52,9 @@ clean_src:
 
 #all: ${EXAMPLES}
 
-unijoysticle: ${CORE_OBJ} ${COMMON_OBJ} ${CLASSIC_OBJ} ${SDP_CLIENT} btstack_ring_buffer.o btstack_hid_parser.o ../main/firmware.c ../main/uni_hid_device.c  ../main/uni_hid_parser.c ../main/uni_hid_parser_generic.c ../main/uni_gamepad.c gpio_joy.c 
+unijoysticle: ${CORE_OBJ} ${COMMON_OBJ} ${CLASSIC_OBJ} ${SDP_CLIENT} btstack_ring_buffer.o btstack_hid_parser.o \
+	../main/firmware.c ../main/uni_hid_device.c  ../main/uni_hid_parser.c ../main/uni_hid_parser_generic.c \
+	../main/uni_gamepad.c ../main/uni_hid_parser_icade.c gpio_joy.c 
 	${CC} $^ ${CFLAGS} ${LDFLAGS} -o $@
 
 gap_inquiry: ${CORE_OBJ} ${COMMON_OBJ} ${CLASSIC_OBJ} gap_inquiry.c

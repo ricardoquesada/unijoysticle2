@@ -27,27 +27,13 @@ limitations under the License.
 static const int AXIS_NORMALIZE_RANGE = 1024;  // 10-bit resolution (1024)
 static const int AXIS_THRESHOLD = 1024 / 4;
 
-static void joystick_update(uni_hid_device_t* device);
-
-void hid_parser_handle_interrupt_report(uni_hid_device_t* device, const uint8_t * report, uint16_t report_len) {
+uni_gamepad_t uni_hid_parser(const uint8_t* report, uint16_t report_len, const uint8_t* hid_descriptor, uint16_t hid_descriptor_len) {
     btstack_hid_parser_t parser;
+    uni_gamepad_t gamepad;
 
-    if (!uni_hid_device_has_hid_descriptor(device)) {
-        logi("Device without HID descriptor yet. Ignoring report\n");
-        return;
-    }
-
-    // check if HID Input Report
-    if (report_len < 1) return;
-    if (*report != 0xa1) return;
-    report++;
-    report_len--;
-
-    // In case a joystick port hasn't been assign yet, assign one.
-    uni_hid_device_try_assign_joystick_port(device);
-
-    btstack_hid_parser_init(&parser, device->hid_descriptor, device->hid_descriptor_len, HID_REPORT_TYPE_INPUT, report, report_len);
-    device->gamepad.updated_states = 0;
+    memset(&gamepad, 0, sizeof(gamepad));
+    btstack_hid_parser_init(&parser, hid_descriptor, hid_descriptor_len, HID_REPORT_TYPE_INPUT, report, report_len);
+    gamepad.updated_states = 0;
     while (btstack_hid_parser_has_more(&parser)){
         uint16_t usage_page;
         uint16_t usage;
@@ -65,17 +51,15 @@ void hid_parser_handle_interrupt_report(uni_hid_device_t* device, const uint8_t 
         btstack_hid_parser_get_field(&parser, &usage_page, &usage, &value);
 
         logd("usage_page = 0x%04x, usage = 0x%04x, value = 0x%x - ", usage_page, usage, value);
-        uni_hid_parser_generic(&device->gamepad, &globals, usage_page, usage, value);
+        uni_hid_parser_generic(&gamepad, &globals, usage_page, usage, value);
     }
-    // Debug info
-    uni_gamepad_dump(&device->gamepad);
-
-    joystick_update(device);
+    return gamepad;
 }
 
 // Converts gamepad to joystick.
-static void joystick_update(uni_hid_device_t* device) {
-    if (device->joystick_port == JOYSTICK_PORT_NONE)
+// FIXME: should be placed somewhere else.
+void joystick_update(const uni_gamepad_t* gp, uni_joystick_port_t joy_port, uni_controller_type_t ctl_type) {
+    if (joy_port == JOYSTICK_PORT_NONE)
         return;
 
     // FIXME: Add support for JOYSTICK_PORT_AB.
@@ -84,7 +68,6 @@ static void joystick_update(uni_hid_device_t* device) {
     // reset state
     memset(&joy, 0, sizeof(joy));
 
-    const uni_gamepad_t* gp = &device->gamepad;
     if (gp->updated_states & GAMEPAD_STATE_HAT) {
         switch (gp->hat) {
         case 0xff:
@@ -156,9 +139,9 @@ static void joystick_update(uni_hid_device_t* device) {
     }
 
     // FIXME: Add support for JOYSTICK_PORT_AB.
-    switch(device->controller_type) {
+    switch(ctl_type) {
     case CONTROLLER_JOYSTICK:
-        if (device->joystick_port == JOYSTICK_PORT_A)
+        if (joy_port == JOYSTICK_PORT_A)
             gpio_joy_update_port_a(&joy);
         else
             gpio_joy_update_port_b(&joy);
@@ -167,7 +150,7 @@ static void joystick_update(uni_hid_device_t* device) {
         gpio_joy_update_mouse(gp->x, gp->y);
         break;
     default:
-        loge("Unsupported controller type: %d\n", device->controller_type);
+        loge("Unsupported controller type: %d\n", ctl_type);
         break;
     }
 }

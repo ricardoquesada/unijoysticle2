@@ -26,6 +26,7 @@ limitations under the License.
 #define MASK_COD_MAJOR_AUDIO        0x0400   // 0b0000_0100_0000_0000
 #define MASK_COD_MINOR_MASK         0x00FC   //             1111_1100
 #define MASK_COD_MINOR_POINT_DEVICE 0x0080   //             1000_0000
+#define MASK_COD_MINOR_KEYBOARD     0x0040   //             0100_0000
 #define MASK_COD_MINOR_GAMEPAD      0x0008   //             0000_1000
 #define MASK_COD_MINOR_JOYSTICK     0x0004   //             0000_0100
 #define MASK_COD_MINOR_HANDS_FREE   0x0008   //             0000_1000
@@ -163,7 +164,6 @@ void uni_hid_device_set_disconnected(uni_hid_device_t* device) {
     // Joystick-state oriented
     used_joystick_ports &= ~device->joystick_port;
     device->joystick_port = JOYSTICK_PORT_NONE;
-    memset(&device->gamepad, 0, sizeof(device->gamepad));
 }
 
 void uni_hid_device_set_cod(uni_hid_device_t* device, uint32_t cod) {
@@ -182,7 +182,10 @@ uint8_t uni_hid_device_is_cod_supported(uint32_t cod) {
     if ((cod & MASK_COD_MAJOR_PERIPHERAL) == MASK_COD_MAJOR_PERIPHERAL) {
         // device is a peripheral: keyboard, mouse, joystick, gamepad...
         // but we only care about joysticks and gamepads
-        return !!(minor_cod & (MASK_COD_MINOR_GAMEPAD | MASK_COD_MINOR_JOYSTICK | MASK_COD_MINOR_POINT_DEVICE));
+        return !!(minor_cod & (MASK_COD_MINOR_GAMEPAD
+            | MASK_COD_MINOR_JOYSTICK
+            | MASK_COD_MINOR_POINT_DEVICE
+            | MASK_COD_MINOR_KEYBOARD));
     }
 
     // For Amazon Fire TV remote contorl: CoD: 0x00400408 (Audio + Telephony : Hands free)

@@ -65,6 +65,28 @@ enum {
     MISC_SYS_MAIN_MENU = 1 << 3,
 };
 
+// uni_gamepad_t is a virtual gamepad.
+// Different parsers should populate this virtual gamepad accordingly.
+// For example, the virtual gamepad doesn't have a Hat, but has a D-pad.
+// If the real gamepad has a Hat, it should populate the D-pad instead.
+//
+// If the real device only has one joy-pad, it should populate the left side
+// of the virtual gamepad.
+// Example: a TV remote control should populate the left d-pad and the left
+// joypad.
+//
+// The virtual gamepad will then be processed by the dfferent retro-computer
+// joysticks.
+//
+// Virtual Gamepad layout:
+//
+//
+//  Left             Center            Right
+//
+//  brake: 0-1023    Menu button       accelerator: 0-1023
+//  l-button                           r-button
+//  d-pad                              buttons: A,B,X,Y
+//  l-joypad (axis: -512, 511)         r-joypad (axis: -512, 511)
 typedef struct {
     // Usage Page: 0x01 (Generic Desktop Controls)
     uint8_t hat;

@@ -22,24 +22,23 @@ limitations under the License.
 #include <stdint.h>
 
 #include "btstack.h"
-#include "uni_gamepad.h"
 
 #define MAX_NAME_LEN 240
 #define MAX_DESCRIPTOR_LEN 512
 
-enum JOYSTICK_PORT {
+typedef enum {
     JOYSTICK_PORT_NONE  = 0,
     JOYSTICK_PORT_A     = (1 << 0),
     JOYSTICK_PORT_B     = (1 << 1),
     JOYSTICK_PORT_AB    = (JOYSTICK_PORT_A | JOYSTICK_PORT_B),
-};
+} uni_joystick_port_t;
 
-enum CONTROLLER_TYPE {
+typedef enum {
     CONTROLLER_JOYSTICK,
     CONTROLLER_MOUSE,
-    CONTROLLER_DOUBLE_JOYSTICK,
-    CONTROLLER_JOYSTICK_MOUSE,
-};
+    CONTROLLER_COMBO_JOY_MOUSE,
+    CONTROLLER_COMBO_JOY_JOY
+} uni_controller_type_t;
 
 enum DEVICE_STATE { REMOTE_NAME_REQUEST, REMOTE_NAME_INQUIRED, REMOTE_NAME_FETCHED };
 typedef struct uni_hid_device_s {
@@ -65,9 +64,12 @@ typedef struct uni_hid_device_s {
     enum DEVICE_STATE       state;
 
     // gamepad
-    uni_gamepad_t               gamepad;
-    enum JOYSTICK_PORT      joystick_port;                  // which port does it control, A or B?
-    enum CONTROLLER_TYPE    controller_type;                // type of controller: joystick or mouse?
+    uni_joystick_port_t     joystick_port;                  // which port does it control, A or B?
+    uni_controller_type_t   controller_type;                // type of controller: joystick or mouse?
+
+    // parser
+    // void (*hid_parser)(uni_gamepad_t* gamepad, hid_globals_t* globals, uint16_t usage_page, uint16_t usage, int32_t value);
+
 } uni_hid_device_t;
 
 void uni_hid_device_init(void);

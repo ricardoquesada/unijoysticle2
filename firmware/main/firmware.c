@@ -71,19 +71,20 @@ static const unsigned int attribute_value_buffer_size = MAX_ATTRIBUTE_VALUE_SIZE
 static btstack_packet_callback_registration_t hci_event_callback_registration;
 
 static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint16_t size);
-static void handle_sdp_hid_query_result(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint16_t size);
-static void handle_sdp_did_query_result(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint16_t size);
+static void handle_sdp_hid_query_result(uint8_t packet_type, uint16_t channel, uint8_t* packet, uint16_t size);
+static void handle_sdp_did_query_result(uint8_t packet_type, uint16_t channel, uint8_t* packet, uint16_t size);
 static void continue_remote_names(void);
 static void start_scan(void);
 static void sdp_query_hid_descriptor(uni_hid_device_t* device);
 static void sdp_query_product_id(uni_hid_device_t* device);
 static void list_link_keys(void);
 
-static void on_l2cap_channel_closed(uint8_t* packet, uint16_t channel);
-static void on_l2cap_channel_opened(uint8_t* packet, uint16_t channel);
-static void on_l2cap_incoming_connection(uint8_t *packet, uint16_t channel);
-static void on_gap_inquiry_result(uint8_t* packet, uint16_t channel);
-static void on_hci_connection_request(uint8_t* packet, uint16_t channel);
+static void on_l2cap_channel_closed(uint16_t channel, uint8_t* packet, uint16_t size);
+static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet, uint16_t size);
+static void on_l2cap_incoming_connection(uint16_t channel, uint8_t* packet, uint16_t size);
+static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet, uint16_t sizel);
+static void on_gap_inquiry_result(uint16_t channel, uint8_t* packet, uint16_t size);
+static void on_hci_connection_request(uint16_t channel, uint8_t* packet, uint16_t size);
 
 int btstack_main(int argc, const char * argv[]);
 
@@ -254,7 +255,7 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packe
             break;
         case HCI_EVENT_CONNECTION_REQUEST:
             logi("--> HCI_EVENT_CONNECTION_REQUEST <--\n");
-            on_hci_connection_request(packet, channel);
+            on_hci_connection_request(channel, packet, size);
             break;
         case HCI_EVENT_INQUIRY_RESULT_WITH_RSSI:
             // logi("--> HCI_EVENT_INQUIRY_RESULT_WITH_RSSI <--\n");
@@ -278,18 +279,18 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packe
 
         // L2CAP EVENTS
         case L2CAP_EVENT_INCOMING_CONNECTION:
-            on_l2cap_incoming_connection(packet, channel);
+            on_l2cap_incoming_connection(channel, packet, size);
             break;
         case L2CAP_EVENT_CHANNEL_OPENED:
-            on_l2cap_channel_opened(packet, channel);
+            on_l2cap_channel_opened(channel, packet, size);
             break;
         case L2CAP_EVENT_CHANNEL_CLOSED:
-            on_l2cap_channel_closed(packet, channel);
+            on_l2cap_channel_closed(channel, packet, size);
             break;
 
         // GAP EVENTS
         case GAP_EVENT_INQUIRY_RESULT:
-            on_gap_inquiry_result(packet, channel);
+            on_gap_inquiry_result(channel, packet, size);
             break;
         case GAP_EVENT_INQUIRY_COMPLETE:
             uni_hid_device_request_inquire();
@@ -300,37 +301,19 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packe
         }
         break;
     case L2CAP_DATA_PACKET:
-        // for now, just dump incoming data
-        device = uni_hid_device_get_instance_for_cid(channel);
-        if (device == NULL) {
-            loge("Invalid cid: 0x%04x\n", channel);
-            break;
-        }
-        if (channel == device->hid_interrupt_cid){
-            logd("HID Interrupt Packet: ");
-#if UNI_LOG_DEBUG
-            printf_hexdump(packet, size);
-#endif // UNI_LOG_DEBUG
-            hid_parser_handle_interrupt_report(device, packet,  size);
-        } else if (channel == device->hid_control_cid){
-            logd("HID Control\n");
-#if UNI_LOG_DEBUG            
-            printf_hexdump(packet, size);
-#endif
-        } else {
-            logi("Packet from unknown cid: 0x%04x\n", channel);
-            printf_hexdump(packet, size);
-            break;
-        }
+        on_l2cap_data_packet(channel, packet, size);
+        break;
     default:
         break;
     }
 }
-static void on_hci_connection_request(uint8_t* packet, uint16_t channel) {
+static void on_hci_connection_request(uint16_t channel, uint8_t* packet, uint16_t size) {
     bd_addr_t event_addr;
     uint32_t cod;
     uni_hid_device_t* device;
+
     UNUSED(channel);
+    UNUSED(size);
 
     hci_event_connection_request_get_bd_addr(packet, event_addr);
     cod = hci_event_connection_request_get_class_of_device(packet);
@@ -347,12 +330,13 @@ static void on_hci_connection_request(uint8_t* packet, uint16_t channel) {
     logi("on_hci_connection_request from: address = %s, cod=0x%04x\n", bd_addr_to_str(event_addr), cod);
 }
 
-static void on_gap_inquiry_result(uint8_t* packet, uint16_t channel) {
+static void on_gap_inquiry_result(uint16_t channel, uint8_t* packet, uint16_t size) {
     bd_addr_t addr;
     uint8_t   status;
     uni_hid_device_t* device;
 
     UNUSED(channel);
+    UNUSED(size);
 
     gap_event_inquiry_result_get_bd_addr(packet, addr);
     uint8_t page_scan_repetition_mode = gap_event_inquiry_result_get_page_scan_repetition_mode(packet);
@@ -402,7 +386,7 @@ static void on_gap_inquiry_result(uint8_t* packet, uint16_t channel) {
     }
     logi("\n");
 }
-static void on_l2cap_channel_opened(uint8_t* packet, uint16_t channel) {
+static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet, uint16_t size) {
     uint16_t psm;
     uint8_t status;
     uint16_t local_cid;
@@ -411,6 +395,8 @@ static void on_l2cap_channel_opened(uint8_t* packet, uint16_t channel) {
     bd_addr_t address;
     uni_hid_device_t* device;
     uint8_t incoming;
+
+    UNUSED(size);
 
     logi("L2CAP_EVENT_CHANNEL_OPENED (channel=0x%04x)\n", channel);
     
@@ -477,9 +463,11 @@ static void on_l2cap_channel_opened(uint8_t* packet, uint16_t channel) {
     }
 }
 
-static void on_l2cap_channel_closed(uint8_t* packet, uint16_t channel) {
+static void on_l2cap_channel_closed(uint16_t channel, uint8_t* packet, uint16_t size) {
     uint16_t local_cid;
     uni_hid_device_t* device;
+
+    UNUSED(size);
 
     local_cid = l2cap_event_channel_closed_get_local_cid(packet);
     logi("L2CAP_EVENT_CHANNEL_CLOSED: 0x%04x (channel=0x%04x)\n", local_cid, channel);
@@ -492,13 +480,15 @@ static void on_l2cap_channel_closed(uint8_t* packet, uint16_t channel) {
     uni_hid_device_set_disconnected(device);
 }
 
-static void on_l2cap_incoming_connection(uint8_t *packet, uint16_t channel) {
+static void on_l2cap_incoming_connection(uint16_t channel, uint8_t* packet, uint16_t size) {
     bd_addr_t event_addr;
     uni_hid_device_t* device;
     uint16_t local_cid;
     uint16_t remote_cid;
     uint16_t psm;
     hci_con_handle_t handle;
+
+    UNUSED(size);
 
     psm = l2cap_event_incoming_connection_get_psm(packet);
     handle = l2cap_event_incoming_connection_get_handle(packet);
@@ -537,6 +527,44 @@ static void on_l2cap_incoming_connection(uint8_t *packet, uint16_t channel) {
         default:
             logi("Unknown PSM = 0x%02x\n", psm);
     }
+}
+
+static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet, uint16_t size) {
+    uni_hid_device_t* device;
+    uni_gamepad_t gamepad;
+    
+    device = uni_hid_device_get_instance_for_cid(channel);
+    if (device == NULL) {
+        loge("Invalid cid: 0x%04x\n", channel);
+        return;
+    }
+
+    if (channel != device->hid_interrupt_cid)
+        return;
+
+    if (!uni_hid_device_has_hid_descriptor(device)) {
+        logi("Device without HID descriptor yet. Ignoring report\n");
+        return;
+    }
+
+    int report_len = size;
+    uint8_t* report = packet;
+
+    // check if HID Input Report
+    if (report_len < 1) return;
+    if (*report != 0xa1) return;
+    report++;
+    report_len--;
+
+    // In case a joystick port hasn't been assign yet, assign one.
+    uni_hid_device_try_assign_joystick_port(device);
+
+    gamepad = uni_hid_parser(report, report_len, device->hid_descriptor, device->hid_descriptor_len);
+
+    // Debug info
+    uni_gamepad_dump(&gamepad);
+
+    joystick_update(&gamepad, device->joystick_port, device->controller_type);
 }
 
 static int has_more_remote_name_requests(void) {
