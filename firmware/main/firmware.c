@@ -564,7 +564,7 @@ static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet, uint16_t siz
     // Debug info
     uni_gamepad_dump(&gamepad);
 
-    joystick_update(&gamepad, device->joystick_port, device->controller_type);
+    joystick_update(&gamepad, device->joystick_port, device->controller_emu);
 }
 
 static int has_more_remote_name_requests(void) {

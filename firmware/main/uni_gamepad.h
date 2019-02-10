@@ -31,11 +31,11 @@ typedef enum {
 
 // FIXME: doesn't seem to belong in this file.
 typedef enum {
-    CONTROLLER_JOYSTICK,
-    CONTROLLER_MOUSE,
-    CONTROLLER_COMBO_JOY_MOUSE,
-    CONTROLLER_COMBO_JOY_JOY
-} uni_controller_type_t;
+    EMULATION_MODE_JOYSTICK,
+    EMULATION_MODE_MOUSE,
+    EMULATION_MODE_COMBO_JOY_MOUSE,
+    EMULATION_MODE_COMBO_JOY_JOY
+} uni_emulation_mode_t;
 
 enum {
     DPAD_UP     = 1 << 0,

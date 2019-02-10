@@ -19,6 +19,7 @@ limitations under the License.
 #include "uni_hid_device.h"
 
 #include "uni_debug.h"
+#include "uni_hid_device_vendors.h"
 
 #define MAX_DEVICES                 8
 
@@ -111,14 +112,14 @@ void uni_hid_device_try_assign_joystick_port(uni_hid_device_t* device) {
 
     // Try with Port B, assume it is a joystick
     int wanted_port = JOYSTICK_PORT_B;
-    device->controller_type = CONTROLLER_JOYSTICK;
+    device->controller_emu = EMULATION_MODE_JOYSTICK;
 
     // ... unless it is a mouse which should try with PORT A. Amiga/Atari ST use mice in PORT A.
     // Undefined on the C64, but most apps use it in PORT A as well.
     uint32_t mouse_cod = MASK_COD_MAJOR_PERIPHERAL | MASK_COD_MINOR_POINT_DEVICE;
     if ((device->cod & mouse_cod) == mouse_cod) {
         wanted_port = JOYSTICK_PORT_A;
-        device->controller_type = CONTROLLER_MOUSE;
+        device->controller_emu = EMULATION_MODE_MOUSE;
     }
 
     // If wanted port is already assigned, try with the next one

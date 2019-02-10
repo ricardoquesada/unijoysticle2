@@ -58,7 +58,7 @@ uni_gamepad_t uni_hid_parser(const uint8_t* report, uint16_t report_len, const u
 
 // Converts gamepad to joystick.
 // FIXME: should be placed somewhere else.
-void joystick_update(const uni_gamepad_t* gp, uni_joystick_port_t joy_port, uni_controller_type_t ctl_type) {
+void joystick_update(const uni_gamepad_t* gp, uni_joystick_port_t joy_port, uni_emulation_mode_t ctl_type) {
     if (joy_port == JOYSTICK_PORT_NONE)
         return;
 
@@ -140,13 +140,13 @@ void joystick_update(const uni_gamepad_t* gp, uni_joystick_port_t joy_port, uni_
 
     // FIXME: Add support for JOYSTICK_PORT_AB.
     switch(ctl_type) {
-    case CONTROLLER_JOYSTICK:
+    case EMULATION_MODE_JOYSTICK:
         if (joy_port == JOYSTICK_PORT_A)
             gpio_joy_update_port_a(&joy);
         else
             gpio_joy_update_port_b(&joy);
         break;
-    case CONTROLLER_MOUSE:
+    case EMULATION_MODE_MOUSE:
         gpio_joy_update_mouse(gp->x, gp->y);
         break;
     default:

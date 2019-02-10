@@ -54,7 +54,7 @@ typedef struct uni_hid_device_s {
 
     // gamepad
     uni_joystick_port_t     joystick_port;                  // which port does it control, A or B?
-    uni_controller_type_t   controller_type;                // type of controller: joystick or mouse?
+    uni_emulation_mode_t    controller_emu;                 // type of controller to emulate
 
     // parser
     void (*hid_parser)(uni_gamepad_t* gamepad, hid_globals_t* globals, uint16_t usage_page, uint16_t usage, int32_t value);
