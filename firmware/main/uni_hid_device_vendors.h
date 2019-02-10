@@ -50,8 +50,9 @@ typedef enum {
 	CONTROLLER_TYPE_SwitchJoyConPair = 41,
     CONTROLLER_TYPE_SwitchInputOnlyController = 42,
 	CONTROLLER_TYPE_MobileTouch = 43,
-    CONTROLLER_TYPE_OUYAController = 44,            // New in Unijoysticle
-    CONTROLLER_TYPE_iCadeController = 45,           // New in Unijoysticle
+    CONTROLLER_TYPE_OUYAController = 44,            // (Unijoysticle)
+    CONTROLLER_TYPE_iCadeController = 45,           // (Unijoysticle)
+    CONTROLLER_TYPE_SmartTVRemoteController = 46,   // (Unijoysticle)
 
 	CONTROLLER_TYPE_LastController,			        // Don't add game controllers below this enumeration
                                                     // this enumeration can change value
@@ -389,10 +390,14 @@ static const uni_controlelr_description_t arrControllers[] = {
 	{ MAKE_CONTROLLER_ID( 0x28de, 0x1201 ), CONTROLLER_TYPE_SteamController },	    // Valve wired Steam Controller (HEADCRAB)
 
     // OUYA
-    { MAKE_CONTROLLER_ID( 0x2836, 0x0001 ), CONTROLLER_TYPE_SteamController },      // OUYA - New in Unijoysticle
+    { MAKE_CONTROLLER_ID( 0x2836, 0x0001 ), CONTROLLER_TYPE_SteamController },          // OUYA 1st Controller (Unijoysticle)
 
     // ION iCade
-    { MAKE_CONTROLLER_ID( 0x15e4, 0x0132 ), CONTROLLER_TYPE_iCadeController },     // ION iCade - New in Unijoysticle
+    { MAKE_CONTROLLER_ID( 0x15e4, 0x0132 ), CONTROLLER_TYPE_iCadeController },          // ION iCade (Unijoysticle)
+
+    // Smart TV remotes
+    { MAKE_CONTROLLER_ID( 0x1949, 0x0401 ), CONTROLLER_TYPE_SmartTVRemoteController },  // Amazon Fire TV Remote Controlelr 1st gen. (Unijoysticle)
+    // TV remote controll
 };
 
 static inline uni_controller_type_t guess_controller_type(uint16_t nVID, uint16_t nPID) {
