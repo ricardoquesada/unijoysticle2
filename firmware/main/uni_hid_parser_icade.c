@@ -93,6 +93,22 @@ void uni_hid_parser_icade_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* glo
             gamepad->dpad &= ~DPAD_LEFT;
             gamepad->updated_states |= GAMEPAD_STATE_DPAD;
             break;
+        case 0x1c:      // y (button A: 1)
+            gamepad->buttons |= (1 << 0);
+            gamepad->updated_states |= GAMEPAD_STATE_BUTTON0;
+            break;
+        case 0x17:      // t (button A: 0)
+            gamepad->buttons &= ~(1 << 0);
+            gamepad->updated_states |= GAMEPAD_STATE_BUTTON0;
+            break;
+        case 0x0b:      // h (button B: 1)
+            gamepad->buttons |= (1 << 1);
+            gamepad->updated_states |= GAMEPAD_STATE_BUTTON1;
+            break;
+        case 0x15:      // r (button B: 1)
+            gamepad->buttons &= ~(1 << 1);
+            gamepad->updated_states |= GAMEPAD_STATE_BUTTON1;
+            break;
         default:
             logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
             break;
