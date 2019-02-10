@@ -30,6 +30,7 @@ limitations under the License.
 #define MAX_DESCRIPTOR_LEN 512
 
 enum DEVICE_STATE { REMOTE_NAME_REQUEST, REMOTE_NAME_INQUIRED, REMOTE_NAME_FETCHED };
+
 typedef struct uni_hid_device_s {
     bd_addr_t               address;
     hci_con_handle_t        con_handle;
@@ -52,12 +53,14 @@ typedef struct uni_hid_device_s {
     uint16_t                hid_interrupt_cid;
     enum DEVICE_STATE       state;
 
-    // gamepad
+    // Gamepad
     uni_joystick_port_t     joystick_port;                  // which port does it control, A or B?
     uni_emulation_mode_t    controller_emu;                 // type of controller to emulate
 
-    // parser
-    void (*hid_parser)(uni_gamepad_t* gamepad, hid_globals_t* globals, uint16_t usage_page, uint16_t usage, int32_t value);
+    // Functions used to parse the usage page/usage.
+    uni_report_parser_t     report_parser;
+
+    uni_gamepad_t           gamepad;
 
 } uni_hid_device_t;
 
@@ -100,5 +103,8 @@ uint16_t uni_hid_device_get_vendor_id(uni_hid_device_t* device);
 void uni_hid_device_print_status(uni_hid_device_t* device);
 
 uint8_t uni_hid_device_is_orphan(uni_hid_device_t* device);
+
+void uni_hid_device_guess_controller_type(uni_hid_device_t* device);
+uint8_t uni_hid_device_has_controller_type(uni_hid_device_t* device);
 
 #endif // UNI_HID_DEVICE_H

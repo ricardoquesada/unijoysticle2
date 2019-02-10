@@ -27,13 +27,11 @@ limitations under the License.
 static const int AXIS_NORMALIZE_RANGE = 1024;  // 10-bit resolution (1024)
 static const int AXIS_THRESHOLD = 1024 / 4;
 
-uni_gamepad_t uni_hid_parser(const uint8_t* report, uint16_t report_len, const uint8_t* hid_descriptor, uint16_t hid_descriptor_len) {
+void uni_hid_parser(uni_gamepad_t* gamepad, uni_report_parser_t* report_parser, const uint8_t* report, uint16_t report_len, const uint8_t* hid_descriptor, uint16_t hid_descriptor_len) {
     btstack_hid_parser_t parser;
-    uni_gamepad_t gamepad;
 
-    memset(&gamepad, 0, sizeof(gamepad));
+    report_parser->init(gamepad);
     btstack_hid_parser_init(&parser, hid_descriptor, hid_descriptor_len, HID_REPORT_TYPE_INPUT, report, report_len);
-    gamepad.updated_states = 0;
     while (btstack_hid_parser_has_more(&parser)){
         uint16_t usage_page;
         uint16_t usage;
@@ -51,9 +49,8 @@ uni_gamepad_t uni_hid_parser(const uint8_t* report, uint16_t report_len, const u
         btstack_hid_parser_get_field(&parser, &usage_page, &usage, &value);
 
         logd("usage_page = 0x%04x, usage = 0x%04x, value = 0x%x - ", usage_page, usage, value);
-        uni_hid_parser_generic(&gamepad, &globals, usage_page, usage, value);
+        report_parser->parse_usage(gamepad, &globals, usage_page, usage, value);
     }
-    return gamepad;
 }
 
 // Converts gamepad to joystick.
@@ -102,7 +99,7 @@ void joystick_update(const uni_gamepad_t* gp, uni_joystick_port_t joy_port, uni_
             joy.up |= 1;
             break;
         default:
-            loge("Error parsing hat values\n");
+            loge("Error parsing hat value: 0x%02x\n", gp->hat);
             break;
         }
     }

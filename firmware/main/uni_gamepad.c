@@ -22,7 +22,7 @@ limitations under the License.
 #include "uni_debug.h"
 
 void uni_gamepad_dump(uni_gamepad_t* gamepad) {
-    logd("(0x%04x) x=%d, y=%d, z=%d, rx=%d, ry=%d, rz=%d, hat=0x%02x, dpad=0x%02x, accel=%d, brake=%d, buttons=0x%08x, misc=0x%02x\n",
+    logi("(0x%04x) x=%d, y=%d, z=%d, rx=%d, ry=%d, rz=%d, hat=0x%02x, dpad=0x%02x, accel=%d, brake=%d, buttons=0x%08x, misc=0x%02x\n",
         gamepad->updated_states,
         gamepad->x, gamepad->y, gamepad->z,
         gamepad->rx, gamepad->ry, gamepad->rz,

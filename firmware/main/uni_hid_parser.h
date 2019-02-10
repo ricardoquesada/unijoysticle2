@@ -25,7 +25,7 @@ limitations under the License.
 
 // btstack bug:
 // see: https://github.com/bluekitchen/btstack/issues/187
-typedef struct hid_globals_s {
+typedef struct {
     int32_t         logical_minimum;
     int32_t         logical_maximum;
     uint16_t        usage_page;
@@ -34,8 +34,18 @@ typedef struct hid_globals_s {
     uint8_t         report_id;
 } hid_globals_t;
 
-uni_gamepad_t uni_hid_parser(const uint8_t* report, uint16_t report_len,
-        const uint8_t* hid_descriptor, uint16_t hid_descriptor_len);
+typedef void (*report_init_fn_t)(uni_gamepad_t* gamepad);
+typedef void (*report_parse_usage_fn_t)(uni_gamepad_t* gamepad, hid_globals_t* globals, uint16_t usage_page, uint16_t usage, int32_t value);
+
+// Each parse should implement these 2 functions:
+typedef struct {
+    // Called before starting a new report
+    report_init_fn_t init;
+    // Called for each usage: usage page + usage + value
+    report_parse_usage_fn_t parse_usage;
+ } uni_report_parser_t;
+
+void uni_hid_parser(uni_gamepad_t* gamepad, uni_report_parser_t* report_parser, const uint8_t* report, uint16_t report_len, const uint8_t* hid_descriptor, uint16_t hid_descriptor_len);
 int32_t uni_hid_process_axis(hid_globals_t* globals, uint32_t value);
 uint8_t uni_hid_process_hat(hid_globals_t* globals, uint32_t value);
 

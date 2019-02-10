@@ -202,6 +202,7 @@ static void handle_sdp_did_query_result(uint8_t packet_type, uint16_t channel, u
         break;
     case SDP_EVENT_QUERY_COMPLETE:
         logi("Vendor ID: 0x%04x - Product ID: 0x%04x\n", uni_hid_device_get_vendor_id(device), uni_hid_device_get_product_id(device));
+        uni_hid_device_guess_controller_type(device);
         uni_hid_device_set_current_device(NULL);
         break;
     }
@@ -531,7 +532,6 @@ static void on_l2cap_incoming_connection(uint16_t channel, uint8_t* packet, uint
 
 static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet, uint16_t size) {
     uni_hid_device_t* device;
-    uni_gamepad_t gamepad;
     
     device = uni_hid_device_get_instance_for_cid(channel);
     if (device == NULL) {
@@ -547,6 +547,11 @@ static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet, uint16_t siz
         return;
     }
 
+    if (!uni_hid_device_has_controller_type(device)) {
+        logi("Device without a controller type yet. Ignoring report\n");
+        return;
+    }
+
     int report_len = size;
     uint8_t* report = packet;
 
@@ -559,12 +564,12 @@ static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet, uint16_t siz
     // In case a joystick port hasn't been assign yet, assign one.
     uni_hid_device_try_assign_joystick_port(device);
 
-    gamepad = uni_hid_parser(report, report_len, device->hid_descriptor, device->hid_descriptor_len);
+    uni_hid_parser(&device->gamepad, &device->report_parser, report, report_len, device->hid_descriptor, device->hid_descriptor_len);
 
     // Debug info
-    uni_gamepad_dump(&gamepad);
+    uni_gamepad_dump(&device->gamepad);
 
-    joystick_update(&gamepad, device->joystick_port, device->controller_emu);
+    joystick_update(&device->gamepad, device->joystick_port, device->controller_emu);
 }
 
 static int has_more_remote_name_requests(void) {

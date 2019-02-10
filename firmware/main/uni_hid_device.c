@@ -20,6 +20,8 @@ limitations under the License.
 
 #include "uni_debug.h"
 #include "uni_hid_device_vendors.h"
+#include "uni_hid_parser_generic.h"
+#include "uni_hid_parser_icade.h"
 
 #define MAX_DEVICES                 8
 
@@ -41,6 +43,7 @@ enum {
     FLAGS_HAS_HID_DESCRIPTOR = (1 << 10),
     FLAGS_HAS_VENDOR_ID = (1 << 11),
     FLAGS_HAS_PRODUCT_ID = (1 << 12),
+    FLAGS_HAS_CONTROLLER_TYPE = (1 << 13),
 };
 
 static uni_hid_device_t devices[MAX_DEVICES];
@@ -253,6 +256,10 @@ uint16_t uni_hid_device_get_product_id(uni_hid_device_t* device) {
 }
 
 void uni_hid_device_set_vendor_id(uni_hid_device_t* device, uint16_t vendor_id) {
+    if (vendor_id == 0) {
+        loge("Invalid vendor_id = 0%04x\n", vendor_id);
+        return;
+    }
     device->vendor_id = vendor_id;
     device->flags |= FLAGS_HAS_VENDOR_ID;
 }
@@ -277,4 +284,46 @@ uint8_t uni_hid_device_is_orphan(uni_hid_device_t* device) {
     // because it is already added to the DB.
     // This prevents that scenario.
     return (device->flags == FLAGS_HAS_COD);
+}
+
+void uni_hid_device_guess_controller_type(uni_hid_device_t* device) {
+    if (uni_hid_device_has_controller_type(device)) {
+        logi("device already has a controller type");
+        return;
+    }
+    // Try to guess it from Vendor/Product id.
+    uni_controller_type_t type = guess_controller_type(device->vendor_id, device->product_id);
+
+    // If it fails, try to guess it from COD
+    if (type == CONTROLLER_TYPE_Unknown) {
+        uint32_t mouse_cod = MASK_COD_MAJOR_PERIPHERAL | MASK_COD_MINOR_POINT_DEVICE;
+        uint32_t keyboard_cod = MASK_COD_MAJOR_PERIPHERAL | MASK_COD_MINOR_KEYBOARD;
+        if ((device->cod & mouse_cod) == mouse_cod) {
+            type = CONTROLLER_TYPE_GenericMouse;
+        } else if ((device->cod & keyboard_cod) == keyboard_cod) {
+            type = CONTROLLER_TYPE_GenericKeyboard;
+        } else {
+            // FIXME: Default shold be the most popular bluetooth device.
+            type = CONTROLLER_TYPE_AndroidController;
+        }
+    }
+
+    switch (type) {
+    case CONTROLLER_TYPE_iCadeController:
+        device->report_parser.init = uni_hid_parser_icade_init;
+        device->report_parser.parse_usage = uni_hid_parser_icade_parse_usage;
+        break;
+    default:
+        device->report_parser.init = uni_hid_parser_generic_init;
+        device->report_parser.parse_usage = uni_hid_parser_generic_parse_usage;
+        break;
+    }
+
+    device->flags |= FLAGS_HAS_CONTROLLER_TYPE;
+}
+
+uint8_t uni_hid_device_has_controller_type(uni_hid_device_t* device) {
+    if (device == NULL) { log_error("ERROR: Invalid device\n"); return 0; }
+
+    return !!(device->flags & FLAGS_HAS_CONTROLLER_TYPE);
 }

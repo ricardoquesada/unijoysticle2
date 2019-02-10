@@ -408,7 +408,7 @@ static inline uni_controller_type_t guess_controller_type(uint16_t nVID, uint16_
 		}
 	}
 #undef MAKE_CONTROLLER_ID
-	return CONTROLLER_TYPE_UnknownNonSteamController;
+	return CONTROLLER_TYPE_Unknown;
 }
 
 #endif // UNI_HID_DEVICE_VENDORS_H
