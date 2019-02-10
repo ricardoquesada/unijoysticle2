@@ -21,7 +21,38 @@ limitations under the License.
 
 #include <stdint.h>
 
-enum GAMEPAD_STATES {
+// FIXME: doesn't seem to belong in this file.
+typedef enum {
+    JOYSTICK_PORT_NONE  = 0,
+    JOYSTICK_PORT_A     = (1 << 0),
+    JOYSTICK_PORT_B     = (1 << 1),
+    JOYSTICK_PORT_AB    = (JOYSTICK_PORT_A | JOYSTICK_PORT_B),
+} uni_joystick_port_t;
+
+// FIXME: doesn't seem to belong in this file.
+typedef enum {
+    CONTROLLER_JOYSTICK,
+    CONTROLLER_MOUSE,
+    CONTROLLER_COMBO_JOY_MOUSE,
+    CONTROLLER_COMBO_JOY_JOY
+} uni_controller_type_t;
+
+enum {
+    DPAD_UP     = 1 << 0,
+    DPAD_DOWN   = 1 << 1,
+    DPAD_RIGHT  = 1 << 2,
+    DPAD_LEFT   = 1 << 3,
+};
+
+enum {
+    MISC_AC_SEARCH  = 1 << 0,
+    MISC_AC_HOME    = 1 << 1,
+    MISC_AC_BACK    = 1 << 2,
+
+    MISC_SYS_MAIN_MENU = 1 << 3,
+};
+
+enum {
     GAMEPAD_STATE_HAT = 1 << 0,
     GAMEPAD_STATE_X = 1 << 1,
     GAMEPAD_STATE_Y = 1 << 2,
@@ -48,21 +79,6 @@ enum GAMEPAD_STATES {
     GAMEPAD_STATE_BUTTON13 = 1 << 23,
     GAMEPAD_STATE_BUTTON14 = 1 << 24,
     GAMEPAD_STATE_BUTTON15 = 1 << 25,
-};
-
-enum {
-    DPAD_UP     = 1 << 0,
-    DPAD_DOWN   = 1 << 1,
-    DPAD_RIGHT  = 1 << 2,
-    DPAD_LEFT   = 1 << 3,
-};
-
-enum {
-    MISC_AC_SEARCH  = 1 << 0,
-    MISC_AC_HOME    = 1 << 1,
-    MISC_AC_BACK    = 1 << 2,
-
-    MISC_SYS_MAIN_MENU = 1 << 3,
 };
 
 // uni_gamepad_t is a virtual gamepad.

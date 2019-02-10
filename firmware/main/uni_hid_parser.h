@@ -21,7 +21,6 @@ limitations under the License.
 
 #include <stdint.h>
 
-#include "uni_hid_device.h"
 #include "uni_gamepad.h"
 
 // btstack bug:

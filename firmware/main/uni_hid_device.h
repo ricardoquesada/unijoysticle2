@@ -23,22 +23,11 @@ limitations under the License.
 
 #include "btstack.h"
 
+#include "uni_gamepad.h"
+#include "uni_hid_parser.h"
+
 #define MAX_NAME_LEN 240
 #define MAX_DESCRIPTOR_LEN 512
-
-typedef enum {
-    JOYSTICK_PORT_NONE  = 0,
-    JOYSTICK_PORT_A     = (1 << 0),
-    JOYSTICK_PORT_B     = (1 << 1),
-    JOYSTICK_PORT_AB    = (JOYSTICK_PORT_A | JOYSTICK_PORT_B),
-} uni_joystick_port_t;
-
-typedef enum {
-    CONTROLLER_JOYSTICK,
-    CONTROLLER_MOUSE,
-    CONTROLLER_COMBO_JOY_MOUSE,
-    CONTROLLER_COMBO_JOY_JOY
-} uni_controller_type_t;
 
 enum DEVICE_STATE { REMOTE_NAME_REQUEST, REMOTE_NAME_INQUIRED, REMOTE_NAME_FETCHED };
 typedef struct uni_hid_device_s {
@@ -68,7 +57,7 @@ typedef struct uni_hid_device_s {
     uni_controller_type_t   controller_type;                // type of controller: joystick or mouse?
 
     // parser
-    // void (*hid_parser)(uni_gamepad_t* gamepad, hid_globals_t* globals, uint16_t usage_page, uint16_t usage, int32_t value);
+    void (*hid_parser)(uni_gamepad_t* gamepad, hid_globals_t* globals, uint16_t usage_page, uint16_t usage, int32_t value);
 
 } uni_hid_device_t;
 
