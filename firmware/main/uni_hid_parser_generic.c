@@ -22,7 +22,7 @@ limitations under the License.
 #include "uni_debug.h"
 
 void uni_hid_parser_generic_init(uni_gamepad_t* gamepad) {
-    // Reset old state.
+    // Reset old state. Each report contains a full-state.
     gamepad->updated_states = 0;
 }
 

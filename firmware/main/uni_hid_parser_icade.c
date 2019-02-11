@@ -30,20 +30,20 @@ limitations under the License.
  *  RT ON,OFF  = d,c
  *  DN ON,OFF  = x,z
  *  LT ON,OFF  = a,q
- *  A  ON,OFF  = y,t
- *  B  ON,OFF  = h,r
- *  C  ON,OFF  = u,f
- *  X  ON,OFF  = j,n
- *  Y  ON,OFF  = i,m
- *  Z  ON,OFF  = k,p
- *  L  ON,OFF  = o,g
- *  R  ON,OFF  = l,v
+ *  A  ON,OFF  = y,t        : Mapped to Button 0
+ *  B  ON,OFF  = h,r        : Mapped to Button 1
+ *  C  ON,OFF  = u,f        : Mapped to Button 2
+ *  X  ON,OFF  = j,n        : Mapped to Button 3
+ *  Y  ON,OFF  = i,m        : unmapped
+ *  Z  ON,OFF  = k,p        : unmapped
+ *  L  ON,OFF  = o,g        : Mapped to "Menu" button
+ *  R  ON,OFF  = l,v        : unmapped
  */
 
 void uni_hid_parser_icade_init(uni_gamepad_t* gamepad) {
     UNUSED(gamepad);
-
-    // Don't do anything. iCade passes "delta" events.
+    // Don't do anything, like reseting the gamepad->updated_states,
+    // since each report is a "delta", and doesn't include a full state.
 }
 
 void uni_hid_parser_icade_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* globals, uint16_t usage_page, uint16_t usage, int32_t value) {
