@@ -64,6 +64,7 @@ void uni_hid_parser_generic_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* g
                 gamepad->misc_buttons |= MISC_SYS_MAIN_MENU;
             else
                 gamepad->misc_buttons &= ~MISC_SYS_MAIN_MENU;
+            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_MISC_MAIN_MENU;
             break;
         case 0x90:  // dpad up
             if (value)
@@ -200,17 +201,21 @@ void uni_hid_parser_generic_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* g
                 gamepad->misc_buttons |= MISC_AC_SEARCH;
             else
                 gamepad->misc_buttons &= ~MISC_AC_SEARCH;
+            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_MISC_SEARCH;
+            break;
         case 0x0223:    // home
             if (value)
                 gamepad->misc_buttons |= MISC_AC_HOME;
             else
                 gamepad->misc_buttons &= ~MISC_AC_HOME;
+            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_MISC_HOME;
             break;
         case 0x0224:    // back
             if (value)
                 gamepad->misc_buttons |= MISC_AC_BACK;
             else
                 gamepad->misc_buttons &= ~MISC_AC_BACK;
+            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_MISC_BACK;
             break;
         default:
             logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
