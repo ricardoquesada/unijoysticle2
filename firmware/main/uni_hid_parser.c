@@ -65,45 +65,6 @@ void joystick_update(const uni_gamepad_t* gp, uni_joystick_port_t joy_port, uni_
     // reset state
     memset(&joy, 0, sizeof(joy));
 
-    if (gp->updated_states & GAMEPAD_STATE_HAT) {
-        switch (gp->hat) {
-        case 0xff:
-            // joy.up = joy.down = joy.left = joy.right = 0;
-            break;
-        case 0:
-            joy.up |= 1;
-            break;
-        case 1:
-            joy.up |= 1;
-            joy.right |= 1;
-            break;
-        case 2:
-            joy.right |= 1;
-            break;
-        case 3:
-            joy.right |= 1;
-            joy.down |= 1;
-            break;
-        case 4:
-            joy.down |= 1;
-            break;
-        case 5:
-            joy.down |= 1;
-            joy.left |= 1;
-            break;
-        case 6:
-            joy.left |= 1;
-            break;
-        case 7:
-            joy.left |= 1;
-            joy.up |= 1;
-            break;
-        default:
-            loge("Error parsing hat value: 0x%02x\n", gp->hat);
-            break;
-        }
-    }
-
     if (gp->updated_states & GAMEPAD_STATE_DPAD) {
         if (gp->dpad & 0x01)
             joy.up |= 1;
@@ -116,21 +77,21 @@ void joystick_update(const uni_gamepad_t* gp, uni_joystick_port_t joy_port, uni_
     }
 
     // Button A is "fire"
-    if (gp->updated_states & GAMEPAD_STATE_BUTTON0) {
+    if (gp->updated_states & GAMEPAD_STATE_BUTTON_A) {
         joy.fire |= gp->buttons & 0x1;
     }
 
     // Button B is "jump"
-    if (gp->updated_states & GAMEPAD_STATE_BUTTON1) {
+    if (gp->updated_states & GAMEPAD_STATE_BUTTON_B) {
         joy.up |= ((gp->buttons & 0x2) == 0x2);
     }
 
     // Axis: x and y
-    if (gp->updated_states & GAMEPAD_STATE_X) {
+    if (gp->updated_states & GAMEPAD_STATE_AXIS_X) {
         joy.left |= (gp->x < -AXIS_THRESHOLD);
         joy.right |= (gp->x > AXIS_THRESHOLD);
     }
-    if (gp->updated_states & GAMEPAD_STATE_Y) {
+    if (gp->updated_states & GAMEPAD_STATE_AXIS_Y) {
         joy.up |= (gp->y < -AXIS_THRESHOLD);
         joy.down |= (gp->y > AXIS_THRESHOLD);
     }
@@ -163,7 +124,7 @@ void joystick_update(const uni_gamepad_t* gp, uni_joystick_port_t joy_port, uni_
 // }
 
 // Converts a possible value between (0, x) to (-x/2, x/2), and normalizes it between -512 and 511.
-int32_t uni_hid_process_axis(hid_globals_t* globals, uint32_t value) {
+int32_t uni_hid_parser_process_axis(hid_globals_t* globals, uint32_t value) {
     int32_t max = globals->logical_maximum;
     int32_t min = globals->logical_minimum;
 
@@ -187,11 +148,48 @@ int32_t uni_hid_process_axis(hid_globals_t* globals, uint32_t value) {
     return normalized;
 }
 
-uint8_t uni_hid_process_hat(hid_globals_t* globals, uint32_t value) {
+uint8_t uni_hid_parser_process_hat(hid_globals_t* globals, uint32_t value) {
     int32_t v = (int32_t) value;
     // Assumes if value is outside valid range, then it is a "null value"
     if (v < globals->logical_minimum || v > globals->logical_maximum)
         return 0xff;
     // 0 should be the first value for hat, meaning that 0 is the "up" position.
     return v - globals->logical_minimum;
+}
+
+uint8_t uni_hid_parser_hat_to_dpad(uint8_t hat) {
+    uint8_t dpad = 0;
+    switch (hat) {
+    case 0xff:
+        // joy.up = joy.down = joy.left = joy.right = 0;
+        break;
+    case 0:
+        dpad = DPAD_UP;
+        break;
+    case 1:
+        dpad = DPAD_UP | DPAD_RIGHT;
+        break;
+    case 2:
+        dpad = DPAD_RIGHT;
+        break;
+    case 3:
+        dpad = DPAD_RIGHT | DPAD_DOWN;
+        break;
+    case 4:
+        dpad = DPAD_DOWN;
+        break;
+    case 5:
+        dpad = DPAD_DOWN | DPAD_LEFT;
+        break;
+    case 6:
+        dpad = DPAD_LEFT;
+        break;
+    case 7:
+        dpad = DPAD_LEFT | DPAD_UP;
+        break;
+    default:
+        loge("Error parsing hat value: 0x%02x\n", hat);
+        break;
+    }
+    return dpad;
 }

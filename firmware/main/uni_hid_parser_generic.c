@@ -28,36 +28,30 @@ void uni_hid_parser_generic_init(uni_gamepad_t* gamepad) {
 
 void uni_hid_parser_generic_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* globals, uint16_t usage_page, uint16_t usage, int32_t value) {
     // print_parser_globals(globals);
+    uint8_t hat;
     switch (usage_page) {
     case 0x01:  // Generic Desktop controls
         switch (usage) {
         case 0x30:  // x
-            gamepad->x = uni_hid_process_axis(globals, value);
-            gamepad->updated_states |= GAMEPAD_STATE_X;
+            gamepad->x = uni_hid_parser_process_axis(globals, value);
+            gamepad->updated_states |= GAMEPAD_STATE_AXIS_X;
             break;
         case 0x31:  // y
-            gamepad->y = uni_hid_process_axis(globals, value);
-            gamepad->updated_states |= GAMEPAD_STATE_Y;
-            break;
-        case 0x32:  // z
-            gamepad->z = uni_hid_process_axis(globals, value);
-            gamepad->updated_states |= GAMEPAD_STATE_Z;
+            gamepad->y = uni_hid_parser_process_axis(globals, value);
+            gamepad->updated_states |= GAMEPAD_STATE_AXIS_Y;
             break;
         case 0x33:  // rx
-            gamepad->rx = uni_hid_process_axis(globals, value);
-            gamepad->updated_states |= GAMEPAD_STATE_RX;
+            gamepad->rx = uni_hid_parser_process_axis(globals, value);
+            gamepad->updated_states |= GAMEPAD_STATE_AXIS_RX;
             break;
         case 0x34:  // ry
-            gamepad->ry = uni_hid_process_axis(globals, value);
-            gamepad->updated_states |= GAMEPAD_STATE_RY;
-            break;
-        case 0x35:  // rz
-            gamepad->rz = uni_hid_process_axis(globals, value);
-            gamepad->updated_states |= GAMEPAD_STATE_RZ;
+            gamepad->ry = uni_hid_parser_process_axis(globals, value);
+            gamepad->updated_states |= GAMEPAD_STATE_AXIS_RY;
             break;
         case 0x39:  // switch hat
-            gamepad->hat = uni_hid_process_hat(globals, value);
-            gamepad->updated_states |= GAMEPAD_STATE_HAT;
+            hat = uni_hid_parser_process_hat(globals, value);
+            gamepad->dpad = uni_hid_parser_hat_to_dpad(hat);
+            gamepad->updated_states |= GAMEPAD_STATE_DPAD;
             break;
         case 0x85: // system main menu
             if (value)
@@ -171,7 +165,7 @@ void uni_hid_parser_generic_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* g
                 gamepad->buttons |= (1 << 0);
             else
                 gamepad->buttons &= ~(1 << 0);
-            gamepad->updated_states |= GAMEPAD_STATE_BUTTON0;
+            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_A;
             break;
         default:
             logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
@@ -188,7 +182,7 @@ void uni_hid_parser_generic_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* g
                 gamepad->buttons |= (1 << button_idx);
             else
                 gamepad->buttons &= ~(1 << button_idx);
-            gamepad->updated_states |= (GAMEPAD_STATE_BUTTON0 << button_idx);
+            gamepad->updated_states |= (GAMEPAD_STATE_BUTTON_A << button_idx);
         } else {
             logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
         }

@@ -52,28 +52,29 @@ enum {
 };
 
 enum {
-    GAMEPAD_STATE_HAT = 1 << 0,
-    GAMEPAD_STATE_X = 1 << 1,
-    GAMEPAD_STATE_Y = 1 << 2,
-    GAMEPAD_STATE_Z = 1 << 3,
-    GAMEPAD_STATE_RX = 1 << 4,
-    GAMEPAD_STATE_RY = 1 << 5,
-    GAMEPAD_STATE_RZ = 1 << 6,
-    GAMEPAD_STATE_DPAD = 1 << 7,
-    GAMEPAD_STATE_BRAKE = 1 << 8,
-    GAMEPAD_STATE_ACCELERATOR = 1 << 9,
-    GAMEPAD_STATE_BUTTON0 = 1 << 10,
-    GAMEPAD_STATE_BUTTON1 = 1 << 11,
-    GAMEPAD_STATE_BUTTON2 = 1 << 12,
-    GAMEPAD_STATE_BUTTON3 = 1 << 13,
-    GAMEPAD_STATE_BUTTON4 = 1 << 14,
-    GAMEPAD_STATE_BUTTON5 = 1 << 15,
-    GAMEPAD_STATE_BUTTON6 = 1 << 16,
-    GAMEPAD_STATE_BUTTON7 = 1 << 17,
-    GAMEPAD_STATE_BUTTON_MISC_HOME = 1 << 18,
-    GAMEPAD_STATE_BUTTON_MISC_SEARCH = 1 << 19,
-    GAMEPAD_STATE_BUTTON_MISC_BACK = 1 << 20,
-    GAMEPAD_STATE_BUTTON_MISC_MAIN_MENU = 1 << 21,
+    GAMEPAD_STATE_DPAD = 1 << 0,
+    
+    GAMEPAD_STATE_AXIS_X = 1 << 1,
+    GAMEPAD_STATE_AXIS_Y = 1 << 2,
+    GAMEPAD_STATE_AXIS_RX = 1 << 3,
+    GAMEPAD_STATE_AXIS_RY = 1 << 4,
+    
+    GAMEPAD_STATE_BRAKE = 1 << 5,
+    GAMEPAD_STATE_ACCELERATOR = 1 << 6,
+
+    GAMEPAD_STATE_BUTTON_A = 1 << 10,
+    GAMEPAD_STATE_BUTTON_B = 1 << 11,
+    GAMEPAD_STATE_BUTTON_C = 1 << 12,
+    GAMEPAD_STATE_BUTTON_X = 1 << 13,
+    GAMEPAD_STATE_BUTTON_Y = 1 << 14,
+    GAMEPAD_STATE_BUTTON_Z = 1 << 15,
+    GAMEPAD_STATE_BUTTON_L = 1 << 16,
+    GAMEPAD_STATE_BUTTON_R = 1 << 17,
+
+    GAMEPAD_STATE_BUTTON_MISC_HOME = 1 << 20,
+    GAMEPAD_STATE_BUTTON_MISC_SEARCH = 1 << 21,
+    GAMEPAD_STATE_BUTTON_MISC_BACK = 1 << 22,
+    GAMEPAD_STATE_BUTTON_MISC_MAIN_MENU = 1 << 23,
 };
 
 // uni_gamepad_t is a virtual gamepad.
@@ -95,19 +96,16 @@ enum {
 //  Left             Center            Right
 //
 //  brake: 0-1023    Menu button       accelerator: 0-1023
-//  l-button                           r-button
-//  d-pad                              buttons: A,B,X,Y
+//  L-button                           R-button
+//  d-pad                              buttons: A,B,C,X,Y,Z
 //  l-joypad (axis: -512, 511)         r-joypad (axis: -512, 511)
 typedef struct {
     // Usage Page: 0x01 (Generic Desktop Controls)
-    uint8_t hat;
+    uint8_t dpad;
     int32_t x;
     int32_t y;
-    int32_t z;
     int32_t rx;
     int32_t ry;
-    int32_t rz;
-    uint8_t dpad;
 
     // Usage Page: 0x02 (Sim controls)
     int32_t     brake;
@@ -117,7 +115,7 @@ typedef struct {
     uint16_t    battery;
 
     // Usage Page: 0x09 (Button)
-    uint32_t    buttons;
+    uint16_t    buttons;
 
     // Misc buttos (from 0x0c (Consumer) and others)
     uint8_t     misc_buttons;
