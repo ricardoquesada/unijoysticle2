@@ -255,8 +255,11 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packe
             // printf("--> HCI_EVENT_INQUIRY_RESULT <--\n");
             break;
         case HCI_EVENT_CONNECTION_REQUEST:
-            logi("--> HCI_EVENT_CONNECTION_REQUEST <--\n");
+            logi("--> HCI_EVENT_CONNECTION_REQUEST: link_type = %d <--\n", hci_event_connection_request_get_link_type(packet));
             on_hci_connection_request(channel, packet, size);
+            break;
+        case HCI_EVENT_SYNCHRONOUS_CONNECTION_COMPLETE:
+            logi("--> HCI_EVENT_SYNCHRONOUS_CONNECTION_COMPLETE <--\n");
             break;
         case HCI_EVENT_INQUIRY_RESULT_WITH_RSSI:
             // logi("--> HCI_EVENT_INQUIRY_RESULT_WITH_RSSI <--\n");

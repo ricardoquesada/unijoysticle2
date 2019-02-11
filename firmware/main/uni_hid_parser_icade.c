@@ -133,6 +133,14 @@ void uni_hid_parser_icade_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* glo
             gamepad->misc_buttons &= ~MISC_AC_HOME;
             gamepad->updated_states |= GAMEPAD_STATE_BUTTON_MISC_HOME;            
             break;
+        case 0x0c:      // i,m,k,p,l,v. Buttons Y,Z,R
+        case 0x10:      // m
+        case 0x0e:      // k
+        case 0x13:      // p
+        case 0x0f:      // l
+        case 0x19:      // v
+            // unmapped buttons
+            break;
         default:
             logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
             break;
