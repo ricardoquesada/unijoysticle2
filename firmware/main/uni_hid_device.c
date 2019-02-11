@@ -324,6 +324,7 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* device) {
         break;
     }
 
+    logi("Device detected as: 0x%02x\n", type);
     device->flags |= FLAGS_HAS_CONTROLLER_TYPE;
 }
 

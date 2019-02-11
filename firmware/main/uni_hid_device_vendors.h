@@ -390,7 +390,7 @@ static const uni_controlelr_description_t arrControllers[] = {
 	{ MAKE_CONTROLLER_ID( 0x28de, 0x1201 ), CONTROLLER_TYPE_SteamController },	    // Valve wired Steam Controller (HEADCRAB)
 
     // OUYA
-    { MAKE_CONTROLLER_ID( 0x2836, 0x0001 ), CONTROLLER_TYPE_SteamController },          // OUYA 1st Controller (Unijoysticle)
+    { MAKE_CONTROLLER_ID( 0x2836, 0x0001 ), CONTROLLER_TYPE_OUYAController },          // OUYA 1st Controller (Unijoysticle)
 
     // ION iCade
     { MAKE_CONTROLLER_ID( 0x15e4, 0x0132 ), CONTROLLER_TYPE_iCadeController },          // ION iCade (Unijoysticle)
