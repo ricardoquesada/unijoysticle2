@@ -104,15 +104,15 @@ void uni_hid_parser_ouya_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* glob
             break;
         case 7:
             if (value)
-                gamepad->buttons |= BUTTON_AXIS_L;
-            else gamepad->buttons &= ~BUTTON_AXIS_L;
-            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_AXIS_L;
+                gamepad->buttons |= BUTTON_THUMB_L;
+            else gamepad->buttons &= ~BUTTON_THUMB_L;
+            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_THUMB_L;
             break;
         case 8:
             if (value)
-                gamepad->buttons |= BUTTON_AXIS_R;
-            else gamepad->buttons &= ~BUTTON_AXIS_R;
-            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_AXIS_R;
+                gamepad->buttons |= BUTTON_THUMB_R;
+            else gamepad->buttons &= ~BUTTON_THUMB_R;
+            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_THUMB_R;
             break;
         case 9:
             if (value)

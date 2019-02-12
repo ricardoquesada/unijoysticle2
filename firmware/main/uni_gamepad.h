@@ -53,8 +53,8 @@ enum {
     BUTTON_Z        = 1 << 5,
     BUTTON_L        = 1 << 6,
     BUTTON_R        = 1 << 7,
-    BUTTON_AXIS_L   = 1 << 8,
-    BUTTON_AXIS_R   = 1 << 9,
+    BUTTON_THUMB_L  = 1 << 8,
+    BUTTON_THUMB_R  = 1 << 9,
     
     BUTTON_TOTAL = 10
 };
@@ -82,8 +82,8 @@ enum {
     GAMEPAD_STATE_BUTTON_Z      = 1 << 15,
     GAMEPAD_STATE_BUTTON_L      = 1 << 16,
     GAMEPAD_STATE_BUTTON_R      = 1 << 17,
-    GAMEPAD_STATE_BUTTON_AXIS_L = 1 << 18,
-    GAMEPAD_STATE_BUTTON_AXIS_R = 1 << 19,
+    GAMEPAD_STATE_BUTTON_THUMB_L = 1 << 18,
+    GAMEPAD_STATE_BUTTON_THUMB_R = 1 << 19,
 
     GAMEPAD_STATE_BUTTON_MISC_HOME      = 1 << 20,
 };
