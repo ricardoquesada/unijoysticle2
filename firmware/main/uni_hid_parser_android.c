@@ -16,17 +16,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ****************************************************************************/
 
-#include "uni_hid_parser_generic.h"
+#include "uni_hid_parser_android.h"
 
 #include "uni_hid_parser.h"
 #include "uni_debug.h"
 
-void uni_hid_parser_generic_init(uni_gamepad_t* gamepad) {
+void uni_hid_parser_android_init(uni_gamepad_t* gamepad) {
     // Reset old state. Each report contains a full-state.
     gamepad->updated_states = 0;
 }
 
-void uni_hid_parser_generic_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* globals, uint16_t usage_page, uint16_t usage, int32_t value) {
+void uni_hid_parser_android_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* globals, uint16_t usage_page, uint16_t usage, int32_t value) {
     // print_parser_globals(globals);
     uint8_t hat;
     switch (usage_page) {
@@ -40,11 +40,11 @@ void uni_hid_parser_generic_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* g
             gamepad->axis_y = uni_hid_parser_process_axis(globals, value);
             gamepad->updated_states |= GAMEPAD_STATE_AXIS_Y;
             break;
-        case 0x33:  // rx
+        case 0x32:  // z
             gamepad->axis_rx = uni_hid_parser_process_axis(globals, value);
             gamepad->updated_states |= GAMEPAD_STATE_AXIS_RX;
             break;
-        case 0x34:  // ry
+        case 0x35:  // rz
             gamepad->axis_ry = uni_hid_parser_process_axis(globals, value);
             gamepad->updated_states |= GAMEPAD_STATE_AXIS_RY;
             break;
@@ -89,11 +89,11 @@ void uni_hid_parser_generic_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* g
     case 0x02:  // Simulation controls
         switch (usage) {
         case 0xc4:  // accelerator
-            gamepad->accelerator = value;
+            gamepad->accelerator = uni_hid_parser_process_pedal(globals, value);
             gamepad->updated_states |= GAMEPAD_STATE_ACCELERATOR;
             break;
         case 0xc5:  // brake
-            gamepad->brake = value;
+            gamepad->brake =  uni_hid_parser_process_pedal(globals, value);
             gamepad->updated_states |= GAMEPAD_STATE_BRAKE;
             break;
         default:

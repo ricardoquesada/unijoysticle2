@@ -395,6 +395,10 @@ static const uni_controlelr_description_t arrControllers[] = {
     // ION iCade
     { MAKE_CONTROLLER_ID( 0x15e4, 0x0132 ), CONTROLLER_TYPE_iCadeController },          // ION iCade (Unijoysticle)
 
+	// Android
+	{ MAKE_CONTROLLER_ID( 0x20d6, 0x6271 ), CONTROLLER_TYPE_AndroidController }, 		// MOGA Controller, using HID mode (Unijoysticle)
+	{ MAKE_CONTROLLER_ID( 0x0b05, 0x4500 ), CONTROLLER_TYPE_AndroidController }, 		// Asus Controller (Unijoysticle)
+
     // Smart TV remotes
     { MAKE_CONTROLLER_ID( 0x1949, 0x0401 ), CONTROLLER_TYPE_SmartTVRemoteController },  // Amazon Fire TV Remote Controlelr 1st gen. (Unijoysticle)
     // TV remote controll
