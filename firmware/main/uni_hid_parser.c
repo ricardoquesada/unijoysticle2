@@ -135,7 +135,7 @@ int32_t uni_hid_parser_process_axis(hid_globals_t* globals, uint32_t value) {
     }
 
     // Get the range: how big can be the number
-    int32_t range = max - min;
+    int32_t range = (max - min) + 1;
     // range = next_pot(range);
 
     // First we "center" the value, meaning that 0 is when the axis is not used.
@@ -160,10 +160,7 @@ int32_t uni_hid_parser_process_pedal(hid_globals_t* globals, uint32_t value) {
     }
 
     // Get the range: how big can be the number
-    int32_t range = max - min;
-    // range = next_pot(range);
-
-    // Then we normalize between -512 and 511
+    int32_t range = (max - min) + 1;
     int32_t normalized = value * AXIS_NORMALIZE_RANGE / range;
     logd("original = %d, normalized = %d (range = %d, min=%d, max=%d)\n", value, normalized, range, min, max);
 

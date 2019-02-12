@@ -16,17 +16,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ****************************************************************************/
 
-#include "uni_hid_parser_generic.h"
+#include "uni_hid_parser_xboxone.h"
 
 #include "uni_hid_parser.h"
 #include "uni_debug.h"
 
-void uni_hid_parser_generic_init(uni_gamepad_t* gamepad) {
+void uni_hid_parser_xboxone_init(uni_gamepad_t* gamepad) {
     // Reset old state. Each report contains a full-state.
     gamepad->updated_states = 0;
 }
 
-void uni_hid_parser_generic_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* globals, uint16_t usage_page, uint16_t usage, int32_t value) {
+void uni_hid_parser_xboxone_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* globals, uint16_t usage_page, uint16_t usage, int32_t value) {
     // print_parser_globals(globals);
     uint8_t hat;
     switch (usage_page) {
@@ -40,6 +40,10 @@ void uni_hid_parser_generic_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* g
             gamepad->axis_y = uni_hid_parser_process_axis(globals, value);
             gamepad->updated_states |= GAMEPAD_STATE_AXIS_Y;
             break;
+        case 0x32:  // z
+            gamepad->brake = uni_hid_parser_process_pedal(globals, value);
+            gamepad->updated_states |= GAMEPAD_STATE_BRAKE;
+            break;
         case 0x33:  // rx
             gamepad->axis_rx = uni_hid_parser_process_axis(globals, value);
             gamepad->updated_states |= GAMEPAD_STATE_AXIS_RX;
@@ -48,10 +52,21 @@ void uni_hid_parser_generic_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* g
             gamepad->axis_ry = uni_hid_parser_process_axis(globals, value);
             gamepad->updated_states |= GAMEPAD_STATE_AXIS_RY;
             break;
+        case 0x35:  // rz
+            gamepad->accelerator = uni_hid_parser_process_pedal(globals, value);
+            gamepad->updated_states |= GAMEPAD_STATE_ACCELERATOR;
+            break;
         case 0x39:  // switch hat
             hat = uni_hid_parser_process_hat(globals, value);
             gamepad->dpad = uni_hid_parser_hat_to_dpad(hat);
             gamepad->updated_states |= GAMEPAD_STATE_DPAD;
+            break;
+        case 0x85: // system main menu
+            if (value)
+                gamepad->misc_buttons |= MISC_AC_HOME;
+            else
+                gamepad->misc_buttons &= ~MISC_AC_HOME;
+            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_MISC_HOME;
             break;
         case 0x90:  // dpad up
             if (value)
@@ -86,21 +101,6 @@ void uni_hid_parser_generic_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* g
             break;
         }
         break;
-    case 0x02:  // Simulation controls
-        switch (usage) {
-        case 0xc4:  // accelerator
-            gamepad->accelerator = value;
-            gamepad->updated_states |= GAMEPAD_STATE_ACCELERATOR;
-            break;
-        case 0xc5:  // brake
-            gamepad->brake = value;
-            gamepad->updated_states |= GAMEPAD_STATE_BRAKE;
-            break;
-        default:
-            logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
-            break;
-        };
-        break;
     case 0x06: // Generic Device Controls Page
         switch (usage) {
         case 0x20: // Battery Strength
@@ -111,66 +111,13 @@ void uni_hid_parser_generic_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* g
             break;
         }
         break;
-    case 0x07:  // Keypad / Keyboard
-        // FIXME: It is unlikely a device has both a dpap a keyboard, so we report certain keys
-        // as dpad, just to avoid having a entry entry in the uni_gamepad_t type.
-        switch (usage) {
-        case 0x00:  // Reserved
-            // empty on purpose
-            break;
-        case 0x4f:  // Right arrow
-        case 0x5e:  // Keypad right arrow
-            if (value)
-                gamepad->dpad |= DPAD_RIGHT;
-            else
-                gamepad->dpad &= ~DPAD_RIGHT;
-            gamepad->updated_states |= GAMEPAD_STATE_DPAD;
-            break;
-        case 0x50:  // Left arrow
-        case 0x5c:  // Keypad left arrow
-            if (value)
-                gamepad->dpad |= DPAD_LEFT;
-            else
-                gamepad->dpad &= ~DPAD_LEFT;
-            gamepad->updated_states |= GAMEPAD_STATE_DPAD;
-            break;
-        case 0x51:  // Down arrow
-        case 0x5a:  // Keypad down arrow
-            if (value)
-                gamepad->dpad |= DPAD_DOWN;
-            else
-                gamepad->dpad &= ~DPAD_DOWN;
-            gamepad->updated_states |= GAMEPAD_STATE_DPAD;
-            break;
-        case 0x52:  // Up arrow
-        case 0x60:  // Keypad up arrow
-            if (value)
-                gamepad->dpad |= DPAD_UP;
-            else
-                gamepad->dpad &= ~DPAD_UP;
-            gamepad->updated_states |= GAMEPAD_STATE_DPAD;
-            break;
-        case 0x1d:  // z
-        case 0x28:  // Enter
-        case 0x2c:  // spacebar
-        case 0x58:  // Keypad enter
-            if (value)
-                gamepad->buttons |= BUTTON_A;
-            else
-                gamepad->buttons &= ~BUTTON_A;
-            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_A;
-            break;
-        default:
-            logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
-            break;
-        }
-        break;
+
     case 0x09:  // Button
     {
         // we start with usage - 1 since "button 0" seems that is not being used
         // and we only support 32 buttons.
         uint16_t button_idx = usage-1;
-        if (button_idx < 16) {
+        if (button_idx < BUTTON_TOTAL) {
             if (value)
                 gamepad->buttons |= (BUTTON_A << button_idx);
             else
@@ -183,17 +130,27 @@ void uni_hid_parser_generic_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* g
     }
     case 0x0c:  // Consumer
         switch (usage) {
-        case 0x221:     // search
-            break;
-        case 0x0223:    // home
-            if (value)
-                gamepad->misc_buttons |= MISC_AC_HOME;
-            else
-                gamepad->misc_buttons &= ~MISC_AC_HOME;
-            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_MISC_HOME;
-            break;
-        case 0x0224:    // back
-            break;
+        // case 0x221:     // search
+        //     if (value)
+        //         gamepad->misc_buttons |= MISC_AC_SEARCH;
+        //     else
+        //         gamepad->misc_buttons &= ~MISC_AC_SEARCH;
+        //     gamepad->updated_states |= GAMEPAD_STATE_BUTTON_MISC_SEARCH;
+        //     break;
+        // case 0x0223:    // home
+        //     if (value)
+        //         gamepad->misc_buttons |= MISC_AC_HOME;
+        //     else
+        //         gamepad->misc_buttons &= ~MISC_AC_HOME;
+        //     gamepad->updated_states |= GAMEPAD_STATE_BUTTON_MISC_HOME;
+        //     break;
+        // case 0x0224:    // back
+        //     if (value)
+        //         gamepad->misc_buttons |= MISC_AC_BACK;
+        //     else
+        //         gamepad->misc_buttons &= ~MISC_AC_BACK;
+        //     gamepad->updated_states |= GAMEPAD_STATE_BUTTON_MISC_BACK;
+        //     break;
         default:
             logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
             break;

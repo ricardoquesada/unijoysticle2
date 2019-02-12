@@ -45,47 +45,47 @@ enum {
 };
 
 enum {
-    BUTTON_A    = 1 << 0,
-    BUTTON_B    = 1 << 1,
-    BUTTON_C    = 1 << 2,
-    BUTTON_X    = 1 << 3,
-    BUTTON_Y    = 1 << 4,
-    BUTTON_Z    = 1 << 5,
-    BUTTON_L    = 1 << 6,
-    BUTTON_R    = 1 << 7,
+    BUTTON_A        = 1 << 0,
+    BUTTON_B        = 1 << 1,
+    BUTTON_C        = 1 << 2,
+    BUTTON_X        = 1 << 3,
+    BUTTON_Y        = 1 << 4,
+    BUTTON_Z        = 1 << 5,
+    BUTTON_L        = 1 << 6,
+    BUTTON_R        = 1 << 7,
+    BUTTON_AXIS_L   = 1 << 8,
+    BUTTON_AXIS_R   = 1 << 9,
+    
+    BUTTON_TOTAL = 10
 };
 
 enum {
-    MISC_AC_HOME    = 1 << 0,
-    MISC_AC_SEARCH  = 1 << 1,
-    MISC_AC_BACK    = 1 << 2,
-    MISC_SYS_MAIN_MENU = 1 << 3,
+    MISC_AC_HOME        = 1 << 0,
 };
 
 enum {
     GAMEPAD_STATE_DPAD = 1 << 0,
     
-    GAMEPAD_STATE_AXIS_X = 1 << 1,
-    GAMEPAD_STATE_AXIS_Y = 1 << 2,
-    GAMEPAD_STATE_AXIS_RX = 1 << 3,
-    GAMEPAD_STATE_AXIS_RY = 1 << 4,
+    GAMEPAD_STATE_AXIS_X    = 1 << 1,
+    GAMEPAD_STATE_AXIS_Y    = 1 << 2,
+    GAMEPAD_STATE_AXIS_RX   = 1 << 3,
+    GAMEPAD_STATE_AXIS_RY   = 1 << 4,
     
-    GAMEPAD_STATE_BRAKE = 1 << 5,
-    GAMEPAD_STATE_ACCELERATOR = 1 << 6,
+    GAMEPAD_STATE_BRAKE         = 1 << 5,
+    GAMEPAD_STATE_ACCELERATOR   = 1 << 6,
 
-    GAMEPAD_STATE_BUTTON_A = 1 << 10,
-    GAMEPAD_STATE_BUTTON_B = 1 << 11,
-    GAMEPAD_STATE_BUTTON_C = 1 << 12,
-    GAMEPAD_STATE_BUTTON_X = 1 << 13,
-    GAMEPAD_STATE_BUTTON_Y = 1 << 14,
-    GAMEPAD_STATE_BUTTON_Z = 1 << 15,
-    GAMEPAD_STATE_BUTTON_L = 1 << 16,
-    GAMEPAD_STATE_BUTTON_R = 1 << 17,
+    GAMEPAD_STATE_BUTTON_A      = 1 << 10,
+    GAMEPAD_STATE_BUTTON_B      = 1 << 11,
+    GAMEPAD_STATE_BUTTON_C      = 1 << 12,
+    GAMEPAD_STATE_BUTTON_X      = 1 << 13,
+    GAMEPAD_STATE_BUTTON_Y      = 1 << 14,
+    GAMEPAD_STATE_BUTTON_Z      = 1 << 15,
+    GAMEPAD_STATE_BUTTON_L      = 1 << 16,
+    GAMEPAD_STATE_BUTTON_R      = 1 << 17,
+    GAMEPAD_STATE_BUTTON_AXIS_L = 1 << 18,
+    GAMEPAD_STATE_BUTTON_AXIS_R = 1 << 19,
 
-    GAMEPAD_STATE_BUTTON_MISC_HOME = 1 << 20,
-    GAMEPAD_STATE_BUTTON_MISC_SEARCH = 1 << 21,
-    GAMEPAD_STATE_BUTTON_MISC_BACK = 1 << 22,
-    GAMEPAD_STATE_BUTTON_MISC_MAIN_MENU = 1 << 23,
+    GAMEPAD_STATE_BUTTON_MISC_HOME      = 1 << 20,
 };
 
 // uni_gamepad_t is a virtual gamepad.
@@ -110,6 +110,7 @@ enum {
 //  L-button                           R-button
 //  d-pad                              buttons: A,B,C,X,Y,Z
 //  l-joypad (axis: -512, 511)         r-joypad (axis: -512, 511)
+//  axis-l button                      axis-r button
 typedef struct {
     // Usage Page: 0x01 (Generic Desktop Controls)
     uint8_t     dpad;

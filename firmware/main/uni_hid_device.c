@@ -23,6 +23,7 @@ limitations under the License.
 #include "uni_hid_parser_generic.h"
 #include "uni_hid_parser_icade.h"
 #include "uni_hid_parser_ouya.h"
+#include "uni_hid_parser_xboxone.h"
 
 #define MAX_DEVICES                 8
 
@@ -317,6 +318,10 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* device) {
     case CONTROLLER_TYPE_OUYAController:
         device->report_parser.init = uni_hid_parser_ouya_init;
         device->report_parser.parse_usage = uni_hid_parser_ouya_parse_usage;
+        break;
+    case CONTROLLER_TYPE_XBoxOneController:
+        device->report_parser.init = uni_hid_parser_xboxone_init;
+        device->report_parser.parse_usage = uni_hid_parser_xboxone_parse_usage;
         break;
     default:
         device->report_parser.init = uni_hid_parser_generic_init;
