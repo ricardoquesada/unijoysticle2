@@ -64,7 +64,7 @@ void uni_hid_parser_xboxone_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* g
             gamepad->dpad = uni_hid_parser_hat_to_dpad(hat);
             gamepad->updated_states |= GAMEPAD_STATE_DPAD;
             break;
-        case 0x85: // system main menu
+        case 0x85: // Xbox button
             if (value)
                 gamepad->misc_buttons |= MISC_BUTTON_SYSTEM;
             else
@@ -160,14 +160,14 @@ void uni_hid_parser_xboxone_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* g
                 gamepad->buttons &= ~BUTTON_R;
             gamepad->updated_states |= GAMEPAD_STATE_BUTTON_R;
             break;
-        case 0x07:  // Misc button at the left of the big center one
+        case 0x07:  // View button
             if (value)
                 gamepad->misc_buttons |= MISC_BUTTON_BACK;
             else
                 gamepad->misc_buttons &= ~MISC_BUTTON_BACK;
             gamepad->updated_states |= GAMEPAD_STATE_MISC_BUTTON_BACK;
             break;
-        case 0x08:  // Misc button at the right of the big center one
+        case 0x08:  // Menu button
             if (value)
                 gamepad->misc_buttons |= MISC_BUTTON_HOME;
             else
