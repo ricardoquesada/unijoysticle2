@@ -16,6 +16,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ****************************************************************************/
 
+// More info about Xbox one gamepad:
+// https://support.xbox.com/en-US/xbox-one/accessories/xbox-one-wireless-controller
+
 #include "uni_hid_parser_xboxone.h"
 
 #include "uni_hid_parser.h"
