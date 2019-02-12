@@ -32,8 +32,6 @@ void uni_hid_parser_ouya_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* glob
     UNUSED(usage);
     UNUSED(value);
 
-    logi("OUYA: usage page=0x%04x, page=0x%04x, value=0x%04x\n", usage_page, usage, value);
-
     switch (usage_page) {
     case 1: // Generic Desktop Page (0x01)
         switch(usage) {
@@ -62,6 +60,7 @@ void uni_hid_parser_ouya_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* glob
             gamepad->updated_states |= GAMEPAD_STATE_ACCELERATOR;
             break;
         default:
+            logi("OUYA: usage page=0x%04x, page=0x%04x, value=0x%04x\n", usage_page, usage, value);
             break;
         }
         break;
@@ -103,6 +102,18 @@ void uni_hid_parser_ouya_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* glob
             else gamepad->buttons &= ~BUTTON_R;
             gamepad->updated_states |= GAMEPAD_STATE_BUTTON_R;
             break;
+        case 7:
+            if (value)
+                gamepad->buttons |= BUTTON_AXIS_L;
+            else gamepad->buttons &= ~BUTTON_AXIS_L;
+            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_AXIS_L;
+            break;
+        case 8:
+            if (value)
+                gamepad->buttons |= BUTTON_AXIS_R;
+            else gamepad->buttons &= ~BUTTON_AXIS_R;
+            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_AXIS_R;
+            break;
         case 9:
             if (value)
                 gamepad->dpad |= DPAD_UP;
@@ -134,6 +145,7 @@ void uni_hid_parser_ouya_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* glob
             gamepad->updated_states |= GAMEPAD_STATE_BUTTON_MISC_HOME;
             break;
         default:
+            logi("OUYA: usage page=0x%04x, page=0x%04x, value=0x%04x\n", usage_page, usage, value);
             break;
         }
         break;
