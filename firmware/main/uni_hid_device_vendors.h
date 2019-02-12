@@ -400,10 +400,10 @@ static const uni_controlelr_description_t arrControllers[] = {
 	// Android
 	{ MAKE_CONTROLLER_ID( 0x20d6, 0x6271 ), CONTROLLER_TYPE_AndroidController }, 		// MOGA Controller, using HID mode (Unijoysticle)
 	{ MAKE_CONTROLLER_ID( 0x0b05, 0x4500 ), CONTROLLER_TYPE_AndroidController }, 		// Asus Controller (Unijoysticle)
-	{ MAKE_CONTROLLER_ID( 0x1949, 0x0402 ), CONTROLLER_TYPE_AndroidController }, 		// Amazon Fire Controller 1st gen (Unijoysticle)
+	{ MAKE_CONTROLLER_ID( 0x1949, 0x0402 ), CONTROLLER_TYPE_AndroidController }, 		// Amazon Fire gamepad Controller 1st gen (Unijoysticle)
 
     // Smart TV remotes
-    { MAKE_CONTROLLER_ID( 0x1949, 0x0401 ), CONTROLLER_TYPE_SmartTVRemoteController },  // Amazon Fire TV Remote Controlelr 1st gen. (Unijoysticle)
+    { MAKE_CONTROLLER_ID( 0x1949, 0x0401 ), CONTROLLER_TYPE_SmartTVRemoteController },  // Amazon Fire TV remote Controlelr 1st gen. (Unijoysticle)
     // TV remote controll
 };
 

@@ -114,60 +114,6 @@ void uni_hid_parser_android_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* g
             break;
         }
         break;
-    case 0x07:  // Keypad / Keyboard
-        // FIXME: It is unlikely a device has both a dpap a keyboard, so we report certain keys
-        // as dpad, just to avoid having a entry entry in the uni_gamepad_t type.
-        switch (usage) {
-        case 0x00:  // Reserved
-            // empty on purpose
-            break;
-        case 0x4f:  // Right arrow
-        case 0x5e:  // Keypad right arrow
-            if (value)
-                gamepad->dpad |= DPAD_RIGHT;
-            else
-                gamepad->dpad &= ~DPAD_RIGHT;
-            gamepad->updated_states |= GAMEPAD_STATE_DPAD;
-            break;
-        case 0x50:  // Left arrow
-        case 0x5c:  // Keypad left arrow
-            if (value)
-                gamepad->dpad |= DPAD_LEFT;
-            else
-                gamepad->dpad &= ~DPAD_LEFT;
-            gamepad->updated_states |= GAMEPAD_STATE_DPAD;
-            break;
-        case 0x51:  // Down arrow
-        case 0x5a:  // Keypad down arrow
-            if (value)
-                gamepad->dpad |= DPAD_DOWN;
-            else
-                gamepad->dpad &= ~DPAD_DOWN;
-            gamepad->updated_states |= GAMEPAD_STATE_DPAD;
-            break;
-        case 0x52:  // Up arrow
-        case 0x60:  // Keypad up arrow
-            if (value)
-                gamepad->dpad |= DPAD_UP;
-            else
-                gamepad->dpad &= ~DPAD_UP;
-            gamepad->updated_states |= GAMEPAD_STATE_DPAD;
-            break;
-        case 0x1d:  // z
-        case 0x28:  // Enter
-        case 0x2c:  // spacebar
-        case 0x58:  // Keypad enter
-            if (value)
-                gamepad->buttons |= BUTTON_A;
-            else
-                gamepad->buttons &= ~BUTTON_A;
-            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_A;
-            break;
-        default:
-            logi("Android:: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
-            break;
-        }
-        break;
     case 0x09:  // Button
     {
         // Start with usage - 1 since "button 0" seems that is not being used.
