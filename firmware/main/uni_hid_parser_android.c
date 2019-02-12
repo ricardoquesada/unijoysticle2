@@ -16,6 +16,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ****************************************************************************/
 
+// For more info about Android mappings see:
+// https://developer.android.com/training/game-controllers/controller-input
+
 #include "uni_hid_parser_android.h"
 
 #include "uni_hid_parser.h"
