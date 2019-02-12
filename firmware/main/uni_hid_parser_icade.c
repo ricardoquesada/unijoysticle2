@@ -142,7 +142,7 @@ void uni_hid_parser_icade_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* glo
             // unmapped buttons
             break;
         default:
-            logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+            logi("iCade: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
             break;
         }
     }

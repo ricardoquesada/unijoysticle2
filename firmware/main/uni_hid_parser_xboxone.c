@@ -100,7 +100,7 @@ void uni_hid_parser_xboxone_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* g
             gamepad->updated_states |= GAMEPAD_STATE_DPAD;
             break;
         default:
-            logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+            logi("Xbox One: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
             break;
         }
         break;
@@ -110,7 +110,7 @@ void uni_hid_parser_xboxone_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* g
             gamepad->battery = value;
             break;
         default:
-            logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+            logi("Xbox One: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
             break;
         }
         break;
@@ -196,7 +196,7 @@ void uni_hid_parser_xboxone_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* g
     }
     // unknown usage page
     default:
-            logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+            logi("Xbox One: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
         break;
     }
 }

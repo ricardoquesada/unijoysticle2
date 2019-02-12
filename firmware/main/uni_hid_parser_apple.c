@@ -83,7 +83,7 @@ void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* glo
             gamepad->updated_states |= GAMEPAD_STATE_DPAD;
             break;
         default:
-            logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+            logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
             break;
         }
         break;
@@ -98,7 +98,7 @@ void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* glo
             gamepad->updated_states |= GAMEPAD_STATE_BRAKE;
             break;
         default:
-            logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+            logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
             break;
         };
         break;
@@ -108,7 +108,7 @@ void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* glo
             gamepad->battery = value;
             break;
         default:
-            logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+            logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
             break;
         }
         break;
@@ -125,7 +125,7 @@ void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* glo
                 gamepad->buttons &= ~(BUTTON_A << button_idx);
             gamepad->updated_states |= (GAMEPAD_STATE_BUTTON_A << button_idx);
         } else {
-            logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+            logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
         }
         break;
     }
@@ -143,14 +143,14 @@ void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* glo
         case 0x0224:    // back
             break;
         default:
-            logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+            logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
             break;
         }
         break;
 
     // unknown usage page
     default:
-            logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+            logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
         break;
     }
 }

@@ -60,7 +60,7 @@ void uni_hid_parser_ouya_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* glob
             gamepad->updated_states |= GAMEPAD_STATE_ACCELERATOR;
             break;
         default:
-            logi("OUYA: usage page=0x%04x, page=0x%04x, value=0x%04x\n", usage_page, usage, value);
+            logi("OUYA: Unsupported usage page=0x%04x, page=0x%04x, value=0x%04x\n", usage_page, usage, value);
             break;
         }
         break;
@@ -145,12 +145,12 @@ void uni_hid_parser_ouya_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* glob
             gamepad->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
             break;
         default:
-            logi("OUYA: usage page=0x%04x, page=0x%04x, value=0x%04x\n", usage_page, usage, value);
+            logi("OUYA: Unsupported usage page=0x%04x, page=0x%04x, value=0x%04x\n", usage_page, usage, value);
             break;
         }
         break;
     default:
-        logi("OUYA: usage page=0x%04x, page=0x%04x, value=0x%04x\n", usage_page, usage, value);
+        logi("OUYA: Unsupported usage page=0x%04x, page=0x%04x, value=0x%04x\n", usage_page, usage, value);
         break;
     }
 }
