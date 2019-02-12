@@ -45,6 +45,17 @@ enum {
 };
 
 enum {
+    BUTTON_A    = 1 << 0,
+    BUTTON_B    = 1 << 1,
+    BUTTON_C    = 1 << 2,
+    BUTTON_X    = 1 << 3,
+    BUTTON_Y    = 1 << 4,
+    BUTTON_Z    = 1 << 5,
+    BUTTON_L    = 1 << 6,
+    BUTTON_R    = 1 << 7,
+};
+
+enum {
     MISC_AC_HOME    = 1 << 0,
     MISC_AC_SEARCH  = 1 << 1,
     MISC_AC_BACK    = 1 << 2,
@@ -101,11 +112,11 @@ enum {
 //  l-joypad (axis: -512, 511)         r-joypad (axis: -512, 511)
 typedef struct {
     // Usage Page: 0x01 (Generic Desktop Controls)
-    uint8_t dpad;
-    int32_t x;
-    int32_t y;
-    int32_t rx;
-    int32_t ry;
+    uint8_t     dpad;
+    int32_t     axis_x;
+    int32_t     axis_y;
+    int32_t     axis_rx;
+    int32_t     axis_ry;
 
     // Usage Page: 0x02 (Sim controls)
     int32_t     brake;

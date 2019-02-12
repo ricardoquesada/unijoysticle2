@@ -94,35 +94,35 @@ void uni_hid_parser_icade_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* glo
             gamepad->updated_states |= GAMEPAD_STATE_DPAD;
             break;
         case 0x1c:      // y (button A: on)
-            gamepad->buttons |= (1 << 0);
+            gamepad->buttons |= BUTTON_A;
             gamepad->updated_states |= GAMEPAD_STATE_BUTTON_A;
             break;
         case 0x17:      // t (button A: off)
-            gamepad->buttons &= ~(1 << 0);
+            gamepad->buttons &= ~BUTTON_A;
             gamepad->updated_states |= GAMEPAD_STATE_BUTTON_A;
             break;
         case 0x0b:      // h (button B: on)
-            gamepad->buttons |= (1 << 1);
+            gamepad->buttons |= BUTTON_B;
             gamepad->updated_states |= GAMEPAD_STATE_BUTTON_B;
             break;
         case 0x15:      // r (button B: off)
-            gamepad->buttons &= ~(1 << 1);
+            gamepad->buttons &= ~BUTTON_B;
             gamepad->updated_states |= GAMEPAD_STATE_BUTTON_B;
             break;
         case 0x18:      // u (button C: on)
-            gamepad->buttons |= (1 << 3);
+            gamepad->buttons |= BUTTON_C;
             gamepad->updated_states |= GAMEPAD_STATE_BUTTON_X;
             break;
         case 0x09:      // f (button C: off)
-            gamepad->buttons &= ~(1 << 3);
+            gamepad->buttons &= ~BUTTON_C;
             gamepad->updated_states |= GAMEPAD_STATE_BUTTON_X;
             break;
         case 0x0d:      // j (button X: on)
-            gamepad->buttons |= (1 << 4);
+            gamepad->buttons |= BUTTON_X;
             gamepad->updated_states |= GAMEPAD_STATE_BUTTON_Y;
             break;
         case 0x11:      // n (button X: off)
-            gamepad->buttons &= ~(1 << 4);
+            gamepad->buttons &= ~BUTTON_X;
             gamepad->updated_states |= GAMEPAD_STATE_BUTTON_Y;
             break;
         case 0x12:      // o (button L: on)

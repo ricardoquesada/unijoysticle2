@@ -33,19 +33,19 @@ void uni_hid_parser_generic_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* g
     case 0x01:  // Generic Desktop controls
         switch (usage) {
         case 0x30:  // x
-            gamepad->x = uni_hid_parser_process_axis(globals, value);
+            gamepad->axis_x = uni_hid_parser_process_axis(globals, value);
             gamepad->updated_states |= GAMEPAD_STATE_AXIS_X;
             break;
         case 0x31:  // y
-            gamepad->y = uni_hid_parser_process_axis(globals, value);
+            gamepad->axis_y = uni_hid_parser_process_axis(globals, value);
             gamepad->updated_states |= GAMEPAD_STATE_AXIS_Y;
             break;
         case 0x33:  // rx
-            gamepad->rx = uni_hid_parser_process_axis(globals, value);
+            gamepad->axis_rx = uni_hid_parser_process_axis(globals, value);
             gamepad->updated_states |= GAMEPAD_STATE_AXIS_RX;
             break;
         case 0x34:  // ry
-            gamepad->ry = uni_hid_parser_process_axis(globals, value);
+            gamepad->axis_ry = uni_hid_parser_process_axis(globals, value);
             gamepad->updated_states |= GAMEPAD_STATE_AXIS_RY;
             break;
         case 0x39:  // switch hat
@@ -162,9 +162,9 @@ void uni_hid_parser_generic_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* g
         case 0x2c:  // spacebar
         case 0x58:  // Keypad enter
             if (value)
-                gamepad->buttons |= (1 << 0);
+                gamepad->buttons |= BUTTON_A;
             else
-                gamepad->buttons &= ~(1 << 0);
+                gamepad->buttons &= ~BUTTON_A;
             gamepad->updated_states |= GAMEPAD_STATE_BUTTON_A;
             break;
         default:
@@ -179,9 +179,9 @@ void uni_hid_parser_generic_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* g
         uint16_t button_idx = usage-1;
         if (button_idx < 16) {
             if (value)
-                gamepad->buttons |= (1 << button_idx);
+                gamepad->buttons |= (BUTTON_A << button_idx);
             else
-                gamepad->buttons &= ~(1 << button_idx);
+                gamepad->buttons &= ~(BUTTON_A << button_idx);
             gamepad->updated_states |= (GAMEPAD_STATE_BUTTON_A << button_idx);
         } else {
             logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);

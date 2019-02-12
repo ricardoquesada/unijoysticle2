@@ -25,8 +25,8 @@ void uni_gamepad_dump(uni_gamepad_t* gamepad) {
     logi("(0x%04x) dpad=0x%02x, x=%d, y=%d, rx=%d, ry=%d, accel=%d, brake=%d, buttons=0x%08x, misc=0x%02x\n",
         gamepad->updated_states,
         gamepad->dpad,
-        gamepad->x, gamepad->y,
-        gamepad->rx, gamepad->ry,
+        gamepad->axis_x, gamepad->axis_y,
+        gamepad->axis_rx, gamepad->axis_ry,
         gamepad->accelerator, gamepad->brake,
         gamepad->buttons,
         gamepad->misc_buttons);

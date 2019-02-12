@@ -88,12 +88,12 @@ void joystick_update(const uni_gamepad_t* gp, uni_joystick_port_t joy_port, uni_
 
     // Axis: x and y
     if (gp->updated_states & GAMEPAD_STATE_AXIS_X) {
-        joy.left |= (gp->x < -AXIS_THRESHOLD);
-        joy.right |= (gp->x > AXIS_THRESHOLD);
+        joy.left |= (gp->axis_x < -AXIS_THRESHOLD);
+        joy.right |= (gp->axis_x > AXIS_THRESHOLD);
     }
     if (gp->updated_states & GAMEPAD_STATE_AXIS_Y) {
-        joy.up |= (gp->y < -AXIS_THRESHOLD);
-        joy.down |= (gp->y > AXIS_THRESHOLD);
+        joy.up |= (gp->axis_y < -AXIS_THRESHOLD);
+        joy.down |= (gp->axis_y > AXIS_THRESHOLD);
     }
 
     // FIXME: Add support for JOYSTICK_PORT_AB.
@@ -105,7 +105,7 @@ void joystick_update(const uni_gamepad_t* gp, uni_joystick_port_t joy_port, uni_
             gpio_joy_update_port_b(&joy);
         break;
     case EMULATION_MODE_MOUSE:
-        gpio_joy_update_mouse(gp->x, gp->y);
+        gpio_joy_update_mouse(gp->axis_x, gp->axis_y);
         break;
     default:
         loge("Unsupported controller type: %d\n", ctl_type);
@@ -147,6 +147,29 @@ int32_t uni_hid_parser_process_axis(hid_globals_t* globals, uint32_t value) {
 
     return normalized;
 }
+
+// Converts a possible value between (0, x) to (0, 1023)
+int32_t uni_hid_parser_process_pedal(hid_globals_t* globals, uint32_t value) {
+    int32_t max = globals->logical_maximum;
+    int32_t min = globals->logical_minimum;
+
+    // Amazon Fire 1st Gen reports max value as unsigned (0xff == 255) but the spec says they are signed.
+    // So the parser correctly treats it as -1 (0xff).
+    if (max == -1) {
+        max = (1 << globals->report_size) - 1;
+    }
+
+    // Get the range: how big can be the number
+    int32_t range = max - min;
+    // range = next_pot(range);
+
+    // Then we normalize between -512 and 511
+    int32_t normalized = value * AXIS_NORMALIZE_RANGE / range;
+    logd("original = %d, normalized = %d (range = %d, min=%d, max=%d)\n", value, normalized, range, min, max);
+
+    return normalized;
+}
+
 
 uint8_t uni_hid_parser_process_hat(hid_globals_t* globals, uint32_t value) {
     int32_t v = (int32_t) value;
