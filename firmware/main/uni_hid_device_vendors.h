@@ -360,6 +360,8 @@ static const uni_controlelr_description_t arrControllers[] = {
 
 	{ MAKE_CONTROLLER_ID( 0x05ac, 0x0001 ), CONTROLLER_TYPE_AppleController },	// MFI Extended Gamepad (generic entry for iOS/tvOS)
 	{ MAKE_CONTROLLER_ID( 0x05ac, 0x0002 ), CONTROLLER_TYPE_AppleController },	// MFI Standard Gamepad (generic entry for iOS/tvOS)
+	{ MAKE_CONTROLLER_ID( 0x0111, 0x1420 ), CONTROLLER_TYPE_AppleController },	// SteelSeries Nimbus (Unijoysicle)
+
 
     // We currently don't support using a pair of Switch Joy-Con's as a single
     // controller and we don't want to support using them individually for the
@@ -398,6 +400,7 @@ static const uni_controlelr_description_t arrControllers[] = {
 	// Android
 	{ MAKE_CONTROLLER_ID( 0x20d6, 0x6271 ), CONTROLLER_TYPE_AndroidController }, 		// MOGA Controller, using HID mode (Unijoysticle)
 	{ MAKE_CONTROLLER_ID( 0x0b05, 0x4500 ), CONTROLLER_TYPE_AndroidController }, 		// Asus Controller (Unijoysticle)
+	{ MAKE_CONTROLLER_ID( 0x1949, 0x0402 ), CONTROLLER_TYPE_AndroidController }, 		// Amazon Fire Controller 1st gen (Unijoysticle)
 
     // Smart TV remotes
     { MAKE_CONTROLLER_ID( 0x1949, 0x0401 ), CONTROLLER_TYPE_SmartTVRemoteController },  // Amazon Fire TV Remote Controlelr 1st gen. (Unijoysticle)

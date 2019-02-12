@@ -20,12 +20,11 @@ limitations under the License.
 
 #include "uni_debug.h"
 #include "uni_hid_device.h"
-#include "uni_hid_parser_generic.h"
 #include "uni_gamepad.h"
 #include "gpio_joy.h"
 
 static const int AXIS_NORMALIZE_RANGE = 1024;  // 10-bit resolution (1024)
-static const int AXIS_THRESHOLD = 1024 / 4;
+static const int AXIS_THRESHOLD = 1024 / 8;
 
 void uni_hid_parser(uni_gamepad_t* gamepad, uni_report_parser_t* report_parser, const uint8_t* report, uint16_t report_len, const uint8_t* hid_descriptor, uint16_t hid_descriptor_len) {
     btstack_hid_parser_t parser;

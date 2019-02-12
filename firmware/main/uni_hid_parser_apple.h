@@ -16,8 +16,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ****************************************************************************/
 
-#ifndef UNI_HID_PARSER_ANDROID_H
-#define UNI_HID_PARSER_ANDROID_H
+#ifndef UNI_HID_PARSER_APPLE_H
+#define UNI_HID_PARSER_APPLE_H
 
 #include <stdint.h>
 
@@ -26,8 +26,8 @@ limitations under the License.
 #include "uni_gamepad.h"
 #include "uni_hid_parser.h"
 
-// Android devices
-void uni_hid_parser_android_init(uni_gamepad_t* gamepad);
-void uni_hid_parser_android_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* globals, uint16_t usage_page, uint16_t usage, int32_t value);
+// iOS devices / Apple TV devices
+void uni_hid_parser_apple_init(uni_gamepad_t* gamepad);
+void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* globals, uint16_t usage_page, uint16_t usage, int32_t value);
 
-#endif // UNI_HID_PARSER_ANDROID_H
+#endif // UNI_HID_PARSER_APPLE_H

@@ -26,7 +26,7 @@ limitations under the License.
 #include "uni_gamepad.h"
 #include "uni_hid_parser.h"
 
-// OUYA parser
+// OUYA devices
 void uni_hid_parser_ouya_init(uni_gamepad_t* gamepad);
 void uni_hid_parser_ouya_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* globals, uint16_t usage_page, uint16_t usage, int32_t value);
 

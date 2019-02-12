@@ -60,7 +60,9 @@ enum {
 };
 
 enum {
-    MISC_AC_HOME        = 1 << 0,
+    MISC_BUTTON_SYSTEM      = 1 << 0,
+    MISC_BUTTON_BACK        = 1 << 1,
+    MISC_BUTTON_HOME        = 1 << 2,
 };
 
 enum {
@@ -85,7 +87,10 @@ enum {
     GAMEPAD_STATE_BUTTON_THUMB_L = 1 << 18,
     GAMEPAD_STATE_BUTTON_THUMB_R = 1 << 19,
 
-    GAMEPAD_STATE_BUTTON_MISC_HOME      = 1 << 20,
+    GAMEPAD_STATE_MISC_BUTTON_BACK      = 1 << 20,
+    GAMEPAD_STATE_MISC_BUTTON_HOME      = 1 << 21,
+    GAMEPAD_STATE_MISC_BUTTON_MENU      = 1 << 22,
+    GAMEPAD_STATE_MISC_BUTTON_SYSTEM    = 1 << 23,
 };
 
 // uni_gamepad_t is a virtual gamepad.

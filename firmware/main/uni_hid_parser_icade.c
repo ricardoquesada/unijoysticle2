@@ -126,12 +126,12 @@ void uni_hid_parser_icade_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* glo
             gamepad->updated_states |= GAMEPAD_STATE_BUTTON_Y;
             break;
         case 0x12:      // o (button L: on)
-            gamepad->misc_buttons |= MISC_AC_HOME;
-            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_MISC_HOME;
+            gamepad->misc_buttons |= MISC_BUTTON_SYSTEM;
+            gamepad->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
             break;
         case 0x0a:      // g (button L: off)
-            gamepad->misc_buttons &= ~MISC_AC_HOME;
-            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_MISC_HOME;            
+            gamepad->misc_buttons &= ~MISC_BUTTON_SYSTEM;
+            gamepad->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
             break;
         case 0x0c:      // i,m,k,p,l,v. Buttons Y,Z,R
         case 0x10:      // m

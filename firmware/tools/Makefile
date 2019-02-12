@@ -55,7 +55,7 @@ clean_src:
 unijoysticle: ${CORE_OBJ} ${COMMON_OBJ} ${CLASSIC_OBJ} ${SDP_CLIENT} btstack_ring_buffer.o btstack_hid_parser.o \
 	../main/firmware.o ../main/uni_hid_device.o  ../main/uni_hid_parser.o ../main/uni_gamepad.o \
 	../main/uni_hid_parser_android.o ../main/uni_hid_parser_icade.o ../main/uni_hid_parser_ouya.o \
-	../main/uni_hid_parser_xboxone.o \
+	../main/uni_hid_parser_xboxone.o ../main/uni_hid_parser_apple.o \
 	gpio_joy.o
 	${CC} $^ ${CFLAGS} ${LDFLAGS} -o $@
 

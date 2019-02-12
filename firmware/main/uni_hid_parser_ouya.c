@@ -140,9 +140,9 @@ void uni_hid_parser_ouya_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* glob
             break;
         case 0x0f:
             if (value)
-                gamepad->misc_buttons |= MISC_AC_HOME;
-            else gamepad->misc_buttons &= ~MISC_AC_HOME;
-            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_MISC_HOME;
+                gamepad->misc_buttons |= MISC_BUTTON_SYSTEM;
+            else gamepad->misc_buttons &= ~MISC_BUTTON_SYSTEM;
+            gamepad->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
             break;
         default:
             logi("OUYA: usage page=0x%04x, page=0x%04x, value=0x%04x\n", usage_page, usage, value);

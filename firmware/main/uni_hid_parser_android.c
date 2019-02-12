@@ -82,7 +82,7 @@ void uni_hid_parser_android_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* g
             gamepad->updated_states |= GAMEPAD_STATE_DPAD;
             break;
         default:
-            logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+            logi("Android: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
             break;
         }
         break;
@@ -97,7 +97,7 @@ void uni_hid_parser_android_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* g
             gamepad->updated_states |= GAMEPAD_STATE_BRAKE;
             break;
         default:
-            logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+            logi("Android: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
             break;
         };
         break;
@@ -107,7 +107,7 @@ void uni_hid_parser_android_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* g
             gamepad->battery = value;
             break;
         default:
-            logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+            logi("Android: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
             break;
         }
         break;
@@ -161,48 +161,87 @@ void uni_hid_parser_android_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* g
             gamepad->updated_states |= GAMEPAD_STATE_BUTTON_A;
             break;
         default:
-            logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+            logi("Android:: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
             break;
         }
         break;
     case 0x09:  // Button
     {
-        // we start with usage - 1 since "button 0" seems that is not being used
-        // and we only support 32 buttons.
-        uint16_t button_idx = usage-1;
-        if (button_idx < 16) {
+        // Start with usage - 1 since "button 0" seems that is not being used.
+        if (usage <= 9) {
+            uint16_t button_idx = usage-1;
             if (value)
                 gamepad->buttons |= (BUTTON_A << button_idx);
             else
                 gamepad->buttons &= ~(BUTTON_A << button_idx);
             gamepad->updated_states |= (GAMEPAD_STATE_BUTTON_A << button_idx);
-        } else {
-            logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+            break;
+        }
+        switch (usage) {
+        case 0x0a:  // unsupported misc button
+        case 0x0b:  // unsupported misc button
+        case 0x0c:  // unsupported misc button
+            break;
+        case 0x0d:
+            if (value)
+                gamepad->misc_buttons |= MISC_BUTTON_SYSTEM;
+            else
+                gamepad->misc_buttons &= ~MISC_BUTTON_SYSTEM;
+            gamepad->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
+            break;
+        case 0x0e:
+            if (value)
+                gamepad->buttons |= BUTTON_THUMB_L;
+            else
+                gamepad->buttons &= ~BUTTON_THUMB_L;
+            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_THUMB_L;
+            break;
+        case 0x0f:
+            if (value)
+                gamepad->buttons |= BUTTON_THUMB_R;
+            else
+                gamepad->buttons &= ~BUTTON_THUMB_R;
+            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_THUMB_R;
+            break;
+        default:
+            logi("Android: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+            break;
         }
         break;
     }
     case 0x0c:  // Consumer
         switch (usage) {
+        case 0xb3:      // fast forward
+            break;
+        case 0xb4:      // rewind
+            break;
+        case 0xcd:      // play / pause
+            break;
         case 0x221:     // search
             break;
         case 0x0223:    // home
             if (value)
-                gamepad->misc_buttons |= MISC_AC_HOME;
+                gamepad->misc_buttons |= MISC_BUTTON_HOME;
             else
-                gamepad->misc_buttons &= ~MISC_AC_HOME;
-            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_MISC_HOME;
+                gamepad->misc_buttons &= ~MISC_BUTTON_HOME;
+            gamepad->updated_states |= GAMEPAD_STATE_MISC_BUTTON_HOME;
             break;
         case 0x0224:    // back
+            if (value)
+                gamepad->misc_buttons |= MISC_BUTTON_BACK;
+            else
+                gamepad->misc_buttons &= ~MISC_BUTTON_BACK;
+            gamepad->updated_states |= GAMEPAD_STATE_MISC_BUTTON_BACK;
             break;
         default:
-            logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+            logi("Android: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
             break;
         }
         break;
 
     // unknown usage page
     default:
-            logi("Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+            logi("Android: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
         break;
     }
 }
