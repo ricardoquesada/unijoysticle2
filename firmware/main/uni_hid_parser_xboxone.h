@@ -28,6 +28,10 @@ limitations under the License.
 
 // For Xbox One gamepads
 void uni_hid_parser_xboxone_init(uni_gamepad_t* gamepad);
-void uni_hid_parser_xboxone_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* globals, uint16_t usage_page, uint16_t usage, int32_t value);
+void uni_hid_parser_xboxone_parse_usage(uni_gamepad_t* gamepad,
+                                        hid_globals_t* globals,
+                                        uint16_t usage_page,
+                                        uint16_t usage,
+                                        int32_t value);
 
-#endif // UNI_HID_PARSER_XBOXONE_H
+#endif  // UNI_HID_PARSER_XBOXONE_H

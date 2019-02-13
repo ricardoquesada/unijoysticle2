@@ -23,15 +23,15 @@ limitations under the License.
 
 // Valid for Amiga, Atari 8-bit, Atari St, C64 and others...
 typedef struct {
-    uint8_t up;             // line 1 - Y2 for quad mouse
-    uint8_t down;           // line 2 - X1 for quad mouse
-    uint8_t left;           // line 3 - Y1 for quad mouse
-    uint8_t right;          // line 4 - X2 for quad mouse
-    uint8_t pot_y;          // line 5 - Middle button for mouse
-    uint8_t fire;           // line 6 - Left button for mouse
-    uint8_t _power;         // line 7 - +5v. added as ref only
-    uint8_t _ground;        // line 8 - ground. added as ref only
-    uint8_t pot_x;          // line 9 - Right button for mouse
+  uint8_t up;       // line 1 - Y2 for quad mouse
+  uint8_t down;     // line 2 - X1 for quad mouse
+  uint8_t left;     // line 3 - Y1 for quad mouse
+  uint8_t right;    // line 4 - X2 for quad mouse
+  uint8_t pot_y;    // line 5 - Middle button for mouse
+  uint8_t fire;     // line 6 - Left button for mouse
+  uint8_t _power;   // line 7 - +5v. added as ref only
+  uint8_t _ground;  // line 8 - ground. added as ref only
+  uint8_t pot_x;    // line 9 - Right button for mouse
 } joystick_t;
 
 void gpio_joy_init(void);
@@ -39,4 +39,4 @@ void gpio_joy_update_port_a(joystick_t* joy);
 void gpio_joy_update_port_b(joystick_t* joy);
 void gpio_joy_update_mouse(int32_t delta_x, int32_t deltay_y);
 
-#endif // GPIO_JOY_H
+#endif  // GPIO_JOY_H

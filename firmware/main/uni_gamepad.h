@@ -23,74 +23,74 @@ limitations under the License.
 
 // FIXME: doesn't seem to belong in this file.
 typedef enum {
-    JOYSTICK_PORT_NONE  = 0,
-    JOYSTICK_PORT_A     = (1 << 0),
-    JOYSTICK_PORT_B     = (1 << 1),
-    JOYSTICK_PORT_AB    = (JOYSTICK_PORT_A | JOYSTICK_PORT_B),
+  JOYSTICK_PORT_NONE = 0,
+  JOYSTICK_PORT_A = (1 << 0),
+  JOYSTICK_PORT_B = (1 << 1),
+  JOYSTICK_PORT_AB = (JOYSTICK_PORT_A | JOYSTICK_PORT_B),
 } uni_joystick_port_t;
 
 // FIXME: doesn't seem to belong in this file.
 typedef enum {
-    EMULATION_MODE_JOYSTICK,
-    EMULATION_MODE_MOUSE,
-    EMULATION_MODE_COMBO_JOY_MOUSE,
-    EMULATION_MODE_COMBO_JOY_JOY
+  EMULATION_MODE_JOYSTICK,
+  EMULATION_MODE_MOUSE,
+  EMULATION_MODE_COMBO_JOY_MOUSE,
+  EMULATION_MODE_COMBO_JOY_JOY
 } uni_emulation_mode_t;
 
 enum {
-    DPAD_UP     = 1 << 0,
-    DPAD_DOWN   = 1 << 1,
-    DPAD_RIGHT  = 1 << 2,
-    DPAD_LEFT   = 1 << 3,
+  DPAD_UP = 1 << 0,
+  DPAD_DOWN = 1 << 1,
+  DPAD_RIGHT = 1 << 2,
+  DPAD_LEFT = 1 << 3,
 };
 
 enum {
-    BUTTON_A        = 1 << 0,
-    BUTTON_B        = 1 << 1,
-    BUTTON_C        = 1 << 2,
-    BUTTON_X        = 1 << 3,
-    BUTTON_Y        = 1 << 4,
-    BUTTON_Z        = 1 << 5,
-    BUTTON_L        = 1 << 6,
-    BUTTON_R        = 1 << 7,
-    BUTTON_THUMB_L  = 1 << 8,
-    BUTTON_THUMB_R  = 1 << 9,
-    
-    BUTTON_TOTAL = 10
+  BUTTON_A = 1 << 0,
+  BUTTON_B = 1 << 1,
+  BUTTON_C = 1 << 2,
+  BUTTON_X = 1 << 3,
+  BUTTON_Y = 1 << 4,
+  BUTTON_Z = 1 << 5,
+  BUTTON_L = 1 << 6,
+  BUTTON_R = 1 << 7,
+  BUTTON_THUMB_L = 1 << 8,
+  BUTTON_THUMB_R = 1 << 9,
+
+  BUTTON_TOTAL = 10
 };
 
 enum {
-    MISC_BUTTON_SYSTEM      = 1 << 0,
-    MISC_BUTTON_BACK        = 1 << 1,
-    MISC_BUTTON_HOME        = 1 << 2,
+  MISC_BUTTON_SYSTEM = 1 << 0,
+  MISC_BUTTON_BACK = 1 << 1,
+  MISC_BUTTON_HOME = 1 << 2,
 };
 
 enum {
-    GAMEPAD_STATE_DPAD = 1 << 0,
-    
-    GAMEPAD_STATE_AXIS_X    = 1 << 1,
-    GAMEPAD_STATE_AXIS_Y    = 1 << 2,
-    GAMEPAD_STATE_AXIS_RX   = 1 << 3,
-    GAMEPAD_STATE_AXIS_RY   = 1 << 4,
-    
-    GAMEPAD_STATE_BRAKE         = 1 << 5,
-    GAMEPAD_STATE_ACCELERATOR   = 1 << 6,
+  GAMEPAD_STATE_DPAD = 1 << 0,
 
-    GAMEPAD_STATE_BUTTON_A      = 1 << 10,
-    GAMEPAD_STATE_BUTTON_B      = 1 << 11,
-    GAMEPAD_STATE_BUTTON_C      = 1 << 12,
-    GAMEPAD_STATE_BUTTON_X      = 1 << 13,
-    GAMEPAD_STATE_BUTTON_Y      = 1 << 14,
-    GAMEPAD_STATE_BUTTON_Z      = 1 << 15,
-    GAMEPAD_STATE_BUTTON_L      = 1 << 16,
-    GAMEPAD_STATE_BUTTON_R      = 1 << 17,
-    GAMEPAD_STATE_BUTTON_THUMB_L = 1 << 18,
-    GAMEPAD_STATE_BUTTON_THUMB_R = 1 << 19,
+  GAMEPAD_STATE_AXIS_X = 1 << 1,
+  GAMEPAD_STATE_AXIS_Y = 1 << 2,
+  GAMEPAD_STATE_AXIS_RX = 1 << 3,
+  GAMEPAD_STATE_AXIS_RY = 1 << 4,
 
-    GAMEPAD_STATE_MISC_BUTTON_BACK      = 1 << 20,
-    GAMEPAD_STATE_MISC_BUTTON_HOME      = 1 << 21,
-    GAMEPAD_STATE_MISC_BUTTON_MENU      = 1 << 22,
-    GAMEPAD_STATE_MISC_BUTTON_SYSTEM    = 1 << 23,
+  GAMEPAD_STATE_BRAKE = 1 << 5,
+  GAMEPAD_STATE_ACCELERATOR = 1 << 6,
+
+  GAMEPAD_STATE_BUTTON_A = 1 << 10,
+  GAMEPAD_STATE_BUTTON_B = 1 << 11,
+  GAMEPAD_STATE_BUTTON_C = 1 << 12,
+  GAMEPAD_STATE_BUTTON_X = 1 << 13,
+  GAMEPAD_STATE_BUTTON_Y = 1 << 14,
+  GAMEPAD_STATE_BUTTON_Z = 1 << 15,
+  GAMEPAD_STATE_BUTTON_L = 1 << 16,
+  GAMEPAD_STATE_BUTTON_R = 1 << 17,
+  GAMEPAD_STATE_BUTTON_THUMB_L = 1 << 18,
+  GAMEPAD_STATE_BUTTON_THUMB_R = 1 << 19,
+
+  GAMEPAD_STATE_MISC_BUTTON_BACK = 1 << 20,
+  GAMEPAD_STATE_MISC_BUTTON_HOME = 1 << 21,
+  GAMEPAD_STATE_MISC_BUTTON_MENU = 1 << 22,
+  GAMEPAD_STATE_MISC_BUTTON_SYSTEM = 1 << 23,
 };
 
 // uni_gamepad_t is a virtual gamepad.
@@ -117,30 +117,29 @@ enum {
 //  l-joypad (axis: -512, 511)         r-joypad (axis: -512, 511)
 //  axis-l button                      axis-r button
 typedef struct {
-    // Usage Page: 0x01 (Generic Desktop Controls)
-    uint8_t     dpad;
-    int32_t     axis_x;
-    int32_t     axis_y;
-    int32_t     axis_rx;
-    int32_t     axis_ry;
+  // Usage Page: 0x01 (Generic Desktop Controls)
+  uint8_t dpad;
+  int32_t axis_x;
+  int32_t axis_y;
+  int32_t axis_rx;
+  int32_t axis_ry;
 
-    // Usage Page: 0x02 (Sim controls)
-    int32_t     brake;
-    int32_t     accelerator;
+  // Usage Page: 0x02 (Sim controls)
+  int32_t brake;
+  int32_t accelerator;
 
-    // Usage Page: 0x06 (Generic dev controls)
-    uint16_t    battery;
+  // Usage Page: 0x06 (Generic dev controls)
+  uint16_t battery;
 
-    // Usage Page: 0x09 (Button)
-    uint16_t    buttons;
+  // Usage Page: 0x09 (Button)
+  uint16_t buttons;
 
-    // Misc buttos (from 0x0c (Consumer) and others)
-    uint8_t     misc_buttons;
+  // Misc buttos (from 0x0c (Consumer) and others)
+  uint8_t misc_buttons;
 
-    // updated states
-    uint32_t    updated_states;
+  // updated states
+  uint32_t updated_states;
 } uni_gamepad_t;
 
-
 void uni_gamepad_dump(uni_gamepad_t* gamepad);
-#endif // UNI_GAMEPAD_H
+#endif  // UNI_GAMEPAD_H

@@ -28,6 +28,10 @@ limitations under the License.
 
 // ION iCade parser
 void uni_hid_parser_icade_init(uni_gamepad_t* gamepad);
-void uni_hid_parser_icade_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* globals, uint16_t usage_page, uint16_t usage, int32_t value);
+void uni_hid_parser_icade_parse_usage(uni_gamepad_t* gamepad,
+                                      hid_globals_t* globals,
+                                      uint16_t usage_page,
+                                      uint16_t usage,
+                                      int32_t value);
 
-#endif // UNI_HID_PARSER_ICADE_H
+#endif  // UNI_HID_PARSER_ICADE_H

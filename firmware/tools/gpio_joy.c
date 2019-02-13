@@ -23,21 +23,19 @@ limitations under the License.
 #include <stdio.h>
 
 static void print_joystick(joystick_t* joy) {
-    printf("up=%d, down=%d, left=%d, right=%d, fire=%d\n",
-        joy->up, joy->down, joy->left, joy->right, joy->fire);
+  printf("up=%d, down=%d, left=%d, right=%d, fire=%d\n", joy->up, joy->down, joy->left, joy->right, joy->fire);
 }
 
-void gpio_joy_init(void) {    
-}
+void gpio_joy_init(void) {}
 
 void gpio_joy_update_port_a(joystick_t* joy) {
-    print_joystick(joy);
+  print_joystick(joy);
 }
 
 void gpio_joy_update_port_b(joystick_t* joy) {
-    print_joystick(joy);
+  print_joystick(joy);
 }
 
 void gpio_joy_update_mouse(int32_t delta_x, int32_t delta_y) {
-    printf("mouse: x=%d, y=%d\n", delta_x, delta_y);
+  printf("mouse: x=%d, y=%d\n", delta_x, delta_y);
 }

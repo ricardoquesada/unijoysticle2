@@ -25,4 +25,4 @@ limitations under the License.
 #define UNI_LOG_INFO 1
 #define UNI_LOG_DEBUG 0
 
-#endif // UNI_CONFIG_H
+#endif  // UNI_CONFIG_H

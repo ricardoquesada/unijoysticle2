@@ -32,35 +32,35 @@ limitations under the License.
 enum DEVICE_STATE { REMOTE_NAME_REQUEST, REMOTE_NAME_INQUIRED, REMOTE_NAME_FETCHED };
 
 typedef struct uni_hid_device_s {
-    bd_addr_t               address;
-    hci_con_handle_t        con_handle;
-    uint8_t                 page_scan_repetition_mode;
-    uint16_t                clock_offset;
-    uint32_t                cod;
-    uint16_t                vendor_id;
-    uint16_t                product_id;
-    char                    name[MAX_NAME_LEN];
+  bd_addr_t address;
+  hci_con_handle_t con_handle;
+  uint8_t page_scan_repetition_mode;
+  uint16_t clock_offset;
+  uint32_t cod;
+  uint16_t vendor_id;
+  uint16_t product_id;
+  char name[MAX_NAME_LEN];
 
-    // incoming, connected, hid, cod, etc...
-    uint32_t                flags;
+  // incoming, connected, hid, cod, etc...
+  uint32_t flags;
 
-    // SDP
-    uint8_t                 hid_descriptor[MAX_DESCRIPTOR_LEN];
-    uint16_t                hid_descriptor_len;
+  // SDP
+  uint8_t hid_descriptor[MAX_DESCRIPTOR_LEN];
+  uint16_t hid_descriptor_len;
 
-    // Channels
-    uint16_t                hid_control_cid;
-    uint16_t                hid_interrupt_cid;
-    enum DEVICE_STATE       state;
+  // Channels
+  uint16_t hid_control_cid;
+  uint16_t hid_interrupt_cid;
+  enum DEVICE_STATE state;
 
-    // Gamepad
-    uni_joystick_port_t     joystick_port;                  // which port does it control, A or B?
-    uni_emulation_mode_t    controller_emu;                 // type of controller to emulate
+  // Gamepad
+  uni_joystick_port_t joystick_port;    // which port does it control, A or B?
+  uni_emulation_mode_t controller_emu;  // type of controller to emulate
 
-    // Functions used to parse the usage page/usage.
-    uni_report_parser_t     report_parser;
+  // Functions used to parse the usage page/usage.
+  uni_report_parser_t report_parser;
 
-    uni_gamepad_t           gamepad;
+  uni_gamepad_t gamepad;
 
 } uni_hid_device_t;
 
@@ -107,4 +107,4 @@ uint8_t uni_hid_device_is_orphan(uni_hid_device_t* device);
 void uni_hid_device_guess_controller_type(uni_hid_device_t* device);
 uint8_t uni_hid_device_has_controller_type(uni_hid_device_t* device);
 
-#endif // UNI_HID_DEVICE_H
+#endif  // UNI_HID_DEVICE_H

@@ -21,136 +21,153 @@ limitations under the License.
 #include "uni_debug.h"
 
 void uni_hid_parser_ouya_init(uni_gamepad_t* gamepad) {
-    // Reset old state. Each report contains a full-state.
-    gamepad->updated_states = 0;
+  // Reset old state. Each report contains a full-state.
+  gamepad->updated_states = 0;
 }
 
-void uni_hid_parser_ouya_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* globals, uint16_t usage_page, uint16_t usage, int32_t value) {
-    UNUSED(gamepad);
-    UNUSED(globals);
-    UNUSED(usage_page);
-    UNUSED(usage);
-    UNUSED(value);
+void uni_hid_parser_ouya_parse_usage(uni_gamepad_t* gamepad,
+                                     hid_globals_t* globals,
+                                     uint16_t usage_page,
+                                     uint16_t usage,
+                                     int32_t value) {
+  UNUSED(gamepad);
+  UNUSED(globals);
+  UNUSED(usage_page);
+  UNUSED(usage);
+  UNUSED(value);
 
-    switch (usage_page) {
-    case 1: // Generic Desktop Page (0x01)
-        switch(usage) {
-        case 0x30:      // Axis X
-            gamepad->axis_x = uni_hid_parser_process_axis(globals, value);
-            gamepad->updated_states |= GAMEPAD_STATE_AXIS_X;
-            break;
-        case 0x31:      // Axis Y
-            gamepad->axis_y = uni_hid_parser_process_axis(globals, value);
-            gamepad->updated_states |= GAMEPAD_STATE_AXIS_Y;
-            break;
-        case 0x32:      // Axis Z
-            gamepad->brake = uni_hid_parser_process_pedal(globals, value);
-            gamepad->updated_states |= GAMEPAD_STATE_BRAKE;
-            break;
-        case 0x33:      // Axis RX
-            gamepad->axis_rx = uni_hid_parser_process_axis(globals, value);
-            gamepad->updated_states |= GAMEPAD_STATE_AXIS_RX;
-            break;
-        case 0x34:      // Axis RY
-            gamepad->axis_ry = uni_hid_parser_process_axis(globals, value);
-            gamepad->updated_states |= GAMEPAD_STATE_AXIS_RY;
-            break;
-        case 0x35:      // Axis RZ
-            gamepad->accelerator = uni_hid_parser_process_pedal(globals, value);
-            gamepad->updated_states |= GAMEPAD_STATE_ACCELERATOR;
-            break;
+  switch (usage_page) {
+    case 1:  // Generic Desktop Page (0x01)
+      switch (usage) {
+        case 0x30:  // Axis X
+          gamepad->axis_x = uni_hid_parser_process_axis(globals, value);
+          gamepad->updated_states |= GAMEPAD_STATE_AXIS_X;
+          break;
+        case 0x31:  // Axis Y
+          gamepad->axis_y = uni_hid_parser_process_axis(globals, value);
+          gamepad->updated_states |= GAMEPAD_STATE_AXIS_Y;
+          break;
+        case 0x32:  // Axis Z
+          gamepad->brake = uni_hid_parser_process_pedal(globals, value);
+          gamepad->updated_states |= GAMEPAD_STATE_BRAKE;
+          break;
+        case 0x33:  // Axis RX
+          gamepad->axis_rx = uni_hid_parser_process_axis(globals, value);
+          gamepad->updated_states |= GAMEPAD_STATE_AXIS_RX;
+          break;
+        case 0x34:  // Axis RY
+          gamepad->axis_ry = uni_hid_parser_process_axis(globals, value);
+          gamepad->updated_states |= GAMEPAD_STATE_AXIS_RY;
+          break;
+        case 0x35:  // Axis RZ
+          gamepad->accelerator = uni_hid_parser_process_pedal(globals, value);
+          gamepad->updated_states |= GAMEPAD_STATE_ACCELERATOR;
+          break;
         default:
-            logi("OUYA: Unsupported usage page=0x%04x, page=0x%04x, value=0x%04x\n", usage_page, usage, value);
-            break;
-        }
-        break;
-    case 9: // Button Page (0x09)
-        switch(usage) {
+          logi("OUYA: Unsupported usage page=0x%04x, page=0x%04x, value=0x%04x\n", usage_page, usage, value);
+          break;
+      }
+      break;
+    case 9:  // Button Page (0x09)
+      switch (usage) {
         case 1:
-            if (value)
-                gamepad->buttons |= BUTTON_A;
-            else gamepad->buttons &= ~BUTTON_A;
-            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_A;
-            break;
+          if (value)
+            gamepad->buttons |= BUTTON_A;
+          else
+            gamepad->buttons &= ~BUTTON_A;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_A;
+          break;
         case 2:
-            if (value)
-                gamepad->buttons |= BUTTON_X;
-            else gamepad->buttons &= ~BUTTON_X;
-            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_X;
-            break;
+          if (value)
+            gamepad->buttons |= BUTTON_X;
+          else
+            gamepad->buttons &= ~BUTTON_X;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_X;
+          break;
         case 3:
-            if (value)
-                gamepad->buttons |= BUTTON_Y;
-            else gamepad->buttons &= ~BUTTON_Y;
-            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_Y;
-            break;
+          if (value)
+            gamepad->buttons |= BUTTON_Y;
+          else
+            gamepad->buttons &= ~BUTTON_Y;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_Y;
+          break;
         case 4:
-            if (value)
-                gamepad->buttons |= BUTTON_B;
-            else gamepad->buttons &= ~BUTTON_B;
-            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_B;
-            break;
+          if (value)
+            gamepad->buttons |= BUTTON_B;
+          else
+            gamepad->buttons &= ~BUTTON_B;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_B;
+          break;
         case 5:
-            if (value)
-                gamepad->buttons |= BUTTON_L;
-            else gamepad->buttons &= ~BUTTON_L;
-            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_L;
-            break;
+          if (value)
+            gamepad->buttons |= BUTTON_L;
+          else
+            gamepad->buttons &= ~BUTTON_L;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_L;
+          break;
         case 6:
-            if (value)
-                gamepad->buttons |= BUTTON_R;
-            else gamepad->buttons &= ~BUTTON_R;
-            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_R;
-            break;
+          if (value)
+            gamepad->buttons |= BUTTON_R;
+          else
+            gamepad->buttons &= ~BUTTON_R;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_R;
+          break;
         case 7:
-            if (value)
-                gamepad->buttons |= BUTTON_THUMB_L;
-            else gamepad->buttons &= ~BUTTON_THUMB_L;
-            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_THUMB_L;
-            break;
+          if (value)
+            gamepad->buttons |= BUTTON_THUMB_L;
+          else
+            gamepad->buttons &= ~BUTTON_THUMB_L;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_THUMB_L;
+          break;
         case 8:
-            if (value)
-                gamepad->buttons |= BUTTON_THUMB_R;
-            else gamepad->buttons &= ~BUTTON_THUMB_R;
-            gamepad->updated_states |= GAMEPAD_STATE_BUTTON_THUMB_R;
-            break;
+          if (value)
+            gamepad->buttons |= BUTTON_THUMB_R;
+          else
+            gamepad->buttons &= ~BUTTON_THUMB_R;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_THUMB_R;
+          break;
         case 9:
-            if (value)
-                gamepad->dpad |= DPAD_UP;
-            else gamepad->dpad &= ~DPAD_UP;
-            gamepad->updated_states |= GAMEPAD_STATE_DPAD;
-            break;
+          if (value)
+            gamepad->dpad |= DPAD_UP;
+          else
+            gamepad->dpad &= ~DPAD_UP;
+          gamepad->updated_states |= GAMEPAD_STATE_DPAD;
+          break;
         case 0x0a:
-            if (value)
-                gamepad->dpad |= DPAD_DOWN;
-            else gamepad->dpad &= ~DPAD_DOWN;
-            gamepad->updated_states |= GAMEPAD_STATE_DPAD;
-            break;
+          if (value)
+            gamepad->dpad |= DPAD_DOWN;
+          else
+            gamepad->dpad &= ~DPAD_DOWN;
+          gamepad->updated_states |= GAMEPAD_STATE_DPAD;
+          break;
         case 0x0b:
-            if (value)
-                gamepad->dpad |= DPAD_LEFT;
-            else gamepad->dpad &= ~DPAD_LEFT;
-            gamepad->updated_states |= GAMEPAD_STATE_DPAD;
-            break;
+          if (value)
+            gamepad->dpad |= DPAD_LEFT;
+          else
+            gamepad->dpad &= ~DPAD_LEFT;
+          gamepad->updated_states |= GAMEPAD_STATE_DPAD;
+          break;
         case 0x0c:
-            if (value)
-                gamepad->dpad |= DPAD_RIGHT;
-            else gamepad->dpad &= ~DPAD_RIGHT;
-            gamepad->updated_states |= GAMEPAD_STATE_DPAD;
-            break;
+          if (value)
+            gamepad->dpad |= DPAD_RIGHT;
+          else
+            gamepad->dpad &= ~DPAD_RIGHT;
+          gamepad->updated_states |= GAMEPAD_STATE_DPAD;
+          break;
         case 0x0f:
-            if (value)
-                gamepad->misc_buttons |= MISC_BUTTON_SYSTEM;
-            else gamepad->misc_buttons &= ~MISC_BUTTON_SYSTEM;
-            gamepad->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
-            break;
+          if (value)
+            gamepad->misc_buttons |= MISC_BUTTON_SYSTEM;
+          else
+            gamepad->misc_buttons &= ~MISC_BUTTON_SYSTEM;
+          gamepad->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
+          break;
         default:
-            logi("OUYA: Unsupported usage page=0x%04x, page=0x%04x, value=0x%04x\n", usage_page, usage, value);
-            break;
-        }
-        break;
+          logi("OUYA: Unsupported usage page=0x%04x, page=0x%04x, value=0x%04x\n", usage_page, usage, value);
+          break;
+      }
+      break;
     default:
-        logi("OUYA: Unsupported usage page=0x%04x, page=0x%04x, value=0x%04x\n", usage_page, usage, value);
-        break;
-    }
+      logi("OUYA: Unsupported usage page=0x%04x, page=0x%04x, value=0x%04x\n", usage_page, usage, value);
+      break;
+  }
 }

@@ -28,6 +28,10 @@ limitations under the License.
 
 // Android devices
 void uni_hid_parser_android_init(uni_gamepad_t* gamepad);
-void uni_hid_parser_android_parse_usage(uni_gamepad_t* gamepad, hid_globals_t* globals, uint16_t usage_page, uint16_t usage, int32_t value);
+void uni_hid_parser_android_parse_usage(uni_gamepad_t* gamepad,
+                                        hid_globals_t* globals,
+                                        uint16_t usage_page,
+                                        uint16_t usage,
+                                        int32_t value);
 
-#endif // UNI_HID_PARSER_ANDROID_H
+#endif  // UNI_HID_PARSER_ANDROID_H
