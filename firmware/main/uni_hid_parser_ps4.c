@@ -48,20 +48,20 @@ void uni_hid_parser_ps4_parse_usage(uni_gamepad_t* gamepad,
           gamepad->updated_states |= GAMEPAD_STATE_AXIS_Y;
           break;
         case 0x32:  // z
-          gamepad->brake = uni_hid_parser_process_pedal(globals, value);
-          gamepad->updated_states |= GAMEPAD_STATE_BRAKE;
-          break;
-        case 0x33:  // rx
           gamepad->axis_rx = uni_hid_parser_process_axis(globals, value);
           gamepad->updated_states |= GAMEPAD_STATE_AXIS_RX;
           break;
-        case 0x34:  // ry
-          gamepad->axis_ry = uni_hid_parser_process_axis(globals, value);
-          gamepad->updated_states |= GAMEPAD_STATE_AXIS_RY;
+        case 0x33:  // rx
+          gamepad->brake = uni_hid_parser_process_pedal(globals, value);
+          gamepad->updated_states |= GAMEPAD_STATE_BRAKE;
           break;
-        case 0x35:  // rz
+        case 0x34:  // ry
           gamepad->accelerator = uni_hid_parser_process_pedal(globals, value);
           gamepad->updated_states |= GAMEPAD_STATE_ACCELERATOR;
+          break;
+        case 0x35:  // rz
+          gamepad->axis_ry = uni_hid_parser_process_axis(globals, value);
+          gamepad->updated_states |= GAMEPAD_STATE_AXIS_RY;
           break;
         case 0x39:  // switch hat
           hat = uni_hid_parser_process_hat(globals, value);
@@ -122,75 +122,87 @@ void uni_hid_parser_ps4_parse_usage(uni_gamepad_t* gamepad,
     case 0x09:  // Button
     {
       switch (usage) {
-        case 0x01:  // Button A
-          if (value)
-            gamepad->buttons |= BUTTON_A;
-          else
-            gamepad->buttons &= ~BUTTON_A;
-          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_A;
-          break;
-        case 0x02:  // Butotn B
-          if (value)
-            gamepad->buttons |= BUTTON_B;
-          else
-            gamepad->buttons &= ~BUTTON_B;
-          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_B;
-          break;
-        case 0x03:  // Button X
+        case 0x01:  // Square Button (0x01)
           if (value)
             gamepad->buttons |= BUTTON_X;
           else
             gamepad->buttons &= ~BUTTON_X;
           gamepad->updated_states |= GAMEPAD_STATE_BUTTON_X;
           break;
-        case 0x04:  // Button Y
+        case 0x02:  // X Button (0x02)
+          if (value)
+            gamepad->buttons |= BUTTON_A;
+          else
+            gamepad->buttons &= ~BUTTON_A;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_A;
+          break;
+        case 0x03:  // Circle Button (0x04)
+          if (value)
+            gamepad->buttons |= BUTTON_B;
+          else
+            gamepad->buttons &= ~BUTTON_B;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_B;
+          break;
+        case 0x04:  // Triangle Button (0x08)
           if (value)
             gamepad->buttons |= BUTTON_Y;
           else
             gamepad->buttons &= ~BUTTON_Y;
           gamepad->updated_states |= GAMEPAD_STATE_BUTTON_Y;
           break;
-        case 0x05:  // Button Left
+        case 0x05:  // Button Left (0x10)
           if (value)
             gamepad->buttons |= BUTTON_L;
           else
             gamepad->buttons &= ~BUTTON_L;
           gamepad->updated_states |= GAMEPAD_STATE_BUTTON_L;
           break;
-        case 0x06:  // Button Right
+        case 0x06:  // Button Right (0x20)
           if (value)
             gamepad->buttons |= BUTTON_R;
           else
             gamepad->buttons &= ~BUTTON_R;
           gamepad->updated_states |= GAMEPAD_STATE_BUTTON_R;
           break;
-        case 0x07:  // View button
+        case 0x07:  // Trigger L (0x40)
+        case 0x08:  // Trigger R (0x80)
+          break;
+        case 0x09:  // Shake (0x100)
           if (value)
             gamepad->misc_buttons |= MISC_BUTTON_BACK;
           else
             gamepad->misc_buttons &= ~MISC_BUTTON_BACK;
           gamepad->updated_states |= GAMEPAD_STATE_MISC_BUTTON_BACK;
           break;
-        case 0x08:  // Menu button
+        case 0x0a:  // options button (0x200)
           if (value)
             gamepad->misc_buttons |= MISC_BUTTON_HOME;
           else
             gamepad->misc_buttons &= ~MISC_BUTTON_HOME;
           gamepad->updated_states |= GAMEPAD_STATE_MISC_BUTTON_HOME;
           break;
-        case 0x09:  // Thumb left
+        case 0x0b:  // thumb L (0x400)
           if (value)
             gamepad->buttons |= BUTTON_THUMB_L;
           else
             gamepad->buttons &= ~BUTTON_THUMB_L;
           gamepad->updated_states |= GAMEPAD_STATE_BUTTON_THUMB_L;
           break;
-        case 0x0a:  // Thumb right
+        case 0x0c:  // thumb R (0x800)
           if (value)
             gamepad->buttons |= BUTTON_THUMB_R;
           else
             gamepad->buttons &= ~BUTTON_THUMB_R;
           gamepad->updated_states |= GAMEPAD_STATE_BUTTON_THUMB_R;
+          break;
+        case 0x0d:  // ps ??? (0x1000)
+          if (value)
+            gamepad->misc_buttons |= MISC_BUTTON_SYSTEM;
+          else
+            gamepad->misc_buttons &= ~MISC_BUTTON_SYSTEM;
+          gamepad->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
+          break;
+        case 0x0e:  // touch pad ??? (0x2000)
           break;
         default:
           logi("Xbox One: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
