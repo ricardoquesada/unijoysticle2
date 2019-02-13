@@ -104,7 +104,7 @@ void uni_hid_parser_ps4_parse_usage(uni_gamepad_t* gamepad,
           gamepad->updated_states |= GAMEPAD_STATE_DPAD;
           break;
         default:
-          logi("Xbox One: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+          logi("PS4: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
           break;
       }
       break;
@@ -114,7 +114,7 @@ void uni_hid_parser_ps4_parse_usage(uni_gamepad_t* gamepad,
           gamepad->battery = value;
           break;
         default:
-          logi("Xbox One: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+          logi("PS4: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
           break;
       }
       break;
@@ -205,14 +205,14 @@ void uni_hid_parser_ps4_parse_usage(uni_gamepad_t* gamepad,
         case 0x0e:  // touch pad ??? (0x2000)
           break;
         default:
-          logi("Xbox One: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+          logi("PS4: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
           break;
       }
       break;
     }
     // unknown usage page
     default:
-      logi("Xbox One: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+      logi("PS4: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
       break;
   }
 }
