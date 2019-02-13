@@ -37,7 +37,8 @@
 
 /*
  * Copyright (C) 2019 Ricardo Quesada
- * Unijoysticle additions based on the following BlueKitchen's test/example files:
+ * Unijoysticle additions based on the following BlueKitchen's test/example
+ * files:
  *   - hid_host_test.c
  *   - hid_device.c
  *   - gap_inquire.c
@@ -153,8 +154,10 @@ static void handle_sdp_hid_query_result(uint8_t packet_type, uint16_t channel, u
           }
         }
       } else {
-        loge("SDP attribute value buffer size exceeded: available %d, required %d\n", attribute_value_buffer_size,
-             sdp_event_query_attribute_byte_get_attribute_length(packet));
+        loge(
+            "SDP attribute value buffer size exceeded: available %d, required "
+            "%d\n",
+            attribute_value_buffer_size, sdp_event_query_attribute_byte_get_attribute_length(packet));
       }
       break;
     case SDP_EVENT_QUERY_COMPLETE:
@@ -206,8 +209,10 @@ static void handle_sdp_did_query_result(uint8_t packet_type, uint16_t channel, u
           }
         }
       } else {
-        loge("SDP attribute value buffer size exceeded: available %d, required %d\n", attribute_value_buffer_size,
-             sdp_event_query_attribute_byte_get_attribute_length(packet));
+        loge(
+            "SDP attribute value buffer size exceeded: available %d, required "
+            "%d\n",
+            attribute_value_buffer_size, sdp_event_query_attribute_byte_get_attribute_length(packet));
       }
       break;
     case SDP_EVENT_QUERY_COMPLETE:
@@ -226,7 +231,8 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t* packe
   bd_addr_t event_addr;
   uni_hid_device_t* device;
 
-  // Ignore all packet events if bt is not ready, with the exception of the "bt is ready" event.
+  // Ignore all packet events if bt is not ready, with the exception of the "bt
+  // is ready" event.
   if ((!bt_ready) &&
       !((packet_type == HCI_EVENT_PACKET) && (hci_event_packet_get_type(packet) == BTSTACK_EVENT_STATE))) {
     // printf("Ignoring packet. BT not ready yet\n");
@@ -421,8 +427,9 @@ static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet, uint16_t 
   if (status) {
     logi("L2CAP Connection failed: 0x%02x. Removing previous link key.\n", status);
     uni_hid_device_remove_entry_with_channel(channel);
-    // Just in case the key is outdated we remove it. If fixes some l2cap_channel_opened issues.
-    // It proves that it works when the status is 0x6a (L2CAP_CONNECTION_BASEBAND_DISCONNECT).
+    // Just in case the key is outdated we remove it. If fixes some
+    // l2cap_channel_opened issues. It proves that it works when the status is
+    // 0x6a (L2CAP_CONNECTION_BASEBAND_DISCONNECT).
     gap_drop_link_key_for_bd_addr(address);
     return;
   }
@@ -431,8 +438,10 @@ static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet, uint16_t 
   remote_cid = l2cap_event_channel_opened_get_remote_cid(packet);
   handle = l2cap_event_channel_opened_get_handle(packet);
   incoming = l2cap_event_channel_opened_get_incoming(packet);
-  logi("PSM: 0x%04x, Local CID=0x%04x, Remote CID=0x%04x, handle=0x%04x, incoming=%d\n", psm, local_cid, remote_cid,
-       handle, incoming);
+  logi(
+      "PSM: 0x%04x, Local CID=0x%04x, Remote CID=0x%04x, handle=0x%04x, "
+      "incoming=%d\n",
+      psm, local_cid, remote_cid, handle, incoming);
 
   device = uni_hid_device_get_instance_for_address(address);
   if (device == NULL) {
@@ -490,7 +499,8 @@ static void on_l2cap_channel_closed(uint16_t channel, uint8_t* packet, uint16_t 
   logi("L2CAP_EVENT_CHANNEL_CLOSED: 0x%04x (channel=0x%04x)\n", local_cid, channel);
   device = uni_hid_device_get_instance_for_cid(local_cid);
   if (device == NULL) {
-    // Device might already been closed if the Control or Interrupt PSM was closed first.
+    // Device might already been closed if the Control or Interrupt PSM was
+    // closed first.
     logi("Couldn't not find hid_device for cid = 0x%04x\n", local_cid);
     return;
   }
@@ -513,7 +523,8 @@ static void on_l2cap_incoming_connection(uint16_t channel, uint8_t* packet, uint
   remote_cid = l2cap_event_incoming_connection_get_remote_cid(packet);
 
   logi(
-      "L2CAP_EVENT_INCOMING_CONNECTION (psm=0x%04x, local_cid=0x%04x, remote_cid=0x%04x, handle=0x%04x, "
+      "L2CAP_EVENT_INCOMING_CONNECTION (psm=0x%04x, local_cid=0x%04x, "
+      "remote_cid=0x%04x, handle=0x%04x, "
       "channel=0x%04x\n",
       psm, local_cid, remote_cid, handle, channel);
   switch (psm) {
@@ -646,7 +657,8 @@ static void sdp_query_hid_descriptor(uni_hid_device_t* device) {
 static void sdp_query_product_id(uni_hid_device_t* device) {
   logi("Starting SDP query for product/vendor ID\n");
   uni_hid_device_t* current = uni_hid_device_get_current_device();
-  // This query runs after sdp_query_hid_descriptor() so uni_hid_device_get_current_device() must not be NULL
+  // This query runs after sdp_query_hid_descriptor() so
+  // uni_hid_device_get_current_device() must not be NULL
   if (current == NULL) {
     loge("Error: current device is NULL. Should not happen\n");
     return;
