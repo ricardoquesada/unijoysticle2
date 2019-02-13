@@ -16,24 +16,24 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ****************************************************************************/
 
-// More info about Xbox One gamepad:
-// https://support.xbox.com/en-US/xbox-one/accessories/xbox-one-wireless-controller
+// More info about PS4 gamepad:
+// https://manuals.playstation.net/document/en/ps4/basic/pn_controller.html
 
-#include "uni_hid_parser_xboxone.h"
+#include "uni_hid_parser_ps4.h"
 
 #include "uni_debug.h"
 #include "uni_hid_parser.h"
 
-void uni_hid_parser_xboxone_init(uni_gamepad_t* gamepad) {
+void uni_hid_parser_ps4_init(uni_gamepad_t* gamepad) {
   // Reset old state. Each report contains a full-state.
   gamepad->updated_states = 0;
 }
 
-void uni_hid_parser_xboxone_parse_usage(uni_gamepad_t* gamepad,
-                                        hid_globals_t* globals,
-                                        uint16_t usage_page,
-                                        uint16_t usage,
-                                        int32_t value) {
+void uni_hid_parser_ps4_parse_usage(uni_gamepad_t* gamepad,
+                                    hid_globals_t* globals,
+                                    uint16_t usage_page,
+                                    uint16_t usage,
+                                    int32_t value) {
   // print_parser_globals(globals);
   uint8_t hat;
   switch (usage_page) {

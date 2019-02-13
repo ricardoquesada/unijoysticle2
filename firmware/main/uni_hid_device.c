@@ -24,6 +24,7 @@ limitations under the License.
 #include "uni_hid_parser_apple.h"
 #include "uni_hid_parser_icade.h"
 #include "uni_hid_parser_ouya.h"
+#include "uni_hid_parser_ps4.h"
 #include "uni_hid_parser_smarttvremote.h"
 #include "uni_hid_parser_xboxone.h"
 
@@ -362,6 +363,10 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* device) {
     case CONTROLLER_TYPE_SmartTVRemoteController:
       device->report_parser.init = uni_hid_parser_smarttvremote_init;
       device->report_parser.parse_usage = uni_hid_parser_smarttvremote_parse_usage;
+      break;
+    case CONTROLLER_TYPE_PS4Controller:
+      device->report_parser.init = uni_hid_parser_ps4_init;
+      device->report_parser.parse_usage = uni_hid_parser_ps4_parse_usage;
       break;
     default:
       device->report_parser.init = uni_hid_parser_android_init;
