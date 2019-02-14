@@ -181,6 +181,38 @@ uint8_t uni_hid_parser_process_hat(hid_globals_t* globals, uint32_t value) {
   return v - globals->logical_minimum;
 }
 
+void uni_hid_parser_process_dpad(uint16_t usage, uint32_t value, uint8_t* dpad) {
+  switch (usage) {
+    case 0x90:  // dpad up
+      if (value)
+        *dpad |= DPAD_UP;
+      else
+        *dpad &= ~DPAD_UP;
+      break;
+    case 0x91:  // dpad down
+      if (value)
+        *dpad |= DPAD_DOWN;
+      else
+        *dpad &= ~DPAD_DOWN;
+      break;
+    case 0x92:  // dpad right
+      if (value)
+        *dpad |= DPAD_RIGHT;
+      else
+        *dpad &= ~DPAD_RIGHT;
+      break;
+    case 0x93:  // dpad left
+      if (value)
+        *dpad |= DPAD_LEFT;
+      else
+        *dpad &= ~DPAD_LEFT;
+      break;
+    default:
+      logi("Unsupported DPAD usage: 0x%02x", usage);
+      break;
+  }
+}
+
 uint8_t uni_hid_parser_hat_to_dpad(uint8_t hat) {
   uint8_t dpad = 0;
   switch (hat) {

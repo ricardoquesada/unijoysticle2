@@ -61,31 +61,10 @@ void uni_hid_parser_android_parse_usage(uni_gamepad_t* gamepad,
           gamepad->updated_states |= GAMEPAD_STATE_DPAD;
           break;
         case 0x90:  // dpad up
-          if (value)
-            gamepad->dpad |= DPAD_UP;
-          else
-            gamepad->dpad &= ~DPAD_UP;
-          gamepad->updated_states |= GAMEPAD_STATE_DPAD;
-          break;
         case 0x91:  // dpad down
-          if (value)
-            gamepad->dpad |= DPAD_DOWN;
-          else
-            gamepad->dpad &= ~DPAD_DOWN;
-          gamepad->updated_states |= GAMEPAD_STATE_DPAD;
-          break;
         case 0x92:  // dpad right
-          if (value)
-            gamepad->dpad |= DPAD_RIGHT;
-          else
-            gamepad->dpad &= ~DPAD_RIGHT;
-          gamepad->updated_states |= GAMEPAD_STATE_DPAD;
-          break;
         case 0x93:  // dpad left
-          if (value)
-            gamepad->dpad |= DPAD_LEFT;
-          else
-            gamepad->dpad &= ~DPAD_LEFT;
+          uni_hid_parser_process_dpad(usage, value, &gamepad->dpad);
           gamepad->updated_states |= GAMEPAD_STATE_DPAD;
           break;
         default:
