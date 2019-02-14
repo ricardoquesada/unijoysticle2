@@ -19,6 +19,7 @@ limitations under the License.
 #include "uni_hid_parser.h"
 
 #include "gpio_joy.h"
+#include "hid_usage.h"
 #include "uni_debug.h"
 #include "uni_gamepad.h"
 #include "uni_hid_device.h"
@@ -183,25 +184,25 @@ uint8_t uni_hid_parser_process_hat(hid_globals_t* globals, uint32_t value) {
 
 void uni_hid_parser_process_dpad(uint16_t usage, uint32_t value, uint8_t* dpad) {
   switch (usage) {
-    case 0x90:  // dpad up
+    case HID_USAGE_DPAD_UP:
       if (value)
         *dpad |= DPAD_UP;
       else
         *dpad &= ~DPAD_UP;
       break;
-    case 0x91:  // dpad down
+    case HID_USAGE_DPAD_DOWN:
       if (value)
         *dpad |= DPAD_DOWN;
       else
         *dpad &= ~DPAD_DOWN;
       break;
-    case 0x92:  // dpad right
+    case HID_USAGE_DPAD_RIGHT:
       if (value)
         *dpad |= DPAD_RIGHT;
       else
         *dpad &= ~DPAD_RIGHT;
       break;
-    case 0x93:  // dpad left
+    case HID_USAGE_DPAD_LEFT:
       if (value)
         *dpad |= DPAD_LEFT;
       else
