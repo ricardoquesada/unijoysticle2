@@ -116,7 +116,7 @@ void gpio_joy_update_mouse(int32_t delta_x, int32_t delta_y) {
   logd("mouse x=%d, y=%d\n", delta_x, delta_y);
 
   // Mouse is implemented using a quadrature encoding
-  // FIXMI: Passing values to mouse task using global variables. This is, of course,
+  // FIXME: Passing values to mouse task using global variables. This is, of course,
   // error-prone to raaces and what not, but seeems to be good enough for our purpose.
   if (delta_x || delta_y) {
     g_delta_x = delta_x;
