@@ -18,6 +18,7 @@ limitations under the License.
 
 #include "uni_hid_parser_ouya.h"
 
+#include "hid_usage.h"
 #include "uni_debug.h"
 
 void uni_hid_parser_ouya_init(uni_gamepad_t* gamepad) {
@@ -37,29 +38,29 @@ void uni_hid_parser_ouya_parse_usage(uni_gamepad_t* gamepad,
   UNUSED(value);
 
   switch (usage_page) {
-    case 1:  // Generic Desktop Page (0x01)
+    case HID_USAGE_PAGE_GENERIC_DESKTOP:
       switch (usage) {
-        case 0x30:  // Axis X
+        case HID_USAGE_AXIS_X:
           gamepad->axis_x = uni_hid_parser_process_axis(globals, value);
           gamepad->updated_states |= GAMEPAD_STATE_AXIS_X;
           break;
-        case 0x31:  // Axis Y
+        case HID_USAGE_AXIS_Y:
           gamepad->axis_y = uni_hid_parser_process_axis(globals, value);
           gamepad->updated_states |= GAMEPAD_STATE_AXIS_Y;
           break;
-        case 0x32:  // Axis Z
+        case HID_USAGE_AXIS_Z:
           gamepad->brake = uni_hid_parser_process_pedal(globals, value);
           gamepad->updated_states |= GAMEPAD_STATE_BRAKE;
           break;
-        case 0x33:  // Axis RX
+        case HID_USAGE_AXIS_RX:
           gamepad->axis_rx = uni_hid_parser_process_axis(globals, value);
           gamepad->updated_states |= GAMEPAD_STATE_AXIS_RX;
           break;
-        case 0x34:  // Axis RY
+        case HID_USAGE_AXIS_RY:
           gamepad->axis_ry = uni_hid_parser_process_axis(globals, value);
           gamepad->updated_states |= GAMEPAD_STATE_AXIS_RY;
           break;
-        case 0x35:  // Axis RZ
+        case HID_USAGE_AXIS_RZ:
           gamepad->accelerator = uni_hid_parser_process_pedal(globals, value);
           gamepad->updated_states |= GAMEPAD_STATE_ACCELERATOR;
           break;
@@ -68,7 +69,7 @@ void uni_hid_parser_ouya_parse_usage(uni_gamepad_t* gamepad,
           break;
       }
       break;
-    case 9:  // Button Page (0x09)
+    case HID_USAGE_PAGE_BUTTON:
       switch (usage) {
         case 1:
           if (value)

@@ -18,6 +18,7 @@ limitations under the License.
 
 #include "uni_hid_parser_icade.h"
 
+#include "hid_usage.h"
 #include "uni_debug.h"
 
 /*
@@ -53,7 +54,7 @@ void uni_hid_parser_icade_parse_usage(uni_gamepad_t* gamepad,
                                       int32_t value) {
   UNUSED(globals);
   switch (usage_page) {
-    case 0x07:  // Keypad / Keyboard
+    case HID_USAGE_PAGE_KEYBOARD_KEYPAD:
       switch (usage) {
         case 0x00:  // reserved. ignore
         case 0xe0:  // from 0xe0 - 0xe7: ignore
