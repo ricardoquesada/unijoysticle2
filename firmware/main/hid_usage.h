@@ -54,12 +54,24 @@ limitations under the License.
 #define HID_USAGE_BATTERY_STRENGHT              0x20
 
 // HID usages for Keyboard / Keypad Page
+// KB=Keyboard, KP=Keypad
+#define HID_USAGE_KB_RIGHT_ARROW                0x4f
+#define HID_USAGE_KB_LEFT_ARROW                 0x50
+#define HID_USAGE_KB_DOWN_ARROW                 0x51
+#define HID_USAGE_KB_UP_ARROW                   0x52
+#define HID_USAGE_KP_ENTER                      0x58
+#define HID_USAGE_KB_POWER                      0x66
+#define HID_USAGE_KB_RESERVED_F1                0xf1
 
 // HID usages for Consumer Page
 #define HID_USAGE_MENU                          0x40
+#define HID_USAGE_MEDIA_SELECT_TV               0x89
 #define HID_USAGE_FAST_FORWARD                  0xb3
 #define HID_USAGE_REWIND                        0xb4
 #define HID_USAGE_PLAY_PAUSE                    0xcd
+#define HID_USAGE_MUTE                          0xe2
+#define HID_USAGE_VOLUMEN_UP                    0xe9
+#define HID_USAGE_VOLUMEN_DOWN                  0xea
 #define HID_USAGE_AC_SEARCH                     0x0221
 #define HID_USAGE_AC_HOME                       0x0223
 #define HID_USAGE_AC_BACK                       0x0224

@@ -59,17 +59,6 @@ F 3 "" H 1200 2200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L 4xxx_IEEE:4066 U?
-U 4 1 5C658124
-P 1200 2900
-F 0 "U?" H 1200 3316 50  0000 C CNN
-F 1 "4066" H 1200 3225 50  0000 C CNN
-F 2 "" H 1200 2900 50  0001 C CNN
-F 3 "" H 1200 2900 50  0001 C CNN
-	4    1200 2900
-	1    0    0    -1  
-$EndComp
-$Comp
 L Connector:DB9_Female_MountingHoles J?
 U 1 1 5C65A0B0
 P 3800 1400
@@ -124,4 +113,46 @@ F 3 "" H 2600 1850 50  0001 C CNN
 	1    2600 1850
 	1    0    0    -1  
 $EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5C666DF0
+P 2550 3300
+F 0 "#PWR?" H 2550 3150 50  0001 C CNN
+F 1 "+5V" H 2565 3473 50  0000 C CNN
+F 2 "" H 2550 3300 50  0001 C CNN
+F 3 "" H 2550 3300 50  0001 C CNN
+	1    2550 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L 4xxx_IEEE:4066 U?
+U 4 1 5C658124
+P 1200 2900
+F 0 "U?" H 1200 3316 50  0000 C CNN
+F 1 "4066" H 1200 3225 50  0000 C CNN
+F 2 "" H 1200 2900 50  0001 C CNN
+F 3 "" H 1200 2900 50  0001 C CNN
+	4    1200 2900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5300 5000 5900 5000
+Wire Wire Line
+	5300 4700 5900 4700
+Wire Wire Line
+	5300 4600 5900 4600
+Wire Wire Line
+	5300 4300 5900 4300
+Wire Wire Line
+	5300 4200 5900 4200
+Text GLabel 5900 5000 2    50   Input ~ 0
+J1UP
+Text GLabel 5900 4700 2    50   Input ~ 0
+J1DOWN
+Text GLabel 5900 4600 2    50   Input ~ 0
+J1LEFT
+Text GLabel 5900 4300 2    50   Input ~ 0
+J1RIGHT
+Text GLabel 5900 4200 2    50   Input ~ 0
+J1FIRE
 $EndSCHEMATC

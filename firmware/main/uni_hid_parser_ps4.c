@@ -21,6 +21,7 @@ limitations under the License.
 
 #include "uni_hid_parser_ps4.h"
 
+#include "hid_usage.h"
 #include "uni_debug.h"
 #include "uni_hid_parser.h"
 
@@ -37,48 +38,48 @@ void uni_hid_parser_ps4_parse_usage(uni_gamepad_t* gamepad,
   // print_parser_globals(globals);
   uint8_t hat;
   switch (usage_page) {
-    case 0x01:  // Generic Desktop controls
+    case HID_USAGE_PAGE_GENERIC_DESKTOP:
       switch (usage) {
-        case 0x30:  // x
+        case HID_USAGE_AXIS_X:
           gamepad->axis_x = uni_hid_parser_process_axis(globals, value);
           gamepad->updated_states |= GAMEPAD_STATE_AXIS_X;
           break;
-        case 0x31:  // y
+        case HID_USAGE_AXIS_Y:
           gamepad->axis_y = uni_hid_parser_process_axis(globals, value);
           gamepad->updated_states |= GAMEPAD_STATE_AXIS_Y;
           break;
-        case 0x32:  // z
+        case HID_USAGE_AXIS_Z:
           gamepad->axis_rx = uni_hid_parser_process_axis(globals, value);
           gamepad->updated_states |= GAMEPAD_STATE_AXIS_RX;
           break;
-        case 0x33:  // rx
+        case HID_USAGE_AXIS_RX:
           gamepad->brake = uni_hid_parser_process_pedal(globals, value);
           gamepad->updated_states |= GAMEPAD_STATE_BRAKE;
           break;
-        case 0x34:  // ry
+        case HID_USAGE_AXIS_RY:
           gamepad->accelerator = uni_hid_parser_process_pedal(globals, value);
           gamepad->updated_states |= GAMEPAD_STATE_ACCELERATOR;
           break;
-        case 0x35:  // rz
+        case HID_USAGE_AXIS_RZ:
           gamepad->axis_ry = uni_hid_parser_process_axis(globals, value);
           gamepad->updated_states |= GAMEPAD_STATE_AXIS_RY;
           break;
-        case 0x39:  // switch hat
+        case HID_USAGE_HAT:
           hat = uni_hid_parser_process_hat(globals, value);
           gamepad->dpad = uni_hid_parser_hat_to_dpad(hat);
           gamepad->updated_states |= GAMEPAD_STATE_DPAD;
           break;
-        case 0x85:  // Xbox button
+        case HID_USAGE_SYSTEM_MAIN_MENU:
           if (value)
             gamepad->misc_buttons |= MISC_BUTTON_SYSTEM;
           else
             gamepad->misc_buttons &= ~MISC_BUTTON_SYSTEM;
           gamepad->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
           break;
-        case 0x90:  // dpad up
-        case 0x91:  // dpad down
-        case 0x92:  // dpad right
-        case 0x93:  // dpad left
+        case HID_USAGE_DPAD_UP:
+        case HID_USAGE_DPAD_DOWN:
+        case HID_USAGE_DPAD_RIGHT:
+        case HID_USAGE_DPAD_LEFT:
           uni_hid_parser_process_dpad(usage, value, &gamepad->dpad);
           gamepad->updated_states |= GAMEPAD_STATE_DPAD;
           break;
@@ -87,9 +88,9 @@ void uni_hid_parser_ps4_parse_usage(uni_gamepad_t* gamepad,
           break;
       }
       break;
-    case 0x06:  // Generic Device Controls Page
+    case HID_USAGE_PAGE_GENERIC_DEVICE_CONTROLS:
       switch (usage) {
-        case 0x20:  // Battery Strength
+        case HID_USAGE_BATTERY_STRENGHT:
           gamepad->battery = value;
           break;
         default:
@@ -98,8 +99,7 @@ void uni_hid_parser_ps4_parse_usage(uni_gamepad_t* gamepad,
       }
       break;
 
-    case 0x09:  // Button
-    {
+    case HID_USAGE_PAGE_BUTTON: {
       switch (usage) {
         case 0x01:  // Square Button (0x01)
           if (value)
