@@ -99,17 +99,56 @@ void uni_hid_parser_android_parse_usage(uni_gamepad_t* gamepad,
       }
       break;
     case HID_USAGE_PAGE_BUTTON: {
-      // Start with usage - 1 since "button 0" seems that is not being used.
-      if (usage <= 9) {
-        uint16_t button_idx = usage - 1;
-        if (value)
-          gamepad->buttons |= (BUTTON_A << button_idx);
-        else
-          gamepad->buttons &= ~(BUTTON_A << button_idx);
-        gamepad->updated_states |= (GAMEPAD_STATE_BUTTON_A << button_idx);
-        break;
-      }
       switch (usage) {
+        case 0x01:  // Button A
+          if (value)
+            gamepad->buttons |= BUTTON_A;
+          else
+            gamepad->buttons &= ~BUTTON_A;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_A;
+          break;
+        case 0x02:  // Button B
+          if (value)
+            gamepad->buttons |= BUTTON_B;
+          else
+            gamepad->buttons &= ~BUTTON_B;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_B;
+          break;
+        case 0x03:  // non-existant button C?
+          // unmapped
+          break;
+        case 0x04:  // Button X
+          if (value)
+            gamepad->buttons |= BUTTON_X;
+          else
+            gamepad->buttons &= ~BUTTON_X;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_X;
+          break;
+        case 0x05:  // Button Y
+          if (value)
+            gamepad->buttons |= BUTTON_Y;
+          else
+            gamepad->buttons &= ~BUTTON_Y;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_Y;
+          break;
+        case 0x06:  // non-existant button Z?
+          // unmapped
+          break;
+        case 0x07:
+          if (value)
+            gamepad->buttons |= BUTTON_SHOULDER_L;
+          else
+            gamepad->buttons &= ~BUTTON_SHOULDER_L;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_SHOULDER_L;
+          break;
+        case 0x08:
+          if (value)
+            gamepad->buttons |= BUTTON_SHOULDER_R;
+          else
+            gamepad->buttons &= ~BUTTON_SHOULDER_R;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_SHOULDER_R;
+          break;
+        case 0x09:  // non-existant button Shoulder Z?
         case 0x0a:  // unsupported misc button
         case 0x0b:  // unsupported misc button
         case 0x0c:  // unsupported misc button

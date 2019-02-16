@@ -47,12 +47,12 @@ enum {
 enum {
   BUTTON_A = 1 << 0,
   BUTTON_B = 1 << 1,
-  BUTTON_C = 1 << 2,
-  BUTTON_X = 1 << 3,
-  BUTTON_Y = 1 << 4,
-  BUTTON_Z = 1 << 5,
-  BUTTON_L = 1 << 6,
-  BUTTON_R = 1 << 7,
+  BUTTON_X = 1 << 2,
+  BUTTON_Y = 1 << 3,
+  BUTTON_SHOULDER_L = 1 << 4,
+  BUTTON_SHOULDER_R = 1 << 5,
+  BUTTON_TRIGGER_L = 1 << 6,
+  BUTTON_TRIGGER_R = 1 << 7,
   BUTTON_THUMB_L = 1 << 8,
   BUTTON_THUMB_R = 1 << 9,
 
@@ -78,19 +78,19 @@ enum {
 
   GAMEPAD_STATE_BUTTON_A = 1 << 10,
   GAMEPAD_STATE_BUTTON_B = 1 << 11,
-  GAMEPAD_STATE_BUTTON_C = 1 << 12,
-  GAMEPAD_STATE_BUTTON_X = 1 << 13,
-  GAMEPAD_STATE_BUTTON_Y = 1 << 14,
-  GAMEPAD_STATE_BUTTON_Z = 1 << 15,
-  GAMEPAD_STATE_BUTTON_L = 1 << 16,
-  GAMEPAD_STATE_BUTTON_R = 1 << 17,
+  GAMEPAD_STATE_BUTTON_X = 1 << 12,
+  GAMEPAD_STATE_BUTTON_Y = 1 << 13,
+  GAMEPAD_STATE_BUTTON_SHOULDER_L = 1 << 14,
+  GAMEPAD_STATE_BUTTON_SHOULDER_R = 1 << 15,
+  GAMEPAD_STATE_BUTTON_TRIGGER_L = 1 << 16,
+  GAMEPAD_STATE_BUTTON_TRIGGER_R = 1 << 17,
   GAMEPAD_STATE_BUTTON_THUMB_L = 1 << 18,
   GAMEPAD_STATE_BUTTON_THUMB_R = 1 << 19,
 
-  GAMEPAD_STATE_MISC_BUTTON_BACK = 1 << 20,
-  GAMEPAD_STATE_MISC_BUTTON_HOME = 1 << 21,
-  GAMEPAD_STATE_MISC_BUTTON_MENU = 1 << 22,
-  GAMEPAD_STATE_MISC_BUTTON_SYSTEM = 1 << 23,
+  GAMEPAD_STATE_MISC_BUTTON_BACK = 1 << 24,
+  GAMEPAD_STATE_MISC_BUTTON_HOME = 1 << 25,
+  GAMEPAD_STATE_MISC_BUTTON_MENU = 1 << 26,
+  GAMEPAD_STATE_MISC_BUTTON_SYSTEM = 1 << 27,
 };
 
 // uni_gamepad_t is a virtual gamepad.
@@ -112,10 +112,14 @@ enum {
 //  Left             Center            Right
 //
 //  brake: 0-1023    Menu button       accelerator: 0-1023
-//  L-button                           R-button
-//  d-pad                              buttons: A,B,C,X,Y,Z
+//  L-shoulder button                  R-shoulder button
+//  L-trigger button                   R-trigger button
+//  d-pad                              buttons: A,B,,X,Y,
 //  l-joypad (axis: -512, 511)         r-joypad (axis: -512, 511)
 //  axis-l button                      axis-r button
+//
+//  trigger's buttons & accelerator are shared physically.
+//  Buttons are
 typedef struct {
   // Usage Page: 0x01 (Generic Desktop Controls)
   uint8_t dpad;

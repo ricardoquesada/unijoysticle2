@@ -131,17 +131,17 @@ void uni_hid_parser_xboxone_parse_usage(uni_gamepad_t* gamepad,
           break;
         case 0x05:  // Button Left
           if (value)
-            gamepad->buttons |= BUTTON_L;
+            gamepad->buttons |= BUTTON_SHOULDER_L;
           else
-            gamepad->buttons &= ~BUTTON_L;
-          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_L;
+            gamepad->buttons &= ~BUTTON_SHOULDER_L;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_SHOULDER_L;
           break;
         case 0x06:  // Button Right
           if (value)
-            gamepad->buttons |= BUTTON_R;
+            gamepad->buttons |= BUTTON_SHOULDER_R;
           else
-            gamepad->buttons &= ~BUTTON_R;
-          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_R;
+            gamepad->buttons &= ~BUTTON_SHOULDER_R;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_SHOULDER_R;
           break;
         case 0x07:  // View button
           if (value)
