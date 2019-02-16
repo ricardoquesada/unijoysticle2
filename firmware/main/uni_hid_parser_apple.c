@@ -97,21 +97,71 @@ void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gamepad,
           break;
       }
       break;
-    case HID_USAGE_PAGE_BUTTON: {
-      // we start with usage - 1 since "button 0" seems that is not being used
-      // and we only support 32 buttons.
-      uint16_t button_idx = usage - 1;
-      if (button_idx < BUTTON_TOTAL) {
-        if (value)
-          gamepad->buttons |= (BUTTON_A << button_idx);
-        else
-          gamepad->buttons &= ~(BUTTON_A << button_idx);
-        gamepad->updated_states |= (GAMEPAD_STATE_BUTTON_A << button_idx);
-      } else {
-        logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+    case HID_USAGE_PAGE_BUTTON:
+      switch (usage) {
+        case 0x01:  // Button A
+          if (value)
+            gamepad->buttons |= BUTTON_A;
+          else
+            gamepad->buttons &= ~BUTTON_A;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_A;
+          break;
+        case 0x02:  // Button B
+          if (value)
+            gamepad->buttons |= BUTTON_B;
+          else
+            gamepad->buttons &= ~BUTTON_B;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_B;
+          break;
+        case 0x03:  // Button X
+          if (value)
+            gamepad->buttons |= BUTTON_X;
+          else
+            gamepad->buttons &= ~BUTTON_X;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_X;
+          break;
+        case 0x04:  // Button Y
+          if (value)
+            gamepad->buttons |= BUTTON_Y;
+          else
+            gamepad->buttons &= ~BUTTON_Y;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_Y;
+          break;
+        case 0x05:
+          if (value)
+            gamepad->buttons |= BUTTON_SHOULDER_L;
+          else
+            gamepad->buttons &= ~BUTTON_SHOULDER_L;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_SHOULDER_L;
+          break;
+        case 0x06:
+          if (value)
+            gamepad->buttons |= BUTTON_SHOULDER_R;
+          else
+            gamepad->buttons &= ~BUTTON_SHOULDER_R;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_SHOULDER_R;
+          break;
+        case 0x07:
+          // FIXME: On the Steelseries Nimbus, 0x07 / 0x08 are brake/accelerator, but are reported as buttons.
+          // Don't know if this is valid for all iOS controllers. Treating as buttons. More samples are needed.
+          if (value)
+            gamepad->buttons |= BUTTON_TRIGGER_L;
+          else
+            gamepad->buttons &= ~BUTTON_TRIGGER_L;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_TRIGGER_L;
+          break;
+        case 0x08:
+          if (value)
+            gamepad->buttons |= BUTTON_TRIGGER_R;
+          else
+            gamepad->buttons &= ~BUTTON_TRIGGER_R;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_TRIGGER_R;
+          break;
+        default:
+          logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+          break;
       }
       break;
-    }
     case HID_USAGE_PAGE_CONSUMER:
       switch (usage) {
         case HID_USAGE_AC_SEARCH:
