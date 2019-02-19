@@ -26,17 +26,6 @@ F 3 "" H 1750 1050 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L RF_Module:ESP32-WROOM-32D U3
-U 1 1 5C657D5C
-P 5150 4400
-F 0 "U3" H 5150 5978 50  0000 C CNN
-F 1 "ESP32-WROOM-32D" H 5150 5887 50  0000 C CNN
-F 2 "RF_Module:ESP32-WROOM-32" H 5150 2900 50  0001 C CNN
-F 3 "https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32d_esp32-wroom-32u_datasheet_en.pdf" H 4850 4450 50  0001 C CNN
-	1    5150 4400
-	1    0    0    -1  
-$EndComp
-$Comp
 L 4xxx_IEEE:4066 U1
 U 2 1 5C658035
 P 1750 1700
@@ -70,10 +59,10 @@ F 3 " ~" H 3950 1350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:DB9_Female_MountingHoles J3
+L Connector:DB9_Female_MountingHoles J2
 U 1 1 5C65A122
 P 6500 1350
-F 0 "J3" H 6680 1353 50  0000 L CNN
+F 0 "J2" H 6680 1353 50  0000 L CNN
 F 1 "DB9_Female_MountingHoles" H 6680 1262 50  0000 L CNN
 F 2 "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset4.94mm_Housed_MountingHolesOffset7.48mm" H 6500 1350 50  0001 C CNN
 F 3 " ~" H 6500 1350 50  0001 C CNN
@@ -81,10 +70,10 @@ F 3 " ~" H 6500 1350 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Connector:Barrel_Jack_MountingPin J2
+L Connector:Barrel_Jack_MountingPin J3
 U 1 1 5C65A2B3
 P 1500 7000
-F 0 "J2" H 1555 7317 50  0000 C CNN
+F 0 "J3" H 1555 7317 50  0000 C CNN
 F 1 "Barrel_Jack_MountingPin" H 1555 7226 50  0000 C CNN
 F 2 "Connector_BarrelJack:BarrelJack_Horizontal" H 1550 6960 50  0001 C CNN
 F 3 "~" H 1550 6960 50  0001 C CNN
@@ -97,7 +86,7 @@ U 1 1 5C65A496
 P 2200 6900
 F 0 "D1" H 2200 7116 50  0000 C CNN
 F 1 "1N4001" H 2200 7025 50  0000 C CNN
-F 2 "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset4.94mm_Housed_MountingHolesOffset7.48mm" H 2200 6725 50  0001 C CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P7.62mm_Horizontal" H 2200 6725 50  0001 C CNN
 F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 2200 6900 50  0001 C CNN
 	1    2200 6900
 	-1   0    0    -1  
@@ -113,13 +102,7 @@ F 3 "" H 1750 2950 50  0001 C CNN
 	4    1750 2950
 	-1   0    0    -1  
 $EndComp
-Wire Wire Line
-	5750 5000 6350 5000
-Wire Wire Line
-	5750 4700 6350 4700
-Wire Wire Line
-	5750 4600 6350 4600
-Text GLabel 6350 5000 2    50   Input ~ 0
+Text GLabel 6150 3700 2    50   Input ~ 0
 GPIO_J1UP
 Text GLabel 2250 1150 2    50   Input ~ 0
 GPIO_J1UP
@@ -133,17 +116,6 @@ F 2 "" H 9900 1050 50  0001 C CNN
 F 3 "" H 9900 1050 50  0001 C CNN
 	1    9900 1050
 	0    -1   -1   0   
-$EndComp
-$Comp
-L power:GND #PWR04
-U 1 1 5C66864D
-P 5150 5950
-F 0 "#PWR04" H 5150 5700 50  0001 C CNN
-F 1 "GND" H 5155 5777 50  0000 C CNN
-F 2 "" H 5150 5950 50  0001 C CNN
-F 3 "" H 5150 5950 50  0001 C CNN
-	1    5150 5950
-	1    0    0    -1  
 $EndComp
 $Comp
 L 4xxx_IEEE:4066 U2
@@ -278,17 +250,6 @@ F 3 "" H 7300 1450 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L power:+5V #PWR05
-U 1 1 5C6915C9
-P 5150 2650
-F 0 "#PWR05" H 5150 2500 50  0001 C CNN
-F 1 "+5V" H 5165 2823 50  0000 C CNN
-F 2 "" H 5150 2650 50  0001 C CNN
-F 3 "" H 5150 2650 50  0001 C CNN
-	1    5150 2650
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR06
 U 1 1 5C6919E6
 P 1800 7100
@@ -330,37 +291,23 @@ Text GLabel 8250 3000 0    50   Input ~ 0
 GPIO_J2RIGHT
 Text GLabel 8250 3750 0    50   Input ~ 0
 GPIO_J2FIRE
-Wire Wire Line
-	5750 3800 6250 3800
-Wire Wire Line
-	5750 3900 6250 3900
-Wire Wire Line
-	5750 4000 6250 4000
-Wire Wire Line
-	5750 4100 6250 4100
-Text GLabel 6250 3800 2    50   Input ~ 0
+Text GLabel 4300 4800 0    50   Input ~ 0
 GPIO_J2FIRE
-Text GLabel 6250 3900 2    50   Input ~ 0
+Text GLabel 4300 4000 0    50   Input ~ 0
 GPIO_J2RIGHT
-Text GLabel 6250 4000 2    50   Input ~ 0
+Text GLabel 6150 4300 2    50   Input ~ 0
 GPIO_J2LEFT
-Text GLabel 6250 4100 2    50   Input ~ 0
+Text GLabel 6150 3600 2    50   Input ~ 0
 GPIO_J2DOWN
-Wire Wire Line
-	5750 4800 6350 4800
-Wire Wire Line
-	5750 4900 6350 4900
-Wire Wire Line
-	5750 4200 6250 4200
-Text GLabel 6250 4200 2    50   Input ~ 0
+Text GLabel 6150 3800 2    50   Input ~ 0
 GPIO_J2UP
-Text GLabel 6350 4900 2    50   Input ~ 0
+Text GLabel 4300 3400 0    50   Input ~ 0
 GPIO_J1DOWN
-Text GLabel 6350 4800 2    50   Input ~ 0
+Text GLabel 4300 3300 0    50   Input ~ 0
 GPIO_J1LEFT
-Text GLabel 6350 4700 2    50   Input ~ 0
+Text GLabel 6150 3400 2    50   Input ~ 0
 GPIO_J1RIGHT
-Text GLabel 6350 4600 2    50   Input ~ 0
+Text GLabel 4300 4700 0    50   Input ~ 0
 GPIO_J1FIRE
 Text GLabel 8250 4350 0    50   Input ~ 0
 GPIO_J2POTX
@@ -409,21 +356,13 @@ $EndComp
 Wire Wire Line
 	9250 2900 9250 3650
 Connection ~ 9250 2900
-Wire Wire Line
-	5750 4300 6250 4300
-Wire Wire Line
-	5750 4400 6250 4400
-Wire Wire Line
-	5750 5100 6350 5100
-Wire Wire Line
-	5750 5200 6350 5200
-Text GLabel 6350 5200 2    50   Input ~ 0
+Text GLabel 6150 4400 2    50   Input ~ 0
 GPIO_J1POTX
-Text GLabel 6350 5100 2    50   Input ~ 0
+Text GLabel 6150 4600 2    50   Input ~ 0
 GPIO_J1POTY
-Text GLabel 6250 4400 2    50   Input ~ 0
+Text GLabel 6150 3200 2    50   Input ~ 0
 GPIO_J2POTX
-Text GLabel 6250 4300 2    50   Input ~ 0
+Text GLabel 6150 3300 2    50   Input ~ 0
 GPIO_J2POTY
 Wire Wire Line
 	3650 950  3350 950 
@@ -497,10 +436,6 @@ F 3 "" H 7300 1250 50  0001 C CNN
 	1    7300 1250
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	5150 5800 5150 5950
-Wire Wire Line
-	5150 3000 5150 2650
 Text GLabel 8250 950  0    50   Input ~ 0
 J2UP
 Text GLabel 8250 1600 0    50   Input ~ 0
@@ -560,5 +495,71 @@ F 2 "" H 1100 4550 50  0001 C CNN
 F 3 "" H 1100 4550 50  0001 C CNN
 	1    1100 4550
 	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR0107
+U 1 1 5C6BCB4E
+P 4300 5100
+F 0 "#PWR0107" H 4300 4850 50  0001 C CNN
+F 1 "GND" H 4305 4927 50  0000 C CNN
+F 2 "" H 4300 5100 50  0001 C CNN
+F 3 "" H 4300 5100 50  0001 C CNN
+	1    4300 5100
+	0    1    1    0   
+$EndComp
+$Comp
+L SparkFun-Boards:ESP32_THING_W_ANT_KEEPOUT B1
+U 1 1 5C6B6FCB
+P 5250 4200
+F 0 "B1" H 5250 5560 45  0000 C CNN
+F 1 "ESP32_THING_W_ANT_KEEPOUT" H 5250 5476 45  0000 C CNN
+F 2 "Parts:MH-ET_LIVE_MINIKIT_ESP32" H 5250 5400 20  0001 C CNN
+F 3 "" H 5250 4200 50  0001 C CNN
+F 4 "DEV-13907" H 5250 5381 60  0000 C CNN "Field4"
+	1    5250 4200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4300 3400 4750 3400
+Wire Wire Line
+	4300 3300 4750 3300
+Wire Wire Line
+	5750 3400 6150 3400
+Wire Wire Line
+	5750 4600 6150 4600
+Wire Wire Line
+	6150 4400 5750 4400
+Wire Wire Line
+	5750 3700 6150 3700
+Wire Wire Line
+	5750 3800 6150 3800
+Wire Wire Line
+	5750 3600 6150 3600
+Wire Wire Line
+	5750 4300 6150 4300
+Wire Wire Line
+	4300 4000 4750 4000
+Wire Wire Line
+	4300 4800 4750 4800
+Wire Wire Line
+	4300 4700 4750 4700
+Wire Wire Line
+	5750 3300 6150 3300
+Wire Wire Line
+	5750 3200 6150 3200
+Wire Wire Line
+	4300 5100 4750 5100
+Wire Wire Line
+	4300 5000 4750 5000
+$Comp
+L power:+5V #PWR?
+U 1 1 5C6C0C34
+P 4300 5000
+F 0 "#PWR?" H 4300 4850 50  0001 C CNN
+F 1 "+5V" V 4315 5128 50  0000 L CNN
+F 2 "" H 4300 5000 50  0001 C CNN
+F 3 "" H 4300 5000 50  0001 C CNN
+	1    4300 5000
+	0    -1   1    0   
 $EndComp
 $EndSCHEMATC
