@@ -20,6 +20,7 @@ limitations under the License.
 
 #include "uni_debug.h"
 #include "uni_hid_device_vendors.h"
+#include "uni_hid_parser_8bitdo.h"
 #include "uni_hid_parser_android.h"
 #include "uni_hid_parser_apple.h"
 #include "uni_hid_parser_icade.h"
@@ -367,6 +368,10 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* device) {
     case CONTROLLER_TYPE_PS4Controller:
       device->report_parser.init = uni_hid_parser_ps4_init;
       device->report_parser.parse_usage = uni_hid_parser_ps4_parse_usage;
+      break;
+    case CONTROLLER_TYPE_8Bitdo:
+      device->report_parser.init = uni_hid_parser_8bitdo_init;
+      device->report_parser.parse_usage = uni_hid_parser_8bitdo_parse_usage;
       break;
     default:
       device->report_parser.init = uni_hid_parser_android_init;
