@@ -204,7 +204,7 @@
   )
 
   (module Parts:MH-ET_LIVE_MINIKIT_ESP32 (layer F.Cu) (tedit 5C6B620C) (tstamp 5C9C9F55)
-    (at 71.12 57.15)
+    (at 127 124.46)
     (descr "SPARKFUN ESP32 THING BOARD")
     (tags "SPARKFUN ESP32 THING BOARD")
     (path /5C6B6FCB)
@@ -438,7 +438,7 @@
   )
 
   (module Connector_BarrelJack:BarrelJack_Horizontal (layer F.Cu) (tedit 5A1DBF6A) (tstamp 5CA0C7DB)
-    (at 121.92 68.58 180)
+    (at 165.1 134.62 180)
     (descr "DC Barrel Jack")
     (tags "Power Jack")
     (path /5C65A2B3)
@@ -491,7 +491,7 @@
   )
 
   (module Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset4.94mm_Housed_MountingHolesOffset7.48mm (layer F.Cu) (tedit 59FEDEE2) (tstamp 5CA0C7A8)
-    (at 101.6 8.89 180)
+    (at 152.4 80.01 180)
     (descr "9-pin D-Sub connector, horizontal/angled (90 deg), THT-mount, female, pitch 2.77x2.84mm, pin-PCB-offset 4.9399999999999995mm, distance of mounting holes 25mm, distance of mounting holes to PCB edge 7.4799999999999995mm, see https://disti-assets.s3.amazonaws.com/tonar/files/datasheets/16730.pdf")
     (tags "9-pin D-Sub connector horizontal angled 90deg THT female pitch 2.77x2.84mm pin-PCB-offset 4.9399999999999995mm mounting-holes-distance 25mm mounting-hole-offset 25mm")
     (path /5C65A122)
@@ -570,7 +570,7 @@
   )
 
   (module Diode_THT:D_DO-41_SOD81_P7.62mm_Horizontal (layer F.Cu) (tedit 5AE50CD5) (tstamp 5C9CA1C6)
-    (at 107.95 68.58)
+    (at 151.13 134.62)
     (descr "Diode, DO-41_SOD81 series, Axial, Horizontal, pin pitch=7.62mm, , length*diameter=5.2*2.7mm^2, , http://www.diodes.com/_files/packages/DO-41%20(Plastic).pdf")
     (tags "Diode DO-41_SOD81 series Axial Horizontal pin pitch 7.62mm  length 5.2mm diameter 2.7mm")
     (path /5C65A496)
@@ -623,7 +623,7 @@
   )
 
   (module Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset4.94mm_Housed_MountingHolesOffset7.48mm (layer F.Cu) (tedit 59FEDEE2) (tstamp 5C7634E0)
-    (at 58.42 8.255 180)
+    (at 120.65 80.01 180)
     (descr "9-pin D-Sub connector, horizontal/angled (90 deg), THT-mount, female, pitch 2.77x2.84mm, pin-PCB-offset 4.9399999999999995mm, distance of mounting holes 25mm, distance of mounting holes to PCB edge 7.4799999999999995mm, see https://disti-assets.s3.amazonaws.com/tonar/files/datasheets/16730.pdf")
     (tags "9-pin D-Sub connector horizontal angled 90deg THT female pitch 2.77x2.84mm pin-PCB-offset 4.9399999999999995mm mounting-holes-distance 25mm mounting-hole-offset 25mm")
     (path /5C65A0B0)
@@ -702,7 +702,7 @@
   )
 
   (module Package_DIP:DIP-14_W7.62mm_Socket_LongPads (layer F.Cu) (tedit 5A02E8C5) (tstamp 5C763478)
-    (at 119.38 20.32)
+    (at 166.37 87.63)
     (descr "14-lead though-hole mounted DIP package, row spacing 7.62 mm (300 mils), Socket, LongPads")
     (tags "THT DIP DIL PDIP 2.54mm 7.62mm 300mil Socket LongPads")
     (path /5C68B557)
@@ -771,7 +771,7 @@
   )
 
   (module Package_DIP:DIP-14_W7.62mm_Socket_LongPads (layer F.Cu) (tedit 5A02E8C5) (tstamp 5C76344E)
-    (at 119.38 43.18)
+    (at 166.37 109.22)
     (descr "14-lead though-hole mounted DIP package, row spacing 7.62 mm (300 mils), Socket, LongPads")
     (tags "THT DIP DIL PDIP 2.54mm 7.62mm 300mil Socket LongPads")
     (path /5C68B296)
@@ -843,7 +843,7 @@
   )
 
   (module Package_DIP:DIP-14_W7.62mm_Socket_LongPads (layer F.Cu) (tedit 5A02E8C5) (tstamp 5C763424)
-    (at 48.26 19.05)
+    (at 110.49 87.63)
     (descr "14-lead though-hole mounted DIP package, row spacing 7.62 mm (300 mils), Socket, LongPads")
     (tags "THT DIP DIL PDIP 2.54mm 7.62mm 300mil Socket LongPads")
     (path /5C68B004)
@@ -912,7 +912,7 @@
   )
 
   (module Package_DIP:DIP-14_W7.62mm_Socket_LongPads (layer F.Cu) (tedit 5A02E8C5) (tstamp 5C7633FA)
-    (at 48.26 41.91)
+    (at 110.49 109.22)
     (descr "14-lead though-hole mounted DIP package, row spacing 7.62 mm (300 mils), Socket, LongPads")
     (tags "THT DIP DIL PDIP 2.54mm 7.62mm 300mil Socket LongPads")
     (path /5C650471)
