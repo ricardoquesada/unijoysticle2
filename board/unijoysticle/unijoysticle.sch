@@ -53,7 +53,7 @@ U 1 1 5C65A0B0
 P 3950 1350
 F 0 "J1" H 4130 1353 50  0000 L CNN
 F 1 "DB9_Female_MountingHoles" H 4130 1262 50  0000 L CNN
-F 2 "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset4.94mm_Housed_MountingHolesOffset7.48mm" H 3950 1350 50  0001 C CNN
+F 2 "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset9.40mm" H 3950 1350 50  0001 C CNN
 F 3 " ~" H 3950 1350 50  0001 C CNN
 	1    3950 1350
 	1    0    0    -1  
@@ -64,7 +64,7 @@ U 1 1 5C65A122
 P 6500 1350
 F 0 "J2" H 6680 1353 50  0000 L CNN
 F 1 "DB9_Female_MountingHoles" H 6680 1262 50  0000 L CNN
-F 2 "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset4.94mm_Housed_MountingHolesOffset7.48mm" H 6500 1350 50  0001 C CNN
+F 2 "Connector_Dsub:DSUB-9_Female_EdgeMount_P2.77mm" H 6500 1350 50  0001 C CNN
 F 3 " ~" H 6500 1350 50  0001 C CNN
 	1    6500 1350
 	-1   0    0    -1  
