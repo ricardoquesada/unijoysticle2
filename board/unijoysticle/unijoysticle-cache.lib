@@ -28,36 +28,34 @@ X ON 12 -500 -100 300 R 50 50 4 1 I
 ENDDRAW
 ENDDEF
 #
-# Connector_Barrel_Jack_MountingPin
+# Connector_Barrel_Jack
 #
-DEF Connector_Barrel_Jack_MountingPin J 0 20 Y N 1 F N
+DEF Connector_Barrel_Jack J 0 40 Y Y 1 F N
 F0 "J" 0 210 50 H V C CNN
-F1 "Connector_Barrel_Jack_MountingPin" 50 -250 50 H V L CNN
+F1 "Connector_Barrel_Jack" 0 -200 50 H V C CNN
 F2 "" 50 -40 50 H I C CNN
 F3 "" 50 -40 50 H I C CNN
+ALIAS Jack-DC
 $FPLIST
  BarrelJack*
 $ENDFPLIST
 DRAW
 A -130 100 25 901 -901 0 1 10 F -130 125 -130 75
 A -130 100 25 901 -901 0 1 10 N -130 125 -130 75
-T 0 0 -165 15 0 1 1 Mounting Normal 0 C C
 S -200 150 200 -150 0 1 10 f
 S 145 125 -130 75 0 1 10 F
 P 2 0 1 10 200 100 150 100 N
 P 6 0 1 10 -150 -100 -100 -100 -50 -50 0 -100 100 -100 200 -100 N
-P 2 1 1 6 -40 -180 40 -180 N
 X ~ 1 300 100 100 L 50 50 1 1 P
 X ~ 2 300 -100 100 L 50 50 1 1 P
-X MountPin MP 0 -300 120 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Connector_DB9_Female_MountingHoles
+# Connector_DB9_Female
 #
-DEF Connector_DB9_Female_MountingHoles J 0 40 Y N 1 F N
-F0 "J" 0 650 50 H V C CNN
-F1 "Connector_DB9_Female_MountingHoles" 0 575 50 H V C CNN
+DEF Connector_DB9_Female J 0 40 Y N 1 F N
+F0 "J" 0 550 50 H V C CNN
+F1 "Connector_DB9_Female" 0 -575 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -83,7 +81,6 @@ P 2 0 1 0 -150 200 -100 200 N
 P 2 0 1 0 -150 300 20 300 N
 P 2 0 1 0 -150 400 -100 400 N
 P 5 0 1 10 -150 525 -150 -525 150 -375 150 375 -150 525 f
-X PAD 0 0 -600 150 U 50 50 1 1 P
 X 1 1 -300 400 150 R 50 50 1 1 P
 X 2 2 -300 200 150 R 50 50 1 1 P
 X 3 3 -300 0 150 R 50 50 1 1 P

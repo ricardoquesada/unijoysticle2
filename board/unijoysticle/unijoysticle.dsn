@@ -37,17 +37,17 @@
       (place B1 127127 -134239 front 0 (PN ESP32_THING_W_ANT_KEEPOUT))
     )
     (component "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset9.40mm"
-      (place J2 152781 -79248 front 180 (PN DB9_Female_MountingHoles))
-      (place J1 120777 -79248 front 180 (PN DB9_Female_MountingHoles))
+      (place J2 152781 -79248 front 180 (PN DB9_Female))
+      (place J1 120777 -79248 front 180 (PN DB9_Female))
     )
     (component Button_Switch_THT:SW_CuK_OS102011MA1QN1_SPDT_Angled
       (place SW1 119126 -118237 front 270 (PN SW_SPDT))
     )
     (component Connector_BarrelJack:BarrelJack_Horizontal
-      (place J3 161925 -124968 front 180 (PN Barrel_Jack_MountingPin))
+      (place J3 161544 -124841 front 180 (PN Barrel_Jack))
     )
     (component "Diode_THT:D_DO-41_SOD81_P7.62mm_Horizontal"
-      (place D1 161036 -115316 front 0 (PN 1N4001))
+      (place D1 168656 -115570 front 180 (PN 1N4001))
     )
     (component "Package_DIP:DIP-14_W7.62mm_Socket_LongPads"
       (place U5 168529 -111125 front 180 (PN 4066))
@@ -425,7 +425,7 @@
   )
   (network
     (net GND
-      (pins B1-1 B1-1@1 B1-1@2 J2-8 J1-8 SW1-1 J3-2 U5-2 U4-10 U4-3 U4-9 U4-2 U2-2
+      (pins B1-1 B1-1@1 B1-1@2 J2-7 J1-8 SW1-1 J3-2 U5-2 U4-10 U4-3 U4-9 U4-2 U2-2
         U1-10 U1-3 U1-9 U1-2)
     )
     (net GPIO_J1POTX
@@ -501,25 +501,25 @@
       (pins J1-6 U2-1)
     )
     (net J2UP
-      (pins J2-1 U4-1)
+      (pins J2-5 U4-1)
     )
     (net J2LEFT
       (pins J2-3 U4-8)
     )
     (net J2DOWN
-      (pins J2-2 U4-4)
+      (pins J2-4 U4-4)
     )
     (net J2RIGHT
-      (pins J2-4 U4-11)
+      (pins J2-2 U4-11)
     )
     (net J2POTX
-      (pins J2-9 U5-4)
+      (pins J2-6 U5-4)
     )
     (net J2POTY
-      (pins J2-5 U5-8)
+      (pins J2-1 U5-8)
     )
     (net J2FIRE
-      (pins J2-6 U5-1)
+      (pins J2-9 U5-1)
     )
     (net "Net-(D1-Pad2)"
       (pins J3-1 D1-2)
@@ -570,7 +570,7 @@
       (pins B1-6)
     )
     (net J1POWER
-      (pins J2-7 J1-7 SW1-3)
+      (pins J2-8 J1-7 SW1-3)
     )
     (net POWER_OR_GND
       (pins SW1-2 U5-3 U5-9 U2-3 U2-9)
