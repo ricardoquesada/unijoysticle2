@@ -64,7 +64,7 @@ U 1 1 5C65A122
 P 6500 1350
 F 0 "J2" H 6680 1353 50  0000 L CNN
 F 1 "DB9_Female_MountingHoles" H 6680 1262 50  0000 L CNN
-F 2 "Connector_Dsub:DSUB-9_Female_EdgeMount_P2.77mm" H 6500 1350 50  0001 C CNN
+F 2 "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset9.40mm" H 6500 1350 50  0001 C CNN
 F 3 " ~" H 6500 1350 50  0001 C CNN
 	1    6500 1350
 	-1   0    0    -1  
@@ -550,4 +550,14 @@ Text GLabel 1100 4550 0    50   Input ~ 0
 POWER_OR_GND
 Text GLabel 9450 4250 2    50   Input ~ 0
 POWER_OR_GND
+Text GLabel 7350 1250 2    50   Input ~ 0
+J2POWER
+Wire Wire Line
+	6800 1250 7350 1250
+Text GLabel 5000 2150 0    50   Input ~ 0
+J1POWER
+Wire Wire Line
+	5000 2150 5450 2150
+Text GLabel 5450 2150 2    50   Input ~ 0
+J2POWER
 $EndSCHEMATC
