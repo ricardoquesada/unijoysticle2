@@ -542,18 +542,18 @@ U 1 1 5C705949
 P 3950 1350
 F 0 "J1" H 4129 1396 50  0000 L CNN
 F 1 "DB9_Female" H 4129 1305 50  0000 L CNN
-F 2 "" H 3950 1350 50  0001 C CNN
+F 2 "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset9.40mm" H 3950 1350 50  0001 C CNN
 F 3 " ~" H 3950 1350 50  0001 C CNN
 	1    3950 1350
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:DB9_Female J?
+L Connector:DB9_Female J2
 U 1 1 5C705C0F
 P 6350 1350
-F 0 "J?" H 6270 658 50  0000 C CNN
+F 0 "J2" H 6270 658 50  0000 C CNN
 F 1 "DB9_Female" H 6270 749 50  0000 C CNN
-F 2 "" H 6350 1350 50  0001 C CNN
+F 2 "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset9.40mm" H 6350 1350 50  0001 C CNN
 F 3 " ~" H 6350 1350 50  0001 C CNN
 	1    6350 1350
 	-1   0    0    1   
@@ -576,4 +576,19 @@ Wire Wire Line
 	6650 1650 6800 1650
 Wire Wire Line
 	6800 1750 6650 1750
+$Comp
+L power:VDD #PWR?
+U 1 1 5C70E1A1
+P 4700 2400
+F 0 "#PWR?" H 4700 2250 50  0001 C CNN
+F 1 "VDD" V 4718 2527 50  0000 L CNN
+F 2 "" H 4700 2400 50  0001 C CNN
+F 3 "" H 4700 2400 50  0001 C CNN
+	1    4700 2400
+	0    -1   -1   0   
+$EndComp
+Text GLabel 5000 2400 2    50   Input ~ 0
+Vdd
+Wire Wire Line
+	4700 2400 5000 2400
 $EndSCHEMATC

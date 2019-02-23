@@ -425,7 +425,7 @@
   )
   (network
     (net GND
-      (pins B1-1 B1-1@1 B1-1@2 J2-7 J1-8 SW1-1 J3-2 U5-2 U4-10 U4-3 U4-9 U4-2 U2-2
+      (pins B1-1 B1-1@1 B1-1@2 J2-8 J1-8 SW1-1 J3-2 U5-2 U4-10 U4-3 U4-9 U4-2 U2-2
         U1-10 U1-3 U1-9 U1-2)
     )
     (net GPIO_J1POTX
@@ -486,13 +486,10 @@
       (pins U5-7 U4-7 U2-7 U1-7)
     )
     (net Vdd
-      (pins U5-14 U4-14 U2-14 U1-14)
+      (pins B1-2 D1-1 U5-14 U4-14 U2-14 U1-14)
     )
     (net J1POTX
       (pins J1-9 U2-4)
-    )
-    (net VDD
-      (pins B1-2 D1-1)
     )
     (net J1POTY
       (pins J1-5 U2-8)
@@ -570,7 +567,7 @@
       (pins B1-6)
     )
     (net J1POWER
-      (pins J2-8 J1-7 SW1-3)
+      (pins J2-7 J1-7 SW1-3)
     )
     (net POWER_OR_GND
       (pins SW1-2 U5-3 U5-9 U2-3 U2-9)
