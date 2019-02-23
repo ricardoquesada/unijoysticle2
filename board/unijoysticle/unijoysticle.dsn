@@ -73,6 +73,10 @@
       (outline (path signal 127  27940 32385  27940 39878))
       (outline (path signal 127  27940 39878  2540 39878))
       (outline (path signal 127  2540 39878  2540 32385))
+      (outline (path signal 150  30480 6350  0 6350))
+      (outline (path signal 150  0 6350  0 34290))
+      (outline (path signal 150  0 34290  30480 34290))
+      (outline (path signal 150  30480 34290  30480 6350))
       (pin Round[A]Pad_1879.6_um 11 1270 8890)
       (pin Round[A]Pad_1879.6_um 9 1270 11430)
       (pin Round[A]Pad_1879.6_um @1 1270 13970)
@@ -498,25 +502,25 @@
       (pins J1-6 U2-1)
     )
     (net J2UP
-      (pins J2-5 U4-1)
+      (pins J2-1 U4-1)
     )
     (net J2LEFT
       (pins J2-3 U4-8)
     )
     (net J2DOWN
-      (pins J2-4 U4-4)
+      (pins J2-2 U4-4)
     )
     (net J2RIGHT
-      (pins J2-2 U4-11)
+      (pins J2-4 U4-11)
     )
     (net J2POTX
-      (pins J2-6 U5-4)
+      (pins J2-9 U5-4)
     )
     (net J2POTY
-      (pins J2-1 U5-8)
+      (pins J2-5 U5-8)
     )
     (net J2FIRE
-      (pins J2-9 U5-1)
+      (pins J2-6 U5-1)
     )
     (net "Net-(D1-Pad2)"
       (pins J3-1 D1-2)

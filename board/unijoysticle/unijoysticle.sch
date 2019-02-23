@@ -493,7 +493,7 @@ Text GLabel 1100 4550 0    50   Input ~ 0
 POWER_OR_GND
 Text GLabel 9450 4250 2    50   Input ~ 0
 POWER_OR_GND
-Text GLabel 7300 1450 2    50   Input ~ 0
+Text GLabel 7350 1250 2    50   Input ~ 0
 J2POWER
 Text GLabel 5000 2150 0    50   Input ~ 0
 J1POWER
@@ -540,12 +540,12 @@ $Comp
 L Connector:DB9_Female J2
 U 1 1 5C705C0F
 P 6350 1350
-F 0 "J2" H 6270 658 50  0000 C CNN
-F 1 "DB9_Female" H 6270 749 50  0000 C CNN
+F 0 "J2" H 6270 2042 50  0000 C CNN
+F 1 "DB9_Female" H 6270 1951 50  0000 C CNN
 F 2 "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset9.40mm" H 6350 1350 50  0001 C CNN
 F 3 " ~" H 6350 1350 50  0001 C CNN
 	1    6350 1350
-	-1   0    0    1   
+	-1   0    0    -1  
 $EndComp
 Wire Wire Line
 	6650 950  6800 950 
@@ -557,8 +557,6 @@ Wire Wire Line
 	6650 1250 7350 1250
 Wire Wire Line
 	6800 1350 6650 1350
-Wire Wire Line
-	6650 1450 7300 1450
 Wire Wire Line
 	6800 1550 6650 1550
 Wire Wire Line
@@ -580,15 +578,17 @@ Text GLabel 5000 2400 2    50   Input ~ 0
 Vdd
 Wire Wire Line
 	4700 2400 5000 2400
+Wire Wire Line
+	6650 1450 7350 1450
 $Comp
 L power:GND #PWR?
-U 1 1 5C70F861
-P 7350 1250
-F 0 "#PWR?" H 7350 1000 50  0001 C CNN
-F 1 "GND" V 7355 1122 50  0000 R CNN
-F 2 "" H 7350 1250 50  0001 C CNN
-F 3 "" H 7350 1250 50  0001 C CNN
-	1    7350 1250
+U 1 1 5C7111C5
+P 7350 1450
+F 0 "#PWR?" H 7350 1200 50  0001 C CNN
+F 1 "GND" V 7355 1322 50  0000 R CNN
+F 2 "" H 7350 1450 50  0001 C CNN
+F 3 "" H 7350 1450 50  0001 C CNN
+	1    7350 1450
 	0    -1   -1   0   
 $EndComp
 $EndSCHEMATC
