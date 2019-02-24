@@ -699,7 +699,7 @@ static void start_connect_undiscovered(void) {
   // Hardcoded address of devices that cannot be discovered.
   if (1)
     return;
-  // // PS3 clone
+  // // PS3 clone: DualShock 3 PANHAI
   // bd_addr_t addr = {0x02, 0x90, 0x52, 0x77, 0x63, 0x25};
   // cheap mini gamepad received in conference. Unknown brand.
   bd_addr_t addr = {0xdc, 0x2c, 0x26, 0xf8, 0xb0, 0x0e};
