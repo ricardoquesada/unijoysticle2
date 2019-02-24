@@ -62,6 +62,8 @@ typedef struct uni_hid_device_s {
 
   uni_gamepad_t gamepad;
 
+  uint8_t wait_release_misc_button;
+
 } uni_hid_device_t;
 
 void uni_hid_device_init(void);

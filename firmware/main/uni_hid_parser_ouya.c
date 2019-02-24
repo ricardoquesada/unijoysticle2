@@ -155,6 +155,18 @@ void uni_hid_parser_ouya_parse_usage(uni_gamepad_t* gamepad,
             gamepad->dpad &= ~DPAD_RIGHT;
           gamepad->updated_states |= GAMEPAD_STATE_DPAD;
           break;
+        case 0x0d:
+          if (value)
+            gamepad->buttons |= BUTTON_TRIGGER_L;
+          else
+            gamepad->buttons &= ~BUTTON_TRIGGER_L;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_TRIGGER_L;
+        case 0x0e:
+          if (value)
+            gamepad->buttons |= BUTTON_TRIGGER_R;
+          else
+            gamepad->buttons &= ~BUTTON_TRIGGER_R;
+          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_TRIGGER_R;
         case 0x0f:
           if (value)
             gamepad->misc_buttons |= MISC_BUTTON_SYSTEM;
@@ -162,10 +174,14 @@ void uni_hid_parser_ouya_parse_usage(uni_gamepad_t* gamepad,
             gamepad->misc_buttons &= ~MISC_BUTTON_SYSTEM;
           gamepad->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
           break;
+        case 0x10:  // Not mapped but reported.
+          break;
         default:
           logi("OUYA: Unsupported usage page=0x%04x, page=0x%04x, value=0x%04x\n", usage_page, usage, value);
           break;
       }
+      break;
+    case 0xff00:  // OUYA specific, but not mapped apparently
       break;
     default:
       logi("OUYA: Unsupported usage page=0x%04x, page=0x%04x, value=0x%04x\n", usage_page, usage, value);

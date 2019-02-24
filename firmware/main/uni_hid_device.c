@@ -61,6 +61,8 @@ static int device_count = 0;
 static const bd_addr_t zero_addr = {0, 0, 0, 0, 0, 0};
 static uint32_t used_joystick_ports = 0;  // bitset
 
+static void process_misc_buttons(uni_hid_device_t* device);
+
 void uni_hid_device_init(void) {
   memset(devices, 0, sizeof(devices));
 }
@@ -400,5 +402,47 @@ uint8_t uni_hid_device_has_controller_type(uni_hid_device_t* device) {
 }
 
 void uni_hid_device_process_gamepad(uni_hid_device_t* device) {
+  // FIXME: each backend should decide what to do with misc buttons
+  process_misc_buttons(device);
   joystick_update(&device->gamepad, device->joystick_port, device->controller_emu);
+}
+
+void process_misc_buttons(uni_hid_device_t* device) {
+  if ((device->gamepad.updated_states & GAMEPAD_STATE_MISC_BUTTON_SYSTEM) == 0) {
+    // System button released (or never have been pressed). Return, and clean wait_release button
+    return;
+  }
+
+  if ((device->gamepad.misc_buttons & MISC_BUTTON_SYSTEM) == 0) {
+    // System button released ?
+    device->wait_release_misc_button = 0;
+    return;
+  }
+
+  if (device->wait_release_misc_button)
+    return;
+
+  // FIXME: Create JOYSTICK_PORT_BA swo PORT_AB can be swapped to PORT_BA
+  // Port not assigned or port is AB, return.
+  if (device->joystick_port == JOYSTICK_PORT_NONE || device->joystick_port == JOYSTICK_PORT_AB)
+    return;
+
+  // swap joysticks if only one device is attached
+  int num_devices = 0;
+  for (int j = 0; j < MAX_DEVICES; j++) {
+    if (bd_addr_cmp(devices[j].address, zero_addr) != 0) {
+      num_devices++;
+      if (num_devices > 1) {
+        logi("cannot swap joystick ports when more than one device is attached\n");
+        return;
+      }
+    }
+  }
+
+  // swap joystick A with B
+  device->joystick_port = (device->joystick_port == JOYSTICK_PORT_A) ? JOYSTICK_PORT_B : JOYSTICK_PORT_A;
+  logi("device %s has new joystick port: %c\n", bd_addr_to_str(device->address),
+       (device->joystick_port == JOYSTICK_PORT_A) ? 'A' : 'B');
+
+  device->wait_release_misc_button = 1;
 }
