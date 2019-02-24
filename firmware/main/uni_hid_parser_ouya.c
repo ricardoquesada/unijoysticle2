@@ -31,12 +31,6 @@ void uni_hid_parser_ouya_parse_usage(uni_gamepad_t* gamepad,
                                      uint16_t usage_page,
                                      uint16_t usage,
                                      int32_t value) {
-  UNUSED(gamepad);
-  UNUSED(globals);
-  UNUSED(usage_page);
-  UNUSED(usage);
-  UNUSED(value);
-
   switch (usage_page) {
     case HID_USAGE_PAGE_GENERIC_DESKTOP:
       switch (usage) {
@@ -155,13 +149,13 @@ void uni_hid_parser_ouya_parse_usage(uni_gamepad_t* gamepad,
             gamepad->dpad &= ~DPAD_RIGHT;
           gamepad->updated_states |= GAMEPAD_STATE_DPAD;
           break;
-        case 0x0d:
+        case 0x0d:  // Triggered by Brake pedal
           if (value)
             gamepad->buttons |= BUTTON_TRIGGER_L;
           else
             gamepad->buttons &= ~BUTTON_TRIGGER_L;
           gamepad->updated_states |= GAMEPAD_STATE_BUTTON_TRIGGER_L;
-        case 0x0e:
+        case 0x0e:  // Triggered by Accelerator pedal
           if (value)
             gamepad->buttons |= BUTTON_TRIGGER_R;
           else
