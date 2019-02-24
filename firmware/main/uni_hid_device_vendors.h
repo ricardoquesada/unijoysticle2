@@ -53,7 +53,8 @@ typedef enum {
   CONTROLLER_TYPE_OUYAController = 44,           // (Unijoysticle)
   CONTROLLER_TYPE_iCadeController = 45,          // (Unijoysticle)
   CONTROLLER_TYPE_SmartTVRemoteController = 46,  // (Unijoysticle)
-  CONTROLLER_TYPE_8Bitdo = 47,                   // (Unijoysticle)
+  CONTROLLER_TYPE_8BitdoController = 47,         // (Unijoysticle)
+  CONTROLLER_TYPE_GenericController = 48,        // (Unijoysicle)
 
   CONTROLLER_TYPE_LastController,  // Don't add game controllers below this
                                    // enumeration
@@ -408,7 +409,11 @@ static const uni_controlelr_description_t arrControllers[] = {
     {MAKE_CONTROLLER_ID(0x1949, 0x0401), CONTROLLER_TYPE_SmartTVRemoteController},  // Amazon Fire TV remote Controlelr 1st gen. (Unijoysticle)
 
     // 8-Bitdo controllers
-    {MAKE_CONTROLLER_ID(0x2820, 0x0009), CONTROLLER_TYPE_8Bitdo},  // 8Bitdo NES30 Gamepro (Unijoysticle)
+    {MAKE_CONTROLLER_ID(0x2820, 0x0009), CONTROLLER_TYPE_8BitdoController},  // 8Bitdo NES30 Gamepro (Unijoysticle)
+
+    // Generic gamepad
+    {MAKE_CONTROLLER_ID(0x0a5c, 0x4502), CONTROLLER_TYPE_GenericController},  // White-label mini gamepad received as gift in conference (Unijoysticle)
+
 };
 // clang-format on
 

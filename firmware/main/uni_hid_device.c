@@ -23,6 +23,7 @@ limitations under the License.
 #include "uni_hid_parser_8bitdo.h"
 #include "uni_hid_parser_android.h"
 #include "uni_hid_parser_apple.h"
+#include "uni_hid_parser_generic.h"
 #include "uni_hid_parser_icade.h"
 #include "uni_hid_parser_ouya.h"
 #include "uni_hid_parser_ps4.h"
@@ -203,8 +204,9 @@ uint8_t uni_hid_device_is_cod_supported(uint32_t cod) {
 
   // Joysticks, mice, gamepads are valid.
   if ((cod & MASK_COD_MAJOR_PERIPHERAL) == MASK_COD_MAJOR_PERIPHERAL) {
-    // device is a peripheral: keyboard, mouse, joystick, gamepad...
-    // but we only care about joysticks and gamepads
+    // Device is a peripheral: keyboard, mouse, joystick, gamepad, etc.
+    // We only care about joysticks, gamepads & mice. But some gamepads, specially
+    // cheap ones are advertised as keyboards.
     return !!(minor_cod & (MASK_COD_MINOR_GAMEPAD | MASK_COD_MINOR_JOYSTICK | MASK_COD_MINOR_POINT_DEVICE |
                            MASK_COD_MINOR_KEYBOARD));
   }
@@ -370,13 +372,17 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* device) {
       device->report_parser.init = uni_hid_parser_ps4_init;
       device->report_parser.parse_usage = uni_hid_parser_ps4_parse_usage;
       break;
-    case CONTROLLER_TYPE_8Bitdo:
+    case CONTROLLER_TYPE_8BitdoController:
       device->report_parser.init = uni_hid_parser_8bitdo_init;
       device->report_parser.parse_usage = uni_hid_parser_8bitdo_parse_usage;
       break;
+    case CONTROLLER_TYPE_GenericController:
+      device->report_parser.init = uni_hid_parser_generic_init;
+      device->report_parser.parse_usage = uni_hid_parser_generic_parse_usage;
+      break;
     default:
-      device->report_parser.init = uni_hid_parser_android_init;
-      device->report_parser.parse_usage = uni_hid_parser_android_parse_usage;
+      device->report_parser.init = uni_hid_parser_generic_init;
+      device->report_parser.parse_usage = uni_hid_parser_generic_parse_usage;
       break;
   }
 
