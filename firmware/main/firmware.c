@@ -73,12 +73,13 @@ static btstack_packet_callback_registration_t hci_event_callback_registration;
 
 static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t* packet, uint16_t size);
 static void handle_sdp_hid_query_result(uint8_t packet_type, uint16_t channel, uint8_t* packet, uint16_t size);
-static void handle_sdp_did_query_result(uint8_t packet_type, uint16_t channel, uint8_t* packet, uint16_t size);
+static void handle_sdp_pid_query_result(uint8_t packet_type, uint16_t channel, uint8_t* packet, uint16_t size);
 static void continue_remote_names(void);
 static void start_scan(void);
 static void sdp_query_hid_descriptor(uni_hid_device_t* device);
 static void sdp_query_product_id(uni_hid_device_t* device);
 static void list_link_keys(void);
+static void start_connect_undiscovered(void);
 
 static void on_l2cap_channel_closed(uint16_t channel, uint8_t* packet, uint16_t size);
 static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet, uint16_t size);
@@ -169,7 +170,7 @@ static void handle_sdp_hid_query_result(uint8_t packet_type, uint16_t channel, u
 }
 
 // Device ID results: Vendor ID, Product ID, Version, etc...
-static void handle_sdp_did_query_result(uint8_t packet_type, uint16_t channel, uint8_t* packet, uint16_t size) {
+static void handle_sdp_pid_query_result(uint8_t packet_type, uint16_t channel, uint8_t* packet, uint16_t size) {
   UNUSED(packet_type);
   UNUSED(channel);
   UNUSED(size);
@@ -249,6 +250,7 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t* packe
             logi("Btstack ready!\n");
             list_link_keys();
             start_scan();
+            start_connect_undiscovered();
           }
           break;
 
@@ -425,7 +427,7 @@ static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet, uint16_t 
   l2cap_event_channel_opened_get_address(packet, address);
   status = l2cap_event_channel_opened_get_status(packet);
   if (status) {
-    logi("L2CAP Connection failed: 0x%02x. Removing previous link key.\n", status);
+    logi("L2CAP Connection failed: 0x%02x. Removing previous link key for %s.\n", status, bd_addr_to_str(address));
     uni_hid_device_remove_entry_with_channel(channel);
     // Just in case the key is outdated we remove it. If fixes some
     // l2cap_channel_opened issues. It proves that it works when the status is
@@ -664,7 +666,7 @@ static void sdp_query_product_id(uni_hid_device_t* device) {
     return;
   }
   uint8_t status =
-      sdp_client_query_uuid16(&handle_sdp_did_query_result, device->address, BLUETOOTH_SERVICE_CLASS_PNP_INFORMATION);
+      sdp_client_query_uuid16(&handle_sdp_pid_query_result, device->address, BLUETOOTH_SERVICE_CLASS_PNP_INFORMATION);
   if (status != 0) {
     uni_hid_device_set_current_device(NULL);
     loge("Failed to perform SDP DeviceID query\n");
@@ -690,6 +692,21 @@ static void list_link_keys(void) {
   }
   logi(".\n");
   gap_link_key_iterator_done(&it);
+}
+
+static void start_connect_undiscovered(void) {
+  // WIP:
+  // Hardcoded address of devices that cannot be discovered.
+  if (1)
+    return;
+  bd_addr_t addr = {0x02, 0x90, 0x52, 0x77, 0x63, 0x25};
+  uni_hid_device_t* device = uni_hid_device_create(addr);
+  sdp_query_hid_descriptor(device);
+
+  uint8_t status = l2cap_create_channel(packet_handler, device->address, PSM_HID_CONTROL, 48, &device->hid_control_cid);
+  if (status) {
+    loge("\nConnecting to HID Control failed: 0x%02x", status);
+  }
 }
 
 int btstack_main(int argc, const char* argv[]) {

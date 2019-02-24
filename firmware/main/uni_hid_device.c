@@ -200,6 +200,7 @@ void uni_hid_device_set_cod(uni_hid_device_t* device, uint32_t cod) {
 
 uint8_t uni_hid_device_is_cod_supported(uint32_t cod) {
   const uint32_t minor_cod = cod & MASK_COD_MINOR_MASK;
+
   // Joysticks, mice, gamepads are valid.
   if ((cod & MASK_COD_MAJOR_PERIPHERAL) == MASK_COD_MAJOR_PERIPHERAL) {
     // device is a peripheral: keyboard, mouse, joystick, gamepad...
