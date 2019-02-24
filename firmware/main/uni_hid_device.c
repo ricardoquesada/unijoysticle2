@@ -398,3 +398,7 @@ uint8_t uni_hid_device_has_controller_type(uni_hid_device_t* device) {
 
   return !!(device->flags & FLAGS_HAS_CONTROLLER_TYPE);
 }
+
+void uni_hid_device_process_gamepad(uni_hid_device_t* device) {
+  joystick_update(&device->gamepad, device->joystick_port, device->controller_emu);
+}

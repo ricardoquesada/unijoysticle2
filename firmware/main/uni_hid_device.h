@@ -107,4 +107,5 @@ uint8_t uni_hid_device_is_orphan(uni_hid_device_t* device);
 void uni_hid_device_guess_controller_type(uni_hid_device_t* device);
 uint8_t uni_hid_device_has_controller_type(uni_hid_device_t* device);
 
+void uni_hid_device_process_gamepad(uni_hid_device_t* device);
 #endif  // UNI_HID_DEVICE_H
