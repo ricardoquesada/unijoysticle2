@@ -121,6 +121,7 @@ void uni_hid_parser_generic_parse_usage(uni_gamepad_t* gamepad,
           logi("Generic: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
           break;
       }
+      break;
     case HID_USAGE_PAGE_GENERIC_DEVICE_CONTROLS:
       switch (usage) {
         case HID_USAGE_BATTERY_STRENGHT:
@@ -181,10 +182,21 @@ void uni_hid_parser_generic_parse_usage(uni_gamepad_t* gamepad,
             gamepad->buttons &= ~BUTTON_SHOULDER_R;
           gamepad->updated_states |= GAMEPAD_STATE_BUTTON_SHOULDER_R;
           break;
-        case 0x09:  // non-existant button Shoulder Z?
-        case 0x0a:  // unsupported misc button
-        case 0x0b:  // unsupported misc button
-        case 0x0c:  // unsupported misc button
+        case 0x09:  // ???
+        case 0x0a:  // ???
+          break;
+        case 0x0b:  // select button ?
+          if (value)
+            gamepad->misc_buttons |= MISC_BUTTON_BACK;
+          else
+            gamepad->misc_buttons &= ~MISC_BUTTON_BACK;
+          gamepad->updated_states |= GAMEPAD_STATE_MISC_BUTTON_BACK;
+        case 0x0c:  // start button ?
+          if (value)
+            gamepad->misc_buttons |= MISC_BUTTON_HOME;
+          else
+            gamepad->misc_buttons &= ~MISC_BUTTON_HOME;
+          gamepad->updated_states |= GAMEPAD_STATE_MISC_BUTTON_HOME;
           break;
         case 0x0d:
           if (value)
