@@ -77,13 +77,14 @@ What's already done:
 *   Supports up until 2 gamepads connected, or one mouse + one gamepad.
 *   Basic generic mapping for gamepad
 *   Mouse kind of working... movement is not smooth yet.
+*   Gamepad: mappings based on product id + vendor id. Take DB from libSDL and addap the mappings to our own needs.
+*   Fetch product id + vendor id from SDP record (don't know how to do it).
+*   *Gamepad System button* swaps joystick ports
 
 Missing:
 
 *   Mouse: button are not mapped.
 *   Mouse: smooth movement.
-*   Gamepad: mappings based on product id + vendor id. Take DB from libSDL and addap the mappings to our own needs.
-*   Fetch product id + vendor id from SDP record (don't know how to do it).
 *   Better Bluetooth connect / reconnect
 *   Add support for Bluetooth LE devices (eg: Some smart TV remote controllers are BLE).
 *   Report back to client mode being used in the gamepads LEDS (in case avaiable).
