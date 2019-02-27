@@ -97,6 +97,17 @@ uni_hid_device_t* uni_hid_device_get_instance_for_cid(uint16_t cid) {
   return NULL;
 }
 
+uni_hid_device_t* uni_hid_device_get_instance_for_connection_handle(hci_con_handle_t handle) {
+  if (handle == 0)
+    return NULL;
+  for (int i = 0; i < MAX_DEVICES; i++) {
+    if (devices[i].con_handle == handle) {
+      return &devices[i];
+    }
+  }
+  return NULL;
+}
+
 uni_hid_device_t* uni_hid_device_get_first_device_with_state(int state) {
   for (int i = 0; i < device_count; i++) {
     if (devices[i].state == state)
@@ -445,4 +456,8 @@ void process_misc_buttons(uni_hid_device_t* device) {
        (device->joystick_port == JOYSTICK_PORT_A) ? 'A' : 'B');
 
   device->wait_release_misc_button = 1;
+}
+
+void uni_hid_device_set_connection_handle(uni_hid_device_t* device, hci_con_handle_t handle) {
+  device->con_handle = handle;
 }

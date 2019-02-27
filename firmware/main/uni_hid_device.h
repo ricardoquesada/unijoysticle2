@@ -71,6 +71,7 @@ void uni_hid_device_init(void);
 uni_hid_device_t* uni_hid_device_create(bd_addr_t address);
 uni_hid_device_t* uni_hid_device_get_instance_for_address(bd_addr_t addr);
 uni_hid_device_t* uni_hid_device_get_instance_for_cid(uint16_t cid);
+uni_hid_device_t* uni_hid_device_get_instance_for_connection_handle(hci_con_handle_t handle);
 uni_hid_device_t* uni_hid_device_get_first_device_with_state(int state);
 
 void uni_hid_device_set_current_device(uni_hid_device_t* device);
@@ -110,4 +111,6 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* device);
 uint8_t uni_hid_device_has_controller_type(uni_hid_device_t* device);
 
 void uni_hid_device_process_gamepad(uni_hid_device_t* device);
+
+void uni_hid_device_set_connection_handle(uni_hid_device_t* device, hci_con_handle_t handle);
 #endif  // UNI_HID_DEVICE_H
