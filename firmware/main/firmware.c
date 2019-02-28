@@ -251,7 +251,7 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t* packe
             bt_ready = 1;
             logi("Btstack ready!\n");
             list_link_keys();
-            // start_scan();
+            start_scan();
             start_connect_undiscovered();
           }
           break;
@@ -284,10 +284,13 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t* packe
           on_hci_connection_complete(channel, packet, size);
           break;
         case HCI_EVENT_DISCONNECTION_COMPLETE:
-          logi("HCI_EVENT_DISCONNECTION_COMPLETE\n");
+          logi("--> HCI_EVENT_DISCONNECTION_COMPLETE\n");
           break;
         case HCI_EVENT_LINK_KEY_REQUEST:
           logi("--> HCI_EVENT_LINK_KEY_REQUEST:\n");
+          break;
+        case HCI_EVENT_ROLE_CHANGE:
+          logi("--> HCI_EVENT_ROLE_CHANGE\n");
           break;
         case HCI_EVENT_READ_REMOTE_SUPPORTED_FEATURES_COMPLETE:
           logi("--> HCI_EVENT_READ_REMOTE_SUPPORTED_FEATURES_COMPLETE:\n");
@@ -374,12 +377,13 @@ static void on_hci_connection_complete(uint16_t channel, uint8_t* packet, uint16
   bd_addr_t event_addr;
   uni_hid_device_t* device;
   hci_con_handle_t handle;
+  uint8_t status;
 
   UNUSED(channel);
   UNUSED(size);
 
   hci_event_connection_complete_get_bd_addr(packet, event_addr);
-  uint8_t status = hci_event_connection_complete_get_status(packet);
+  status = hci_event_connection_complete_get_status(packet);
   if (status) {
     logi("on_hci_connection_complete failed (%d) for %s\n", status, bd_addr_to_str(event_addr));
     return;
@@ -393,26 +397,37 @@ static void on_hci_connection_complete(uint16_t channel, uint8_t* packet, uint16
 
   handle = hci_event_connection_complete_get_connection_handle(packet);
   uni_hid_device_set_connection_handle(device, handle);
+
+  // start l2cap connection in incoming connections only
+  // if (uni_hid_device_is_incoming(device)) {
+  //   logi("on_hci_connection_complete: starting l2cap channel for %s\n", bd_addr_to_str(device->address));
+  //   status = l2cap_create_channel(packet_handler, device->address, PSM_HID_CONTROL, 48, &device->hid_control_cid);
+  //   if (status) {
+  //     loge("\nConnecting to HID Control failed: 0x%02x. Address=%s", status, bd_addr_to_str(device->address));
+  //     return;
+  //   }
+  // }
 }
 
 static void on_hci_read_remote_supported_features_complete(uint16_t channel, uint8_t* packet, uint16_t size) {
   UNUSED(channel);
   UNUSED(size);
+  // uint8_t status;
   hci_con_handle_t handle = little_endian_read_16(packet, 3);
   uni_hid_device_t* device = uni_hid_device_get_instance_for_connection_handle(handle);
   if (device == NULL) {
     logi("on_hci_read_remote_supported_features_complete: could not find device for con handle: 0x%04x", handle);
     return;
   }
-  // start l2cap connection in incoming connections only
-  if (uni_hid_device_is_incoming(device)) {
-    logi("on_hci_connection_complete: starting l2cap channel for %s\n", bd_addr_to_str(device->address));
-    uint8_t status =
-        l2cap_create_channel(packet_handler, device->address, PSM_HID_CONTROL, 48, &device->hid_control_cid);
-    if (status) {
-      logi("on_hci_connection_complete: failed to create l2cap channel for %s\n", bd_addr_to_str(device->address));
-    }
-  }
+  // // start l2cap connection in incoming connections only
+  // if (uni_hid_device_is_incoming(device)) {
+  //   logi("on_hci_connection_complete: starting l2cap channel for %s\n", bd_addr_to_str(device->address));
+  //   status = l2cap_create_channel(packet_handler, device->address, PSM_HID_CONTROL, 48, &device->hid_control_cid);
+  //   if (status) {
+  //     loge("\nConnecting to HID Control failed: 0x%02x. Address=%s", status, bd_addr_to_str(device->address));
+  //     return;
+  //   }
+  // }
 }
 
 static void on_gap_inquiry_result(uint16_t channel, uint8_t* packet, uint16_t size) {
@@ -489,7 +504,7 @@ static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet, uint16_t 
   l2cap_event_channel_opened_get_address(packet, address);
   status = l2cap_event_channel_opened_get_status(packet);
   if (status) {
-    if (status != 0x6a) {
+    if (status == 0x6a) {
       logi("L2CAP Connection failed: 0x%02x. Removing previous link key for %s.\n", status, bd_addr_to_str(address));
       uni_hid_device_remove_entry_with_channel(channel);
       // Just in case the key is outdated we remove it. If fixes some
@@ -796,6 +811,7 @@ int btstack_main(int argc, const char* argv[]) {
 
   // btstack_stdin_setup(stdin_process);
   // Turn on the device
+  hci_set_master_slave_policy(HCI_ROLE_MASTER);
   hci_power_control(HCI_POWER_ON);
   return 0;
 }
