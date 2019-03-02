@@ -399,6 +399,8 @@ static const uni_controlelr_description_t arrControllers[] = {
 
     // ION iCade
     {MAKE_CONTROLLER_ID(0x15e4, 0x0132), CONTROLLER_TYPE_iCadeController},  // ION iCade (Unijoysticle)
+    // {MAKE_CONTROLLER_ID(0x0a5c, 0x4502), CONTROLLER_TYPE_iCadeController},  // White-label mini gamepad received as gift in conference
+                                                                               // Device can be put in gamepad or iCade mode. (Unijoysticle)
 
     // Android
     {MAKE_CONTROLLER_ID(0x20d6, 0x6271), CONTROLLER_TYPE_AndroidController},  // MOGA Controller, using HID mode (Unijoysticle)

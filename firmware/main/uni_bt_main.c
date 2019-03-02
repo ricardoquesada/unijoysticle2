@@ -46,6 +46,8 @@
  *   - gap_link_keys.c
  */
 
+#include "uni_bt_main.h"
+
 #include <inttypes.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -89,6 +91,7 @@ static void on_gap_inquiry_result(uint16_t channel, uint8_t* packet, uint16_t si
 static void on_hci_connection_request(uint16_t channel, uint8_t* packet, uint16_t size);
 static void on_hci_connection_complete(uint16_t channel, uint8_t* packet, uint16_t size);
 static void on_hci_read_remote_supported_features_complete(uint16_t channel, uint8_t* packet, uint16_t size);
+static void on_hci_role_change(uint16_t channel, uint8_t* packet, uint16_t size);
 
 int btstack_main(int argc, const char* argv[]);
 
@@ -291,6 +294,7 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t* packe
           break;
         case HCI_EVENT_ROLE_CHANGE:
           logi("--> HCI_EVENT_ROLE_CHANGE\n");
+          on_hci_role_change(channel, packet, size);
           break;
         case HCI_EVENT_READ_REMOTE_SUPPORTED_FEATURES_COMPLETE:
           logi("--> HCI_EVENT_READ_REMOTE_SUPPORTED_FEATURES_COMPLETE:\n");
@@ -407,6 +411,11 @@ static void on_hci_connection_complete(uint16_t channel, uint8_t* packet, uint16
   //     return;
   //   }
   // }
+
+  if (uni_hid_device_is_incoming(device)) {
+    // hci_send_cmd(&hci_authentication_requested, handle);
+    hci_send_cmd(&hci_change_connection_packet_type, handle, 0xcc18);
+  }
 }
 
 static void on_hci_read_remote_supported_features_complete(uint16_t channel, uint8_t* packet, uint16_t size) {
@@ -428,6 +437,24 @@ static void on_hci_read_remote_supported_features_complete(uint16_t channel, uin
   //     return;
   //   }
   // }
+}
+
+static void on_hci_role_change(uint16_t channel, uint8_t* packet, uint16_t size) {
+  bd_addr_t bd_addr;
+  uint8_t status;
+  uint8_t role;
+
+  UNUSED(channel);
+  UNUSED(size);
+
+  status = hci_event_role_change_get_status(packet);
+  if (status) {
+    loge("on_hci_role_change: status error = 0x%02x\n", status);
+    return;
+  }
+  hci_event_role_change_get_bd_addr(packet, bd_addr);
+  role = hci_event_role_change_get_role(packet);
+  logi("new hci role for %s is %d\n", bd_addr_to_str(bd_addr), role);
 }
 
 static void on_gap_inquiry_result(uint16_t channel, uint8_t* packet, uint16_t size) {
@@ -504,8 +531,9 @@ static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet, uint16_t 
   l2cap_event_channel_opened_get_address(packet, address);
   status = l2cap_event_channel_opened_get_status(packet);
   if (status) {
+    logi("L2CAP Connection failed: 0x%02x.\n", status);
     if (status == 0x6a) {
-      logi("L2CAP Connection failed: 0x%02x. Removing previous link key for %s.\n", status, bd_addr_to_str(address));
+      logi("Removing previous link key for address=%s.\n", bd_addr_to_str(address));
       uni_hid_device_remove_entry_with_channel(channel);
       // Just in case the key is outdated we remove it. If fixes some
       // l2cap_channel_opened issues. It proves that it works when the status is
@@ -792,10 +820,7 @@ static void start_connect_undiscovered(void) {
   }
 }
 
-int btstack_main(int argc, const char* argv[]) {
-  (void)argc;
-  (void)argv;
-
+int uni_bt_main(void) {
   // Honoring with BT copyright + adding own message to avoid confusion
   printf("Unijoysticle (C) 2016-2019 Ricardo Quesada and contributors.\n");
   printf("Bluetooth stack: Copyright (C) 2017 BlueKitchen GmbH.\n");
