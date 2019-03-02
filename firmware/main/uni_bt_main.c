@@ -400,19 +400,9 @@ static void on_hci_connection_complete(uint16_t channel, uint8_t* packet, uint16
   handle = hci_event_connection_complete_get_connection_handle(packet);
   uni_hid_device_set_connection_handle(device, handle);
 
-  // start l2cap connection in incoming connections only
-  // if (uni_hid_device_is_incoming(device)) {
-  //   logi("on_hci_connection_complete: starting l2cap channel for %s\n", bd_addr_to_str(device->address));
-  //   status = l2cap_create_channel(packet_handler, device->address, PSM_HID_CONTROL, 48, &device->hid_control_cid);
-  //   if (status) {
-  //     loge("\nConnecting to HID Control failed: 0x%02x. Address=%s", status, bd_addr_to_str(device->address));
-  //     return;
-  //   }
-  // }
-
   if (uni_hid_device_is_incoming(device)) {
     // hci_send_cmd(&hci_authentication_requested, handle);
-    hci_send_cmd(&hci_change_connection_packet_type, handle, 0xcc18);
+    // hci_send_cmd(&hci_change_connection_packet_type, handle, 0xcc18);
   }
 }
 
