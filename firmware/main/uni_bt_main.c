@@ -93,8 +93,6 @@ static void on_hci_connection_complete(uint16_t channel, uint8_t* packet, uint16
 static void on_hci_read_remote_supported_features_complete(uint16_t channel, uint8_t* packet, uint16_t size);
 static void on_hci_role_change(uint16_t channel, uint8_t* packet, uint16_t size);
 
-int btstack_main(int argc, const char* argv[]);
-
 static void hid_host_setup(void) {
   // enabled EIR
   hci_set_inquiry_mode(INQUIRY_MODE_RSSI_AND_EIR);
@@ -821,14 +819,6 @@ static void start_connect_undiscovered(void) {
 }
 
 int uni_bt_main(void) {
-  // Honoring with BT copyright + adding own message to avoid confusion
-  printf("Unijoysticle (C) 2016-2019 Ricardo Quesada and contributors.\n");
-  printf("Bluetooth stack: Copyright (C) 2017 BlueKitchen GmbH.\n");
-  printf("Firmware version: v0.0.1\n");
-
-  gpio_joy_init();
-  uni_hid_device_init();
-
   // Initialize L2CAP
   l2cap_init();
 

@@ -18,7 +18,26 @@ limitations under the License.
 
 #include "uni_bt_main.h"
 
+#include "gpio_joy.h"
+#include "uni_hid_device.h"
+
+int btstack_main(int argc, const char** argv);
+
 // Main. Called by BlueKitchen bluetooth stack
-void btstack_main(int argc, char** argv) {
+int btstack_main(int argc, const char** argv) {
+  UNUSED(argc);
+  UNUSED(argv);
+
+  // Honoring with BT copyright + adding own message to avoid confusion
+  printf("Unijoysticle (C) 2016-2019 Ricardo Quesada and contributors.\n");
+  printf("Bluetooth stack: Copyright (C) 2017 BlueKitchen GmbH.\n");
+  printf("Firmware version: v0.0.1\n");
+
+  gpio_joy_init();
+  uni_hid_device_init();
+
+  // Continue with bluetooth setup.
   uni_bt_main();
+
+  return 0;
 }
