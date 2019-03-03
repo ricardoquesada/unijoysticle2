@@ -55,23 +55,23 @@ enum {
   FLAGS_HAS_CONTROLLER_TYPE = (1 << 13),
 };
 
-static uni_hid_device_t devices[MAX_DEVICES];
-static uni_hid_device_t* current_device = NULL;
-static int device_count = 0;
+static uni_hid_device_t g_devices[MAX_DEVICES];
+static uni_hid_device_t* g_current_device = NULL;
+static int g_device_count = 0;
 static const bd_addr_t zero_addr = {0, 0, 0, 0, 0, 0};
 
 static void process_misc_button_system(uni_hid_device_t* device);
 static void process_misc_button_home(uni_hid_device_t* device);
 
 void uni_hid_device_init(void) {
-  memset(devices, 0, sizeof(devices));
+  memset(g_devices, 0, sizeof(g_devices));
 }
 
 uni_hid_device_t* uni_hid_device_create(bd_addr_t address) {
   for (int j = 0; j < MAX_DEVICES; j++) {
-    if (bd_addr_cmp(devices[j].address, zero_addr) == 0) {
-      memcpy(devices[j].address, address, 6);
-      return &devices[j];
+    if (bd_addr_cmp(g_devices[j].address, zero_addr) == 0) {
+      memcpy(g_devices[j].address, address, 6);
+      return &g_devices[j];
     }
   }
   return NULL;
@@ -79,8 +79,8 @@ uni_hid_device_t* uni_hid_device_create(bd_addr_t address) {
 
 uni_hid_device_t* uni_hid_device_get_instance_for_address(bd_addr_t addr) {
   for (int j = 0; j < MAX_DEVICES; j++) {
-    if (bd_addr_cmp(addr, devices[j].address) == 0) {
-      return &devices[j];
+    if (bd_addr_cmp(addr, g_devices[j].address) == 0) {
+      return &g_devices[j];
     }
   }
   return NULL;
@@ -90,8 +90,8 @@ uni_hid_device_t* uni_hid_device_get_instance_for_cid(uint16_t cid) {
   if (cid == 0)
     return NULL;
   for (int i = 0; i < MAX_DEVICES; i++) {
-    if (devices[i].hid_interrupt_cid == cid || devices[i].hid_control_cid == cid) {
-      return &devices[i];
+    if (g_devices[i].hid_interrupt_cid == cid || g_devices[i].hid_control_cid == cid) {
+      return &g_devices[i];
     }
   }
   return NULL;
@@ -101,27 +101,27 @@ uni_hid_device_t* uni_hid_device_get_instance_for_connection_handle(hci_con_hand
   if (handle == 0)
     return NULL;
   for (int i = 0; i < MAX_DEVICES; i++) {
-    if (devices[i].con_handle == handle) {
-      return &devices[i];
+    if (g_devices[i].con_handle == handle) {
+      return &g_devices[i];
     }
   }
   return NULL;
 }
 
 uni_hid_device_t* uni_hid_device_get_first_device_with_state(int state) {
-  for (int i = 0; i < device_count; i++) {
-    if (devices[i].state == state)
-      return &devices[i];
+  for (int i = 0; i < g_device_count; i++) {
+    if (g_devices[i].state == state)
+      return &g_devices[i];
   }
   return NULL;
 }
 
 void uni_hid_device_set_current_device(uni_hid_device_t* device) {
-  current_device = device;
+  g_current_device = device;
 }
 
 uni_hid_device_t* uni_hid_device_get_current_device(void) {
-  return current_device;
+  return g_current_device;
 }
 
 void uni_hid_device_try_assign_joystick_port(uni_hid_device_t* device) {
@@ -137,7 +137,7 @@ void uni_hid_device_try_assign_joystick_port(uni_hid_device_t* device) {
 
   uint32_t used_joystick_ports = 0;
   for (int i = 0; i < MAX_DEVICES; i++) {
-    used_joystick_ports |= devices[i].joystick_port;
+    used_joystick_ports |= g_devices[i].joystick_port;
   }
 
   // Try with Port B, assume it is a joystick
@@ -169,8 +169,8 @@ void uni_hid_device_remove_entry_with_channel(uint16_t channel) {
   if (channel == 0)
     return;
   for (int i = 0; i < MAX_DEVICES; i++) {
-    if (devices[i].hid_control_cid == channel || devices[i].hid_interrupt_cid == channel) {
-      memset(&devices[i], 0, sizeof(devices[i]));
+    if (g_devices[i].hid_control_cid == channel || g_devices[i].hid_interrupt_cid == channel) {
+      memset(&g_devices[i], 0, sizeof(g_devices[i]));
       break;
     }
   }
@@ -179,8 +179,8 @@ void uni_hid_device_remove_entry_with_channel(uint16_t channel) {
 void uni_hid_device_request_inquire(void) {
   for (int i = 0; i < MAX_DEVICES; i++) {
     // retry remote name request
-    if (devices[i].state == REMOTE_NAME_INQUIRED) {
-      devices[i].state = REMOTE_NAME_REQUEST;
+    if (g_devices[i].state == REMOTE_NAME_INQUIRED) {
+      g_devices[i].state = REMOTE_NAME_REQUEST;
     }
   }
 }
@@ -321,14 +321,26 @@ uint16_t uni_hid_device_get_vendor_id(uni_hid_device_t* device) {
   return device->vendor_id;
 }
 
-void uni_hid_device_print_status(uni_hid_device_t* device) {
-  logi("%s: flags=0x%04x, control=%d, interrupt=%d\n", bd_addr_to_str(device->address), device->flags,
-       device->hid_control_cid, device->hid_interrupt_cid);
+void uni_hid_device_dump_device(uni_hid_device_t* device) {
+  logi(
+      "%s, handle=%d, ctrl_cid=0x%04x, intr_cid=0x%04x, cod=0x%08x, vid=0x%04x, pid=0x%04x, flags=0x%08x, "
+      "port=%d, name='%s'\n",
+      bd_addr_to_str(device->address), device->con_handle, device->hid_control_cid, device->hid_interrupt_cid,
+      device->cod, device->vendor_id, device->product_id, device->flags, device->joystick_port, device->name);
+}
+
+void uni_hid_device_dump_all(void) {
+  logi("Connected devices:\n");
+  for (int i = 0; i < MAX_DEVICES; i++) {
+    if (bd_addr_cmp(g_devices[i].address, zero_addr) == 0)
+      continue;
+    uni_hid_device_dump_device(&g_devices[i]);
+  }
 }
 
 uint8_t uni_hid_device_is_orphan(uni_hid_device_t* device) {
   // There is a case with the Apple mouse, and possibly other devices, sends
-  // the on_hci_connection_request but doesn't complete the conneciton.
+  // the on_hci_connection_request but doesn't complete the connection.
   // The device gets added into the DB at on_hci_connection_request time, and
   // if you later put the device in discovery mode, we won't start a Connection
   // because it is already added to the DB.
@@ -425,24 +437,10 @@ void uni_hid_device_process_gamepad(uni_hid_device_t* device) {
   joystick_update(&device->gamepad, device->joystick_port, device->controller_emu);
 }
 
-void uni_hid_device_dump(void) {
-  logi("Connected devices:\n");
-  for (int i = 0; i < MAX_DEVICES; i++) {
-    if (bd_addr_cmp(devices[i].address, zero_addr) == 0)
-      continue;
-    logi(
-        "%d - %s, handle=%d, ctrl_cid=0x%04x, intr_cid=0x%04x, cod=0x%08x, vid=0x%04x, pid=0x%04x, flags=0x%08x, "
-        "port=%d, name='%s'\n",
-        i, bd_addr_to_str(devices[i].address), devices[i].con_handle, devices[i].hid_control_cid,
-        devices[i].hid_interrupt_cid, devices[i].cod, devices[i].vendor_id, devices[i].product_id, devices[i].flags,
-        devices[i].joystick_port, devices[i].name);
-  }
-}
-
 // Helpers
 
 // process_mic_button_system swaps joystick port A and B only if there is one device attached.
-void process_misc_button_system(uni_hid_device_t* device) {
+static void process_misc_button_system(uni_hid_device_t* device) {
   if ((device->gamepad.updated_states & GAMEPAD_STATE_MISC_BUTTON_SYSTEM) == 0) {
     // System button released (or never have been pressed). Return, and clean wait_release button
     return;
@@ -465,7 +463,7 @@ void process_misc_button_system(uni_hid_device_t* device) {
   // swap joysticks if only one device is attached
   int num_devices = 0;
   for (int j = 0; j < MAX_DEVICES; j++) {
-    if (bd_addr_cmp(devices[j].address, zero_addr) != 0) {
+    if (bd_addr_cmp(g_devices[j].address, zero_addr) != 0) {
       num_devices++;
       if (num_devices > 1) {
         logi("cannot swap joystick ports when more than one device is attached\n");
@@ -483,7 +481,7 @@ void process_misc_button_system(uni_hid_device_t* device) {
 }
 
 // process_misc_button_home dumps uni_hid_device debug info in the console.
-void process_misc_button_home(uni_hid_device_t* device) {
+static void process_misc_button_home(uni_hid_device_t* device) {
   if ((device->gamepad.updated_states & GAMEPAD_STATE_MISC_BUTTON_HOME) == 0) {
     // Home button not available, not pressed or released.
     return;
@@ -499,7 +497,7 @@ void process_misc_button_home(uni_hid_device_t* device) {
   if (device->wait_release_misc_button & MISC_BUTTON_HOME)
     return;
 
-  uni_hid_device_dump();
+  uni_hid_device_dump_all();
 
   // Update "wait" flag.
   device->wait_release_misc_button |= MISC_BUTTON_HOME;

@@ -104,7 +104,8 @@ uint16_t uni_hid_device_get_product_id(uni_hid_device_t* device);
 void uni_hid_device_set_vendor_id(uni_hid_device_t* device, uint16_t vendor_id);
 uint16_t uni_hid_device_get_vendor_id(uni_hid_device_t* device);
 
-void uni_hid_device_print_status(uni_hid_device_t* device);
+void uni_hid_device_dump_device(uni_hid_device_t* device);
+void uni_hid_device_dump_all(void);
 
 uint8_t uni_hid_device_is_orphan(uni_hid_device_t* device);
 
@@ -115,5 +116,4 @@ void uni_hid_device_process_gamepad(uni_hid_device_t* device);
 
 void uni_hid_device_set_connection_handle(uni_hid_device_t* device, hci_con_handle_t handle);
 
-void uni_hid_device_dump(void);
 #endif  // UNI_HID_DEVICE_H

@@ -470,7 +470,7 @@ static void on_gap_inquiry_result(uint16_t channel, uint8_t* packet, uint16_t si
     device = uni_hid_device_get_instance_for_address(addr);
     if (device != NULL && !uni_hid_device_is_orphan(device)) {
       logi("... device already added\n");
-      uni_hid_device_print_status(device);
+      uni_hid_device_dump_device(device);
       return;
     }
     if (!device)
