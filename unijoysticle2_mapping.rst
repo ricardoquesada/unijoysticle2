@@ -40,6 +40,9 @@ Tested gamepads so far.
 | Xbox One                |                       |                                    |
 | |xbox_one_gamepad|      |                       |                                    |
 +-------------------------+-----------------------+------------------------------------+
+| PS4                     |                       |                                    |
+| |ps4_gamepad|           |                       |                                    |
++-------------------------+-----------------------+------------------------------------+
 | Android                 |                       |                                    |
 | |android_gamepad|       |                       |                                    |
 +-------------------------+-----------------------+------------------------------------+
@@ -80,3 +83,4 @@ References
 .. |icade_controller| image:: https://lh3.googleusercontent.com/uP2Z0w1eyevW8tCH1r_2guDVSK5eNM_oVTESFiRkpmS-9IYt0SZd9F8112WYxq9KDiPAQfOb_vkurPlyt86S3NWFoYbe917CBwjUJ0yi6uSZq3f4OyTtoNYoI2YBB0iL7lSB2zDi49Y=-no
 .. |ouya_gamepad| image:: https://lh3.googleusercontent.com/hwu-4UqNoTXoqUXuy_zojMGdLRVuRYL84GYJkASrWF3LIcJmg-grfixkVzZ6AIUeGIJ7P3Q0dBoTKGqdRzwtUo_HR1H4TujXXeomz6gr3GI7aYkNhiJn4A0-itzpNaWROo0bMcshTUqQaKpp1chgUY8POVYp_ji2UHwtqT-eYmj-A-nFstaS11l1XE4SIQdebwzmtEqlo71KS54P-LgTM0gjHjx_fye8_iVbqUxWwI3Qr16EEj1bcKRIJTBJeudbP1NiI5JQMCt6uwbkiUdAssb_-QK6Tc5EVDLSzr4qmc8L1yRQjzU0s0edSPgJuset0jra8f7I0snyKVJUubEbR9gU0wHGM-y8KF98ZvHTESsBwpkE36TfhaWXGDtbalRRXCd0JXHdGPtRbCkmUDrBuIe30KSsIEIbe64TbCawQO7x0Wc1oCP9Br3NhJ0hMA3912uOEVH7n1cUCPVZbtB9WCysndy0p-Wrz5WY_GCfNs7zK5qIKGmtr-ZF2t4ZmBvHE32Z4E_7aBEvdASLcqBo6rO9uWA5It7gOtFV2YmXTNv08mg_p4D38E1OTqeDxOROcEtB-xa-CryIfDRHK2VCtTNZ5t3lyelOmbpcmO6hnY-UDwJwrO_AevjxMHZJvSEDfZsl_AYZ_wnt9P3Oj1_ShCrr52KvUGcpX0-9Tv2vhcL0Uo45XRoMOUZz42FJ67HoZALh8g-Jx-SvYJ-MGamzUhJhww=-no
 .. |generic_mini_gamepad| image:: https://lh3.googleusercontent.com/8RtOwOu6kVoOq2x3ahA7h0PUK9HQSPxWN_Mwkx_GmX5q1BB2HgEhOWrOw_HQbpqUlxbKr3XY0f_9EucerimTE5nCzWgmkgdq8m4OcWg1oIwZDhewcyjIlgl8DcwOMoIMekvX8AWmpaFeQUgcr0ikj78_QWZARZ0fIJRTu1EyMKHLgTt4hsI2-X9x3vpyHdjVDYoIezMR9U3MEqht5ReyslMTEs-2r50aEoWPam5ybp7EeLWdZJW7m6h2pthRwAOFHm4s3ynKVoYW36NDXRAJw390iAZY8zgGdIBy9Y8P4_2ZpdgiZIAxF_lef78MwaoCBVGkGS2sA9giGwlAyoVSwhrcCCpoFsb9hvqGt5IdTHQhRVAj1DsE5DEWF5ZgqLFE9ChbVCK4Ncu14-BaMuUN9qJxj7HMUySCdt_Vyx1GR0PPmdCU_r0hfE919A8oq9cG_T-sV_nau6f6p9yZT8jJPbNfFTEtcqU-bOYV8nax478M-nJKF-NHMQMFIBx9Ohqws6KvYVs9L2xIc9G3hitusdMA18DSksy53tMaJBp1zBaNXZ_Eb4b0uD3fNaSYQzmv-l3rz0Wd5VKd_TdZRYPWg9hWp0TD2liGFWNyG6QQlcazoV9jv6_q2j1wfTFJ7mkQGNmGX_bGpOAHh-5nT4TkqBvTkdMOJvLT6Xa8CbzusydJ1bSLImqa2ht1NlQO2KdAy6P45sU63TJyl5RAuj-sN-Fi_g=-no
+.. |ps4_gamepad| image:: https://lh3.googleusercontent.com/_0sAxKXbSkk4g8rWJzTNxAirz2hD632jW4TGjGVOwjoac8sD4AfiN9PA1HdGWhm_ujcVygDlEG-LENPemF7IyFhqVsHgVHfCMVeFVjBbeDl-fUUjdMbRYAE8FiKdyWM_UBNUNmVy9Ro=-no
