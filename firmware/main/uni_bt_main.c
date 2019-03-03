@@ -313,7 +313,7 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t* packe
           if (device != NULL) {
             if (packet[2] == 0) {
               logi("Name: '%s'\n", &packet[9]);
-              device->state = REMOTE_NAME_FETCHED;
+              uni_hid_device_set_name(device, &packet[9], strlen((const char*)&packet[9]));
             } else {
               logi("Failed to get name: page timeout\n");
             }
@@ -488,8 +488,6 @@ static void on_gap_inquiry_result(uint16_t channel, uint8_t* packet, uint16_t si
         int name_len = gap_event_inquiry_result_get_name_len(packet);
         uni_hid_device_set_name(device, gap_event_inquiry_result_get_name(packet), name_len);
         logi(", name '%s'", device->name);
-        device->state = REMOTE_NAME_FETCHED;
-        ;
       } else {
         device->state = REMOTE_NAME_REQUEST;
       }

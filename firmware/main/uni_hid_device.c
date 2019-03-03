@@ -265,6 +265,7 @@ void uni_hid_device_set_name(uni_hid_device_t* device, const uint8_t* name, int 
     device->name[min] = 0;
 
     device->flags |= FLAGS_HAS_NAME;
+    device->state = REMOTE_NAME_FETCHED;
   }
 }
 
