@@ -61,7 +61,8 @@ static int device_count = 0;
 static const bd_addr_t zero_addr = {0, 0, 0, 0, 0, 0};
 static uint32_t used_joystick_ports = 0;  // bitset
 
-static void process_misc_buttons(uni_hid_device_t* device);
+static void process_misc_button_system(uni_hid_device_t* device);
+static void process_misc_button_home(uni_hid_device_t* device);
 
 void uni_hid_device_init(void) {
   memset(devices, 0, sizeof(devices));
@@ -412,13 +413,35 @@ uint8_t uni_hid_device_has_controller_type(uni_hid_device_t* device) {
   return !!(device->flags & FLAGS_HAS_CONTROLLER_TYPE);
 }
 
+void uni_hid_device_set_connection_handle(uni_hid_device_t* device, hci_con_handle_t handle) {
+  device->con_handle = handle;
+}
+
 void uni_hid_device_process_gamepad(uni_hid_device_t* device) {
   // FIXME: each backend should decide what to do with misc buttons
-  process_misc_buttons(device);
+  process_misc_button_system(device);
+  process_misc_button_home(device);
   joystick_update(&device->gamepad, device->joystick_port, device->controller_emu);
 }
 
-void process_misc_buttons(uni_hid_device_t* device) {
+void uni_hid_device_dump(void) {
+  logi("Connected devices:\n");
+  for (int i = 0; i < MAX_DEVICES; i++) {
+    if (bd_addr_cmp(devices[i].address, zero_addr) == 0)
+      continue;
+    logi(
+        "%d - %s, handle=%d, ctrl_cid=0x%04x, intr_cid=0x%04x, cod=0x%08x, vid=0x%04x, pid=0x%04x, flags=0x%08x, "
+        "port=%d, name='%s'\n",
+        i, bd_addr_to_str(devices[i].address), devices[i].con_handle, devices[i].hid_control_cid,
+        devices[i].hid_interrupt_cid, devices[i].cod, devices[i].vendor_id, devices[i].product_id, devices[i].flags,
+        devices[i].joystick_port, devices[i].name);
+  }
+}
+
+// Helpers
+
+// process_mic_button_system swaps joystick port A and B only if there is one device attached.
+void process_misc_button_system(uni_hid_device_t* device) {
   if ((device->gamepad.updated_states & GAMEPAD_STATE_MISC_BUTTON_SYSTEM) == 0) {
     // System button released (or never have been pressed). Return, and clean wait_release button
     return;
@@ -426,11 +449,11 @@ void process_misc_buttons(uni_hid_device_t* device) {
 
   if ((device->gamepad.misc_buttons & MISC_BUTTON_SYSTEM) == 0) {
     // System button released ?
-    device->wait_release_misc_button = 0;
+    device->wait_release_misc_button &= ~MISC_BUTTON_SYSTEM;
     return;
   }
 
-  if (device->wait_release_misc_button)
+  if (device->wait_release_misc_button & MISC_BUTTON_SYSTEM)
     return;
 
   // FIXME: Create JOYSTICK_PORT_BA swo PORT_AB can be swapped to PORT_BA
@@ -455,9 +478,28 @@ void process_misc_buttons(uni_hid_device_t* device) {
   logi("device %s has new joystick port: %c\n", bd_addr_to_str(device->address),
        (device->joystick_port == JOYSTICK_PORT_A) ? 'A' : 'B');
 
-  device->wait_release_misc_button = 1;
+  device->wait_release_misc_button |= MISC_BUTTON_SYSTEM;
 }
 
-void uni_hid_device_set_connection_handle(uni_hid_device_t* device, hci_con_handle_t handle) {
-  device->con_handle = handle;
+// process_misc_button_home dumps uni_hid_device debug info in the console.
+void process_misc_button_home(uni_hid_device_t* device) {
+  if ((device->gamepad.updated_states & GAMEPAD_STATE_MISC_BUTTON_HOME) == 0) {
+    // Home button not available, not pressed or released.
+    return;
+  }
+
+  if ((device->gamepad.misc_buttons & MISC_BUTTON_HOME) == 0) {
+    // Home button released ? Clear "wait" flag.
+    device->wait_release_misc_button &= ~MISC_BUTTON_HOME;
+    return;
+  }
+
+  // "Wait" flag present? Return.
+  if (device->wait_release_misc_button & MISC_BUTTON_HOME)
+    return;
+
+  uni_hid_device_dump();
+
+  // Update "wait" flag.
+  device->wait_release_misc_button |= MISC_BUTTON_HOME;
 }

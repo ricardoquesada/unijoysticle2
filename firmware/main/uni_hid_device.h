@@ -62,7 +62,8 @@ typedef struct uni_hid_device_s {
 
   uni_gamepad_t gamepad;
 
-  uint8_t wait_release_misc_button;
+  // Buttons that needs to be released before triggering the action again.
+  uint32_t wait_release_misc_button;
 
 } uni_hid_device_t;
 
@@ -113,4 +114,6 @@ uint8_t uni_hid_device_has_controller_type(uni_hid_device_t* device);
 void uni_hid_device_process_gamepad(uni_hid_device_t* device);
 
 void uni_hid_device_set_connection_handle(uni_hid_device_t* device, hci_con_handle_t handle);
+
+void uni_hid_device_dump(void);
 #endif  // UNI_HID_DEVICE_H
