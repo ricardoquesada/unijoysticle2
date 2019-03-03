@@ -46,6 +46,11 @@
  *   - gap_link_keys.c
  */
 
+/* This file controls everything related to Bluetooth, like connections, state, queries, etc.
+ * No Bluetooth logic should be placed outside this file.
+ * That way, in theory, it should be possible to support USB devices by replacing this file.
+ */
+
 #include "uni_bt_main.h"
 
 #include <inttypes.h>
