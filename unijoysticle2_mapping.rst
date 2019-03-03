@@ -1,7 +1,11 @@
 Unijoysticle 2 mapping
 ======================
 
-Al gamepads / joysticks / mice are converted to this virtual gamepad:
+Internally, all devices are converted to a virtual gamepad. There is one parser
+for each type of controller. The parsers are reponsible for doing the right mappings.
+
+Virtual Gamepad
+---------------
 
 |virtual_gamepad|
 
@@ -20,7 +24,10 @@ Al gamepads / joysticks / mice are converted to this virtual gamepad:
 -  M2: Button Home
 -  M3: Button Back
 
-In "Single mode", the following mapping is used:
+Single joystick mode
+~~~~~~~~~~~~~~~~~~~~
+
+In "Single gamepad mode", the following mapping is used:
 
 -  DPAD, Axis X & Y: Joystick Up,Down,Left,Right
 -  Button A: Fire
@@ -28,6 +35,17 @@ In "Single mode", the following mapping is used:
 -  M1: Swap joystick port only if one gamepad is connected
 -  M2: Dump debug info in console
 
+The remaining buttons are not mapped
+
+Dual joystick mode
+~~~~~~~~~~~~~~~~~~
+
+TODO
+
+Joystick + Mouse mode
+~~~~~~~~~~~~~~~~~~~~~
+
+TODO
 
 Tested gamepads
 ---------------
