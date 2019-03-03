@@ -59,7 +59,6 @@ static uni_hid_device_t devices[MAX_DEVICES];
 static uni_hid_device_t* current_device = NULL;
 static int device_count = 0;
 static const bd_addr_t zero_addr = {0, 0, 0, 0, 0, 0};
-static uint32_t used_joystick_ports = 0;  // bitset
 
 static void process_misc_button_system(uni_hid_device_t* device);
 static void process_misc_button_home(uni_hid_device_t* device);
@@ -131,13 +130,15 @@ void uni_hid_device_try_assign_joystick_port(uni_hid_device_t* device) {
     return;
   }
 
-  // All ports already assigned?
-  if (used_joystick_ports == JOYSTICK_PORT_AB)
+  // Port already assigned. Do nothing. Not an error.
+  if (device->joystick_port != JOYSTICK_PORT_NONE) {
     return;
+  }
 
-  // Port already assigned. Do nothing
-  if (device->joystick_port != JOYSTICK_PORT_NONE)
-    return;
+  uint32_t used_joystick_ports = 0;
+  for (int i = 0; i < MAX_DEVICES; i++) {
+    used_joystick_ports |= devices[i].joystick_port;
+  }
 
   // Try with Port B, assume it is a joystick
   int wanted_port = JOYSTICK_PORT_B;
@@ -196,7 +197,6 @@ void uni_hid_device_set_disconnected(uni_hid_device_t* device) {
   device->hid_interrupt_cid = 0;
 
   // Joystick-state oriented
-  used_joystick_ports &= ~device->joystick_port;
   device->joystick_port = JOYSTICK_PORT_NONE;
 }
 
