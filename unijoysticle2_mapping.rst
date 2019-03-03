@@ -5,6 +5,29 @@ Al gamepads / joysticks / mice are converted to this virtual gamepad:
 
 |virtual_gamepad|
 
+-  1: DPAD
+-  2: Axis X & Y, Button Thumb Left
+-  3: Axis Rx & Ry, Button Thumb Right
+-  4: Button X
+-  5: Button A
+-  6: Button Y
+-  7: Button B
+-  8: Button Shoulder Right
+-  9: Accelerator, Trigger Button Right
+-  10: Brake, Trigger Button Left
+-  11: Button Shoulder Left
+-  M1: Button System
+-  M2: Button Home
+-  M3: Button Back
+
+In "Single mode", the following mapping is used:
+
+-  DPAD, Axis X & Y: Joystick Up,Down,Left,Right
+-  Button A: Fire
+-  Button B: Joystick Up
+-  M1: Swap joystick port only if one gamepad is connected
+-  M2: Dump debug info in console
+
 
 Tested gamepads
 ---------------
