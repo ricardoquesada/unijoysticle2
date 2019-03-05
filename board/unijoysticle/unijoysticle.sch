@@ -71,9 +71,9 @@ Text GLabel 8600 2700 0    50   Input ~ 0
 GPIO_J2RIGHT
 Text GLabel 1900 4600 2    50   Input ~ 0
 GPIO_J2FIRE
-Text GLabel 4300 4800 0    50   Input ~ 0
+Text GLabel 6150 4600 2    50   Input ~ 0
 GPIO_J2FIRE
-Text GLabel 4300 4000 0    50   Input ~ 0
+Text GLabel 4300 3500 0    50   Input ~ 0
 GPIO_J2RIGHT
 Text GLabel 6150 4300 2    50   Input ~ 0
 GPIO_J2LEFT
@@ -87,7 +87,7 @@ Text GLabel 4300 3300 0    50   Input ~ 0
 GPIO_J1LEFT
 Text GLabel 6150 3400 2    50   Input ~ 0
 GPIO_J1RIGHT
-Text GLabel 4300 4700 0    50   Input ~ 0
+Text GLabel 4300 3800 0    50   Input ~ 0
 GPIO_J1FIRE
 Text GLabel 8600 3500 0    50   Input ~ 0
 GPIO_J2POTX
@@ -119,9 +119,9 @@ F 3 "" H 2950 1450 50  0001 C CNN
 	1    2950 1450
 	0    1    1    0   
 $EndComp
-Text GLabel 6150 4400 2    50   Input ~ 0
+Text GLabel 4300 4000 0    50   Input ~ 0
 GPIO_J1POTX
-Text GLabel 6150 4600 2    50   Input ~ 0
+Text GLabel 4300 3600 0    50   Input ~ 0
 GPIO_J1POTY
 Text GLabel 6150 3200 2    50   Input ~ 0
 GPIO_J2POTX
@@ -229,29 +229,9 @@ Wire Wire Line
 Wire Wire Line
 	4300 3300 4750 3300
 Wire Wire Line
-	5750 3400 6150 3400
-Wire Wire Line
-	5750 4600 6150 4600
-Wire Wire Line
-	6150 4400 5750 4400
-Wire Wire Line
-	5750 3700 6150 3700
-Wire Wire Line
-	5750 3800 6150 3800
-Wire Wire Line
-	5750 3600 6150 3600
-Wire Wire Line
 	5750 4300 6150 4300
 Wire Wire Line
-	4300 4000 4750 4000
-Wire Wire Line
 	4300 4800 4750 4800
-Wire Wire Line
-	4300 4700 4750 4700
-Wire Wire Line
-	5750 3300 6150 3300
-Wire Wire Line
-	5750 3200 6150 3200
 Wire Wire Line
 	4300 5100 4750 5100
 Wire Wire Line
@@ -275,7 +255,7 @@ U 1 1 5C6BA76A
 P 1650 5800
 F 0 "SW1" H 1650 6085 50  0000 C CNN
 F 1 "SW_SPDT" H 1650 5994 50  0000 C CNN
-F 2 "Switches:SWITCH_SPDT_PTH_11.6X4.0MM_LOCK" H 1650 5800 50  0001 C CNN
+F 2 "Button_Switch_THT:SW_CuK_OS102011MA1QN1_SPDT_Angled" H 1650 5800 50  0001 C CNN
 F 3 "" H 1650 5800 50  0001 C CNN
 	1    1650 5800
 	1    0    0    -1  
@@ -738,4 +718,30 @@ Wire Wire Line
 	4900 6100 4900 6300
 Wire Wire Line
 	5900 6100 5900 6300
+Wire Wire Line
+	5750 3800 6150 3800
+Wire Wire Line
+	5750 3700 6150 3700
+Wire Wire Line
+	5750 3600 6150 3600
+Wire Wire Line
+	5750 3400 6150 3400
+Wire Wire Line
+	5750 3300 6150 3300
+Wire Wire Line
+	5750 3200 6150 3200
+Text GLabel 6150 4500 2    50   Input ~ 0
+J1POTY
+Wire Wire Line
+	5750 4500 6150 4500
+Wire Wire Line
+	4300 3500 4750 3500
+Wire Wire Line
+	4300 4000 4750 4000
+Wire Wire Line
+	4300 3800 4750 3800
+Wire Wire Line
+	4300 3600 4750 3600
+Wire Wire Line
+	6150 4600 5750 4600
 $EndSCHEMATC

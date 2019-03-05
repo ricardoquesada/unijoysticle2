@@ -33,8 +33,8 @@
     )
   )
   (placement
-    (component Switches:SWITCH_SPDT_PTH_11.6X4.0MM_LOCK
-      (place SW1 119380 -119380 front 180 (PN SW_SPDT))
+    (component Button_Switch_THT:SW_CuK_OS102011MA1QN1_SPDT_Angled
+      (place SW1 119380 -118110 front 270 (PN SW_SPDT))
     )
     (component "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal"
       (place D1 168656 -115570 front 180 (PN 1N4001))
@@ -59,26 +59,26 @@
     )
   )
   (library
-    (image Switches:SWITCH_SPDT_PTH_11.6X4.0MM_LOCK
-      (outline (path signal 66.04  -228.6 -304.8  228.6 -304.8))
-      (outline (path signal 66.04  228.6 -304.8  228.6 304.8))
-      (outline (path signal 66.04  -228.6 304.8  228.6 304.8))
-      (outline (path signal 66.04  -228.6 -304.8  -228.6 304.8))
-      (outline (path signal 66.04  -228.6 2235.2  228.6 2235.2))
-      (outline (path signal 66.04  228.6 2235.2  228.6 2844.8))
-      (outline (path signal 66.04  -228.6 2844.8  228.6 2844.8))
-      (outline (path signal 66.04  -228.6 2235.2  -228.6 2844.8))
-      (outline (path signal 66.04  -228.6 -2844.8  228.6 -2844.8))
-      (outline (path signal 66.04  228.6 -2844.8  228.6 -2235.2))
-      (outline (path signal 66.04  -228.6 -2235.2  228.6 -2235.2))
-      (outline (path signal 66.04  -228.6 -2844.8  -228.6 -2235.2))
-      (outline (path signal 203.2  2174.24 5814.06  -2174.24 5814.06))
-      (outline (path signal 203.2  -2174.24 5814.06  -2174.24 -5814.06))
-      (outline (path signal 203.2  -2174.24 -5814.06  2174.24 -5814.06))
-      (outline (path signal 203.2  2174.24 -5814.06  2174.24 5814.06))
-      (pin Round[A]Pad_1879.6_um 1 0 2717.8)
-      (pin Round[A]Pad_1879.6_um 2 0 0)
-      (pin Round[A]Pad_1879.6_um 3 0 -2717.8)
+    (image Button_Switch_THT:SW_CuK_OS102011MA1QN1_SPDT_Angled
+      (outline (path signal 100  -2300 2200  6300 2200))
+      (outline (path signal 100  -2300 2200  -2300 -2200))
+      (outline (path signal 100  -2300 -2200  6300 -2200))
+      (outline (path signal 100  6300 -2200  6300 2200))
+      (outline (path signal 100  2000 -2200  2000 -6200))
+      (outline (path signal 100  2000 -6200  0 -6200))
+      (outline (path signal 100  0 -6200  0 -2200))
+      (outline (path signal 150  -2300 2300  6300 2300))
+      (outline (path signal 150  -2300 -2300  -100 -2300))
+      (outline (path signal 150  4000 -2300  6300 -2300))
+      (outline (path signal 50  7700 2700  7700 -6700))
+      (outline (path signal 50  7700 -6700  -3700 -6700))
+      (outline (path signal 50  -3700 -6700  -3700 2700))
+      (outline (path signal 50  -3700 2700  7700 2700))
+      (pin Rect[A]Pad_1500x2500_um 1 0 0)
+      (pin Oval[A]Pad_1500x2500_um 2 2000 0)
+      (pin Oval[A]Pad_1500x2500_um 3 4000 0)
+      (pin Oval[A]Pad_2200x3500_um @1 -2100 0)
+      (pin Oval[A]Pad_2200x3500_um @2 6100 0)
     )
     (image "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal"
       (outline (path signal 100  2480 1350  2480 -1350))
@@ -345,9 +345,19 @@
       (shape (circle B.Cu 1879.6))
       (attach off)
     )
+    (padstack Oval[A]Pad_1500x2500_um
+      (shape (path F.Cu 1500  0 -500  0 500))
+      (shape (path B.Cu 1500  0 -500  0 500))
+      (attach off)
+    )
     (padstack Oval[A]Pad_2400x1600_um
       (shape (path F.Cu 1600  -400 0  400 0))
       (shape (path B.Cu 1600  -400 0  400 0))
+      (attach off)
+    )
+    (padstack Oval[A]Pad_2200x3500_um
+      (shape (path F.Cu 2200  0 -650  0 650))
+      (shape (path B.Cu 2200  0 -650  0 650))
       (attach off)
     )
     (padstack Oval[A]Pad_2200x2200_um
@@ -420,6 +430,11 @@
       (shape (rect B.Cu -1750 -1750 1750 1750))
       (attach off)
     )
+    (padstack Rect[A]Pad_1500x2500_um
+      (shape (rect F.Cu -750 -1250 750 1250))
+      (shape (rect B.Cu -750 -1250 750 1250))
+      (attach off)
+    )
     (padstack Rect[A]Pad_1600x1600_um
       (shape (rect F.Cu -800 -800 800 800))
       (shape (rect B.Cu -800 -800 800 800))
@@ -442,7 +457,7 @@
         U1-7 B1-1 B1-1@1 B1-1@2 J2-8 J1-8 J3-2)
     )
     (net GPIO_J1POTX
-      (pins U3-6 B1-33)
+      (pins U3-6 B1-12)
     )
     (net GPIO_J1DOWN
       (pins U1-5 B1-18)
@@ -451,16 +466,16 @@
       (pins U1-13 B1-26)
     )
     (net GPIO_J1POTY
-      (pins U3-12 B1-35)
+      (pins U3-12 B1-16)
     )
     (net GPIO_J2LEFT
       (pins U2-6 B1-32)
     )
     (net GPIO_J2FIRE
-      (pins U4-5 B1-4)
+      (pins U4-5 B1-35)
     )
     (net GPIO_J2RIGHT
-      (pins U2-12 B1-12)
+      (pins U2-12 B1-17)
     )
     (net GPIO_J2DOWN
       (pins U2-5 B1-25)
@@ -475,7 +490,7 @@
       (pins U3-13 B1-21)
     )
     (net GPIO_J1FIRE
-      (pins U4-13 B1-5)
+      (pins U4-13 B1-14)
     )
     (net GPIO_J1RIGHT
       (pins U1-12 B1-23)
@@ -499,7 +514,7 @@
       (pins U3-8 J1-9)
     )
     (net J1POTY
-      (pins U3-11 J1-5)
+      (pins U3-11 B1-34 J1-5)
     )
     (net J1FIRE
       (pins U4-2 J1-6)
@@ -534,12 +549,6 @@
     (net "Net-(B1-Pad9)"
       (pins B1-9)
     )
-    (net "Net-(B1-Pad14)"
-      (pins B1-14)
-    )
-    (net "Net-(B1-Pad34)"
-      (pins B1-34)
-    )
     (net "Net-(B1-Pad39)"
       (pins B1-39)
     )
@@ -554,12 +563,6 @@
     )
     (net "Net-(B1-Pad3)"
       (pins B1-3)
-    )
-    (net "Net-(B1-Pad17)"
-      (pins B1-17)
-    )
-    (net "Net-(B1-Pad16)"
-      (pins B1-16)
     )
     (net "Net-(B1-Pad15)"
       (pins B1-15)
@@ -582,14 +585,24 @@
     (net VDD
       (pins D1-1 U4-14 U2-14 U1-14 B1-2)
     )
+    (net "Net-(B1-Pad33)"
+      (pins B1-33)
+    )
+    (net "Net-(B1-Pad5)"
+      (pins B1-5)
+    )
+    (net "Net-(B1-Pad4)"
+      (pins B1-4)
+    )
     (class kicad_default "" GND GPIO_J1DOWN GPIO_J1FIRE GPIO_J1LEFT GPIO_J1POTX
       GPIO_J1POTY GPIO_J1RIGHT GPIO_J1UP GPIO_J2DOWN GPIO_J2FIRE GPIO_J2LEFT
       GPIO_J2POTX GPIO_J2POTY GPIO_J2RIGHT GPIO_J2UP J1DOWN J1FIRE J1LEFT
       J1POTX J1POTY J1POWER J1RIGHT J1UP J2DOWN J2FIRE J2LEFT J2POTX J2POTY
       J2RIGHT J2UP "Net-(B1-Pad10)" "Net-(B1-Pad11)" "Net-(B1-Pad13)" "Net-(B1-Pad14)"
-      "Net-(B1-Pad15)" "Net-(B1-Pad16)" "Net-(B1-Pad17)" "Net-(B1-Pad3)" "Net-(B1-Pad34)"
-      "Net-(B1-Pad36)" "Net-(B1-Pad39)" "Net-(B1-Pad6)" "Net-(B1-Pad7)" "Net-(B1-Pad8)"
-      "Net-(B1-Pad9)" "Net-(D1-Pad2)" POWER_OR_GND VDD Vdd Vss
+      "Net-(B1-Pad15)" "Net-(B1-Pad16)" "Net-(B1-Pad17)" "Net-(B1-Pad3)" "Net-(B1-Pad33)"
+      "Net-(B1-Pad34)" "Net-(B1-Pad35)" "Net-(B1-Pad36)" "Net-(B1-Pad39)"
+      "Net-(B1-Pad4)" "Net-(B1-Pad5)" "Net-(B1-Pad6)" "Net-(B1-Pad7)" "Net-(B1-Pad8)"
+      "Net-(B1-Pad9)" "Net-(D1-Pad2)" POWER_OR_GND VDD
       (circuit
         (use_via Via[0-1]_685.8:330.2_um)
       )
