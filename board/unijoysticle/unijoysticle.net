@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /Users/riq/progs/unijoysticle2/board/unijoysticle/unijoysticle.sch)
-    (date "Monday, March 04, 2019 at 10:02:51 PM")
+    (date "Tuesday, March 05, 2019 at 08:15:42 AM")
     (tool "Eeschema (5.0.2-5-10.14)")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
