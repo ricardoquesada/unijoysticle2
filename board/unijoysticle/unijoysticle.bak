@@ -71,7 +71,7 @@ Text GLabel 8600 2700 0    50   Input ~ 0
 GPIO_J2RIGHT
 Text GLabel 1900 4600 2    50   Input ~ 0
 GPIO_J2FIRE
-Text GLabel 4300 4800 0    50   Input ~ 0
+Text GLabel 6150 4600 2    50   Input ~ 0
 GPIO_J2FIRE
 Text GLabel 4300 3500 0    50   Input ~ 0
 GPIO_J2RIGHT
@@ -230,8 +230,6 @@ Wire Wire Line
 	4300 3300 4750 3300
 Wire Wire Line
 	5750 4300 6150 4300
-Wire Wire Line
-	4300 4800 4750 4800
 Wire Wire Line
 	4300 5100 4750 5100
 Wire Wire Line
@@ -630,21 +628,16 @@ Wire Wire Line
 $Comp
 L 4xxx:4066 U3
 U 5 1 5C846B4B
-P 3750 7500
-F 0 "U3" V 3383 7500 50  0000 C CNN
-F 1 "4066" V 3474 7500 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 3750 7500 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/cd4066b.pdf" H 3750 7500 50  0001 C CNN
-	5    3750 7500
+P 5600 6100
+F 0 "U3" V 5233 6100 50  0000 C CNN
+F 1 "4066" V 5324 6100 50  0000 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 5600 6100 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/cd4066b.pdf" H 5600 6100 50  0001 C CNN
+	5    5600 6100
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	3250 7500 3250 6800
-Connection ~ 3250 6800
-Text GLabel 4500 7500 2    50   Input ~ 0
+Text GLabel 6400 6100 2    50   Input ~ 0
 J1POWER
-Wire Wire Line
-	4250 7500 4500 7500
 $Comp
 L 4xxx:4066 U2
 U 1 1 5C84C162
@@ -684,40 +677,14 @@ Wire Wire Line
 $Comp
 L 4xxx:4066 U4
 U 5 1 5C85AF7D
-P 5400 6100
-F 0 "U4" V 5033 6100 50  0000 C CNN
-F 1 "4066" V 5124 6100 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 5400 6100 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/cd4066b.pdf" H 5400 6100 50  0001 C CNN
-	5    5400 6100
+P 5600 6800
+F 0 "U4" V 5233 6800 50  0000 C CNN
+F 1 "4066" V 5324 6800 50  0000 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 5600 6800 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/cd4066b.pdf" H 5600 6800 50  0001 C CNN
+	5    5600 6800
 	0    1    1    0   
 $EndComp
-$Comp
-L power:GND #PWR0110
-U 1 1 5C8602A8
-P 4900 6300
-F 0 "#PWR0110" H 4900 6050 50  0001 C CNN
-F 1 "GND" H 4905 6127 50  0000 C CNN
-F 2 "" H 4900 6300 50  0001 C CNN
-F 3 "" H 4900 6300 50  0001 C CNN
-	1    4900 6300
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:VDD #PWR0111
-U 1 1 5C860320
-P 5900 6300
-F 0 "#PWR0111" H 5900 6150 50  0001 C CNN
-F 1 "VDD" H 5918 6473 50  0000 C CNN
-F 2 "" H 5900 6300 50  0001 C CNN
-F 3 "" H 5900 6300 50  0001 C CNN
-	1    5900 6300
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	4900 6100 4900 6300
-Wire Wire Line
-	5900 6100 5900 6300
 Wire Wire Line
 	5750 3800 6150 3800
 Wire Wire Line
@@ -742,4 +709,40 @@ Wire Wire Line
 	4300 3800 4750 3800
 Wire Wire Line
 	4300 3600 4750 3600
+Wire Wire Line
+	6150 4600 5750 4600
+Wire Wire Line
+	5100 6100 5100 6800
+Wire Wire Line
+	6100 6100 6100 6800
+Wire Wire Line
+	6100 6100 6400 6100
+Connection ~ 6100 6100
+$Comp
+L power:GND #PWR?
+U 1 1 5C8206BE
+P 4900 6200
+F 0 "#PWR?" H 4900 5950 50  0001 C CNN
+F 1 "GND" H 4905 6027 50  0000 C CNN
+F 2 "" H 4900 6200 50  0001 C CNN
+F 3 "" H 4900 6200 50  0001 C CNN
+	1    4900 6200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5100 6100 4900 6100
+Wire Wire Line
+	4900 6100 4900 6200
+Connection ~ 5100 6100
+$Comp
+L 4xxx:4066 U4
+U 3 1 5C823731
+P 3000 5150
+F 0 "U4" H 3000 4978 50  0000 C CNN
+F 1 "4066" H 3000 4887 50  0000 C CNN
+F 2 "" H 3000 5150 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/cd4066b.pdf" H 3000 5150 50  0001 C CNN
+	3    3000 5150
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
