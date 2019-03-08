@@ -96,27 +96,31 @@ l1:
 
         cli
 
+        lda #%11000000
+        sta $dc02                       ; disable keyboard
+
 main_loop:
 
-;        lda #%00111111                  ; enable joystick
-;        sta $dc00
+        lda #%00111111                  ; enable joystick
+        sta $dc00
 
-;        jsr print_joy1
-;        jsr print_joy2
+        jsr print_joy1
+        jsr print_joy2
 
         lda #%01000000                  ; enable pot A
         sta $dc00
-
         ldx #0                          ; wait a few cycles
 @l0:    dex                             ; after enabling the POT
         bne @l0
-
         jsr print_pot1
 
-;        lda #%10000000                  ; enable pot B
-;        sta $dc00
-;        jsr print_pot2
-;
+        lda #%10000000                  ; enable pot B
+        sta $dc00
+        ldx #0                          ; wait a few cycles
+@l1:    dex                             ; after enabling the POT
+        bne @l1
+        jsr print_pot2
+
         jmp main_loop
 .endproc
 
@@ -281,6 +285,40 @@ print_fire:
 .endproc
 
 .proc print_pot2
+        lda $d41a                       ; pot X
+        tay                             ; save A
+        and #%00001111
+        tax
+        lda hex,x                       ; print LSB
+        sta 1024 + 20 * 40 + 39
+
+        tya                             ; restore A
+
+        lsr
+        lsr
+        lsr
+        lsr
+        tax
+        lda hex,x                       ; print MSB
+        sta 1024 + 20 * 40 + 38
+
+
+
+        lda $d419                       ; pot Y
+        tay                             ; save it
+        and #%00001111
+        tax
+        lda hex,x                       ; print LSB
+        sta 1024 + 21 * 40 + 39
+
+        tya
+        lsr
+        lsr
+        lsr
+        lsr
+        tax
+        lda hex,x                       ; print MSB
+        sta 1024 + 21 * 40 + 38
         rts
 .endproc
 
