@@ -732,7 +732,7 @@ U 3 1 5C823731
 P 3400 6000
 F 0 "U4" H 3400 5828 50  0000 C CNN
 F 1 "4066" H 3400 5737 50  0000 C CNN
-F 2 "" H 3400 6000 50  0001 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 3400 6000 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/cd4066b.pdf" H 3400 6000 50  0001 C CNN
 	3    3400 6000
 	1    0    0    -1  
