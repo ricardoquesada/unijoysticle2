@@ -45,10 +45,10 @@ csr_set_bd_addr: ${CORE_OBJ} ${COMMON_OBJ} btstack_chipset_csr.o csr_set_bd_addr
 # LDFLAGS += -L/sw/lib -lportaudio -Wl,-framework,CoreAudio -Wl,-framework,AudioToolbox -Wl,-framework,AudioUnit -Wl,-framework,Carbon
 
 clean_src:
-	rm -rf * ${BTSTACK_ROOT}/src/*.o
-	rm -rf * ${BTSTACK_ROOT}/src/classic/*.o
-	rm -rf * ${BTSTACK_ROOT}/src/ble/*.o
-	rm -rf * ${BTSTACK_ROOT}/platform/embedded/*.o
+	rm -rf ${BTSTACK_ROOT}/src/*.o
+	rm -rf ${BTSTACK_ROOT}/src/classic/*.o
+	rm -rf ${BTSTACK_ROOT}/src/ble/*.o
+	rm -rf ${BTSTACK_ROOT}/platform/embedded/*.o
 
 clean:
 	rm -rf ../main/*.o
