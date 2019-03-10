@@ -20,9 +20,11 @@ limitations under the License.
 
 #include "gpio_joy.h"
 
-#include "driver/gpio.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/event_groups.h"
+#include "freertos/queue.h"
+
+#include "driver/gpio.h"
 
 #include "uni_debug.h"
 #include "uni_hid_device.h"
@@ -47,8 +49,11 @@ enum {
   GPIO_JOY_B_FIRE = GPIO_NUM_27,  // RX
 };
 
+// GPIO_NUM_12 (input) used as input for Pot in esp32.
+// GPIO_NUM_13 (output) used to feed the Pot in the c64
 enum {
   EVENT_BIT_JOYSTICK = (1 << 0),
+  EVENT_BIT_POT = (1 << 0),
 };
 
 static const int MOUSE_DELAY_BETWEEN_EVENT_US = 12000;  // microseconds
@@ -57,9 +62,12 @@ static const int MOUSE_MAX_DELTA = 32;
 static gpio_num_t JOY_A_PORTS[] = {GPIO_JOY_A_UP, GPIO_JOY_A_DOWN, GPIO_JOY_A_LEFT, GPIO_JOY_A_RIGHT, GPIO_JOY_A_FIRE};
 static gpio_num_t JOY_B_PORTS[] = {GPIO_JOY_B_UP, GPIO_JOY_B_DOWN, GPIO_JOY_B_LEFT, GPIO_JOY_B_RIGHT, GPIO_JOY_B_FIRE};
 
-// Mouse related
+// Atari ST/Amiga mouse related
 static EventGroupHandle_t g_mouse_event_group;
+// C64 Pot related
+static EventGroupHandle_t g_pot_event_group;
 
+// Mouse related
 static void gpio_joy_update_port(joystick_t* joy, gpio_num_t* gpios);
 static void mouse_loop(void* arg);
 static void send_move(int pin_a, int pin_b, uint32_t delay);
@@ -67,9 +75,17 @@ static void move_x(int dir, uint32_t delay);
 static void move_y(int dir, uint32_t delay);
 static void delay_us(uint32_t delay);
 
+// Pot related
+static void pot_loop(void* arg);
+static void IRAM_ATTR gpio_isr_handler_up(void* arg);
+
 // Mouse "shared data from main task to mouse task.
 static int32_t g_delta_x = 0;
 static int32_t g_delta_y = 0;
+
+// Pot "shared data from main task to pot task.
+static uint8_t g_pot_x = 0;
+static uint8_t g_pot_y = 0;
 
 #define MAX(a, b)           \
   ({                        \
@@ -98,6 +114,9 @@ void gpio_joy_init(void) {
   io_conf.pin_bit_mask |= ((1ULL << GPIO_JOY_B_UP) | (1ULL << GPIO_JOY_B_DOWN) | (1ULL << GPIO_JOY_B_LEFT) |
                            (1ULL << GPIO_JOY_B_RIGHT) | (1ULL << GPIO_JOY_B_FIRE));
 
+  // Pot feeder
+  io_conf.pin_bit_mask |= (1ULL << GPIO_NUM_13);
+
   ESP_ERROR_CHECK(gpio_config(&io_conf));
 
   // Set low all GPIOs... just in case.
@@ -110,6 +129,18 @@ void gpio_joy_init(void) {
   // Mouse related
   g_mouse_event_group = xEventGroupCreate();
   xTaskCreate(mouse_loop, "mouse_loop", 2048, NULL, 10, NULL);
+
+  // C64 POT related
+  g_pot_event_group = xEventGroupCreate();
+  xTaskCreate(pot_loop, "pot_loop", 2048, NULL, 10, NULL);
+  io_conf.intr_type = GPIO_INTR_POSEDGE;  // GPIO_INTR_NEGEDGE
+  io_conf.mode = GPIO_MODE_INPUT;
+  io_conf.pin_bit_mask = 1ULL << GPIO_NUM_12;
+  io_conf.pull_down_en = false;
+  io_conf.pull_up_en = true;
+  ESP_ERROR_CHECK(gpio_config(&io_conf));
+  ESP_ERROR_CHECK(gpio_install_isr_service(0));
+  ESP_ERROR_CHECK(gpio_isr_handler_add(GPIO_NUM_12, gpio_isr_handler_up, (void*)GPIO_NUM_12));
 }
 
 void gpio_joy_update_mouse(int32_t delta_x, int32_t delta_y) {
@@ -123,6 +154,8 @@ void gpio_joy_update_mouse(int32_t delta_x, int32_t delta_y) {
     g_delta_y = delta_y;
     BaseType_t xHigherPriorityTaskWoken = pdFALSE;
     xEventGroupSetBitsFromISR(g_mouse_event_group, EVENT_BIT_JOYSTICK, &xHigherPriorityTaskWoken);
+    if (xHigherPriorityTaskWoken == pdTRUE)
+      portYIELD_FROM_ISR();
   }
 }
 
@@ -135,7 +168,11 @@ void gpio_joy_update_port_b(joystick_t* joy) {
 }
 
 static void gpio_joy_update_port(joystick_t* joy, gpio_num_t* gpios) {
-  logd("up=%d, down=%d, left=%d, right=%d, fire=%d\n", joy->up, joy->down, joy->left, joy->right, joy->fire);
+  logd("up=%d, down=%d, left=%d, right=%d, fire=%d, potx=%d, poty=%d\n", joy->up, joy->down, joy->left, joy->right,
+       joy->fire, joy->pot_x, joy->pot_y);
+
+  g_pot_x = joy->pot_x;
+  g_pot_y = joy->pot_y;
 
   gpio_set_level(gpios[0], !!joy->up);
   gpio_set_level(gpios[1], !!joy->down);
@@ -263,4 +300,33 @@ static void delay_us(uint32_t delay) {
     vTaskDelay(delay / 1000);
   else
     ets_delay_us(delay);
+}
+
+static void pot_loop(void* arg) {
+  (void)arg;
+
+  // timeout of 500ms
+  const TickType_t xTicksToWait = 500 / portTICK_PERIOD_MS;
+  while (1) {
+    EventBits_t uxBits = xEventGroupWaitBits(g_pot_event_group, EVENT_BIT_POT, pdTRUE, pdFALSE, xTicksToWait);
+    // if not timeout, change the state
+    if (uxBits != 0) {
+      gpio_set_level(GPIO_NUM_13, 0);
+      ets_delay_us(223);
+      ets_delay_us(g_pot_y);
+      gpio_set_level(GPIO_NUM_13, 1);
+    } else {
+      gpio_set_level(GPIO_NUM_13, 0);
+    }
+  }
+}
+static void IRAM_ATTR gpio_isr_handler_up(void* arg) {
+  uint32_t gpio_num = (uint32_t)arg;
+  (void)gpio_num;
+
+  BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+  xEventGroupSetBitsFromISR(g_pot_event_group, EVENT_BIT_POT, &xHigherPriorityTaskWoken);
+
+  if (xHigherPriorityTaskWoken == pdTRUE)
+    portYIELD_FROM_ISR();
 }

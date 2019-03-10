@@ -143,12 +143,15 @@ void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gamepad,
           break;
         case 0x07:
           // FIXME: On the Steelseries Nimbus, 0x07 / 0x08 are brake/accelerator, but are reported as buttons.
-          // Don't know if this is valid for all iOS controllers. Treating as buttons. More samples are needed.
+          // Don't know if this is valid for all iOS controllers. Treating both as buttons and pedals.
+          // More samples needed.
           if (value)
             gamepad->buttons |= BUTTON_TRIGGER_L;
           else
             gamepad->buttons &= ~BUTTON_TRIGGER_L;
           gamepad->updated_states |= GAMEPAD_STATE_BUTTON_TRIGGER_L;
+          gamepad->brake = uni_hid_parser_process_pedal(globals, value);
+          gamepad->updated_states |= GAMEPAD_STATE_BRAKE;
           break;
         case 0x08:
           if (value)
@@ -156,6 +159,8 @@ void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gamepad,
           else
             gamepad->buttons &= ~BUTTON_TRIGGER_R;
           gamepad->updated_states |= GAMEPAD_STATE_BUTTON_TRIGGER_R;
+          gamepad->accelerator = uni_hid_parser_process_pedal(globals, value);
+          gamepad->updated_states |= GAMEPAD_STATE_ACCELERATOR;
           break;
         default:
           logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);

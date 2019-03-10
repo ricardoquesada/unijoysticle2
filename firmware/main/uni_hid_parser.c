@@ -53,7 +53,7 @@ void uni_hid_parser(uni_gamepad_t* gamepad,
 
     btstack_hid_parser_get_field(&parser, &usage_page, &usage, &value);
 
-    logd("usage_page = 0x%04x, usage = 0x%04x, value = 0x%x - ", usage_page, usage, value);
+    logd("usage_page = 0x%04x, usage = 0x%04x, value = 0x%x\n", usage_page, usage, value);
     report_parser->parse_usage(gamepad, &globals, usage_page, usage, value);
   }
 }
@@ -99,6 +99,14 @@ void joystick_update(const uni_gamepad_t* gp, uni_joystick_port_t joy_port, uni_
   if (gp->updated_states & GAMEPAD_STATE_AXIS_Y) {
     joy.up |= (gp->axis_y < -AXIS_THRESHOLD);
     joy.down |= (gp->axis_y > AXIS_THRESHOLD);
+  }
+
+  if (gp->updated_states & GAMEPAD_STATE_BRAKE) {
+    joy.pot_x = (gp->brake >> 2);  // convert from 1024 to 256
+  }
+
+  if (gp->updated_states & GAMEPAD_STATE_ACCELERATOR) {
+    joy.pot_y = (gp->accelerator >> 2);  // convert from 1024 to 256
   }
 
   // FIXME: Add support for JOYSTICK_PORT_AB.

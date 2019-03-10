@@ -50,6 +50,9 @@ clean_src:
 	rm -rf * ${BTSTACK_ROOT}/src/ble/*.o
 	rm -rf * ${BTSTACK_ROOT}/platform/embedded/*.o
 
+clean:
+	rm -rf ../main/*.o
+
 #all: ${EXAMPLES}
 
 unijoysticle: ${CORE_OBJ} ${COMMON_OBJ} ${CLASSIC_OBJ} ${SDP_CLIENT} btstack_ring_buffer.o btstack_hid_parser.o \

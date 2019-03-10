@@ -23,7 +23,8 @@ limitations under the License.
 #include <stdio.h>
 
 static void print_joystick(joystick_t* joy) {
-  printf("up=%d, down=%d, left=%d, right=%d, fire=%d\n", joy->up, joy->down, joy->left, joy->right, joy->fire);
+  printf("up=%d, down=%d, left=%d, right=%d, fire=%d, potx=%d, poty=%d\n", joy->up, joy->down, joy->left, joy->right,
+         joy->fire, joy->pot_x, joy->pot_y);
 }
 
 void gpio_joy_init(void) {}
