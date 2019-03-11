@@ -27,19 +27,8 @@ F 3 "" H 1600 7200 50  0001 C CNN
 $EndComp
 Text GLabel 6150 3700 2    50   Input ~ 0
 GPIO_J1UP
-Text GLabel 1850 900  2    50   Input ~ 0
+Text GLabel 1150 1100 0    50   Input ~ 0
 GPIO_J1UP
-$Comp
-L power:GND #PWR010
-U 1 1 5C668230
-P 9800 900
-F 0 "#PWR010" H 9800 650 50  0001 C CNN
-F 1 "GND" V 9805 772 50  0000 R CNN
-F 2 "" H 9800 900 50  0001 C CNN
-F 3 "" H 9800 900 50  0001 C CNN
-	1    9800 900 
-	0    -1   -1   0   
-$EndComp
 $Comp
 L power:GND #PWR06
 U 1 1 5C6919E6
@@ -53,24 +42,22 @@ F 3 "" H 1200 7400 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	1200 7200 1450 7200
-Text GLabel 1850 1650 2    50   Input ~ 0
+Text GLabel 1150 1900 0    50   Input ~ 0
 GPIO_J1DOWN
-Text GLabel 1850 2350 2    50   Input ~ 0
+Text GLabel 1150 2700 0    50   Input ~ 0
 GPIO_J1LEFT
-Text GLabel 1850 3050 2    50   Input ~ 0
+Text GLabel 1150 3500 0    50   Input ~ 0
 GPIO_J1RIGHT
-Text GLabel 1900 3800 2    50   Input ~ 0
+Text GLabel 1150 4300 0    50   Input ~ 0
 GPIO_J1FIRE
-Text GLabel 8650 600  0    50   Input ~ 0
+Text GLabel 8700 1100 0    50   Input ~ 0
 GPIO_J2UP
-Text GLabel 8600 1300 0    50   Input ~ 0
+Text GLabel 8700 1900 0    50   Input ~ 0
 GPIO_J2DOWN
-Text GLabel 8600 2000 0    50   Input ~ 0
+Text GLabel 8700 2700 0    50   Input ~ 0
 GPIO_J2LEFT
-Text GLabel 8600 2700 0    50   Input ~ 0
+Text GLabel 8700 3500 0    50   Input ~ 0
 GPIO_J2RIGHT
-Text GLabel 1900 4600 2    50   Input ~ 0
-GPIO_J2FIRE
 Text GLabel 6150 4600 2    50   Input ~ 0
 GPIO_J2FIRE
 Text GLabel 4300 3500 0    50   Input ~ 0
@@ -89,76 +76,53 @@ Text GLabel 6150 3400 2    50   Input ~ 0
 GPIO_J1RIGHT
 Text GLabel 4300 3800 0    50   Input ~ 0
 GPIO_J1FIRE
-Text GLabel 8600 3500 0    50   Input ~ 0
-GPIO_J2POTX
-Text GLabel 8600 4300 0    50   Input ~ 0
-GPIO_J2POTY
-Text GLabel 8600 5100 0    50   Input ~ 0
-GPIO_J1POTX
-Text GLabel 8600 5900 0    50   Input ~ 0
+Text GLabel 8700 5100 0    50   Input ~ 0
 GPIO_J1POTY
-$Comp
-L power:GND #PWR0101
-U 1 1 5C6B151A
-P 900 1200
-F 0 "#PWR0101" H 900 950 50  0001 C CNN
-F 1 "GND" V 905 1072 50  0000 R CNN
-F 2 "" H 900 1200 50  0001 C CNN
-F 3 "" H 900 1200 50  0001 C CNN
-	1    900  1200
-	0    1    1    0   
-$EndComp
 $Comp
 L power:GND #PWR0102
 U 1 1 5C6B262F
-P 2950 1450
-F 0 "#PWR0102" H 2950 1200 50  0001 C CNN
-F 1 "GND" V 2955 1322 50  0000 R CNN
-F 2 "" H 2950 1450 50  0001 C CNN
-F 3 "" H 2950 1450 50  0001 C CNN
-	1    2950 1450
+P 4150 1400
+F 0 "#PWR0102" H 4150 1150 50  0001 C CNN
+F 1 "GND" V 4155 1272 50  0000 R CNN
+F 2 "" H 4150 1400 50  0001 C CNN
+F 3 "" H 4150 1400 50  0001 C CNN
+	1    4150 1400
 	0    1    1    0   
 $EndComp
 Text GLabel 4300 4000 0    50   Input ~ 0
 GPIO_J1POTX
 Text GLabel 4300 3600 0    50   Input ~ 0
 GPIO_J1POTY
-Text GLabel 6150 3200 2    50   Input ~ 0
-GPIO_J2POTX
-Text GLabel 6150 3300 2    50   Input ~ 0
-GPIO_J2POTY
 Wire Wire Line
-	3650 950  3350 950 
+	4850 900  4550 900 
 Wire Wire Line
-	3650 1050 3350 1050
+	4850 1000 4550 1000
 Wire Wire Line
-	3650 1150 3350 1150
+	4850 1100 4550 1100
 Wire Wire Line
-	3650 1350 3350 1350
+	4850 1300 4550 1300
 Wire Wire Line
-	3650 1550 3350 1550
+	4850 1500 4550 1500
 Wire Wire Line
-	3650 1650 3350 1650
+	4850 1600 4550 1600
 Wire Wire Line
-	3650 1750 3350 1750
-Text GLabel 3350 950  0    50   Input ~ 0
+	4850 1700 4550 1700
+Text GLabel 4550 900  0    50   Input ~ 0
 J1UP
-Text GLabel 3350 1150 0    50   Input ~ 0
+Text GLabel 4550 1100 0    50   Input ~ 0
 J1DOWN
-Text GLabel 3350 1350 0    50   Input ~ 0
+Text GLabel 4550 1300 0    50   Input ~ 0
 J1LEFT
-Text GLabel 3350 1050 0    50   Input ~ 0
+Text GLabel 4550 1000 0    50   Input ~ 0
 J1FIRE
-Text GLabel 3350 1750 0    50   Input ~ 0
+Text GLabel 4550 1700 0    50   Input ~ 0
 J1POTY
-Text GLabel 3350 1650 0    50   Input ~ 0
+Text GLabel 4550 1600 0    50   Input ~ 0
 J1POTX
-Text GLabel 3350 1550 0    50   Input ~ 0
+Text GLabel 4550 1500 0    50   Input ~ 0
 J1RIGHT
 Wire Wire Line
-	3650 1450 2950 1450
-Wire Wire Line
-	3650 1250 2950 1250
+	4850 1400 4150 1400
 Text GLabel 6800 950  2    50   Input ~ 0
 J2UP
 Text GLabel 6800 1150 2    50   Input ~ 0
@@ -169,37 +133,25 @@ Text GLabel 6800 1550 2    50   Input ~ 0
 J2RIGHT
 Text GLabel 6800 1050 2    50   Input ~ 0
 J2FIRE
-Text GLabel 6800 1750 2    50   Input ~ 0
-J2POTY
-Text GLabel 6800 1650 2    50   Input ~ 0
-J2POTX
-Text GLabel 8650 900  0    50   Input ~ 0
+Text GLabel 10200 1100 2    50   Input ~ 0
 J2UP
-Text GLabel 8600 1600 0    50   Input ~ 0
+Text GLabel 10200 1900 2    50   Input ~ 0
 J2DOWN
-Text GLabel 8600 2300 0    50   Input ~ 0
+Text GLabel 10200 2700 2    50   Input ~ 0
 J2LEFT
-Text GLabel 8600 3000 0    50   Input ~ 0
+Text GLabel 10200 3500 2    50   Input ~ 0
 J2RIGHT
-Text GLabel 1900 4900 2    50   Input ~ 0
-J2FIRE
-Text GLabel 8600 4600 0    50   Input ~ 0
-J2POTY
-Text GLabel 8600 3800 0    50   Input ~ 0
-J2POTX
-Text GLabel 1900 4100 2    50   Input ~ 0
-J1FIRE
-Text GLabel 8600 5400 0    50   Input ~ 0
-J1POTX
-Text GLabel 8600 6200 0    50   Input ~ 0
+Text GLabel 10200 5100 2    50   Input ~ 0
 J1POTY
-Text GLabel 1850 1200 2    50   Input ~ 0
+Text GLabel 2650 4300 2    50   Input ~ 0
+J1FIRE
+Text GLabel 2650 1100 2    50   Input ~ 0
 J1UP
-Text GLabel 1850 1950 2    50   Input ~ 0
+Text GLabel 2650 1900 2    50   Input ~ 0
 J1DOWN
-Text GLabel 1850 2650 2    50   Input ~ 0
+Text GLabel 2650 2700 2    50   Input ~ 0
 J1LEFT
-Text GLabel 1850 3350 2    50   Input ~ 0
+Text GLabel 2650 3500 2    50   Input ~ 0
 J1RIGHT
 $Comp
 L power:GND #PWR0107
@@ -245,44 +197,6 @@ F 3 "" H 1950 7200 50  0001 C CNN
 	1    1950 7200
 	0    1    1    0   
 $EndComp
-Text GLabel 2950 1250 0    50   Input ~ 0
-J1POWER
-$Comp
-L Switch:SW_SPDT SW1
-U 1 1 5C6BA76A
-P 1650 5800
-F 0 "SW1" H 1650 6085 50  0000 C CNN
-F 1 "SW_SPDT" H 1650 5994 50  0000 C CNN
-F 2 "Button_Switch_THT:SW_CuK_OS102011MA1QN1_SPDT_Angled" H 1650 5800 50  0001 C CNN
-F 3 "" H 1650 5800 50  0001 C CNN
-	1    1650 5800
-	1    0    0    -1  
-$EndComp
-Text GLabel 1850 5900 2    50   Input ~ 0
-J1POWER
-$Comp
-L power:GND #PWR0105
-U 1 1 5C6BAB57
-P 1850 5700
-F 0 "#PWR0105" H 1850 5450 50  0001 C CNN
-F 1 "GND" V 1855 5572 50  0000 R CNN
-F 2 "" H 1850 5700 50  0001 C CNN
-F 3 "" H 1850 5700 50  0001 C CNN
-	1    1850 5700
-	0    -1   -1   0   
-$EndComp
-Text GLabel 1450 5800 0    50   Input ~ 0
-POWER_OR_GND
-Text GLabel 9900 3800 2    50   Input ~ 0
-POWER_OR_GND
-Text GLabel 7350 1250 2    50   Input ~ 0
-J2POWER
-Text GLabel 5000 2150 0    50   Input ~ 0
-J1POWER
-Wire Wire Line
-	5000 2150 5450 2150
-Text GLabel 5450 2150 2    50   Input ~ 0
-J2POWER
 $Comp
 L Connector:Barrel_Jack J3
 U 1 1 5C70344B
@@ -310,12 +224,12 @@ Wire Wire Line
 $Comp
 L Connector:DB9_Female J1
 U 1 1 5C705949
-P 3950 1350
-F 0 "J1" H 4129 1396 50  0000 L CNN
-F 1 "DB9_Female" H 4129 1305 50  0000 L CNN
-F 2 "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset9.40mm" H 3950 1350 50  0001 C CNN
-F 3 "" H 3950 1350 50  0001 C CNN
-	1    3950 1350
+P 5150 1300
+F 0 "J1" H 5329 1346 50  0000 L CNN
+F 1 "DB9_Female" H 5329 1255 50  0000 L CNN
+F 2 "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset9.40mm" H 5150 1300 50  0001 C CNN
+F 3 "" H 5150 1300 50  0001 C CNN
+	1    5150 1300
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -336,15 +250,9 @@ Wire Wire Line
 Wire Wire Line
 	6650 1150 6800 1150
 Wire Wire Line
-	6650 1250 7350 1250
-Wire Wire Line
 	6800 1350 6650 1350
 Wire Wire Line
 	6800 1550 6650 1550
-Wire Wire Line
-	6650 1650 6800 1650
-Wire Wire Line
-	6800 1750 6650 1750
 Wire Wire Line
 	6650 1450 7350 1450
 $Comp
@@ -358,329 +266,6 @@ F 3 "" H 7350 1450 50  0001 C CNN
 	1    7350 1450
 	0    -1   -1   0   
 $EndComp
-$Comp
-L 4xxx:4066 U1
-U 1 1 5C7D4B22
-P 1400 1200
-F 0 "U1" H 1400 1028 50  0000 C CNN
-F 1 "4066" H 1400 937 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 1400 1200 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/cd4066b.pdf" H 1400 1200 50  0001 C CNN
-	1    1400 1200
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1100 1200 900  1200
-$Comp
-L 4xxx:4066 U1
-U 2 1 5C7D9E7B
-P 1400 1950
-F 0 "U1" H 1400 1778 50  0000 C CNN
-F 1 "4066" H 1400 1687 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 1400 1950 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/cd4066b.pdf" H 1400 1950 50  0001 C CNN
-	2    1400 1950
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1700 1950 1850 1950
-Wire Wire Line
-	1400 1650 1850 1650
-Wire Wire Line
-	1700 1200 1850 1200
-Wire Wire Line
-	1850 900  1400 900 
-$Comp
-L 4xxx:4066 U1
-U 3 1 5C7DE795
-P 1400 2650
-F 0 "U1" H 1400 2478 50  0000 C CNN
-F 1 "4066" H 1400 2387 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 1400 2650 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/cd4066b.pdf" H 1400 2650 50  0001 C CNN
-	3    1400 2650
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1850 2350 1400 2350
-Wire Wire Line
-	1850 2650 1700 2650
-$Comp
-L 4xxx:4066 U1
-U 4 1 5C7E0FEF
-P 1400 3350
-F 0 "U1" H 1400 3178 50  0000 C CNN
-F 1 "4066" H 1400 3087 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 1400 3350 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/cd4066b.pdf" H 1400 3350 50  0001 C CNN
-	4    1400 3350
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1850 3050 1400 3050
-Wire Wire Line
-	1850 3350 1700 3350
-Wire Wire Line
-	1100 3350 1100 2650
-Connection ~ 1100 1200
-Connection ~ 1100 1950
-Wire Wire Line
-	1100 1950 1100 1200
-Connection ~ 1100 2650
-Wire Wire Line
-	1100 2650 1100 1950
-$Comp
-L 4xxx:4066 U1
-U 5 1 5C7E7017
-P 3050 6850
-F 0 "U1" V 2683 6850 50  0000 C CNN
-F 1 "4066" V 2774 6850 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 3050 6850 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/cd4066b.pdf" H 3050 6850 50  0001 C CNN
-	5    3050 6850
-	0    1    1    0   
-$EndComp
-$Comp
-L power:GND #PWR0106
-U 1 1 5C7E7210
-P 2400 6850
-F 0 "#PWR0106" H 2400 6600 50  0001 C CNN
-F 1 "GND" V 2405 6722 50  0000 R CNN
-F 2 "" H 2400 6850 50  0001 C CNN
-F 3 "" H 2400 6850 50  0001 C CNN
-	1    2400 6850
-	0    1    1    0   
-$EndComp
-$Comp
-L power:VDD #PWR0109
-U 1 1 5C7E72B8
-P 3700 6850
-F 0 "#PWR0109" H 3700 6700 50  0001 C CNN
-F 1 "VDD" V 3717 6978 50  0000 L CNN
-F 2 "" H 3700 6850 50  0001 C CNN
-F 3 "" H 3700 6850 50  0001 C CNN
-	1    3700 6850
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	3700 6850 3550 6850
-Wire Wire Line
-	2550 6850 2400 6850
-$Comp
-L 4xxx:4066 U3
-U 1 1 5C7EA406
-P 9200 3800
-F 0 "U3" H 9200 3628 50  0000 C CNN
-F 1 "4066" H 9200 3537 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 9200 3800 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/cd4066b.pdf" H 9200 3800 50  0001 C CNN
-	1    9200 3800
-	1    0    0    -1  
-$EndComp
-$Comp
-L 4xxx:4066 U3
-U 2 1 5C7EA5D5
-P 9200 4600
-F 0 "U3" H 9200 4428 50  0000 C CNN
-F 1 "4066" H 9200 4337 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 9200 4600 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/cd4066b.pdf" H 9200 4600 50  0001 C CNN
-	2    9200 4600
-	1    0    0    -1  
-$EndComp
-$Comp
-L 4xxx:4066 U2
-U 3 1 5C7EA72A
-P 9200 2300
-F 0 "U2" H 9200 2128 50  0000 C CNN
-F 1 "4066" H 9200 2037 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 9200 2300 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/cd4066b.pdf" H 9200 2300 50  0001 C CNN
-	3    9200 2300
-	1    0    0    -1  
-$EndComp
-$Comp
-L 4xxx:4066 U2
-U 4 1 5C7EA8A6
-P 9200 3000
-F 0 "U2" H 9200 2828 50  0000 C CNN
-F 1 "4066" H 9200 2737 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 9200 3000 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/cd4066b.pdf" H 9200 3000 50  0001 C CNN
-	4    9200 3000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	8650 600  9200 600 
-Wire Wire Line
-	8650 900  8900 900 
-Wire Wire Line
-	8600 1300 9200 1300
-Wire Wire Line
-	8900 1600 8600 1600
-Wire Wire Line
-	8600 2000 9200 2000
-Wire Wire Line
-	8900 2300 8600 2300
-Wire Wire Line
-	8600 3000 8900 3000
-Wire Wire Line
-	8600 2700 9200 2700
-Wire Wire Line
-	9500 3000 9500 2300
-Connection ~ 9500 1600
-Wire Wire Line
-	9500 1600 9500 900 
-Connection ~ 9500 2300
-Wire Wire Line
-	9500 2300 9500 1600
-Wire Wire Line
-	9800 900  9500 900 
-Connection ~ 9500 900 
-$Comp
-L 4xxx:4066 U2
-U 5 1 5C8013A8
-P 3050 7550
-F 0 "U2" V 2683 7550 50  0000 C CNN
-F 1 "4066" V 2774 7550 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 3050 7550 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/cd4066b.pdf" H 3050 7550 50  0001 C CNN
-	5    3050 7550
-	0    1    1    0   
-$EndComp
-Connection ~ 3550 6850
-Connection ~ 2550 6850
-$Comp
-L 4xxx:4066 U4
-U 1 1 5C81031B
-P 1400 4100
-F 0 "U4" H 1400 3928 50  0000 C CNN
-F 1 "4066" H 1400 3837 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 1400 4100 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/cd4066b.pdf" H 1400 4100 50  0001 C CNN
-	1    1400 4100
-	1    0    0    -1  
-$EndComp
-$Comp
-L 4xxx:4066 U4
-U 2 1 5C8154F7
-P 1400 4900
-F 0 "U4" H 1400 4728 50  0000 C CNN
-F 1 "4066" H 1400 4637 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 1400 4900 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/cd4066b.pdf" H 1400 4900 50  0001 C CNN
-	2    1400 4900
-	1    0    0    -1  
-$EndComp
-$Comp
-L 4xxx:4066 U3
-U 3 1 5C815575
-P 9200 5400
-F 0 "U3" H 9200 5228 50  0000 C CNN
-F 1 "4066" H 9200 5137 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 9200 5400 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/cd4066b.pdf" H 9200 5400 50  0001 C CNN
-	3    9200 5400
-	1    0    0    -1  
-$EndComp
-$Comp
-L 4xxx:4066 U3
-U 4 1 5C8156AF
-P 9200 6200
-F 0 "U3" H 9200 6028 50  0000 C CNN
-F 1 "4066" H 9200 5937 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 9200 6200 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/cd4066b.pdf" H 9200 6200 50  0001 C CNN
-	4    9200 6200
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	8600 3500 9200 3500
-Wire Wire Line
-	8900 3800 8600 3800
-Wire Wire Line
-	8600 4300 9200 4300
-Wire Wire Line
-	8900 4600 8600 4600
-Wire Wire Line
-	8600 5100 9200 5100
-Wire Wire Line
-	8900 5400 8600 5400
-Wire Wire Line
-	8600 5900 9200 5900
-Wire Wire Line
-	8900 6200 8600 6200
-Wire Wire Line
-	9500 6200 9500 5400
-Wire Wire Line
-	9500 3800 9900 3800
-Connection ~ 9500 3800
-Connection ~ 9500 4600
-Wire Wire Line
-	9500 4600 9500 3800
-Connection ~ 9500 5400
-Wire Wire Line
-	9500 5400 9500 4600
-$Comp
-L 4xxx:4066 U3
-U 5 1 5C846B4B
-P 4900 6850
-F 0 "U3" V 4533 6850 50  0000 C CNN
-F 1 "4066" V 4624 6850 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 4900 6850 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/cd4066b.pdf" H 4900 6850 50  0001 C CNN
-	5    4900 6850
-	0    1    1    0   
-$EndComp
-Text GLabel 5700 6850 2    50   Input ~ 0
-J1POWER
-$Comp
-L 4xxx:4066 U2
-U 1 1 5C84C162
-P 9200 900
-F 0 "U2" H 9200 728 50  0000 C CNN
-F 1 "4066" H 9200 637 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 9200 900 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/cd4066b.pdf" H 9200 900 50  0001 C CNN
-	1    9200 900 
-	1    0    0    -1  
-$EndComp
-$Comp
-L 4xxx:4066 U2
-U 2 1 5C84E7A3
-P 9200 1600
-F 0 "U2" H 9200 1428 50  0000 C CNN
-F 1 "4066" H 9200 1337 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 9200 1600 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/cd4066b.pdf" H 9200 1600 50  0001 C CNN
-	2    9200 1600
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1400 4600 1900 4600
-Wire Wire Line
-	1700 4900 1900 4900
-Wire Wire Line
-	1400 3800 1900 3800
-Wire Wire Line
-	1700 4100 1900 4100
-Wire Wire Line
-	1100 4900 1100 4100
-Connection ~ 1100 3350
-Connection ~ 1100 4100
-Wire Wire Line
-	1100 4100 1100 3350
-$Comp
-L 4xxx:4066 U4
-U 5 1 5C85AF7D
-P 4900 7550
-F 0 "U4" V 4533 7550 50  0000 C CNN
-F 1 "4066" V 4624 7550 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 4900 7550 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/cd4066b.pdf" H 4900 7550 50  0001 C CNN
-	5    4900 7550
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	5750 3800 6150 3800
 Wire Wire Line
@@ -689,14 +274,6 @@ Wire Wire Line
 	5750 3600 6150 3600
 Wire Wire Line
 	5750 3400 6150 3400
-Wire Wire Line
-	5750 3300 6150 3300
-Wire Wire Line
-	5750 3200 6150 3200
-Text GLabel 2900 6000 0    50   Input ~ 0
-J1POTY
-Wire Wire Line
-	5750 4500 6150 4500
 Wire Wire Line
 	4300 3500 4750 3500
 Wire Wire Line
@@ -707,60 +284,348 @@ Wire Wire Line
 	4300 3600 4750 3600
 Wire Wire Line
 	6150 4600 5750 4600
-Wire Wire Line
-	5400 6850 5700 6850
-Connection ~ 5400 6850
 $Comp
-L power:GND #PWR0110
-U 1 1 5C8206BE
-P 4200 6950
-F 0 "#PWR0110" H 4200 6700 50  0001 C CNN
-F 1 "GND" H 4205 6777 50  0000 C CNN
-F 2 "" H 4200 6950 50  0001 C CNN
-F 3 "" H 4200 6950 50  0001 C CNN
-	1    4200 6950
+L 74xx_IEEE:7405 U1
+U 1 1 5C85C5CF
+P 1900 1100
+F 0 "U1" H 1900 1616 50  0000 C CNN
+F 1 "7405" H 1900 1525 50  0000 C CNN
+F 2 "" H 1900 1100 50  0001 C CNN
+F 3 "" H 1900 1100 50  0001 C CNN
+	1    1900 1100
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4400 6850 4200 6850
-Wire Wire Line
-	4200 6850 4200 6950
-Connection ~ 4400 6850
+	2450 1100 2650 1100
 $Comp
-L 4xxx:4066 U4
-U 3 1 5C823731
-P 3400 6000
-F 0 "U4" H 3400 5828 50  0000 C CNN
-F 1 "4066" H 3400 5737 50  0000 C CNN
-F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 3400 6000 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/cd4066b.pdf" H 3400 6000 50  0001 C CNN
-	3    3400 6000
+L 74xx_IEEE:7405 U1
+U 2 1 5C865B6F
+P 1900 1900
+F 0 "U1" H 1900 2416 50  0000 C CNN
+F 1 "7405" H 1900 2325 50  0000 C CNN
+F 2 "" H 1900 1900 50  0001 C CNN
+F 3 "" H 1900 1900 50  0001 C CNN
+	2    1900 1900
+	1    0    0    -1  
+$EndComp
+$Comp
+L 74xx_IEEE:7405 U1
+U 3 1 5C8681B1
+P 1900 2700
+F 0 "U1" H 1900 3216 50  0000 C CNN
+F 1 "7405" H 1900 3125 50  0000 C CNN
+F 2 "" H 1900 2700 50  0001 C CNN
+F 3 "" H 1900 2700 50  0001 C CNN
+	3    1900 2700
+	1    0    0    -1  
+$EndComp
+$Comp
+L 74xx_IEEE:7405 U1
+U 4 1 5C86820C
+P 1900 3500
+F 0 "U1" H 1900 4016 50  0000 C CNN
+F 1 "7405" H 1900 3925 50  0000 C CNN
+F 2 "" H 1900 3500 50  0001 C CNN
+F 3 "" H 1900 3500 50  0001 C CNN
+	4    1900 3500
+	1    0    0    -1  
+$EndComp
+$Comp
+L 74xx_IEEE:7405 U1
+U 5 1 5C8682C5
+P 1900 4300
+F 0 "U1" H 1900 4816 50  0000 C CNN
+F 1 "7405" H 1900 4725 50  0000 C CNN
+F 2 "" H 1900 4300 50  0001 C CNN
+F 3 "" H 1900 4300 50  0001 C CNN
+	5    1900 4300
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4750 4700 4200 4700
-Text GLabel 4200 4700 0    50   Input ~ 0
-ENABLE_POT_TRIGGER
+	2450 1900 2650 1900
 Wire Wire Line
-	3550 6850 3550 7550
+	2450 3500 2650 3500
 Wire Wire Line
-	2550 6850 2550 7550
+	2450 2700 2650 2700
 Wire Wire Line
-	4400 6850 4400 7550
+	2450 4300 2650 4300
+$Comp
+L 74xx_IEEE:7405 U1
+U 6 1 5C88A6AA
+P 1900 5100
+F 0 "U1" H 1900 5616 50  0000 C CNN
+F 1 "7405" H 1900 5525 50  0000 C CNN
+F 2 "" H 1900 5100 50  0001 C CNN
+F 3 "" H 1900 5100 50  0001 C CNN
+	6    1900 5100
+	1    0    0    -1  
+$EndComp
+Text GLabel 1150 5100 0    50   Input ~ 0
+GPIO_J1POTX
+Text GLabel 2650 5100 2    50   Input ~ 0
+J1POTX
 Wire Wire Line
-	5400 6850 5400 7550
+	2650 5100 2450 5100
+$Comp
+L 74xx_IEEE:7405 U2
+U 1 1 5C8A5E4F
+P 9450 1100
+F 0 "U2" H 9450 1616 50  0000 C CNN
+F 1 "7405" H 9450 1525 50  0000 C CNN
+F 2 "" H 9450 1100 50  0001 C CNN
+F 3 "" H 9450 1100 50  0001 C CNN
+	1    9450 1100
+	1    0    0    -1  
+$EndComp
+$Comp
+L 74xx_IEEE:7405 U2
+U 2 1 5C8A5FAD
+P 9450 1900
+F 0 "U2" H 9450 2416 50  0000 C CNN
+F 1 "7405" H 9450 2325 50  0000 C CNN
+F 2 "" H 9450 1900 50  0001 C CNN
+F 3 "" H 9450 1900 50  0001 C CNN
+	2    9450 1900
+	1    0    0    -1  
+$EndComp
+$Comp
+L 74xx_IEEE:7405 U2
+U 3 1 5C8A626C
+P 9450 2700
+F 0 "U2" H 9450 3216 50  0000 C CNN
+F 1 "7405" H 9450 3125 50  0000 C CNN
+F 2 "" H 9450 2700 50  0001 C CNN
+F 3 "" H 9450 2700 50  0001 C CNN
+	3    9450 2700
+	1    0    0    -1  
+$EndComp
+$Comp
+L 74xx_IEEE:7405 U2
+U 4 1 5C8A62EC
+P 9450 3500
+F 0 "U2" H 9450 4016 50  0000 C CNN
+F 1 "7405" H 9450 3925 50  0000 C CNN
+F 2 "" H 9450 3500 50  0001 C CNN
+F 3 "" H 9450 3500 50  0001 C CNN
+	4    9450 3500
+	1    0    0    -1  
+$EndComp
+$Comp
+L 74xx_IEEE:7405 U2
+U 5 1 5C8A6416
+P 9450 4300
+F 0 "U2" H 9450 4816 50  0000 C CNN
+F 1 "7405" H 9450 4725 50  0000 C CNN
+F 2 "" H 9450 4300 50  0001 C CNN
+F 3 "" H 9450 4300 50  0001 C CNN
+	5    9450 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L 74xx_IEEE:7405 U2
+U 6 1 5C8A6505
+P 9450 5100
+F 0 "U2" H 9450 5616 50  0000 C CNN
+F 1 "7405" H 9450 5525 50  0000 C CNN
+F 2 "" H 9450 5100 50  0001 C CNN
+F 3 "" H 9450 5100 50  0001 C CNN
+	6    9450 5100
+	1    0    0    -1  
+$EndComp
 Wire Wire Line
-	3400 5700 3400 5600
+	8700 1100 8900 1100
 Wire Wire Line
-	3400 5600 3550 5600
-Text GLabel 3550 5600 2    50   Input ~ 0
-ENABLE_POT_TRIGGER
+	8700 1900 8900 1900
 Wire Wire Line
-	2900 6000 3100 6000
-Text GLabel 3900 6000 2    50   Input ~ 0
-J1POTY_ENABLED
+	8700 2700 8900 2700
 Wire Wire Line
-	3700 6000 3900 6000
-Text GLabel 6150 4500 2    50   Input ~ 0
-J1POTY_ENABLED
+	8700 3500 8900 3500
+Text GLabel 8700 4300 0    50   Input ~ 0
+GPIO_J2FIRE
+Wire Wire Line
+	8700 4300 8900 4300
+Wire Wire Line
+	8700 5100 8900 5100
+Text GLabel 10200 4300 2    50   Input ~ 0
+J2FIRE
+Wire Wire Line
+	10000 1100 10200 1100
+Wire Wire Line
+	10000 1900 10200 1900
+Wire Wire Line
+	10000 2700 10200 2700
+Wire Wire Line
+	10000 3500 10200 3500
+Wire Wire Line
+	10000 4300 10200 4300
+Wire Wire Line
+	10000 5100 10200 5100
+Wire Wire Line
+	1150 1100 1350 1100
+Wire Wire Line
+	1150 1900 1350 1900
+Wire Wire Line
+	1150 2700 1350 2700
+Wire Wire Line
+	1150 3500 1350 3500
+Wire Wire Line
+	1150 4300 1350 4300
+Wire Wire Line
+	1150 5100 1350 5100
+$Comp
+L power:VDD #PWR0105
+U 1 1 5C862F14
+P 2350 4700
+F 0 "#PWR0105" H 2350 4550 50  0001 C CNN
+F 1 "VDD" V 2367 4828 50  0000 L CNN
+F 2 "" H 2350 4700 50  0001 C CNN
+F 3 "" H 2350 4700 50  0001 C CNN
+	1    2350 4700
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2350 4700 1900 4700
+Wire Wire Line
+	1900 4700 1900 4800
+Wire Wire Line
+	1900 5350 1900 5500
+Wire Wire Line
+	1900 5500 2400 5500
+$Comp
+L power:GND #PWR0101
+U 1 1 5C869C5D
+P 2400 5500
+F 0 "#PWR0101" H 2400 5250 50  0001 C CNN
+F 1 "GND" V 2405 5372 50  0000 R CNN
+F 2 "" H 2400 5500 50  0001 C CNN
+F 3 "" H 2400 5500 50  0001 C CNN
+	1    2400 5500
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	9450 5350 9450 5500
+Wire Wire Line
+	9450 5500 10000 5500
+Wire Wire Line
+	9450 4800 9450 4700
+Wire Wire Line
+	9450 4700 10000 4700
+$Comp
+L power:VDD #PWR0106
+U 1 1 5C86D74A
+P 10000 4700
+F 0 "#PWR0106" H 10000 4550 50  0001 C CNN
+F 1 "VDD" V 10017 4828 50  0000 L CNN
+F 2 "" H 10000 4700 50  0001 C CNN
+F 3 "" H 10000 4700 50  0001 C CNN
+	1    10000 4700
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR0109
+U 1 1 5C86D7BE
+P 10000 5500
+F 0 "#PWR0109" H 10000 5250 50  0001 C CNN
+F 1 "GND" V 10005 5372 50  0000 R CNN
+F 2 "" H 10000 5500 50  0001 C CNN
+F 3 "" H 10000 5500 50  0001 C CNN
+	1    10000 5500
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:LED D2
+U 1 1 5C86DF58
+P 3800 5800
+F 0 "D2" H 3791 6016 50  0000 C CNN
+F 1 "LED" H 3791 5925 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 3800 5800 50  0001 C CNN
+F 3 "~" H 3800 5800 50  0001 C CNN
+	1    3800 5800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:LED D3
+U 1 1 5C86DFE0
+P 3800 6200
+F 0 "D3" H 3791 6416 50  0000 C CNN
+F 1 "LED" H 3791 6325 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 3800 6200 50  0001 C CNN
+F 3 "~" H 3800 6200 50  0001 C CNN
+	1    3800 6200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW1
+U 1 1 5C86E310
+P 3800 6750
+F 0 "SW1" H 3800 7035 50  0000 C CNN
+F 1 "SW_Push" H 3800 6944 50  0000 C CNN
+F 2 "Button_Switch_THT:SW_PUSH_6mm" H 3800 6950 50  0001 C CNN
+F 3 "" H 3800 6950 50  0001 C CNN
+	1    3800 6750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3950 5800 4150 5800
+Wire Wire Line
+	3950 6200 4150 6200
+Wire Wire Line
+	3650 5800 3400 5800
+Wire Wire Line
+	3650 6200 3400 6200
+$Comp
+L power:GND #PWR0112
+U 1 1 5C87664B
+P 3400 5800
+F 0 "#PWR0112" H 3400 5550 50  0001 C CNN
+F 1 "GND" V 3405 5672 50  0000 R CNN
+F 2 "" H 3400 5800 50  0001 C CNN
+F 3 "" H 3400 5800 50  0001 C CNN
+	1    3400 5800
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR0113
+U 1 1 5C8766C4
+P 3400 6200
+F 0 "#PWR0113" H 3400 5950 50  0001 C CNN
+F 1 "GND" V 3405 6072 50  0000 R CNN
+F 2 "" H 3400 6200 50  0001 C CNN
+F 3 "" H 3400 6200 50  0001 C CNN
+	1    3400 6200
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4000 6750 4200 6750
+$Comp
+L power:GND #PWR0114
+U 1 1 5C879807
+P 3400 6750
+F 0 "#PWR0114" H 3400 6500 50  0001 C CNN
+F 1 "GND" V 3405 6622 50  0000 R CNN
+F 2 "" H 3400 6750 50  0001 C CNN
+F 3 "" H 3400 6750 50  0001 C CNN
+	1    3400 6750
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3400 6750 3600 6750
+Wire Wire Line
+	4750 4200 4300 4200
+Text GLabel 4300 4200 0    50   Input ~ 0
+GPIO_SWITCH_JOY
+Text GLabel 4200 6750 2    50   Input ~ 0
+GPIO_SWITCH_JOY
+Text GLabel 4150 5800 2    50   Input ~ 0
+GPIO_J1LED
+Text GLabel 4150 6200 2    50   Input ~ 0
+GPIO_J2LED
+Text GLabel 4300 4300 0    50   Input ~ 0
+GPIO_J1LED
+Text GLabel 4300 4400 0    50   Input ~ 0
+GPIO_J2LED
+Wire Wire Line
+	4300 4300 4750 4300
+Wire Wire Line
+	4300 4400 4750 4400
 $EndSCHEMATC

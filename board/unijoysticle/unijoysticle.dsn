@@ -21,11 +21,11 @@
       )
     )
     (boundary
-      (path pcb 0  171069 -127508  113157 -127508  113157 -74930  171069 -74930
-            171069 -127508)
+      (path pcb 0  166116 -127508  118618 -127508  118618 -74930  166116 -74930
+            166116 -127508)
     )
-    (plane GND (polygon B.Cu 0  113030 -127635  113030 -74930  171450 -74930  171450 -127635
-            168275 -127635  113030 -127635))
+    (plane GND (polygon B.Cu 0  118364 -127762  118364 -74676  166370 -74676  166370 -127762
+            118364 -127762))
     (via "Via[0-1]_685.8:330.2_um")
     (rule
       (width 152.4)
@@ -35,32 +35,88 @@
     )
   )
   (placement
+    (component "Parts:MH-ET_LIVE_MINIKIT_ESP32"
+      (place B1 119634 -134366 front 0 (PN ESP32_THING_W_ANT_KEEPOUT))
+    )
     (component "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset9.40mm"
       (place J1 120777 -79248 front 180 (PN DB9_Female))
       (place J2 152781 -79248 front 180 (PN DB9_Female))
     )
-    (component Button_Switch_THT:SW_CuK_OS102011MA1QN1_SPDT_Angled
-      (place SW1 119380 -118110 front 270 (PN SW_SPDT))
-    )
     (component "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal"
-      (place D1 169545 -115570 front 180 (PN 1N4001))
+      (place D1 153416 -110998 front 0 (PN 1N4001))
     )
     (component "Package_DIP:DIP-14_W7.62mm_LongPads"
-      (place U4 115570 -95250 front 0 (PN 4066))
-      (place U2 147320 -91440 front 90 (PN 4066))
+      (place U2 147320 -91440 front 90 (PN 7405))
     )
     (component "Package_DIP:DIP-14_W7.62mm_LongPads::1"
-      (place U3 161290 -95250 front 0 (PN 4066))
-      (place U1 122428 -91186 front 90 (PN 4066))
-    )
-    (component "Parts:MH-ET_LIVE_MINIKIT_ESP32"
-      (place B1 127127 -134239 front 0 (PN ESP32_THING_W_ANT_KEEPOUT))
+      (place U1 122428 -91186 front 90 (PN 7405))
     )
     (component Connector_BarrelJack:BarrelJack_Horizontal
-      (place J3 161544 -124841 front 180 (PN Barrel_Jack))
+      (place J3 153162 -121158 front 180 (PN Barrel_Jack))
     )
   )
   (library
+    (image "Parts:MH-ET_LIVE_MINIKIT_ESP32"
+      (outline (path signal 203.2  0 0  0 39370))
+      (outline (path signal 203.2  2540 33020  2540 39878))
+      (outline (path signal 203.2  3175 39878  27305 39878))
+      (outline (path signal 203.2  27940 39878  27940 33020))
+      (outline (path signal 203.2  30480 39370  30480 0))
+      (outline (path signal 203.2  30480 0  0 0))
+      (outline (path signal 127  2540 33020  27940 33020))
+      (outline (path signal 127  2540 32385  27940 32385))
+      (outline (path signal 127  27940 32385  27940 39878))
+      (outline (path signal 127  27940 39878  2540 39878))
+      (outline (path signal 127  2540 39878  2540 32385))
+      (outline (path signal 127  2540 32385  27940 32385))
+      (outline (path signal 127  27940 32385  27940 39878))
+      (outline (path signal 127  27940 39878  2540 39878))
+      (outline (path signal 127  2540 39878  2540 32385))
+      (outline (path signal 150  30480 6350  0 6350))
+      (outline (path signal 150  0 6350  0 34290))
+      (outline (path signal 150  0 34290  30480 34290))
+      (outline (path signal 150  30480 34290  30480 6350))
+      (pin Round[A]Pad_1879.6_um 11 1270 8890)
+      (pin Round[A]Pad_1879.6_um 9 1270 11430)
+      (pin Round[A]Pad_1879.6_um @1 1270 13970)
+      (pin Round[A]Pad_1879.6_um 14 1270 16510)
+      (pin Round[A]Pad_1879.6_um 34 1270 19050)
+      (pin Round[A]Pad_1879.6_um 33 1270 21590)
+      (pin Round[A]Pad_1879.6_um 35 1270 24130)
+      (pin Round[A]Pad_1879.6_um 39 1270 26670)
+      (pin Round[A]Pad_1879.6_um @2 1270 29210)
+      (pin Round[A]Pad_1879.6_um 1 1270 31750)
+      (pin Rect[A]Pad_1879.6x1879.6_um 10 3810 8890)
+      (pin Round[A]Pad_1879.6_um 13 3810 11430)
+      (pin Round[A]Pad_1879.6_um @3 3810 13970)
+      (pin Round[A]Pad_1879.6_um 5 3810 16510)
+      (pin Round[A]Pad_1879.6_um 23 3810 19050)
+      (pin Round[A]Pad_1879.6_um 19 3810 21590)
+      (pin Round[A]Pad_1879.6_um 18 3810 24130)
+      (pin Round[A]Pad_1879.6_um 26 3810 26670)
+      (pin Round[A]Pad_1879.6_um 36 3810 29210)
+      (pin Round[A]Pad_1879.6_um @4 3810 31750)
+      (pin Round[A]Pad_1879.6_um @5 26670 31750)
+      (pin Round[A]Pad_1879.6_um 3 26670 29210)
+      (pin Round[A]Pad_1879.6_um 22 26670 26670)
+      (pin Round[A]Pad_1879.6_um 21 26670 24130)
+      (pin Round[A]Pad_1879.6_um 17 26670 21590)
+      (pin Round[A]Pad_1879.6_um 16 26670 19050)
+      (pin Round[A]Pad_1879.6_um 1@1 26670 16510)
+      (pin Round[A]Pad_1879.6_um 2 26670 13970)
+      (pin Round[A]Pad_1879.6_um 15 26670 11430)
+      (pin Round[A]Pad_1879.6_um 7 26670 8890)
+      (pin Round[A]Pad_1879.6_um 1@2 29210 31750)
+      (pin Round[A]Pad_1879.6_um 27 29210 29210)
+      (pin Round[A]Pad_1879.6_um 25 29210 26670)
+      (pin Round[A]Pad_1879.6_um 32 29210 24130)
+      (pin Round[A]Pad_1879.6_um 12 29210 21590)
+      (pin Round[A]Pad_1879.6_um 4 29210 19050)
+      (pin Round[A]Pad_1879.6_um 0 29210 16510)
+      (pin Round[A]Pad_1879.6_um @6 29210 13970)
+      (pin Round[A]Pad_1879.6_um 8 29210 11430)
+      (pin Rect[A]Pad_1879.6x1879.6_um 6 29210 8890)
+    )
     (image "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset9.40mm"
       (outline (path signal 100  -100 0  -100 -8140))
       (outline (path signal 100  0 0  0 -8140))
@@ -136,27 +192,6 @@
       (pin Round[A]Pad_1600_um 7 -4155 -2840)
       (pin Round[A]Pad_1600_um 8 -6925 -2840)
       (pin Round[A]Pad_1600_um 9 -9695 -2840)
-    )
-    (image Button_Switch_THT:SW_CuK_OS102011MA1QN1_SPDT_Angled
-      (outline (path signal 100  -2300 2200  6300 2200))
-      (outline (path signal 100  -2300 2200  -2300 -2200))
-      (outline (path signal 100  -2300 -2200  6300 -2200))
-      (outline (path signal 100  6300 -2200  6300 2200))
-      (outline (path signal 100  2000 -2200  2000 -6200))
-      (outline (path signal 100  2000 -6200  0 -6200))
-      (outline (path signal 100  0 -6200  0 -2200))
-      (outline (path signal 150  -2300 2300  6300 2300))
-      (outline (path signal 150  -2300 -2300  -100 -2300))
-      (outline (path signal 150  4000 -2300  6300 -2300))
-      (outline (path signal 50  7700 2700  7700 -6700))
-      (outline (path signal 50  7700 -6700  -3700 -6700))
-      (outline (path signal 50  -3700 -6700  -3700 2700))
-      (outline (path signal 50  -3700 2700  7700 2700))
-      (pin Rect[A]Pad_1500x2500_um 1 0 0)
-      (pin Oval[A]Pad_1500x2500_um 2 2000 0)
-      (pin Oval[A]Pad_1500x2500_um 3 4000 0)
-      (pin Oval[A]Pad_2200x3500_um @1 -2100 0)
-      (pin Oval[A]Pad_2200x3500_um @2 6100 0)
     )
     (image "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal"
       (outline (path signal 100  2480 1350  2480 -1350))
@@ -244,67 +279,6 @@
       (pin Oval[A]Pad_2400x1600_um 7 0 -15240)
       (pin Oval[A]Pad_2400x1600_um 14 7620 0)
     )
-    (image "Parts:MH-ET_LIVE_MINIKIT_ESP32"
-      (outline (path signal 203.2  0 0  0 39370))
-      (outline (path signal 203.2  2540 33020  2540 39878))
-      (outline (path signal 203.2  3175 39878  27305 39878))
-      (outline (path signal 203.2  27940 39878  27940 33020))
-      (outline (path signal 203.2  30480 39370  30480 0))
-      (outline (path signal 203.2  30480 0  0 0))
-      (outline (path signal 127  2540 33020  27940 33020))
-      (outline (path signal 127  2540 32385  27940 32385))
-      (outline (path signal 127  27940 32385  27940 39878))
-      (outline (path signal 127  27940 39878  2540 39878))
-      (outline (path signal 127  2540 39878  2540 32385))
-      (outline (path signal 127  2540 32385  27940 32385))
-      (outline (path signal 127  27940 32385  27940 39878))
-      (outline (path signal 127  27940 39878  2540 39878))
-      (outline (path signal 127  2540 39878  2540 32385))
-      (outline (path signal 150  30480 6350  0 6350))
-      (outline (path signal 150  0 6350  0 34290))
-      (outline (path signal 150  0 34290  30480 34290))
-      (outline (path signal 150  30480 34290  30480 6350))
-      (pin Round[A]Pad_1879.6_um 11 1270 8890)
-      (pin Round[A]Pad_1879.6_um 9 1270 11430)
-      (pin Round[A]Pad_1879.6_um @1 1270 13970)
-      (pin Round[A]Pad_1879.6_um 14 1270 16510)
-      (pin Round[A]Pad_1879.6_um 34 1270 19050)
-      (pin Round[A]Pad_1879.6_um 33 1270 21590)
-      (pin Round[A]Pad_1879.6_um 35 1270 24130)
-      (pin Round[A]Pad_1879.6_um 39 1270 26670)
-      (pin Round[A]Pad_1879.6_um @2 1270 29210)
-      (pin Round[A]Pad_1879.6_um 1 1270 31750)
-      (pin Rect[A]Pad_1879.6x1879.6_um 10 3810 8890)
-      (pin Round[A]Pad_1879.6_um 13 3810 11430)
-      (pin Round[A]Pad_1879.6_um @3 3810 13970)
-      (pin Round[A]Pad_1879.6_um 5 3810 16510)
-      (pin Round[A]Pad_1879.6_um 23 3810 19050)
-      (pin Round[A]Pad_1879.6_um 19 3810 21590)
-      (pin Round[A]Pad_1879.6_um 18 3810 24130)
-      (pin Round[A]Pad_1879.6_um 26 3810 26670)
-      (pin Round[A]Pad_1879.6_um 36 3810 29210)
-      (pin Round[A]Pad_1879.6_um @4 3810 31750)
-      (pin Round[A]Pad_1879.6_um @5 26670 31750)
-      (pin Round[A]Pad_1879.6_um 3 26670 29210)
-      (pin Round[A]Pad_1879.6_um 22 26670 26670)
-      (pin Round[A]Pad_1879.6_um 21 26670 24130)
-      (pin Round[A]Pad_1879.6_um 17 26670 21590)
-      (pin Round[A]Pad_1879.6_um 16 26670 19050)
-      (pin Round[A]Pad_1879.6_um 1@1 26670 16510)
-      (pin Round[A]Pad_1879.6_um 2 26670 13970)
-      (pin Round[A]Pad_1879.6_um 15 26670 11430)
-      (pin Round[A]Pad_1879.6_um 7 26670 8890)
-      (pin Round[A]Pad_1879.6_um 1@2 29210 31750)
-      (pin Round[A]Pad_1879.6_um 27 29210 29210)
-      (pin Round[A]Pad_1879.6_um 25 29210 26670)
-      (pin Round[A]Pad_1879.6_um 32 29210 24130)
-      (pin Round[A]Pad_1879.6_um 12 29210 21590)
-      (pin Round[A]Pad_1879.6_um 4 29210 19050)
-      (pin Round[A]Pad_1879.6_um 0 29210 16510)
-      (pin Round[A]Pad_1879.6_um @6 29210 13970)
-      (pin Round[A]Pad_1879.6_um 8 29210 11430)
-      (pin Rect[A]Pad_1879.6x1879.6_um 6 29210 8890)
-    )
     (image Connector_BarrelJack:BarrelJack_Horizontal
       (outline (path signal 100  0 4500  -13700 4500))
       (outline (path signal 100  800 -4500  800 3750))
@@ -347,19 +321,9 @@
       (shape (circle B.Cu 1879.6))
       (attach off)
     )
-    (padstack Oval[A]Pad_1500x2500_um
-      (shape (path F.Cu 1500  0 -500  0 500))
-      (shape (path B.Cu 1500  0 -500  0 500))
-      (attach off)
-    )
     (padstack Oval[A]Pad_2400x1600_um
       (shape (path F.Cu 1600  -400 0  400 0))
       (shape (path B.Cu 1600  -400 0  400 0))
-      (attach off)
-    )
-    (padstack Oval[A]Pad_2200x3500_um
-      (shape (path F.Cu 2200  0 -650  0 650))
-      (shape (path B.Cu 2200  0 -650  0 650))
       (attach off)
     )
     (padstack Oval[A]Pad_2200x2200_um
@@ -432,11 +396,6 @@
       (shape (rect B.Cu -1750 -1750 1750 1750))
       (attach off)
     )
-    (padstack Rect[A]Pad_1500x2500_um
-      (shape (rect F.Cu -750 -1250 750 1250))
-      (shape (rect B.Cu -750 -1250 750 1250))
-      (attach off)
-    )
     (padstack Rect[A]Pad_1600x1600_um
       (shape (rect F.Cu -800 -800 800 800))
       (shape (rect B.Cu -800 -800 800 800))
@@ -455,92 +414,79 @@
   )
   (network
     (net GND
-      (pins J1-8 SW1-1 U4-7 U4-4 U4-1 U3-7 U2-7 U2-10 U2-3 U2-9 U2-2 U1-1 U1-8 U1-4
-        U1-11 U1-7 B1-1 B1-1@1 B1-1@2 J2-8 J3-2)
+      (pins B1-1 B1-1@1 B1-1@2 J1-8 U2-7 U1-7 J2-8 J3-2)
     )
     (net GPIO_J1POTX
-      (pins U3-6 B1-12)
+      (pins B1-12 U1-13)
     )
     (net GPIO_J1DOWN
-      (pins U1-5 B1-18)
+      (pins B1-18 U1-3)
     )
     (net GPIO_J1UP
-      (pins U1-13 B1-26)
+      (pins B1-26 U1-1)
     )
     (net GPIO_J1POTY
-      (pins U3-12 B1-16)
+      (pins B1-16 U2-13)
     )
     (net GPIO_J2LEFT
-      (pins U2-6 B1-32)
+      (pins B1-32 U2-5)
     )
     (net GPIO_J2FIRE
-      (pins U4-5 B1-35)
+      (pins B1-35 U2-11)
     )
     (net GPIO_J2RIGHT
-      (pins U2-12 B1-17)
+      (pins B1-17 U2-9)
     )
     (net GPIO_J2DOWN
-      (pins U2-5 B1-25)
+      (pins B1-25 U2-3)
     )
     (net GPIO_J2UP
-      (pins U2-13 B1-27)
-    )
-    (net GPIO_J2POTY
-      (pins U3-5 B1-22)
-    )
-    (net GPIO_J2POTX
-      (pins U3-13 B1-21)
+      (pins B1-27 U2-1)
     )
     (net GPIO_J1FIRE
-      (pins U4-13 B1-14)
+      (pins B1-14 U1-11)
     )
     (net GPIO_J1RIGHT
-      (pins U1-12 B1-23)
+      (pins B1-23 U1-9)
     )
     (net GPIO_J1LEFT
-      (pins U1-6 B1-19)
+      (pins B1-19 U1-5)
     )
     (net J1UP
       (pins J1-1 U1-2)
     )
     (net J1LEFT
-      (pins J1-3 U1-9)
+      (pins J1-3 U1-6)
     )
     (net J1DOWN
-      (pins J1-2 U1-3)
+      (pins J1-2 U1-4)
     )
     (net J1RIGHT
-      (pins J1-4 U1-10)
+      (pins J1-4 U1-8)
     )
     (net J1POTX
-      (pins J1-9 U3-8)
+      (pins J1-9 U1-12)
     )
     (net J1POTY
-      (pins J1-5 U4-8 U3-11)
+      (pins J1-5 U2-12)
     )
     (net J1FIRE
-      (pins J1-6 U4-2)
+      (pins J1-6 U1-10)
     )
     (net J2UP
-      (pins U2-1 J2-1)
+      (pins U2-2 J2-1)
     )
     (net J2LEFT
-      (pins U2-8 J2-3)
+      (pins U2-6 J2-3)
     )
     (net J2DOWN
       (pins U2-4 J2-2)
     )
     (net J2RIGHT
-      (pins U2-11 J2-4)
-    )
-    (net J2POTX
-      (pins U3-1 J2-9)
-    )
-    (net J2POTY
-      (pins U3-4 J2-5)
+      (pins U2-8 J2-4)
     )
     (net J2FIRE
-      (pins U4-3 J2-6)
+      (pins U2-10 J2-6)
     )
     (net "Net-(D1-Pad2)"
       (pins D1-2 J3-1)
@@ -578,14 +524,8 @@
     (net "Net-(B1-Pad6)"
       (pins B1-6)
     )
-    (net J1POWER
-      (pins J1-7 SW1-3 U4-14 U3-14 J2-7)
-    )
-    (net POWER_OR_GND
-      (pins SW1-2 U3-2 U3-9 U3-3 U3-10)
-    )
     (net VDD
-      (pins D1-1 U2-14 U1-14 B1-2)
+      (pins B1-2 D1-1 U2-14 U1-14)
     )
     (net "Net-(B1-Pad33)"
       (pins B1-33)
@@ -593,20 +533,40 @@
     (net "Net-(B1-Pad4)"
       (pins B1-4)
     )
-    (net J1POTY_ENABLED
-      (pins U4-9 B1-34)
+    (net "Net-(B1-Pad34)"
+      (pins B1-34)
     )
-    (net ENABLE_POT_TRIGGER
-      (pins U4-6 B1-5)
+    (net "Net-(B1-Pad5)"
+      (pins B1-5)
     )
-    (class kicad_default "" ENABLE_POT_TRIGGER GND GPIO_J1DOWN GPIO_J1FIRE
-      GPIO_J1LEFT GPIO_J1POTX GPIO_J1POTY GPIO_J1RIGHT GPIO_J1UP GPIO_J2DOWN
-      GPIO_J2FIRE GPIO_J2LEFT GPIO_J2POTX GPIO_J2POTY GPIO_J2RIGHT GPIO_J2UP
-      J1DOWN J1FIRE J1LEFT J1POTX J1POTY J1POTY_ENABLED J1POWER J1RIGHT J1UP
-      J2DOWN J2FIRE J2LEFT J2POTX J2POTY J2RIGHT J2UP "Net-(B1-Pad10)" "Net-(B1-Pad11)"
-      "Net-(B1-Pad13)" "Net-(B1-Pad15)" "Net-(B1-Pad3)" "Net-(B1-Pad33)" "Net-(B1-Pad36)"
-      "Net-(B1-Pad39)" "Net-(B1-Pad4)" "Net-(B1-Pad5)" "Net-(B1-Pad6)" "Net-(B1-Pad7)"
-      "Net-(B1-Pad8)" "Net-(B1-Pad9)" "Net-(D1-Pad2)" POWER_OR_GND VDD
+    (net "Net-(B1-Pad22)"
+      (pins B1-22)
+    )
+    (net "Net-(B1-Pad21)"
+      (pins B1-21)
+    )
+    (net "Net-(J1-Pad7)"
+      (pins J1-7)
+    )
+    (net "Net-(J2-Pad5)"
+      (pins J2-5)
+    )
+    (net "Net-(J2-Pad7)"
+      (pins J2-7)
+    )
+    (net "Net-(J2-Pad9)"
+      (pins J2-9)
+    )
+    (class kicad_default "" GND GPIO_J1DOWN GPIO_J1FIRE GPIO_J1LEFT GPIO_J1POTX
+      GPIO_J1POTY GPIO_J1RIGHT GPIO_J1UP GPIO_J2DOWN GPIO_J2FIRE GPIO_J2LEFT
+      GPIO_J2RIGHT GPIO_J2UP Gnd J1DOWN J1FIRE J1LEFT J1POTX J1POTY J1RIGHT
+      J1UP J2DOWN J2FIRE J2LEFT J2RIGHT J2UP "Net-(B1-Pad10)" "Net-(B1-Pad11)"
+      "Net-(B1-Pad13)" "Net-(B1-Pad15)" "Net-(B1-Pad21)" "Net-(B1-Pad22)"
+      "Net-(B1-Pad3)" "Net-(B1-Pad33)" "Net-(B1-Pad34)" "Net-(B1-Pad36)" "Net-(B1-Pad39)"
+      "Net-(B1-Pad4)" "Net-(B1-Pad5)" "Net-(B1-Pad6)" "Net-(B1-Pad7)" "Net-(B1-Pad8)"
+      "Net-(B1-Pad9)" "Net-(D1-Pad2)" "Net-(J1-Pad7)" "Net-(J2-Pad5)" "Net-(J2-Pad7)"
+      "Net-(J2-Pad9)" "Net-(U1-Pad14)" "Net-(U1-Pad7)" "Net-(U2-Pad14)" "Net-(U2-Pad7)"
+      VDD Vcc
       (circuit
         (use_via Via[0-1]_685.8:330.2_um)
       )
