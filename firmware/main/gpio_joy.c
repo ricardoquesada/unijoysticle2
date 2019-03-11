@@ -76,7 +76,7 @@ static void move_y(int dir, uint32_t delay);
 static void delay_us(uint32_t delay);
 
 // Pot related
-static void pot_loop(void* arg);
+static void IRAM_ATTR pot_loop(void* arg);
 static void IRAM_ATTR gpio_isr_handler_up(void* arg);
 
 // Mouse "shared data from main task to mouse task.
@@ -127,12 +127,13 @@ void gpio_joy_init(void) {
   }
 
   // Mouse related
-  g_mouse_event_group = xEventGroupCreate();
-  xTaskCreate(mouse_loop, "mouse_loop", 2048, NULL, 10, NULL);
+  // g_mouse_event_group = xEventGroupCreate();
+  // xTaskCreate(mouse_loop, "mouse_loop", 2048, NULL, 10, NULL);
 
   // C64 POT related
   g_pot_event_group = xEventGroupCreate();
-  xTaskCreate(pot_loop, "pot_loop", 2048, NULL, 10, NULL);
+  xTaskCreate(pot_loop, "pot_loop", 1024, NULL, (configMAX_PRIORITIES - 1), NULL);
+  // xTaskCreatePinnedToCore(pot_loop, "pot_loop", 2048, NULL, portPRIVILEGE_BIT, NULL, 1);
   io_conf.intr_type = GPIO_INTR_POSEDGE;  // GPIO_INTR_NEGEDGE
   io_conf.mode = GPIO_MODE_INPUT;
   io_conf.pin_bit_mask = 1ULL << GPIO_NUM_12;
@@ -302,21 +303,28 @@ static void delay_us(uint32_t delay) {
     ets_delay_us(delay);
 }
 
-static void pot_loop(void* arg) {
+static void IRAM_ATTR pot_loop(void* arg) {
   (void)arg;
 
-  // timeout of 500ms
-  const TickType_t xTicksToWait = 500 / portTICK_PERIOD_MS;
+  // timeout of 5s
+  const TickType_t xTicksToWait = 5000 / portTICK_PERIOD_MS;
   while (1) {
     EventBits_t uxBits = xEventGroupWaitBits(g_pot_event_group, EVENT_BIT_POT, pdTRUE, pdFALSE, xTicksToWait);
     // if not timeout, change the state
     if (uxBits != 0) {
+      // gpio_set_level(GPIO_NUM_13, 1);
+      // ets_delay_us(50 /*223*/);
+      // gpio_set_level(GPIO_NUM_13, 0);
+
       gpio_set_level(GPIO_NUM_13, 0);
-      ets_delay_us(223);
+      ets_delay_us(200 /*235*/);
       ets_delay_us(g_pot_y);
       gpio_set_level(GPIO_NUM_13, 1);
     } else {
       gpio_set_level(GPIO_NUM_13, 0);
+      gpio_set_level(GPIO_NUM_13, 1);
+      gpio_set_level(GPIO_NUM_13, 0);
+      gpio_set_level(GPIO_NUM_13, 1);
     }
   }
 }

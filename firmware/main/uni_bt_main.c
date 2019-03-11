@@ -257,7 +257,7 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t* packe
             bt_ready = 1;
             logi("Btstack ready!\n");
             list_link_keys();
-            start_scan();
+            // start_scan();
             start_connect_undiscovered();
           }
           break;

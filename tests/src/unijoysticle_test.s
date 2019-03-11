@@ -248,6 +248,7 @@ print_fire:
 
 .proc print_pot1
         lda $d41a                       ; pot X
+        ; sta VIC_SPR0_X
         tay                             ; save A
         and #%00001111
         tax
@@ -267,6 +268,7 @@ print_fire:
 
 
         lda $d419                       ; pot Y
+        ; sta VIC_SPR0_X+2
         tay                             ; save it
         and #%00001111
         tax
