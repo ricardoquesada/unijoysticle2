@@ -11,18 +11,18 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 642)
+    (start_pass_no 316)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
       (preferred_direction_trace_costs 1.0)
-      (against_preferred_direction_trace_costs 2.3)
+      (against_preferred_direction_trace_costs 2.4)
     )
     (layer_rule B.Cu
       (active on)
       (preferred_direction vertical)
       (preferred_direction_trace_costs 1.0)
-      (against_preferred_direction_trace_costs 1.8)
+      (against_preferred_direction_trace_costs 1.7)
     )
   )
   (rule
@@ -69,6 +69,7 @@
     J2FIRE "Net-(D1-Pad2)" "Net-(B1-Pad11)" "Net-(B1-Pad39)" "Net-(B1-Pad36)" "Net-(B1-Pad3)" "Net-(B1-Pad15)" "Net-(B1-Pad7)"
     "Net-(B1-Pad8)" "Net-(B1-Pad6)" VDD "Net-(B1-Pad33)" "Net-(B1-Pad4)" "Net-(B1-Pad34)" "Net-(B1-Pad5)" "Net-(B1-Pad22)"
     "Net-(B1-Pad21)" "Net-(J1-Pad7)" "Net-(J2-Pad5)" "Net-(J2-Pad7)" "Net-(J2-Pad9)" "GPIO_SWITCH_JOY" "GPIO_J1LED" "GPIO_J2LED"
+    "Net-(D2-Pad2)" "Net-(D3-Pad2)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
