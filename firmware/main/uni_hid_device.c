@@ -225,10 +225,9 @@ uint8_t uni_hid_device_is_cod_supported(uint32_t cod) {
                            MASK_COD_MINOR_KEYBOARD));
   }
 
-  // For Amazon Fire TV remote contorl: CoD: 0x00400408 (Audio + Telephony :
-  // Hands free)
+  // Hack for Amazon Fire TV remote control: CoD: 0x00400408 (Audio + Telephony Hands free)
   if ((cod & MASK_COD_MAJOR_AUDIO) == MASK_COD_MAJOR_AUDIO) {
-    return !!(minor_cod & MASK_COD_MINOR_HANDS_FREE);
+    return (cod == 0x400408);
   }
   return 0;
 }
@@ -467,6 +466,7 @@ static void process_misc_button_system(uni_hid_device_t* device) {
       num_devices++;
       if (num_devices > 1) {
         logi("cannot swap joystick ports when more than one device is attached\n");
+        uni_hid_device_dump_all();
         return;
       }
     }
