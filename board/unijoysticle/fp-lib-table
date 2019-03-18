@@ -1,5 +1,5 @@
 (fp_lib_table
-  (lib (name Parts)(type KiCad)(uri ${KIPRJMOD}/Parts.pretty)(options "")(descr ""))
+  (lib (name Unijoysticle)(type KiCad)(uri ${KIPRJMOD}/Unijoysticle.pretty)(options "")(descr ""))
   (lib (name digikey-footprints)(type KiCad)(uri /Users/riq/src/kicad/digikey-kicad-library/digikey-footprints.pretty)(options "")(descr ""))
   (lib (name Aesthetics)(type KiCad)(uri /Users/riq/src/kicad/SparkFun-KiCad-Libraries/Footprints/Aesthetics.pretty)(options "")(descr ""))
   (lib (name Batteries)(type KiCad)(uri /Users/riq/src/kicad/SparkFun-KiCad-Libraries/Footprints/Batteries.pretty)(options "")(descr ""))
