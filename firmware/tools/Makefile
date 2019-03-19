@@ -60,7 +60,7 @@ unijoysticle: ${CORE_OBJ} ${COMMON_OBJ} ${CLASSIC_OBJ} ${SDP_CLIENT} btstack_rin
 	../main/uni_hid_parser_android.o ../main/uni_hid_parser_icade.o ../main/uni_hid_parser_ouya.o \
 	../main/uni_hid_parser_xboxone.o ../main/uni_hid_parser_apple.o ../main/uni_hid_parser_smarttvremote.o \
 	../main/uni_hid_parser_ps4.o ../main/uni_hid_parser_8bitdo.o ../main/uni_hid_parser_generic.o \
-	gpio_joy.o
+	uni_gpio_pc.o
 	${CC} $^ ${CFLAGS} ${LDFLAGS} -o $@
 
 gap_inquiry: ${CORE_OBJ} ${COMMON_OBJ} ${CLASSIC_OBJ} gap_inquiry.c

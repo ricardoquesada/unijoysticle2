@@ -1,6 +1,8 @@
 # Unijosyticle v2
 
-Like the Unijoystile, but remove WiFi and add Bluetooth.
+Modern bluetooth game controllers for retro computers.
+
+Or any bluetooth powered device for the matter. And attach it to your unicycle and play games like a pro.
 
 ## Goal #1
 
@@ -73,19 +75,19 @@ Schematics + PCB in [KiCad](http://kicad-pcb.org/). Unijoysticle v1 was done in 
 
 What's already done:
 
-*   Support Bluetooth Classic HID devices
-*   Supports up until 2 gamepads connected, or one mouse + one gamepad.
 *   Basic generic mapping for gamepad
-*   Mouse kind of working... movement is not smooth yet.
+*   Bluetooth connect / reconnect working ok
+*   Fetch product id + vendor id from SDP record
 *   Gamepad: mappings based on product id + vendor id. Take DB from libSDL and addap the mappings to our own needs.
-*   Fetch product id + vendor id from SDP record (don't know how to do it).
 *   *Gamepad System button* swaps joystick ports
+*   Mouse kind of working... movement is not smooth yet.
+*   Mouse: button are not mapped.
+*   Support Bluetooth Classic HID devices
+*   Support up until 2 gamepads connected, or one mouse + one gamepad.
 
 Missing:
 
-*   Mouse: button are not mapped.
 *   Mouse: smooth movement.
-*   Better Bluetooth connect / reconnect
 *   Add support for Bluetooth LE devices (eg: Some smart TV remote controllers are BLE).
 *   Report back to client mode being used in the gamepads LEDS (in case avaiable).
     The LEDs could be used for whatever purpose we want.

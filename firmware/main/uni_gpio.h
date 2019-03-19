@@ -16,8 +16,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ****************************************************************************/
 
-#ifndef GPIO_JOY_H
-#define GPIO_JOY_H
+#ifndef UNI_GPIO_H
+#define UNI_GPIO_H
 
 #include <stdint.h>
 
@@ -34,9 +34,9 @@ typedef struct {
   uint8_t pot_x;    // line 9 - Right button for mouse
 } joystick_t;
 
-void gpio_joy_init(void);
-void gpio_joy_update_port_a(joystick_t* joy);
-void gpio_joy_update_port_b(joystick_t* joy);
-void gpio_joy_update_mouse(int32_t delta_x, int32_t deltay_y);
+void uni_gpio_init(void);
+void uni_gpio_update_port_a(joystick_t* joy);
+void uni_gpio_update_port_b(joystick_t* joy);
+void uni_gpio_update_mouse(int32_t delta_x, int32_t delta_y);
 
-#endif  // GPIO_JOY_H
+#endif  // UNI_GPIO_H

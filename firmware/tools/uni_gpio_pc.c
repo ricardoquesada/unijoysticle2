@@ -18,7 +18,7 @@ limitations under the License.
 
 // Stub version
 
-#include "gpio_joy.h"
+#include "uni_gpio.h"
 
 #include <stdio.h>
 
@@ -27,16 +27,16 @@ static void print_joystick(joystick_t* joy) {
          joy->fire, joy->pot_x, joy->pot_y);
 }
 
-void gpio_joy_init(void) {}
+void uni_gpio_init(void) {}
 
-void gpio_joy_update_port_a(joystick_t* joy) {
+void uni_gpio_update_port_a(joystick_t* joy) {
   print_joystick(joy);
 }
 
-void gpio_joy_update_port_b(joystick_t* joy) {
+void uni_gpio_update_port_b(joystick_t* joy) {
   print_joystick(joy);
 }
 
-void gpio_joy_update_mouse(int32_t delta_x, int32_t delta_y) {
+void uni_gpio_update_mouse(int32_t delta_x, int32_t delta_y) {
   printf("mouse: x=%d, y=%d\n", delta_x, delta_y);
 }

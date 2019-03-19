@@ -18,10 +18,10 @@ limitations under the License.
 
 #include "uni_hid_parser.h"
 
-#include "gpio_joy.h"
 #include "hid_usage.h"
 #include "uni_debug.h"
 #include "uni_gamepad.h"
+#include "uni_gpio.h"
 #include "uni_hid_device.h"
 
 static const int AXIS_NORMALIZE_RANGE = 1024;  // 10-bit resolution (1024)
@@ -113,12 +113,12 @@ void joystick_update(const uni_gamepad_t* gp, uni_joystick_port_t joy_port, uni_
   switch (ctl_type) {
     case EMULATION_MODE_JOYSTICK:
       if (joy_port == JOYSTICK_PORT_A)
-        gpio_joy_update_port_a(&joy);
+        uni_gpio_update_port_a(&joy);
       else
-        gpio_joy_update_port_b(&joy);
+        uni_gpio_update_port_b(&joy);
       break;
     case EMULATION_MODE_MOUSE:
-      gpio_joy_update_mouse(gp->axis_x, gp->axis_y);
+      uni_gpio_update_mouse(gp->axis_x, gp->axis_y);
       break;
     default:
       loge("Unsupported controller type: %d\n", ctl_type);

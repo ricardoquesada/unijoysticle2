@@ -18,7 +18,7 @@ limitations under the License.
 
 #include "uni_bt_main.h"
 
-#include "gpio_joy.h"
+#include "uni_gpio.h"
 #include "uni_hid_device.h"
 
 int btstack_main(int argc, const char** argv);
@@ -33,7 +33,7 @@ int btstack_main(int argc, const char** argv) {
   printf("Bluetooth stack: Copyright (C) 2017 BlueKitchen GmbH.\n");
   printf("Firmware version: v0.0.1\n");
 
-  gpio_joy_init();
+  uni_gpio_init();
   uni_hid_device_init();
 
   // Continue with bluetooth setup.

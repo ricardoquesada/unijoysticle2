@@ -62,8 +62,8 @@
 #include "btstack.h"
 #include "btstack_config.h"
 
-#include "gpio_joy.h"
 #include "uni_debug.h"
+#include "uni_gpio.h"
 #include "uni_hid_device.h"
 #include "uni_hid_parser.h"
 

@@ -18,7 +18,7 @@ limitations under the License.
 
 // ESP32 version
 
-#include "gpio_joy.h"
+#include "uni_gpio.h"
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/event_groups.h"
@@ -111,7 +111,7 @@ static uint8_t g_pot_y = 0;
     _a < _b ? _a : _b;      \
   })
 
-void gpio_joy_init(void) {
+void uni_gpio_init(void) {
   gpio_config_t io_conf;
   io_conf.intr_type = GPIO_INTR_DISABLE;
   io_conf.mode = GPIO_MODE_OUTPUT;
@@ -166,7 +166,7 @@ void gpio_joy_init(void) {
   // xTaskCreatePinnedToCore(event_loop, "event_loop", 2048, NULL, portPRIVILEGE_BIT, NULL, 1);
 }
 
-void gpio_joy_update_mouse(int32_t delta_x, int32_t delta_y) {
+void uni_gpio_update_mouse(int32_t delta_x, int32_t delta_y) {
   logd("mouse x=%d, y=%d\n", delta_x, delta_y);
 
   // Mouse is implemented using a quadrature encoding
@@ -183,11 +183,11 @@ void gpio_joy_update_mouse(int32_t delta_x, int32_t delta_y) {
   }
 }
 
-void gpio_joy_update_port_a(joystick_t* joy) {
+void uni_gpio_update_port_a(joystick_t* joy) {
   gpio_joy_update_port(joy, JOY_A_PORTS);
 }
 
-void gpio_joy_update_port_b(joystick_t* joy) {
+void uni_gpio_update_port_b(joystick_t* joy) {
   gpio_joy_update_port(joy, JOY_B_PORTS);
 }
 
