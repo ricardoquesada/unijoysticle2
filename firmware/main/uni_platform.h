@@ -16,28 +16,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ****************************************************************************/
 
-#include "uni_bt_main.h"
+#ifndef UNI_PLATFORM_H
+#define UNI_PLATFORM_H
 
-#include "uni_hid_device.h"
-#include "uni_platform.h"
+#include <stdint.h>
 
-int btstack_main(int argc, const char** argv);
+#include "uni_joystick.h"
 
-// Main. Called by BlueKitchen bluetooth stack
-int btstack_main(int argc, const char** argv) {
-  UNUSED(argc);
-  UNUSED(argv);
+void uni_platform_init(void);
+void uni_platform_update_port_a(uni_joystick_t* joy);
+void uni_platform_update_port_b(uni_joystick_t* joy);
+void uni_platform_update_mouse(int32_t delta_x, int32_t delta_y);
 
-  // Honoring with BT copyright + adding own message to avoid confusion
-  printf("Unijoysticle (C) 2016-2019 Ricardo Quesada and contributors.\n");
-  printf("Bluetooth stack: Copyright (C) 2017 BlueKitchen GmbH.\n");
-  printf("Firmware version: v0.0.1\n");
-
-  uni_platform_init();
-  uni_hid_device_init();
-
-  // Continue with bluetooth setup.
-  uni_bt_main();
-
-  return 0;
-}
+#endif  // UNI_PLATFORM_H

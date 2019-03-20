@@ -1,3 +1,4 @@
+
 /****************************************************************************
 http://retro.moe/unijoysticle
 
@@ -16,8 +17,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ****************************************************************************/
 
-#ifndef UNI_GPIO_H
-#define UNI_GPIO_H
+#ifndef UNI_JOYSTICK_H
+#define UNI_JOYSTICK_H
 
 #include <stdint.h>
 
@@ -32,11 +33,6 @@ typedef struct {
   uint8_t _power;   // line 7 - +5v. added as ref only
   uint8_t _ground;  // line 8 - ground. added as ref only
   uint8_t pot_x;    // line 9 - Right button for mouse
-} joystick_t;
+} uni_joystick_t;
 
-void uni_gpio_init(void);
-void uni_gpio_update_port_a(joystick_t* joy);
-void uni_gpio_update_port_b(joystick_t* joy);
-void uni_gpio_update_mouse(int32_t delta_x, int32_t delta_y);
-
-#endif  // UNI_GPIO_H
+#endif  // UNI_JOYSTICK_H

@@ -63,9 +63,9 @@
 #include "btstack_config.h"
 
 #include "uni_debug.h"
-#include "uni_gpio.h"
 #include "uni_hid_device.h"
 #include "uni_hid_parser.h"
+#include "uni_platform.h"
 
 #define INQUIRY_INTERVAL 5
 #define MAX_ATTRIBUTE_VALUE_SIZE 512  // Apparently PS4 has a 470-bytes report

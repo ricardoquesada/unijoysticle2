@@ -18,7 +18,7 @@ limitations under the License.
 
 // ESP32 version
 
-#include "uni_gpio.h"
+#include "uni_platform.h"
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/event_groups.h"
@@ -75,7 +75,7 @@ static void handle_event_pot();
 static void handle_event_button();
 
 // Mouse related
-static void gpio_joy_update_port(joystick_t* joy, gpio_num_t* gpios);
+static void joy_update_port(uni_joystick_t* joy, gpio_num_t* gpios);
 static void send_move(int pin_a, int pin_b, uint32_t delay);
 static void move_x(int dir, uint32_t delay);
 static void move_y(int dir, uint32_t delay);
@@ -111,7 +111,7 @@ static uint8_t g_pot_y = 0;
     _a < _b ? _a : _b;      \
   })
 
-void uni_gpio_init(void) {
+void uni_platform_init(void) {
   gpio_config_t io_conf;
   io_conf.intr_type = GPIO_INTR_DISABLE;
   io_conf.mode = GPIO_MODE_OUTPUT;
@@ -166,7 +166,7 @@ void uni_gpio_init(void) {
   // xTaskCreatePinnedToCore(event_loop, "event_loop", 2048, NULL, portPRIVILEGE_BIT, NULL, 1);
 }
 
-void uni_gpio_update_mouse(int32_t delta_x, int32_t delta_y) {
+void uni_platform_update_mouse(int32_t delta_x, int32_t delta_y) {
   logd("mouse x=%d, y=%d\n", delta_x, delta_y);
 
   // Mouse is implemented using a quadrature encoding
@@ -183,15 +183,15 @@ void uni_gpio_update_mouse(int32_t delta_x, int32_t delta_y) {
   }
 }
 
-void uni_gpio_update_port_a(joystick_t* joy) {
-  gpio_joy_update_port(joy, JOY_A_PORTS);
+void uni_platform_update_port_a(uni_joystick_t* joy) {
+  joy_update_port(joy, JOY_A_PORTS);
 }
 
-void uni_gpio_update_port_b(joystick_t* joy) {
-  gpio_joy_update_port(joy, JOY_B_PORTS);
+void uni_platform_update_port_b(uni_joystick_t* joy) {
+  joy_update_port(joy, JOY_B_PORTS);
 }
 
-static void gpio_joy_update_port(joystick_t* joy, gpio_num_t* gpios) {
+static void joy_update_port(uni_joystick_t* joy, gpio_num_t* gpios) {
   logd("up=%d, down=%d, left=%d, right=%d, fire=%d, potx=%d, poty=%d\n", joy->up, joy->down, joy->left, joy->right,
        joy->fire, joy->pot_x, joy->pot_y);
 
@@ -212,7 +212,6 @@ static void event_loop(void* arg) {
     EventBits_t uxBits = xEventGroupWaitBits(g_event_group, (EVENT_BIT_MOUSE | EVENT_BIT_BUTTON | EVENT_BIT_POT),
                                              pdTRUE, pdFALSE, xTicksToWait);
 
-    logi("xEventGroup = %d\n", uxBits);
     // timeout ?
     if (uxBits == 0)
       continue;
