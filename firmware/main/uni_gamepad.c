@@ -102,8 +102,37 @@ void uni_gamepad_to_combo_joy_joy(const uni_gamepad_t* gp, uni_joystick_t* out_j
   }
 }
 
-void uni_gamepad_to_single_mouse(const uni_gamepad_t* gp, uni_joystick_t* out_joy) {
+void uni_gamepad_to_single_mouse(const uni_gamepad_t* gp, uni_joystick_t* out_mouse) {
+  to_single_joy(gp, out_mouse);
+}
+
+void uni_gamepad_to_combo_joy_mouse(const uni_gamepad_t* gp, uni_joystick_t* out_joy, uni_joystick_t* out_mouse) {
   to_single_joy(gp, out_joy);
+
+  // Axis: RX and RY
+  if (gp->updated_states & GAMEPAD_STATE_AXIS_RX) {
+    out_mouse->left |= (gp->axis_rx < -AXIS_THRESHOLD);
+    out_mouse->right |= (gp->axis_rx > AXIS_THRESHOLD);
+  }
+  if (gp->updated_states & GAMEPAD_STATE_AXIS_RY) {
+    out_mouse->up |= (gp->axis_ry < -AXIS_THRESHOLD);
+    out_mouse->down |= (gp->axis_ry > AXIS_THRESHOLD);
+  }
+
+  // Buttom B is "mouse left button"
+  if (gp->updated_states & GAMEPAD_STATE_BUTTON_B) {
+    out_mouse->fire |= ((gp->buttons & BUTTON_B) == BUTTON_B);
+  }
+
+  // Buttom X is "mouse middle button"
+  if (gp->updated_states & GAMEPAD_STATE_BUTTON_X) {
+    out_mouse->pot_x |= ((gp->buttons & BUTTON_X) == BUTTON_X);
+  }
+
+  // Buttom Y is "mouse right button"
+  if (gp->updated_states & GAMEPAD_STATE_BUTTON_Y) {
+    out_mouse->pot_y |= ((gp->buttons & BUTTON_Y) == BUTTON_Y);
+  }
 }
 
 void uni_gamepad_dump(const uni_gamepad_t* gp) {

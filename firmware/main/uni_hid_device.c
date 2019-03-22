@@ -463,6 +463,11 @@ void uni_hid_device_process_gamepad(uni_hid_device_t* device) {
       uni_platform_update_port_b(&joy);
       uni_platform_update_port_a(&joy_ext);
       break;
+    case EMULATION_MODE_COMBO_JOY_MOUSE:
+      uni_gamepad_to_combo_joy_mouse(gp, &joy, &joy_ext);
+      uni_platform_update_port_b(&joy);
+      uni_platform_update_port_a(&joy_ext);
+      break;
     default:
       loge("Unsupported emulation mode: %d\n", device->emu_mode);
       break;
