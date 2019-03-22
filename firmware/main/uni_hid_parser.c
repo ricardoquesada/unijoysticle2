@@ -22,10 +22,6 @@ limitations under the License.
 #include "uni_debug.h"
 #include "uni_gamepad.h"
 #include "uni_hid_device.h"
-#include "uni_platform.h"
-
-static const int AXIS_NORMALIZE_RANGE = 1024;  // 10-bit resolution (1024)
-static const int AXIS_THRESHOLD = 1024 / 8;
 
 void uni_hid_parser(uni_gamepad_t* gamepad,
                     uni_report_parser_t* report_parser,
@@ -55,74 +51,6 @@ void uni_hid_parser(uni_gamepad_t* gamepad,
 
     logd("usage_page = 0x%04x, usage = 0x%04x, value = 0x%x\n", usage_page, usage, value);
     report_parser->parse_usage(gamepad, &globals, usage_page, usage, value);
-  }
-}
-
-// Converts gamepad to joystick.
-// FIXME: should be placed somewhere else.
-void joystick_update(const uni_gamepad_t* gp, uni_joystick_port_t joy_port, uni_emulation_mode_t ctl_type) {
-  if (joy_port == JOYSTICK_PORT_NONE)
-    return;
-
-  // FIXME: Add support for JOYSTICK_PORT_AB.
-  uni_joystick_t joy;
-
-  // reset state
-  memset(&joy, 0, sizeof(joy));
-
-  if (gp->updated_states & GAMEPAD_STATE_DPAD) {
-    if (gp->dpad & 0x01)
-      joy.up |= 1;
-    if (gp->dpad & 0x02)
-      joy.down |= 1;
-    if (gp->dpad & 0x04)
-      joy.right |= 1;
-    if (gp->dpad & 0x08)
-      joy.left |= 1;
-  }
-
-  // Button A is "fire"
-  if (gp->updated_states & GAMEPAD_STATE_BUTTON_A) {
-    joy.fire |= gp->buttons & 0x1;
-  }
-
-  // Button B is "jump"
-  if (gp->updated_states & GAMEPAD_STATE_BUTTON_B) {
-    joy.up |= ((gp->buttons & 0x2) == 0x2);
-  }
-
-  // Axis: x and y
-  if (gp->updated_states & GAMEPAD_STATE_AXIS_X) {
-    joy.left |= (gp->axis_x < -AXIS_THRESHOLD);
-    joy.right |= (gp->axis_x > AXIS_THRESHOLD);
-  }
-  if (gp->updated_states & GAMEPAD_STATE_AXIS_Y) {
-    joy.up |= (gp->axis_y < -AXIS_THRESHOLD);
-    joy.down |= (gp->axis_y > AXIS_THRESHOLD);
-  }
-
-  if (gp->updated_states & GAMEPAD_STATE_BRAKE) {
-    joy.pot_x = (gp->brake >> 2);  // convert from 1024 to 256
-  }
-
-  if (gp->updated_states & GAMEPAD_STATE_ACCELERATOR) {
-    joy.pot_y = (gp->accelerator >> 2);  // convert from 1024 to 256
-  }
-
-  // FIXME: Add support for JOYSTICK_PORT_AB.
-  switch (ctl_type) {
-    case EMULATION_MODE_JOYSTICK:
-      if (joy_port == JOYSTICK_PORT_A)
-        uni_platform_update_port_a(&joy);
-      else
-        uni_platform_update_port_b(&joy);
-      break;
-    case EMULATION_MODE_MOUSE:
-      uni_platform_update_mouse(gp->axis_x, gp->axis_y);
-      break;
-    default:
-      loge("Unsupported controller type: %d\n", ctl_type);
-      break;
   }
 }
 

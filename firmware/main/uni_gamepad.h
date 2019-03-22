@@ -21,20 +21,25 @@ limitations under the License.
 
 #include <stdint.h>
 
+#include "uni_joystick.h"
+
+extern const int AXIS_NORMALIZE_RANGE;
+extern const int AXIS_THRESHOLD;
+
 // FIXME: doesn't seem to belong in this file.
 typedef enum {
   JOYSTICK_PORT_NONE = 0,
   JOYSTICK_PORT_A = (1 << 0),
   JOYSTICK_PORT_B = (1 << 1),
-  JOYSTICK_PORT_AB = (JOYSTICK_PORT_A | JOYSTICK_PORT_B),
+  JOYSTICK_PORT_AB_MASK = (JOYSTICK_PORT_A | JOYSTICK_PORT_B),
 } uni_joystick_port_t;
 
 // FIXME: doesn't seem to belong in this file.
 typedef enum {
-  EMULATION_MODE_JOYSTICK,
-  EMULATION_MODE_MOUSE,
+  EMULATION_MODE_SINGLE_JOY,
+  EMULATION_MODE_SINGLE_MOUSE,
+  EMULATION_MODE_COMBO_JOY_JOY,
   EMULATION_MODE_COMBO_JOY_MOUSE,
-  EMULATION_MODE_COMBO_JOY_JOY
 } uni_emulation_mode_t;
 
 enum {
@@ -145,5 +150,8 @@ typedef struct {
   uint32_t updated_states;
 } uni_gamepad_t;
 
-void uni_gamepad_dump(uni_gamepad_t* gamepad);
+void uni_gamepad_dump(const uni_gamepad_t* gp);
+void uni_gamepad_to_single_joy(const uni_gamepad_t* gp, uni_joystick_t* out_joy);
+void uni_gamepad_to_combo_joy_joy(const uni_gamepad_t* gp, uni_joystick_t* out_joy1, uni_joystick_t* out_joy2);
+void uni_gamepad_to_single_mouse(const uni_gamepad_t* gp, uni_joystick_t* out_joy);
 #endif  // UNI_GAMEPAD_H

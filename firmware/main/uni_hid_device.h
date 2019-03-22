@@ -54,8 +54,8 @@ typedef struct uni_hid_device_s {
   enum DEVICE_STATE state;
 
   // Gamepad
-  uni_joystick_port_t joystick_port;    // which port does it control, A or B?
-  uni_emulation_mode_t controller_emu;  // type of controller to emulate
+  uni_joystick_port_t joystick_port;  // which port does it control, A or B?
+  uni_emulation_mode_t emu_mode;      // type of controller to emulate
 
   // Functions used to parse the usage page/usage.
   uni_report_parser_t report_parser;

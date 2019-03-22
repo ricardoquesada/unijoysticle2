@@ -29,6 +29,7 @@ limitations under the License.
 #include "uni_hid_parser_ps4.h"
 #include "uni_hid_parser_smarttvremote.h"
 #include "uni_hid_parser_xboxone.h"
+#include "uni_platform.h"
 
 #define MAX_DEVICES 8
 
@@ -142,7 +143,8 @@ void uni_hid_device_try_assign_joystick_port(uni_hid_device_t* device) {
 
   // Try with Port B, assume it is a joystick
   int wanted_port = JOYSTICK_PORT_B;
-  device->controller_emu = EMULATION_MODE_JOYSTICK;
+  device->emu_mode = EMULATION_MODE_SINGLE_JOY;
+  // device->emu_mode = EMULATION_MODE_COMBO_JOY_JOY;
 
   // ... unless it is a mouse which should try with PORT A. Amiga/Atari ST use
   // mice in PORT A. Undefined on the C64, but most apps use it in PORT A as
@@ -150,13 +152,13 @@ void uni_hid_device_try_assign_joystick_port(uni_hid_device_t* device) {
   uint32_t mouse_cod = MASK_COD_MAJOR_PERIPHERAL | MASK_COD_MINOR_POINT_DEVICE;
   if ((device->cod & mouse_cod) == mouse_cod) {
     wanted_port = JOYSTICK_PORT_A;
-    device->controller_emu = EMULATION_MODE_MOUSE;
+    device->emu_mode = EMULATION_MODE_SINGLE_MOUSE;
   }
 
   // If wanted port is already assigned, try with the next one
   if (used_joystick_ports & wanted_port) {
     logi("Port already assigned, trying another one\n");
-    wanted_port = (~wanted_port) & JOYSTICK_PORT_AB;
+    wanted_port = (~wanted_port) & JOYSTICK_PORT_AB_MASK;
   }
 
   used_joystick_ports |= wanted_port;
@@ -433,7 +435,38 @@ void uni_hid_device_process_gamepad(uni_hid_device_t* device) {
   // FIXME: each backend should decide what to do with misc buttons
   process_misc_button_system(device);
   process_misc_button_home(device);
-  joystick_update(&device->gamepad, device->joystick_port, device->controller_emu);
+
+  if (device->joystick_port == JOYSTICK_PORT_NONE)
+    return;
+
+  // FIXME: Add support for EMULATION_MODE_COMBO_JOY_MOUSE
+  uni_joystick_t joy, joy_ext;
+  memset(&joy, 0, sizeof(joy));
+  memset(&joy_ext, 0, sizeof(joy_ext));
+
+  const uni_gamepad_t* gp = &device->gamepad;
+
+  switch (device->emu_mode) {
+    case EMULATION_MODE_SINGLE_JOY:
+      uni_gamepad_to_single_joy(gp, &joy);
+      if (device->joystick_port == JOYSTICK_PORT_A)
+        uni_platform_update_port_a(&joy);
+      else
+        uni_platform_update_port_b(&joy);
+      break;
+    case EMULATION_MODE_SINGLE_MOUSE:
+      uni_gamepad_to_single_mouse(gp, &joy);
+      uni_platform_update_mouse(gp->axis_x, gp->axis_y);
+      break;
+    case EMULATION_MODE_COMBO_JOY_JOY:
+      uni_gamepad_to_combo_joy_joy(gp, &joy, &joy_ext);
+      uni_platform_update_port_b(&joy);
+      uni_platform_update_port_a(&joy_ext);
+      break;
+    default:
+      loge("Unsupported emulation mode: %d\n", device->emu_mode);
+      break;
+  }
 }
 
 // Helpers
@@ -454,9 +487,7 @@ static void process_misc_button_system(uni_hid_device_t* device) {
   if (device->wait_release_misc_button & MISC_BUTTON_SYSTEM)
     return;
 
-  // FIXME: Create JOYSTICK_PORT_BA swo PORT_AB can be swapped to PORT_BA
-  // Port not assigned or port is AB, return.
-  if (device->joystick_port == JOYSTICK_PORT_NONE || device->joystick_port == JOYSTICK_PORT_AB)
+  if (device->joystick_port == JOYSTICK_PORT_NONE)
     return;
 
   // swap joysticks if only one device is attached

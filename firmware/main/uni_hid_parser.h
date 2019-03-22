@@ -61,6 +61,4 @@ uint8_t uni_hid_parser_process_hat(hid_globals_t* globals, uint32_t value);
 void uni_hid_parser_process_dpad(uint16_t usage, uint32_t value, uint8_t* dpad);
 uint8_t uni_hid_parser_hat_to_dpad(uint8_t hat);
 
-void joystick_update(const uni_gamepad_t* gp, uni_joystick_port_t joy_port, uni_emulation_mode_t ctl_type);
-
 #endif  // UNI_HID_PARSER_H
