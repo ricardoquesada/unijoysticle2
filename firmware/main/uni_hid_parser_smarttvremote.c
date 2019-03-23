@@ -25,11 +25,11 @@ limitations under the License.
 #include "uni_debug.h"
 #include "uni_hid_parser.h"
 
-void uni_hid_parser_smarttvremote_init(uni_gamepad_t* gamepad) {
+void uni_hid_parser_smarttvremote_init(uni_gamepad_t* gp) {
   // Reset old state. Each report contains a full-state.
-  gamepad->updated_states = 0;
+  gp->updated_states = 0;
 }
-void uni_hid_parser_smarttvremote_parse_usage(uni_gamepad_t* gamepad,
+void uni_hid_parser_smarttvremote_parse_usage(uni_gamepad_t* gp,
                                               hid_globals_t* globals,
                                               uint16_t usage_page,
                                               uint16_t usage,
@@ -40,7 +40,7 @@ void uni_hid_parser_smarttvremote_parse_usage(uni_gamepad_t* gamepad,
     case HID_USAGE_PAGE_GENERIC_DEVICE_CONTROLS:
       switch (usage) {
         case HID_USAGE_BATTERY_STRENGHT:
-          gamepad->battery = value;
+          gp->battery = value;
           break;
         default:
           logi("SmartTVRemote: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
@@ -55,47 +55,47 @@ void uni_hid_parser_smarttvremote_parse_usage(uni_gamepad_t* gamepad,
           break;
         case HID_USAGE_KB_RIGHT_ARROW:
           if (value)
-            gamepad->dpad |= DPAD_RIGHT;
+            gp->dpad |= DPAD_RIGHT;
           else
-            gamepad->dpad &= ~DPAD_RIGHT;
-          gamepad->updated_states |= GAMEPAD_STATE_DPAD;
+            gp->dpad &= ~DPAD_RIGHT;
+          gp->updated_states |= GAMEPAD_STATE_DPAD;
           break;
         case HID_USAGE_KB_LEFT_ARROW:
           if (value)
-            gamepad->dpad |= DPAD_LEFT;
+            gp->dpad |= DPAD_LEFT;
           else
-            gamepad->dpad &= ~DPAD_LEFT;
-          gamepad->updated_states |= GAMEPAD_STATE_DPAD;
+            gp->dpad &= ~DPAD_LEFT;
+          gp->updated_states |= GAMEPAD_STATE_DPAD;
           break;
         case HID_USAGE_KB_DOWN_ARROW:
           if (value)
-            gamepad->dpad |= DPAD_DOWN;
+            gp->dpad |= DPAD_DOWN;
           else
-            gamepad->dpad &= ~DPAD_DOWN;
-          gamepad->updated_states |= GAMEPAD_STATE_DPAD;
+            gp->dpad &= ~DPAD_DOWN;
+          gp->updated_states |= GAMEPAD_STATE_DPAD;
           break;
         case HID_USAGE_KB_UP_ARROW:
           if (value)
-            gamepad->dpad |= DPAD_UP;
+            gp->dpad |= DPAD_UP;
           else
-            gamepad->dpad &= ~DPAD_UP;
-          gamepad->updated_states |= GAMEPAD_STATE_DPAD;
+            gp->dpad &= ~DPAD_UP;
+          gp->updated_states |= GAMEPAD_STATE_DPAD;
           break;
         case HID_USAGE_KP_ENTER:
           if (value)
-            gamepad->buttons |= BUTTON_A;
+            gp->buttons |= BUTTON_A;
           else
-            gamepad->buttons &= ~BUTTON_A;
-          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_A;
+            gp->buttons &= ~BUTTON_A;
+          gp->updated_states |= GAMEPAD_STATE_BUTTON_A;
           break;
         case HID_USAGE_KB_POWER:
           break;                        // unmapped apparently
         case HID_USAGE_KB_RESERVED_F1:  // Back button (reserved)
           if (value)
-            gamepad->misc_buttons |= MISC_BUTTON_BACK;
+            gp->misc_buttons |= MISC_BUTTON_BACK;
           else
-            gamepad->misc_buttons &= ~MISC_BUTTON_BACK;
-          gamepad->updated_states |= GAMEPAD_STATE_MISC_BUTTON_BACK;
+            gp->misc_buttons &= ~MISC_BUTTON_BACK;
+          gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_BACK;
           break;
         default:
           logi("SmartTVRemote: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
@@ -106,10 +106,10 @@ void uni_hid_parser_smarttvremote_parse_usage(uni_gamepad_t* gamepad,
       switch (usage) {
         case HID_USAGE_MENU:
           if (value)
-            gamepad->misc_buttons |= MISC_BUTTON_SYSTEM;
+            gp->misc_buttons |= MISC_BUTTON_SYSTEM;
           else
-            gamepad->misc_buttons &= ~MISC_BUTTON_SYSTEM;
-          gamepad->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
+            gp->misc_buttons &= ~MISC_BUTTON_SYSTEM;
+          gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
           break;
         case HID_USAGE_MEDIA_SELECT_TV:
         case HID_USAGE_FAST_FORWARD:
@@ -122,10 +122,10 @@ void uni_hid_parser_smarttvremote_parse_usage(uni_gamepad_t* gamepad,
           break;
         case HID_USAGE_AC_HOME:
           if (value)
-            gamepad->misc_buttons |= MISC_BUTTON_HOME;
+            gp->misc_buttons |= MISC_BUTTON_HOME;
           else
-            gamepad->misc_buttons &= ~MISC_BUTTON_HOME;
-          gamepad->updated_states |= GAMEPAD_STATE_MISC_BUTTON_HOME;
+            gp->misc_buttons &= ~MISC_BUTTON_HOME;
+          gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_HOME;
           break;
         default:
           logi("SmartTVRemote: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);

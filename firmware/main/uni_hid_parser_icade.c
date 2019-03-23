@@ -41,13 +41,13 @@ limitations under the License.
  *  R  ON,OFF  = l,v        : unmapped
  */
 
-void uni_hid_parser_icade_init(uni_gamepad_t* gamepad) {
-  UNUSED(gamepad);
-  // Don't do anything, like reseting the gamepad->updated_states,
+void uni_hid_parser_icade_init(uni_gamepad_t* gp) {
+  UNUSED(gp);
+  // Don't do anything, like reseting the gp->updated_states,
   // since each report is a "delta", and doesn't include a full state.
 }
 
-void uni_hid_parser_icade_parse_usage(uni_gamepad_t* gamepad,
+void uni_hid_parser_icade_parse_usage(uni_gamepad_t* gp,
                                       hid_globals_t* globals,
                                       uint16_t usage_page,
                                       uint16_t usage,
@@ -67,76 +67,76 @@ void uni_hid_parser_icade_parse_usage(uni_gamepad_t* gamepad,
         case 0xe7:
           break;
         case 0x1a:  // w (up on)
-          gamepad->dpad |= DPAD_UP;
-          gamepad->updated_states |= GAMEPAD_STATE_DPAD;
+          gp->dpad |= DPAD_UP;
+          gp->updated_states |= GAMEPAD_STATE_DPAD;
           break;
         case 0x08:  // e (up off)
-          gamepad->dpad &= ~DPAD_UP;
-          gamepad->updated_states |= GAMEPAD_STATE_DPAD;
+          gp->dpad &= ~DPAD_UP;
+          gp->updated_states |= GAMEPAD_STATE_DPAD;
           break;
         case 0x07:  // d (right on)
-          gamepad->dpad |= DPAD_RIGHT;
-          gamepad->updated_states |= GAMEPAD_STATE_DPAD;
+          gp->dpad |= DPAD_RIGHT;
+          gp->updated_states |= GAMEPAD_STATE_DPAD;
           break;
         case 0x06:  // c (right off)
-          gamepad->dpad &= ~DPAD_RIGHT;
-          gamepad->updated_states |= GAMEPAD_STATE_DPAD;
+          gp->dpad &= ~DPAD_RIGHT;
+          gp->updated_states |= GAMEPAD_STATE_DPAD;
           break;
         case 0x1b:  // x (down on)
-          gamepad->dpad |= DPAD_DOWN;
-          gamepad->updated_states |= GAMEPAD_STATE_DPAD;
+          gp->dpad |= DPAD_DOWN;
+          gp->updated_states |= GAMEPAD_STATE_DPAD;
           break;
         case 0x1d:  // z (down off)
-          gamepad->dpad &= ~DPAD_DOWN;
-          gamepad->updated_states |= GAMEPAD_STATE_DPAD;
+          gp->dpad &= ~DPAD_DOWN;
+          gp->updated_states |= GAMEPAD_STATE_DPAD;
           break;
         case 0x04:  // a (left on)
-          gamepad->dpad |= DPAD_LEFT;
-          gamepad->updated_states |= GAMEPAD_STATE_DPAD;
+          gp->dpad |= DPAD_LEFT;
+          gp->updated_states |= GAMEPAD_STATE_DPAD;
           break;
         case 0x14:  // q (left off)
-          gamepad->dpad &= ~DPAD_LEFT;
-          gamepad->updated_states |= GAMEPAD_STATE_DPAD;
+          gp->dpad &= ~DPAD_LEFT;
+          gp->updated_states |= GAMEPAD_STATE_DPAD;
           break;
         case 0x1c:  // y (button A: on)
-          gamepad->buttons |= BUTTON_A;
-          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_A;
+          gp->buttons |= BUTTON_A;
+          gp->updated_states |= GAMEPAD_STATE_BUTTON_A;
           break;
         case 0x17:  // t (button A: off)
-          gamepad->buttons &= ~BUTTON_A;
-          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_A;
+          gp->buttons &= ~BUTTON_A;
+          gp->updated_states |= GAMEPAD_STATE_BUTTON_A;
           break;
         case 0x0b:  // h (button B: on)
-          gamepad->buttons |= BUTTON_B;
-          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_B;
+          gp->buttons |= BUTTON_B;
+          gp->updated_states |= GAMEPAD_STATE_BUTTON_B;
           break;
         case 0x15:  // r (button B: off)
-          gamepad->buttons &= ~BUTTON_B;
-          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_B;
+          gp->buttons &= ~BUTTON_B;
+          gp->updated_states |= GAMEPAD_STATE_BUTTON_B;
           break;
         case 0x18:  // u (button C: on)
-          gamepad->buttons |= BUTTON_X;
-          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_X;
+          gp->buttons |= BUTTON_X;
+          gp->updated_states |= GAMEPAD_STATE_BUTTON_X;
           break;
         case 0x09:  // f (button C: off)
-          gamepad->buttons &= ~BUTTON_X;
-          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_X;
+          gp->buttons &= ~BUTTON_X;
+          gp->updated_states |= GAMEPAD_STATE_BUTTON_X;
           break;
         case 0x0d:  // j (button X: on)
-          gamepad->buttons |= BUTTON_Y;
-          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_Y;
+          gp->buttons |= BUTTON_Y;
+          gp->updated_states |= GAMEPAD_STATE_BUTTON_Y;
           break;
         case 0x11:  // n (button X: off)
-          gamepad->buttons &= ~BUTTON_Y;
-          gamepad->updated_states |= GAMEPAD_STATE_BUTTON_Y;
+          gp->buttons &= ~BUTTON_Y;
+          gp->updated_states |= GAMEPAD_STATE_BUTTON_Y;
           break;
         case 0x12:  // o (button L: on)
-          gamepad->misc_buttons |= MISC_BUTTON_SYSTEM;
-          gamepad->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
+          gp->misc_buttons |= MISC_BUTTON_SYSTEM;
+          gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
           break;
         case 0x0a:  // g (button L: off)
-          gamepad->misc_buttons &= ~MISC_BUTTON_SYSTEM;
-          gamepad->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
+          gp->misc_buttons &= ~MISC_BUTTON_SYSTEM;
+          gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
           break;
         case 0x0c:  // i,m,k,p,l,v. Buttons Y,Z,R
         case 0x10:  // m

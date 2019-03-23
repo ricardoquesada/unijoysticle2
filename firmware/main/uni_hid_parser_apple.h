@@ -27,8 +27,8 @@ limitations under the License.
 #include "uni_hid_parser.h"
 
 // iOS devices / Apple TV devices
-void uni_hid_parser_apple_init(uni_gamepad_t* gamepad);
-void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gamepad,
+void uni_hid_parser_apple_init(uni_gamepad_t* gp);
+void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gp,
                                       hid_globals_t* globals,
                                       uint16_t usage_page,
                                       uint16_t usage,

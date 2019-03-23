@@ -75,45 +75,45 @@ uni_hid_device_t* uni_hid_device_get_instance_for_cid(uint16_t cid);
 uni_hid_device_t* uni_hid_device_get_instance_for_connection_handle(hci_con_handle_t handle);
 uni_hid_device_t* uni_hid_device_get_first_device_with_state(int state);
 
-void uni_hid_device_set_current_device(uni_hid_device_t* device);
+void uni_hid_device_set_current_device(uni_hid_device_t* d);
 uni_hid_device_t* uni_hid_device_get_current_device(void);
 
-void uni_hid_device_try_assign_joystick_port(uni_hid_device_t* device);
+void uni_hid_device_try_assign_joystick_port(uni_hid_device_t* d);
 
 void uni_hid_device_remove_entry_with_channel(uint16_t channel);
 
 void uni_hid_device_request_inquire(void);
 
-void uni_hid_device_set_disconnected(uni_hid_device_t* device);
+void uni_hid_device_set_disconnected(uni_hid_device_t* d);
 
-void uni_hid_device_set_cod(uni_hid_device_t* device, uint32_t cod);
+void uni_hid_device_set_cod(uni_hid_device_t* d, uint32_t cod);
 uint8_t uni_hid_device_is_cod_supported(uint32_t cod);
 
-void uni_hid_device_set_hid_descriptor(uni_hid_device_t* device, const uint8_t* descriptor, int len);
-uint8_t uni_hid_device_has_hid_descriptor(uni_hid_device_t* device);
+void uni_hid_device_set_hid_descriptor(uni_hid_device_t* d, const uint8_t* descriptor, int len);
+uint8_t uni_hid_device_has_hid_descriptor(uni_hid_device_t* d);
 
-void uni_hid_device_set_incoming(uni_hid_device_t* device, uint8_t incoming);
-uint8_t uni_hid_device_is_incoming(uni_hid_device_t* device);
+void uni_hid_device_set_incoming(uni_hid_device_t* d, uint8_t incoming);
+uint8_t uni_hid_device_is_incoming(uni_hid_device_t* d);
 
-void uni_hid_device_set_name(uni_hid_device_t* device, const uint8_t* name, int name_len);
-uint8_t uni_hid_device_has_name(uni_hid_device_t* device);
+void uni_hid_device_set_name(uni_hid_device_t* d, const uint8_t* name, int name_len);
+uint8_t uni_hid_device_has_name(uni_hid_device_t* d);
 
-void uni_hid_device_set_product_id(uni_hid_device_t* device, uint16_t product_id);
-uint16_t uni_hid_device_get_product_id(uni_hid_device_t* device);
+void uni_hid_device_set_product_id(uni_hid_device_t* d, uint16_t product_id);
+uint16_t uni_hid_device_get_product_id(uni_hid_device_t* d);
 
-void uni_hid_device_set_vendor_id(uni_hid_device_t* device, uint16_t vendor_id);
-uint16_t uni_hid_device_get_vendor_id(uni_hid_device_t* device);
+void uni_hid_device_set_vendor_id(uni_hid_device_t* d, uint16_t vendor_id);
+uint16_t uni_hid_device_get_vendor_id(uni_hid_device_t* d);
 
-void uni_hid_device_dump_device(uni_hid_device_t* device);
+void uni_hid_device_dump_device(uni_hid_device_t* d);
 void uni_hid_device_dump_all(void);
 
-uint8_t uni_hid_device_is_orphan(uni_hid_device_t* device);
+uint8_t uni_hid_device_is_orphan(uni_hid_device_t* d);
 
-void uni_hid_device_guess_controller_type(uni_hid_device_t* device);
-uint8_t uni_hid_device_has_controller_type(uni_hid_device_t* device);
+void uni_hid_device_guess_controller_type(uni_hid_device_t* d);
+uint8_t uni_hid_device_has_controller_type(uni_hid_device_t* d);
 
-void uni_hid_device_process_gamepad(uni_hid_device_t* device);
+void uni_hid_device_process_gamepad(uni_hid_device_t* d);
 
-void uni_hid_device_set_connection_handle(uni_hid_device_t* device, hci_con_handle_t handle);
+void uni_hid_device_set_connection_handle(uni_hid_device_t* d, hci_con_handle_t handle);
 
 #endif  // UNI_HID_DEVICE_H

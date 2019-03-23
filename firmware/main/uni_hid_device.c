@@ -61,8 +61,8 @@ static uni_hid_device_t* g_current_device = NULL;
 static int g_device_count = 0;
 static const bd_addr_t zero_addr = {0, 0, 0, 0, 0, 0};
 
-static void process_misc_button_system(uni_hid_device_t* device);
-static void process_misc_button_home(uni_hid_device_t* device);
+static void process_misc_button_system(uni_hid_device_t* d);
+static void process_misc_button_home(uni_hid_device_t* d);
 
 void uni_hid_device_init(void) {
   memset(g_devices, 0, sizeof(g_devices));
@@ -117,22 +117,22 @@ uni_hid_device_t* uni_hid_device_get_first_device_with_state(int state) {
   return NULL;
 }
 
-void uni_hid_device_set_current_device(uni_hid_device_t* device) {
-  g_current_device = device;
+void uni_hid_device_set_current_device(uni_hid_device_t* d) {
+  g_current_device = d;
 }
 
 uni_hid_device_t* uni_hid_device_get_current_device(void) {
   return g_current_device;
 }
 
-void uni_hid_device_try_assign_joystick_port(uni_hid_device_t* device) {
-  if (device == NULL) {
+void uni_hid_device_try_assign_joystick_port(uni_hid_device_t* d) {
+  if (d == NULL) {
     log_error("ERROR: Invalid device\n");
     return;
   }
 
   // Port already assigned. Do nothing. Not an error.
-  if (device->joystick_port != JOYSTICK_PORT_NONE) {
+  if (d->joystick_port != JOYSTICK_PORT_NONE) {
     return;
   }
 
@@ -143,16 +143,16 @@ void uni_hid_device_try_assign_joystick_port(uni_hid_device_t* device) {
 
   // Try with Port B, assume it is a joystick
   int wanted_port = JOYSTICK_PORT_B;
-  device->emu_mode = EMULATION_MODE_SINGLE_JOY;
-  // device->emu_mode = EMULATION_MODE_COMBO_JOY_JOY;
+  d->emu_mode = EMULATION_MODE_SINGLE_JOY;
+  // d->emu_mode = EMULATION_MODE_COMBO_JOY_JOY;
 
   // ... unless it is a mouse which should try with PORT A. Amiga/Atari ST use
   // mice in PORT A. Undefined on the C64, but most apps use it in PORT A as
   // well.
   uint32_t mouse_cod = MASK_COD_MAJOR_PERIPHERAL | MASK_COD_MINOR_POINT_DEVICE;
-  if ((device->cod & mouse_cod) == mouse_cod) {
+  if ((d->cod & mouse_cod) == mouse_cod) {
     wanted_port = JOYSTICK_PORT_A;
-    device->emu_mode = EMULATION_MODE_SINGLE_MOUSE;
+    d->emu_mode = EMULATION_MODE_SINGLE_MOUSE;
   }
 
   // If wanted port is already assigned, try with the next one
@@ -162,7 +162,7 @@ void uni_hid_device_try_assign_joystick_port(uni_hid_device_t* device) {
   }
 
   used_joystick_ports |= wanted_port;
-  device->joystick_port = wanted_port;
+  d->joystick_port = wanted_port;
   logi("Assigned joystick port: %d\n", wanted_port);
   return;
 }
@@ -187,32 +187,32 @@ void uni_hid_device_request_inquire(void) {
   }
 }
 
-void uni_hid_device_set_disconnected(uni_hid_device_t* device) {
-  if (device == NULL) {
+void uni_hid_device_set_disconnected(uni_hid_device_t* d) {
+  if (d == NULL) {
     log_error("ERROR: Invalid device\n");
     return;
   }
 
   // Connection oriented
-  device->flags &= ~(FLAGS_CONNECTED | FLAGS_INCOMING);
-  device->hid_control_cid = 0;
-  device->hid_interrupt_cid = 0;
+  d->flags &= ~(FLAGS_CONNECTED | FLAGS_INCOMING);
+  d->hid_control_cid = 0;
+  d->hid_interrupt_cid = 0;
 
   // Joystick-state oriented
-  device->joystick_port = JOYSTICK_PORT_NONE;
+  d->joystick_port = JOYSTICK_PORT_NONE;
 }
 
-void uni_hid_device_set_cod(uni_hid_device_t* device, uint32_t cod) {
-  if (device == NULL) {
+void uni_hid_device_set_cod(uni_hid_device_t* d, uint32_t cod) {
+  if (d == NULL) {
     log_error("ERROR: Invalid device\n");
     return;
   }
 
-  device->cod = cod;
+  d->cod = cod;
   if (cod == 0)
-    device->flags &= ~FLAGS_HAS_COD;
+    d->flags &= ~FLAGS_HAS_COD;
   else
-    device->flags |= FLAGS_HAS_COD;
+    d->flags |= FLAGS_HAS_COD;
 }
 
 uint8_t uni_hid_device_is_cod_supported(uint32_t cod) {
@@ -234,24 +234,24 @@ uint8_t uni_hid_device_is_cod_supported(uint32_t cod) {
   return 0;
 }
 
-void uni_hid_device_set_incoming(uni_hid_device_t* device, uint8_t incoming) {
-  if (device == NULL) {
+void uni_hid_device_set_incoming(uni_hid_device_t* d, uint8_t incoming) {
+  if (d == NULL) {
     log_error("ERROR: Invalid device\n");
     return;
   }
 
   if (incoming)
-    device->flags |= FLAGS_INCOMING;
+    d->flags |= FLAGS_INCOMING;
   else
-    device->flags &= ~FLAGS_INCOMING;
+    d->flags &= ~FLAGS_INCOMING;
 }
 
-uint8_t uni_hid_device_is_incoming(uni_hid_device_t* device) {
-  return !!(device->flags & FLAGS_INCOMING);
+uint8_t uni_hid_device_is_incoming(uni_hid_device_t* d) {
+  return !!(d->flags & FLAGS_INCOMING);
 }
 
-void uni_hid_device_set_name(uni_hid_device_t* device, const uint8_t* name, int name_len) {
-  if (device == NULL) {
+void uni_hid_device_set_name(uni_hid_device_t* d, const uint8_t* name, int name_len) {
+  if (d == NULL) {
     log_error("ERROR: Invalid device\n");
     return;
   }
@@ -262,72 +262,72 @@ void uni_hid_device_set_name(uni_hid_device_t* device, const uint8_t* name, int 
 
   if (name != NULL) {
     int min = btstack_min(MAX_NAME_LEN - 1, name_len);
-    memcpy(device->name, name, min);
-    device->name[min] = 0;
+    memcpy(d->name, name, min);
+    d->name[min] = 0;
 
-    device->flags |= FLAGS_HAS_NAME;
-    device->state = REMOTE_NAME_FETCHED;
+    d->flags |= FLAGS_HAS_NAME;
+    d->state = REMOTE_NAME_FETCHED;
   }
 }
 
-uint8_t uni_hid_device_has_name(uni_hid_device_t* device) {
-  if (device == NULL) {
+uint8_t uni_hid_device_has_name(uni_hid_device_t* d) {
+  if (d == NULL) {
     log_error("ERROR: Invalid device\n");
     return 0;
   }
 
-  return !!(device->flags & FLAGS_HAS_NAME);
+  return !!(d->flags & FLAGS_HAS_NAME);
 }
 
-void uni_hid_device_set_hid_descriptor(uni_hid_device_t* device, const uint8_t* descriptor, int len) {
-  if (device == NULL) {
+void uni_hid_device_set_hid_descriptor(uni_hid_device_t* d, const uint8_t* descriptor, int len) {
+  if (d == NULL) {
     log_error("ERROR: Invalid device\n");
     return;
   }
 
   int min = btstack_min(MAX_DESCRIPTOR_LEN, len);
-  memcpy(device->hid_descriptor, descriptor, len);
-  device->hid_descriptor_len = min;
-  device->flags |= FLAGS_HAS_HID_DESCRIPTOR;
+  memcpy(d->hid_descriptor, descriptor, len);
+  d->hid_descriptor_len = min;
+  d->flags |= FLAGS_HAS_HID_DESCRIPTOR;
 }
 
-uint8_t uni_hid_device_has_hid_descriptor(uni_hid_device_t* device) {
-  if (device == NULL) {
+uint8_t uni_hid_device_has_hid_descriptor(uni_hid_device_t* d) {
+  if (d == NULL) {
     log_error("ERROR: Invalid device\n");
     return 0;
   }
 
-  return !!(device->flags & FLAGS_HAS_HID_DESCRIPTOR);
+  return !!(d->flags & FLAGS_HAS_HID_DESCRIPTOR);
 }
 
-void uni_hid_device_set_product_id(uni_hid_device_t* device, uint16_t product_id) {
-  device->product_id = product_id;
-  device->flags |= FLAGS_HAS_PRODUCT_ID;
+void uni_hid_device_set_product_id(uni_hid_device_t* d, uint16_t product_id) {
+  d->product_id = product_id;
+  d->flags |= FLAGS_HAS_PRODUCT_ID;
 }
 
-uint16_t uni_hid_device_get_product_id(uni_hid_device_t* device) {
-  return device->product_id;
+uint16_t uni_hid_device_get_product_id(uni_hid_device_t* d) {
+  return d->product_id;
 }
 
-void uni_hid_device_set_vendor_id(uni_hid_device_t* device, uint16_t vendor_id) {
+void uni_hid_device_set_vendor_id(uni_hid_device_t* d, uint16_t vendor_id) {
   if (vendor_id == 0) {
     loge("Invalid vendor_id = 0%04x\n", vendor_id);
     return;
   }
-  device->vendor_id = vendor_id;
-  device->flags |= FLAGS_HAS_VENDOR_ID;
+  d->vendor_id = vendor_id;
+  d->flags |= FLAGS_HAS_VENDOR_ID;
 }
 
-uint16_t uni_hid_device_get_vendor_id(uni_hid_device_t* device) {
-  return device->vendor_id;
+uint16_t uni_hid_device_get_vendor_id(uni_hid_device_t* d) {
+  return d->vendor_id;
 }
 
-void uni_hid_device_dump_device(uni_hid_device_t* device) {
+void uni_hid_device_dump_device(uni_hid_device_t* d) {
   logi(
       "%s, handle=%d, ctrl_cid=0x%04x, intr_cid=0x%04x, cod=0x%08x, vid=0x%04x, pid=0x%04x, flags=0x%08x, "
       "port=%d, name='%s'\n",
-      bd_addr_to_str(device->address), device->con_handle, device->hid_control_cid, device->hid_interrupt_cid,
-      device->cod, device->vendor_id, device->product_id, device->flags, device->joystick_port, device->name);
+      bd_addr_to_str(d->address), d->con_handle, d->hid_control_cid, d->hid_interrupt_cid, d->cod, d->vendor_id,
+      d->product_id, d->flags, d->joystick_port, d->name);
 }
 
 void uni_hid_device_dump_all(void) {
@@ -339,31 +339,31 @@ void uni_hid_device_dump_all(void) {
   }
 }
 
-uint8_t uni_hid_device_is_orphan(uni_hid_device_t* device) {
+uint8_t uni_hid_device_is_orphan(uni_hid_device_t* d) {
   // There is a case with the Apple mouse, and possibly other devices, sends
   // the on_hci_connection_request but doesn't complete the connection.
   // The device gets added into the DB at on_hci_connection_request time, and
   // if you later put the device in discovery mode, we won't start a Connection
   // because it is already added to the DB.
   // This prevents that scenario.
-  return (device->flags == FLAGS_HAS_COD);
+  return (d->flags == FLAGS_HAS_COD);
 }
 
-void uni_hid_device_guess_controller_type(uni_hid_device_t* device) {
-  if (uni_hid_device_has_controller_type(device)) {
+void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
+  if (uni_hid_device_has_controller_type(d)) {
     logi("device already has a controller type");
     return;
   }
   // Try to guess it from Vendor/Product id.
-  uni_controller_type_t type = guess_controller_type(device->vendor_id, device->product_id);
+  uni_controller_type_t type = guess_controller_type(d->vendor_id, d->product_id);
 
   // If it fails, try to guess it from COD
   if (type == CONTROLLER_TYPE_Unknown) {
     uint32_t mouse_cod = MASK_COD_MAJOR_PERIPHERAL | MASK_COD_MINOR_POINT_DEVICE;
     uint32_t keyboard_cod = MASK_COD_MAJOR_PERIPHERAL | MASK_COD_MINOR_KEYBOARD;
-    if ((device->cod & mouse_cod) == mouse_cod) {
+    if ((d->cod & mouse_cod) == mouse_cod) {
       type = CONTROLLER_TYPE_GenericMouse;
-    } else if ((device->cod & keyboard_cod) == keyboard_cod) {
+    } else if ((d->cod & keyboard_cod) == keyboard_cod) {
       type = CONTROLLER_TYPE_GenericKeyboard;
     } else {
       // FIXME: Default shold be the most popular bluetooth device.
@@ -373,70 +373,70 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* device) {
 
   switch (type) {
     case CONTROLLER_TYPE_iCadeController:
-      device->report_parser.init = uni_hid_parser_icade_init;
-      device->report_parser.parse_usage = uni_hid_parser_icade_parse_usage;
+      d->report_parser.init = uni_hid_parser_icade_init;
+      d->report_parser.parse_usage = uni_hid_parser_icade_parse_usage;
       break;
     case CONTROLLER_TYPE_OUYAController:
-      device->report_parser.init = uni_hid_parser_ouya_init;
-      device->report_parser.parse_usage = uni_hid_parser_ouya_parse_usage;
+      d->report_parser.init = uni_hid_parser_ouya_init;
+      d->report_parser.parse_usage = uni_hid_parser_ouya_parse_usage;
       break;
     case CONTROLLER_TYPE_XBoxOneController:
-      device->report_parser.init = uni_hid_parser_xboxone_init;
-      device->report_parser.parse_usage = uni_hid_parser_xboxone_parse_usage;
+      d->report_parser.init = uni_hid_parser_xboxone_init;
+      d->report_parser.parse_usage = uni_hid_parser_xboxone_parse_usage;
       break;
     case CONTROLLER_TYPE_AndroidController:
-      device->report_parser.init = uni_hid_parser_android_init;
-      device->report_parser.parse_usage = uni_hid_parser_android_parse_usage;
+      d->report_parser.init = uni_hid_parser_android_init;
+      d->report_parser.parse_usage = uni_hid_parser_android_parse_usage;
       break;
     case CONTROLLER_TYPE_AppleController:
-      device->report_parser.init = uni_hid_parser_apple_init;
-      device->report_parser.parse_usage = uni_hid_parser_apple_parse_usage;
+      d->report_parser.init = uni_hid_parser_apple_init;
+      d->report_parser.parse_usage = uni_hid_parser_apple_parse_usage;
       break;
     case CONTROLLER_TYPE_SmartTVRemoteController:
-      device->report_parser.init = uni_hid_parser_smarttvremote_init;
-      device->report_parser.parse_usage = uni_hid_parser_smarttvremote_parse_usage;
+      d->report_parser.init = uni_hid_parser_smarttvremote_init;
+      d->report_parser.parse_usage = uni_hid_parser_smarttvremote_parse_usage;
       break;
     case CONTROLLER_TYPE_PS4Controller:
-      device->report_parser.init = uni_hid_parser_ps4_init;
-      device->report_parser.parse_usage = uni_hid_parser_ps4_parse_usage;
+      d->report_parser.init = uni_hid_parser_ps4_init;
+      d->report_parser.parse_usage = uni_hid_parser_ps4_parse_usage;
       break;
     case CONTROLLER_TYPE_8BitdoController:
-      device->report_parser.init = uni_hid_parser_8bitdo_init;
-      device->report_parser.parse_usage = uni_hid_parser_8bitdo_parse_usage;
+      d->report_parser.init = uni_hid_parser_8bitdo_init;
+      d->report_parser.parse_usage = uni_hid_parser_8bitdo_parse_usage;
       break;
     case CONTROLLER_TYPE_GenericController:
-      device->report_parser.init = uni_hid_parser_generic_init;
-      device->report_parser.parse_usage = uni_hid_parser_generic_parse_usage;
+      d->report_parser.init = uni_hid_parser_generic_init;
+      d->report_parser.parse_usage = uni_hid_parser_generic_parse_usage;
       break;
     default:
-      device->report_parser.init = uni_hid_parser_generic_init;
-      device->report_parser.parse_usage = uni_hid_parser_generic_parse_usage;
+      d->report_parser.init = uni_hid_parser_generic_init;
+      d->report_parser.parse_usage = uni_hid_parser_generic_parse_usage;
       break;
   }
 
   logi("Device detected as: 0x%02x\n", type);
-  device->flags |= FLAGS_HAS_CONTROLLER_TYPE;
+  d->flags |= FLAGS_HAS_CONTROLLER_TYPE;
 }
 
-uint8_t uni_hid_device_has_controller_type(uni_hid_device_t* device) {
-  if (device == NULL) {
+uint8_t uni_hid_device_has_controller_type(uni_hid_device_t* d) {
+  if (d == NULL) {
     log_error("ERROR: Invalid device\n");
     return 0;
   }
 
-  return !!(device->flags & FLAGS_HAS_CONTROLLER_TYPE);
+  return !!(d->flags & FLAGS_HAS_CONTROLLER_TYPE);
 }
 
-void uni_hid_device_set_connection_handle(uni_hid_device_t* device, hci_con_handle_t handle) {
-  device->con_handle = handle;
+void uni_hid_device_set_connection_handle(uni_hid_device_t* d, hci_con_handle_t handle) {
+  d->con_handle = handle;
 }
 
-void uni_hid_device_process_gamepad(uni_hid_device_t* device) {
+void uni_hid_device_process_gamepad(uni_hid_device_t* d) {
   // FIXME: each backend should decide what to do with misc buttons
-  process_misc_button_system(device);
-  process_misc_button_home(device);
+  process_misc_button_system(d);
+  process_misc_button_home(d);
 
-  if (device->joystick_port == JOYSTICK_PORT_NONE)
+  if (d->joystick_port == JOYSTICK_PORT_NONE)
     return;
 
   // FIXME: Add support for EMULATION_MODE_COMBO_JOY_MOUSE
@@ -444,12 +444,12 @@ void uni_hid_device_process_gamepad(uni_hid_device_t* device) {
   memset(&joy, 0, sizeof(joy));
   memset(&joy_ext, 0, sizeof(joy_ext));
 
-  const uni_gamepad_t* gp = &device->gamepad;
+  const uni_gamepad_t* gp = &d->gamepad;
 
-  switch (device->emu_mode) {
+  switch (d->emu_mode) {
     case EMULATION_MODE_SINGLE_JOY:
       uni_gamepad_to_single_joy(gp, &joy);
-      if (device->joystick_port == JOYSTICK_PORT_A)
+      if (d->joystick_port == JOYSTICK_PORT_A)
         uni_platform_update_port_a(&joy);
       else
         uni_platform_update_port_b(&joy);
@@ -469,7 +469,7 @@ void uni_hid_device_process_gamepad(uni_hid_device_t* device) {
       uni_platform_update_port_a(&joy_ext);
       break;
     default:
-      loge("Unsupported emulation mode: %d\n", device->emu_mode);
+      loge("Unsupported emulation mode: %d\n", d->emu_mode);
       break;
   }
 }
@@ -477,22 +477,22 @@ void uni_hid_device_process_gamepad(uni_hid_device_t* device) {
 // Helpers
 
 // process_mic_button_system swaps joystick port A and B only if there is one device attached.
-static void process_misc_button_system(uni_hid_device_t* device) {
-  if ((device->gamepad.updated_states & GAMEPAD_STATE_MISC_BUTTON_SYSTEM) == 0) {
+static void process_misc_button_system(uni_hid_device_t* d) {
+  if ((d->gamepad.updated_states & GAMEPAD_STATE_MISC_BUTTON_SYSTEM) == 0) {
     // System button released (or never have been pressed). Return, and clean wait_release button
     return;
   }
 
-  if ((device->gamepad.misc_buttons & MISC_BUTTON_SYSTEM) == 0) {
+  if ((d->gamepad.misc_buttons & MISC_BUTTON_SYSTEM) == 0) {
     // System button released ?
-    device->wait_release_misc_button &= ~MISC_BUTTON_SYSTEM;
+    d->wait_release_misc_button &= ~MISC_BUTTON_SYSTEM;
     return;
   }
 
-  if (device->wait_release_misc_button & MISC_BUTTON_SYSTEM)
+  if (d->wait_release_misc_button & MISC_BUTTON_SYSTEM)
     return;
 
-  if (device->joystick_port == JOYSTICK_PORT_NONE)
+  if (d->joystick_port == JOYSTICK_PORT_NONE)
     return;
 
   // swap joysticks if only one device is attached
@@ -509,32 +509,32 @@ static void process_misc_button_system(uni_hid_device_t* device) {
   }
 
   // swap joystick A with B
-  device->joystick_port = (device->joystick_port == JOYSTICK_PORT_A) ? JOYSTICK_PORT_B : JOYSTICK_PORT_A;
-  logi("device %s has new joystick port: %c\n", bd_addr_to_str(device->address),
-       (device->joystick_port == JOYSTICK_PORT_A) ? 'A' : 'B');
+  d->joystick_port = (d->joystick_port == JOYSTICK_PORT_A) ? JOYSTICK_PORT_B : JOYSTICK_PORT_A;
+  logi("device %s has new joystick port: %c\n", bd_addr_to_str(d->address),
+       (d->joystick_port == JOYSTICK_PORT_A) ? 'A' : 'B');
 
-  device->wait_release_misc_button |= MISC_BUTTON_SYSTEM;
+  d->wait_release_misc_button |= MISC_BUTTON_SYSTEM;
 }
 
 // process_misc_button_home dumps uni_hid_device debug info in the console.
-static void process_misc_button_home(uni_hid_device_t* device) {
-  if ((device->gamepad.updated_states & GAMEPAD_STATE_MISC_BUTTON_HOME) == 0) {
+static void process_misc_button_home(uni_hid_device_t* d) {
+  if ((d->gamepad.updated_states & GAMEPAD_STATE_MISC_BUTTON_HOME) == 0) {
     // Home button not available, not pressed or released.
     return;
   }
 
-  if ((device->gamepad.misc_buttons & MISC_BUTTON_HOME) == 0) {
+  if ((d->gamepad.misc_buttons & MISC_BUTTON_HOME) == 0) {
     // Home button released ? Clear "wait" flag.
-    device->wait_release_misc_button &= ~MISC_BUTTON_HOME;
+    d->wait_release_misc_button &= ~MISC_BUTTON_HOME;
     return;
   }
 
   // "Wait" flag present? Return.
-  if (device->wait_release_misc_button & MISC_BUTTON_HOME)
+  if (d->wait_release_misc_button & MISC_BUTTON_HOME)
     return;
 
   uni_hid_device_dump_all();
 
   // Update "wait" flag.
-  device->wait_release_misc_button |= MISC_BUTTON_HOME;
+  d->wait_release_misc_button |= MISC_BUTTON_HOME;
 }
