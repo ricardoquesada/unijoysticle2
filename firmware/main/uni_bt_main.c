@@ -93,9 +93,10 @@ static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet, uint16_t 
 static void on_l2cap_incoming_connection(uint16_t channel, uint8_t* packet, uint16_t size);
 static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet, uint16_t sizel);
 static void on_gap_inquiry_result(uint16_t channel, uint8_t* packet, uint16_t size);
-static void on_hci_connection_request(uint16_t channel, uint8_t* packet, uint16_t size);
 static void on_hci_connection_complete(uint16_t channel, uint8_t* packet, uint16_t size);
+static void on_hci_connection_request(uint16_t channel, uint8_t* packet, uint16_t size);
 static void on_hci_read_remote_supported_features_complete(uint16_t channel, uint8_t* packet, uint16_t size);
+static void on_hci_read_remote_version_information_complete(uint16_t channel, uint8_t* packet, uint16_t size);
 static void on_hci_role_change(uint16_t channel, uint8_t* packet, uint16_t size);
 
 static void hid_host_setup(void) {
@@ -325,7 +326,10 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t* packe
           }
           continue_remote_names();
           break;
-
+        case HCI_EVENT_READ_REMOTE_VERSION_INFORMATION_COMPLETE:
+          logi("--> HCI_EVENT_READ_REMOTE_VERSION_INFORMATION_COMPLETE:\n");
+          on_hci_read_remote_version_information_complete(channel, packet, size);
+          break;
         // L2CAP EVENTS
         case L2CAP_EVENT_INCOMING_CONNECTION:
           on_l2cap_incoming_connection(channel, packet, size);
@@ -407,8 +411,8 @@ static void on_hci_connection_complete(uint16_t channel, uint8_t* packet, uint16
 
   if (uni_hid_device_is_incoming(device)) {
     // hci_send_cmd(&hci_authentication_requested, handle);
-    // hci_send_cmd(&hci_change_connection_packet_type, handle, 0xcc18);
   }
+  hci_send_cmd(&hci_read_remote_version_information, handle);
 }
 
 static void on_hci_read_remote_supported_features_complete(uint16_t channel, uint8_t* packet, uint16_t size) {
@@ -430,6 +434,22 @@ static void on_hci_read_remote_supported_features_complete(uint16_t channel, uin
   //     return;
   //   }
   // }
+}
+
+static void on_hci_read_remote_version_information_complete(uint16_t channel, uint8_t* packet, uint16_t size) {
+  UNUSED(channel);
+  UNUSED(size);
+
+  uint8_t status = hci_event_read_remote_version_information_complete_get_status(packet);
+  if (status != 0)
+    return;
+
+  hci_con_handle_t handle = hci_event_read_remote_version_information_complete_get_handle(packet);
+  uint8_t lmp_ver = hci_event_read_remote_version_information_complete_get_lmp_version(packet);
+  uint16_t mfr_name = hci_event_read_remote_version_information_complete_get_manufacturer_name(packet);
+  uint16_t lmp_subversion = hci_event_read_remote_version_information_complete_get_lmp_subversion(packet);
+  logi("*******  handle=0x%04x, ver=0x%02x, mfr=0x%04x, subver=0x%04x\n", handle, lmp_ver, mfr_name, lmp_subversion);
+  hci_send_cmd(&hci_change_connection_packet_type, handle, 0xcc18);
 }
 
 static void on_hci_role_change(uint16_t channel, uint8_t* packet, uint16_t size) {
@@ -523,7 +543,7 @@ static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet, uint16_t 
   status = l2cap_event_channel_opened_get_status(packet);
   if (status) {
     logi("L2CAP Connection failed: 0x%02x.\n", status);
-    if (status == 0x6a) {
+    if (status == 0x6a || status == 0x69) {
       logi("Removing previous link key for address=%s.\n", bd_addr_to_str(address));
       uni_hid_device_remove_entry_with_channel(channel);
       // Just in case the key is outdated we remove it. If fixes some
