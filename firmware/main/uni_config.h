@@ -25,4 +25,10 @@ limitations under the License.
 #define UNI_LOG_INFO 1
 #define UNI_LOG_DEBUG 0
 
+// Enable pin compatibility with Unijoysticle v1.
+#define UNI_ENABLE_COMPAT_V1 0  // Enabled if 1
+
+#define UNI_ENABLE_POT 0    // Enabled if 1
+#define UNI_ENABLE_MOUSE 1  // Enabled if 1
+
 #endif  // UNI_CONFIG_H

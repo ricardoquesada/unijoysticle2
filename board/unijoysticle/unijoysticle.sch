@@ -6,25 +6,14 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "Unijoysticle 2"
-Date "2019-03-13"
-Rev "v0.0.1"
+Date "2019-03-28"
+Rev "v0.0.2"
 Comp "Retro Moe"
 Comment1 "Ricardo Quesada"
 Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Comp
-L Diode:1N4001 D3
-U 1 1 5C65A496
-P 4300 6900
-F 0 "D3" H 4300 7116 50  0000 C CNN
-F 1 "1N4001" H 4300 7025 50  0000 C CNN
-F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 4300 6725 50  0001 C CNN
-F 3 "" H 4300 6900 50  0001 C CNN
-	1    4300 6900
-	-1   0    0    -1  
-$EndComp
 Text GLabel 8550 4100 2    50   Input ~ 0
 GPIO_J1UP
 Text GLabel 1100 1350 0    50   Input ~ 0
@@ -530,28 +519,6 @@ Wire Wire Line
 	6700 4700 7150 4700
 Wire Wire Line
 	6700 4300 7150 4300
-$Comp
-L Device:R R1
-U 1 1 5C87CFE9
-P 1650 6550
-F 0 "R1" V 1443 6550 50  0000 C CNN
-F 1 "100" V 1534 6550 50  0000 C CNN
-F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 1580 6550 50  0001 C CNN
-F 3 "~" H 1650 6550 50  0001 C CNN
-	1    1650 6550
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R R2
-U 1 1 5C87D07A
-P 1650 6950
-F 0 "R2" V 1443 6950 50  0000 C CNN
-F 1 "100" V 1534 6950 50  0000 C CNN
-F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 1580 6950 50  0001 C CNN
-F 3 "~" H 1650 6950 50  0001 C CNN
-	1    1650 6950
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	1800 6550 1950 6550
 Wire Wire Line
@@ -672,4 +639,37 @@ Wire Notes Line
 	550  7800 5750 7800
 Text Notes 4050 7650 0    79   ~ 0
 Barrel Jack
+$Comp
+L Device:R R1
+U 1 1 5C9DFE27
+P 1650 6550
+F 0 "R1" V 1443 6550 50  0000 C CNN
+F 1 "100" V 1534 6550 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 1580 6550 50  0001 C CNN
+F 3 "~" H 1650 6550 50  0001 C CNN
+	1    1650 6550
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R2
+U 1 1 5C9DF1A9
+P 1650 6950
+F 0 "R2" V 1443 6950 50  0000 C CNN
+F 1 "100" V 1534 6950 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 1580 6950 50  0001 C CNN
+F 3 "~" H 1650 6950 50  0001 C CNN
+	1    1650 6950
+	0    1    1    0   
+$EndComp
+$Comp
+L Diode:1N4001 D3
+U 1 1 5CA00191
+P 4300 6900
+F 0 "D3" H 4300 6684 50  0000 C CNN
+F 1 "1N4001" H 4300 6775 50  0000 C CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P7.62mm_Horizontal" H 4300 6725 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 4300 6900 50  0001 C CNN
+	1    4300 6900
+	-1   0    0    1   
+$EndComp
 $EndSCHEMATC

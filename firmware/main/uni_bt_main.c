@@ -444,10 +444,10 @@ static void on_hci_read_remote_version_information_complete(uint16_t channel, ui
   if (status != 0)
     return;
 
-  hci_con_handle_t handle = hci_event_read_remote_version_information_complete_get_handle(packet);
-  uint8_t lmp_ver = hci_event_read_remote_version_information_complete_get_lmp_version(packet);
+  hci_con_handle_t handle = hci_event_read_remote_version_information_complete_get_connection_handle(packet);
+  uint8_t lmp_ver = hci_event_read_remote_version_information_complete_get_version(packet);
   uint16_t mfr_name = hci_event_read_remote_version_information_complete_get_manufacturer_name(packet);
-  uint16_t lmp_subversion = hci_event_read_remote_version_information_complete_get_lmp_subversion(packet);
+  uint16_t lmp_subversion = hci_event_read_remote_version_information_complete_get_subversion(packet);
   logi("*******  handle=0x%04x, ver=0x%02x, mfr=0x%04x, subver=0x%04x\n", handle, lmp_ver, mfr_name, lmp_subversion);
   hci_send_cmd(&hci_change_connection_packet_type, handle, 0xcc18);
 }

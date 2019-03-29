@@ -26,15 +26,19 @@ limitations under the License.
 
 #include "driver/gpio.h"
 
+#include "uni_config.h"
 #include "uni_debug.h"
 #include "uni_hid_device.h"
 
-#define ENABLE_POT 0
-#define ENABLE_MOUSE 1
-
 // GPIO map for MH-ET Live mini-kit board.
-// Same GPIOs as Wemos D1 mini (used in Unijoysticle v0.4)
+
+const int GPIO_LED_J1 = GPIO_NUM_9;
+const int GPIO_LED_J2 = GPIO_NUM_13;
+const int GPIO_PUSH_BUTTON = GPIO_NUM_10;
+
 enum {
+#if UNI_ENABLE_COMPACT_V1
+  // Same GPIOs as Wemos D1 mini (used in Unijoysticle v0.4)
   GPIO_JOY_A_UP = GPIO_NUM_26,     // D0
   GPIO_JOY_A_DOWN = GPIO_NUM_22,   // D1
   GPIO_JOY_A_LEFT = GPIO_NUM_21,   // D2
@@ -50,6 +54,21 @@ enum {
   // are assigned to UART 0. And I cannot use it.
   // Using GPIO 27 instead, which is the one that is closer to GPIO 3.
   GPIO_JOY_B_FIRE = GPIO_NUM_27,  // RX
+#else
+  GPIO_JOY_A_UP = GPIO_NUM_26,
+  GPIO_JOY_A_DOWN = GPIO_NUM_18,
+  GPIO_JOY_A_LEFT = GPIO_NUM_19,
+  GPIO_JOY_A_RIGHT = GPIO_NUM_23,
+  GPIO_JOY_A_FIRE = GPIO_NUM_14,
+  GPIO_JOY_A_POT_Y = GPIO_NUM_16,
+  GPIO_JOY_A_POT_X = GPIO_NUM_35,
+
+  GPIO_JOY_B_UP = GPIO_NUM_27,
+  GPIO_JOY_B_DOWN = GPIO_NUM_25,
+  GPIO_JOY_B_LEFT = GPIO_NUM_32,
+  GPIO_JOY_B_RIGHT = GPIO_NUM_17,
+  GPIO_JOY_B_FIRE = GPIO_NUM_12,
+#endif  // UNI_ENABLE_COMPACT_V1
 };
 
 // GPIO_NUM_12 (input) used as input for Pot in esp32.
@@ -83,9 +102,9 @@ static void delay_us(uint32_t delay);
 
 // GPIO Interrupt handlers
 static void IRAM_ATTR gpio_isr_handler_button(void* arg);
-#if ENABLE_POT
+#if UNI_ENABLE_POT
 static void IRAM_ATTR gpio_isr_handler_pot(void* arg);
-#endif  // ENABLE_POT
+#endif  // UNI_ENABLE_POT
 
 static void event_loop(void* arg);
 
@@ -137,20 +156,21 @@ void uni_platform_init(void) {
   }
 
   // Turn On LED
-  // gpio_set_level(GPIO_NUM_21, 1);
+  gpio_set_level(GPIO_LED_J1, 1);
+  gpio_set_level(GPIO_LED_J2, 1);
 
   // Pull-up for button
   io_conf.intr_type = GPIO_INTR_NEGEDGE;
   io_conf.mode = GPIO_MODE_INPUT;
   io_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
   io_conf.pull_up_en = GPIO_PULLUP_ENABLE;
-  io_conf.pin_bit_mask = (1ULL << GPIO_NUM_32);
+  io_conf.pin_bit_mask = (1ULL << GPIO_PUSH_BUTTON);
   ESP_ERROR_CHECK(gpio_config(&io_conf));
   ESP_ERROR_CHECK(gpio_install_isr_service(0));
-  ESP_ERROR_CHECK(gpio_isr_handler_add(GPIO_NUM_32, gpio_isr_handler_button, (void*)GPIO_NUM_32));
+  ESP_ERROR_CHECK(gpio_isr_handler_add(GPIO_PUSH_BUTTON, gpio_isr_handler_button, (void*)GPIO_PUSH_BUTTON));
 
 // C64 POT related
-#if ENABLE_POT
+#if UNI_ENABLE_POT
   io_conf.intr_type = GPIO_INTR_POSEDGE;  // GPIO_INTR_NEGEDGE
   io_conf.mode = GPIO_MODE_INPUT;
   io_conf.pin_bit_mask = 1ULL << GPIO_NUM_12;
@@ -159,7 +179,7 @@ void uni_platform_init(void) {
   ESP_ERROR_CHECK(gpio_config(&io_conf));
   ESP_ERROR_CHECK(gpio_install_isr_service(0));
   ESP_ERROR_CHECK(gpio_isr_handler_add(GPIO_NUM_12, gpio_isr_handler_pot, (void*)GPIO_NUM_12));
-#endif  // ENABLE_POT
+#endif  // UNI_ENABLE_POT
 
   g_event_group = xEventGroupCreate();
   xTaskCreate(event_loop, "event_loop", 2048, NULL, 10, NULL);
@@ -356,7 +376,7 @@ static void IRAM_ATTR gpio_isr_handler_button(void* arg) {
     portYIELD_FROM_ISR();
 }
 
-#if ENABLE_POT
+#if UNI_ENABLE_POT
 static void IRAM_ATTR gpio_isr_handler_pot(void* arg) {
   uint32_t gpio_num = (uint32_t)arg;
   (void)gpio_num;
@@ -366,7 +386,7 @@ static void IRAM_ATTR gpio_isr_handler_pot(void* arg) {
   if (xHigherPriorityTaskWoken == pdTRUE)
     portYIELD_FROM_ISR();
 }
-#endif  // ENABLE_POT
+#endif  // UNI_ENABLE_POT
 
 static void handle_event_button() {
   logi("handle_event_button\n");
