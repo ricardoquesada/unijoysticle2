@@ -32,7 +32,7 @@ limitations under the License.
 
 // GPIO map for MH-ET Live mini-kit board.
 
-const int GPIO_LED_J1 = GPIO_NUM_9;
+const int GPIO_LED_J1 = GPIO_NUM_5;
 const int GPIO_LED_J2 = GPIO_NUM_13;
 const int GPIO_PUSH_BUTTON = GPIO_NUM_10;
 
@@ -61,7 +61,7 @@ enum {
   GPIO_JOY_A_RIGHT = GPIO_NUM_23,
   GPIO_JOY_A_FIRE = GPIO_NUM_14,
   GPIO_JOY_A_POT_Y = GPIO_NUM_16,
-  GPIO_JOY_A_POT_X = GPIO_NUM_35,
+  GPIO_JOY_A_POT_X = GPIO_NUM_33,
 
   GPIO_JOY_B_UP = GPIO_NUM_27,
   GPIO_JOY_B_DOWN = GPIO_NUM_25,
@@ -137,11 +137,16 @@ void uni_platform_init(void) {
   io_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
   io_conf.pull_up_en = GPIO_PULLUP_DISABLE;
   // Port A.
-  io_conf.pin_bit_mask = ((1ULL << GPIO_JOY_A_UP) | (1ULL << GPIO_JOY_A_DOWN) | (1ULL << GPIO_JOY_A_LEFT) |
-                          (1ULL << GPIO_JOY_A_RIGHT) | (1ULL << GPIO_JOY_A_FIRE));
+  io_conf.pin_bit_mask =
+      ((1ULL << GPIO_JOY_A_UP) | (1ULL << GPIO_JOY_A_DOWN) | (1ULL << GPIO_JOY_A_LEFT) | (1ULL << GPIO_JOY_A_RIGHT) |
+       (1ULL << GPIO_JOY_A_FIRE) | (1ULL << GPIO_JOY_A_POT_X) | (1ULL << GPIO_JOY_A_POT_Y));
   // Port B.
   io_conf.pin_bit_mask |= ((1ULL << GPIO_JOY_B_UP) | (1ULL << GPIO_JOY_B_DOWN) | (1ULL << GPIO_JOY_B_LEFT) |
                            (1ULL << GPIO_JOY_B_RIGHT) | (1ULL << GPIO_JOY_B_FIRE));
+
+  // Leds
+  io_conf.pin_bit_mask |= (1ULL << GPIO_LED_J1);
+  io_conf.pin_bit_mask |= (1ULL << GPIO_LED_J2);
 
   // Pot feeder
   // io_conf.pin_bit_mask |= (1ULL << GPIO_NUM_13);
@@ -360,10 +365,10 @@ static void handle_event_pot() {
   // ets_delay_us(50 /*223*/);
   // gpio_set_level(GPIO_NUM_13, 0);
 
-  gpio_set_level(GPIO_NUM_13, 0);
-  ets_delay_us(200 /*235*/);
-  ets_delay_us(g_pot_y);
-  gpio_set_level(GPIO_NUM_13, 1);
+  // gpio_set_level(GPIO_NUM_13, 0);
+  // ets_delay_us(200 /*235*/);
+  // ets_delay_us(g_pot_y);
+  // gpio_set_level(GPIO_NUM_13, 1);
 }
 
 static void IRAM_ATTR gpio_isr_handler_button(void* arg) {

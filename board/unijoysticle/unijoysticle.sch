@@ -56,7 +56,7 @@ Text GLabel 6700 4200 0    50   Input ~ 0
 GPIO_J1FIRE
 Text GLabel 3650 5350 0    50   Input ~ 0
 GPIO_J1POTY
-Text GLabel 8550 5000 2    50   Input ~ 0
+Text GLabel 8550 4800 2    50   Input ~ 0
 GPIO_J1POTX
 Text GLabel 6700 4000 0    50   Input ~ 0
 GPIO_J1POTY
@@ -163,17 +163,6 @@ F 3 "" H 4650 6900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Barrel_Jack J3
-U 1 1 5C70344B
-P 3600 7000
-F 0 "J3" H 3655 7325 50  0000 C CNN
-F 1 "Barrel_Jack" H 3655 7234 50  0000 C CNN
-F 2 "Connector_BarrelJack:BarrelJack_Horizontal" H 3650 6960 50  0001 C CNN
-F 3 "" H 3650 6960 50  0001 C CNN
-	1    3600 7000
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:VDD #PWR0104
 U 1 1 5C703EAD
 P 6900 5400
@@ -235,7 +224,7 @@ Wire Wire Line
 Wire Wire Line
 	6700 4000 7150 4000
 Wire Wire Line
-	8550 5000 8150 5000
+	8550 4800 8150 4800
 $Comp
 L 74xx_IEEE:7405 IC1
 U 1 1 5C85C5CF
@@ -511,12 +500,12 @@ Text GLabel 1950 6550 2    50   Input ~ 0
 GPIO_J1LED
 Text GLabel 1950 6950 2    50   Input ~ 0
 GPIO_J2LED
-Text GLabel 6700 4700 0    50   Input ~ 0
+Text GLabel 6700 5100 0    50   Input ~ 0
 GPIO_J1LED
 Text GLabel 6700 4300 0    50   Input ~ 0
 GPIO_J2LED
 Wire Wire Line
-	6700 4700 7150 4700
+	6700 5100 7150 5100
 Wire Wire Line
 	6700 4300 7150 4300
 Wire Wire Line
@@ -671,5 +660,16 @@ F 2 "Diode_THT:D_DO-41_SOD81_P7.62mm_Horizontal" H 4300 6725 50  0001 C CNN
 F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 4300 6900 50  0001 C CNN
 	1    4300 6900
 	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Barrel_Jack J3
+U 1 1 5CA09684
+P 3600 7000
+F 0 "J3" H 3657 7325 50  0000 C CNN
+F 1 "Barrel_Jack" H 3657 7234 50  0000 C CNN
+F 2 "Unijoysticle:BarrelJack_Horizontal" H 3650 6960 50  0001 C CNN
+F 3 "~" H 3650 6960 50  0001 C CNN
+	1    3600 7000
+	1    0    0    -1  
 $EndComp
 $EndSCHEMATC

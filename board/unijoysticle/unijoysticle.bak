@@ -6,25 +6,14 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "Unijoysticle 2"
-Date "2019-03-13"
-Rev "v0.0.1"
+Date "2019-03-28"
+Rev "v0.0.2"
 Comp "Retro Moe"
 Comment1 "Ricardo Quesada"
 Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Comp
-L Diode:1N4001 D3
-U 1 1 5C65A496
-P 4300 6900
-F 0 "D3" H 4300 7116 50  0000 C CNN
-F 1 "1N4001" H 4300 7025 50  0000 C CNN
-F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 4300 6725 50  0001 C CNN
-F 3 "" H 4300 6900 50  0001 C CNN
-	1    4300 6900
-	-1   0    0    -1  
-$EndComp
 Text GLabel 8550 4100 2    50   Input ~ 0
 GPIO_J1UP
 Text GLabel 1100 1350 0    50   Input ~ 0
@@ -171,17 +160,6 @@ F 1 "VDD" V 4667 7028 50  0000 L CNN
 F 2 "" H 4650 6900 50  0001 C CNN
 F 3 "" H 4650 6900 50  0001 C CNN
 	1    4650 6900
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector:Barrel_Jack J3
-U 1 1 5C70344B
-P 3600 7000
-F 0 "J3" H 3655 7325 50  0000 C CNN
-F 1 "Barrel_Jack" H 3655 7234 50  0000 C CNN
-F 2 "Connector_BarrelJack:BarrelJack_Horizontal" H 3650 6960 50  0001 C CNN
-F 3 "" H 3650 6960 50  0001 C CNN
-	1    3600 7000
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -522,12 +500,12 @@ Text GLabel 1950 6550 2    50   Input ~ 0
 GPIO_J1LED
 Text GLabel 1950 6950 2    50   Input ~ 0
 GPIO_J2LED
-Text GLabel 6700 4700 0    50   Input ~ 0
+Text GLabel 6700 5100 0    50   Input ~ 0
 GPIO_J1LED
 Text GLabel 6700 4300 0    50   Input ~ 0
 GPIO_J2LED
 Wire Wire Line
-	6700 4700 7150 4700
+	6700 5100 7150 5100
 Wire Wire Line
 	6700 4300 7150 4300
 Wire Wire Line
@@ -656,7 +634,7 @@ U 1 1 5C9DFE27
 P 1650 6550
 F 0 "R1" V 1443 6550 50  0000 C CNN
 F 1 "100" V 1534 6550 50  0000 C CNN
-F 2 "" V 1580 6550 50  0001 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 1580 6550 50  0001 C CNN
 F 3 "~" H 1650 6550 50  0001 C CNN
 	1    1650 6550
 	0    1    1    0   
@@ -667,9 +645,31 @@ U 1 1 5C9DF1A9
 P 1650 6950
 F 0 "R2" V 1443 6950 50  0000 C CNN
 F 1 "100" V 1534 6950 50  0000 C CNN
-F 2 "" V 1580 6950 50  0001 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 1580 6950 50  0001 C CNN
 F 3 "~" H 1650 6950 50  0001 C CNN
 	1    1650 6950
 	0    1    1    0   
+$EndComp
+$Comp
+L Diode:1N4001 D3
+U 1 1 5CA00191
+P 4300 6900
+F 0 "D3" H 4300 6684 50  0000 C CNN
+F 1 "1N4001" H 4300 6775 50  0000 C CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P7.62mm_Horizontal" H 4300 6725 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 4300 6900 50  0001 C CNN
+	1    4300 6900
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Barrel_Jack J3
+U 1 1 5CA09684
+P 3600 7000
+F 0 "J3" H 3657 7325 50  0000 C CNN
+F 1 "Barrel_Jack" H 3657 7234 50  0000 C CNN
+F 2 "Unijoysticle:BarrelJack_Horizontal" H 3650 6960 50  0001 C CNN
+F 3 "~" H 3650 6960 50  0001 C CNN
+	1    3600 7000
+	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
