@@ -28,6 +28,7 @@ static void print_joystick(uni_joystick_t* joy) {
 }
 
 void uni_platform_init(void) {}
+void uni_platform_post_init(void) {}
 
 void uni_platform_update_port_a(uni_joystick_t* joy) {
   print_joystick(joy);

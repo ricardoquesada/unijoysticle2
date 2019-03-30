@@ -255,6 +255,7 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t* packe
       switch (event) {
         case BTSTACK_EVENT_STATE:
           if (btstack_event_state_get_state(packet) == HCI_STATE_WORKING) {
+            uni_platform_post_init();
             bt_ready = 1;
             logi("Btstack ready!\n");
             list_link_keys();

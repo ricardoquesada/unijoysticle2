@@ -20,6 +20,7 @@ limitations under the License.
 
 #include "uni_platform.h"
 
+#include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/event_groups.h"
 #include "freertos/queue.h"
@@ -189,6 +190,12 @@ void uni_platform_init(void) {
   g_event_group = xEventGroupCreate();
   xTaskCreate(event_loop, "event_loop", 2048, NULL, 10, NULL);
   // xTaskCreatePinnedToCore(event_loop, "event_loop", 2048, NULL, portPRIVILEGE_BIT, NULL, 1);
+}
+
+void uni_platform_post_init() {
+  // Turn Off LEDs
+  gpio_set_level(GPIO_LED_J1, 0);
+  gpio_set_level(GPIO_LED_J2, 0);
 }
 
 void uni_platform_update_mouse(int32_t delta_x, int32_t delta_y) {
@@ -394,8 +401,16 @@ static void IRAM_ATTR gpio_isr_handler_pot(void* arg) {
 #endif  // UNI_ENABLE_POT
 
 static void handle_event_button() {
-  logi("handle_event_button\n");
+  const int64_t button_threshold_time_us = 250 * 1000;  // 250ms
+  static int64_t last_time_pressed_us = 0;              // in microseconds
   static int enabled = 0;
+
+  int64_t now = esp_timer_get_time();
+  if ((now - last_time_pressed_us) < button_threshold_time_us)
+    return;
+  logi("handle_event_button\n");
   enabled = !enabled;
   gpio_set_level(GPIO_NUM_21, enabled);
+
+  last_time_pressed_us = now;
 }

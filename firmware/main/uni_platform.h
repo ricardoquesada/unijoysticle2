@@ -24,6 +24,7 @@ limitations under the License.
 #include "uni_joystick.h"
 
 void uni_platform_init(void);
+void uni_platform_post_init(void);
 void uni_platform_update_port_a(uni_joystick_t* joy);
 void uni_platform_update_port_b(uni_joystick_t* joy);
 void uni_platform_update_mouse(int32_t delta_x, int32_t delta_y);
