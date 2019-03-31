@@ -28,14 +28,6 @@ extern const int AXIS_THRESHOLD;
 
 // FIXME: doesn't seem to belong in this file.
 typedef enum {
-  JOYSTICK_PORT_NONE = 0,
-  JOYSTICK_PORT_A = (1 << 0),
-  JOYSTICK_PORT_B = (1 << 1),
-  JOYSTICK_PORT_AB_MASK = (JOYSTICK_PORT_A | JOYSTICK_PORT_B),
-} uni_joystick_port_t;
-
-// FIXME: doesn't seem to belong in this file.
-typedef enum {
   EMULATION_MODE_SINGLE_JOY,
   EMULATION_MODE_SINGLE_MOUSE,
   EMULATION_MODE_COMBO_JOY_JOY,

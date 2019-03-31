@@ -229,6 +229,7 @@ static void handle_sdp_pid_query_result(uint8_t packet_type, uint16_t channel, u
       logi("Vendor ID: 0x%04x - Product ID: 0x%04x\n", uni_hid_device_get_vendor_id(device),
            uni_hid_device_get_product_id(device));
       uni_hid_device_guess_controller_type(device);
+      uni_hid_device_try_assign_joystick_port(device);
       uni_hid_device_set_current_device(NULL);
       break;
   }
@@ -255,7 +256,7 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t* packe
       switch (event) {
         case BTSTACK_EVENT_STATE:
           if (btstack_event_state_get_state(packet) == HCI_STATE_WORKING) {
-            uni_platform_post_init();
+            uni_platform_on_init_complete();
             bt_ready = 1;
             logi("Btstack ready!\n");
             list_link_keys();
@@ -608,6 +609,8 @@ static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet, uint16_t 
       logi("HID connection established\n");
     }
   }
+
+  uni_hid_device_try_assign_joystick_port(device);
 }
 
 static void on_l2cap_channel_closed(uint16_t channel, uint8_t* packet, uint16_t size) {
@@ -715,7 +718,7 @@ static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet, uint16_t siz
   report_len--;
 
   // In case a joystick port hasn't been assign yet, assign one.
-  uni_hid_device_try_assign_joystick_port(device);
+  // uni_hid_device_try_assign_joystick_port(device);
 
   uni_hid_parser(&device->gamepad, &device->report_parser, report, report_len, device->hid_descriptor,
                  device->hid_descriptor_len);

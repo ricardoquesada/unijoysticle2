@@ -31,8 +31,9 @@ limitations under the License.
 #include "uni_debug.h"
 #include "uni_hid_device.h"
 
-// GPIO map for MH-ET Live mini-kit board.
+// --- Consts
 
+// GPIO map for MH-ET Live mini-kit board.
 const int GPIO_LED_J1 = GPIO_NUM_5;
 const int GPIO_LED_J2 = GPIO_NUM_13;
 const int GPIO_PUSH_BUTTON = GPIO_NUM_10;
@@ -83,11 +84,25 @@ enum {
 static const int MOUSE_DELAY_BETWEEN_EVENT_US = 12000;  // microseconds
 static const int MOUSE_MAX_DELTA = 32;
 
-static gpio_num_t JOY_A_PORTS[] = {GPIO_JOY_A_UP, GPIO_JOY_A_DOWN, GPIO_JOY_A_LEFT, GPIO_JOY_A_RIGHT, GPIO_JOY_A_FIRE};
-static gpio_num_t JOY_B_PORTS[] = {GPIO_JOY_B_UP, GPIO_JOY_B_DOWN, GPIO_JOY_B_LEFT, GPIO_JOY_B_RIGHT, GPIO_JOY_B_FIRE};
+static const gpio_num_t JOY_A_PORTS[] = {GPIO_JOY_A_UP, GPIO_JOY_A_DOWN, GPIO_JOY_A_LEFT, GPIO_JOY_A_RIGHT,
+                                         GPIO_JOY_A_FIRE};
+static const gpio_num_t JOY_B_PORTS[] = {GPIO_JOY_B_UP, GPIO_JOY_B_DOWN, GPIO_JOY_B_LEFT, GPIO_JOY_B_RIGHT,
+                                         GPIO_JOY_B_FIRE};
 
-// Group for different events
+// --- Globals
+
+static int64_t g_last_time_pressed_us = 0;  // in microseconds
 static EventGroupHandle_t g_event_group;
+
+// Mouse "shared data from main task to mouse task.
+static int32_t g_delta_x = 0;
+static int32_t g_delta_y = 0;
+
+// Pot "shared data from main task to pot task.
+static uint8_t g_pot_x = 0;
+static uint8_t g_pot_y = 0;
+
+// --- Code
 
 // Interrupt handlers
 static void handle_event_mouse();
@@ -95,7 +110,7 @@ static void handle_event_pot();
 static void handle_event_button();
 
 // Mouse related
-static void joy_update_port(uni_joystick_t* joy, gpio_num_t* gpios);
+static void joy_update_port(uni_joystick_t* joy, const gpio_num_t* gpios);
 static void send_move(int pin_a, int pin_b, uint32_t delay);
 static void move_x(int dir, uint32_t delay);
 static void move_y(int dir, uint32_t delay);
@@ -108,14 +123,6 @@ static void IRAM_ATTR gpio_isr_handler_pot(void* arg);
 #endif  // UNI_ENABLE_POT
 
 static void event_loop(void* arg);
-
-// Mouse "shared data from main task to mouse task.
-static int32_t g_delta_x = 0;
-static int32_t g_delta_y = 0;
-
-// Pot "shared data from main task to pot task.
-static uint8_t g_pot_x = 0;
-static uint8_t g_pot_y = 0;
 
 #define MAX(a, b)           \
   ({                        \
@@ -166,7 +173,7 @@ void uni_platform_init(void) {
   gpio_set_level(GPIO_LED_J2, 1);
 
   // Pull-up for button
-  io_conf.intr_type = GPIO_INTR_NEGEDGE;
+  io_conf.intr_type = GPIO_INTR_ANYEDGE;
   io_conf.mode = GPIO_MODE_INPUT;
   io_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
   io_conf.pull_up_en = GPIO_PULLUP_ENABLE;
@@ -192,10 +199,31 @@ void uni_platform_init(void) {
   // xTaskCreatePinnedToCore(event_loop, "event_loop", 2048, NULL, portPRIVILEGE_BIT, NULL, 1);
 }
 
-void uni_platform_post_init() {
+// Events
+void uni_platform_on_init_complete() {
   // Turn Off LEDs
   gpio_set_level(GPIO_LED_J1, 0);
   gpio_set_level(GPIO_LED_J2, 0);
+}
+
+void uni_platform_on_port_assigned(uni_joystick_port_t port) {
+  logi("******  uni_platform_on_port_assigned: %d\n", port);
+  if (port == JOYSTICK_PORT_A)
+    gpio_set_level(GPIO_LED_J1, 1);
+  else if (port == JOYSTICK_PORT_B)
+    gpio_set_level(GPIO_LED_J2, 1);
+  else
+    loge("uni_platform_on_port_assigned: Unknown port: %d\n", port);
+}
+
+void uni_platform_on_port_freed(uni_joystick_port_t port) {
+  logi("******  uni_platform_on_port_freed: %d\n", port);
+  if (port == JOYSTICK_PORT_A)
+    gpio_set_level(GPIO_LED_J1, 0);
+  else if (port == JOYSTICK_PORT_B)
+    gpio_set_level(GPIO_LED_J2, 0);
+  else
+    loge("uni_platform_on_port_freed: Unknown port: %d\n", port);
 }
 
 void uni_platform_update_mouse(int32_t delta_x, int32_t delta_y) {
@@ -223,7 +251,7 @@ void uni_platform_update_port_b(uni_joystick_t* joy) {
   joy_update_port(joy, JOY_B_PORTS);
 }
 
-static void joy_update_port(uni_joystick_t* joy, gpio_num_t* gpios) {
+static void joy_update_port(uni_joystick_t* joy, const gpio_num_t* gpios) {
   logd("up=%d, down=%d, left=%d, right=%d, fire=%d, potx=%d, poty=%d\n", joy->up, joy->down, joy->left, joy->right,
        joy->fire, joy->pot_x, joy->pot_y);
 
@@ -379,9 +407,13 @@ static void handle_event_pot() {
 }
 
 static void IRAM_ATTR gpio_isr_handler_button(void* arg) {
-  uint32_t gpio_num = (uint32_t)arg;
-  (void)gpio_num;
+  // button released ?
+  if (gpio_get_level(GPIO_PUSH_BUTTON)) {
+    g_last_time_pressed_us = esp_timer_get_time();
+    return;
+  }
 
+  // button pressed
   BaseType_t xHigherPriorityTaskWoken = pdFALSE;
   xEventGroupSetBitsFromISR(g_event_group, EVENT_BIT_BUTTON, &xHigherPriorityTaskWoken);
   if (xHigherPriorityTaskWoken == pdTRUE)
@@ -401,16 +433,22 @@ static void IRAM_ATTR gpio_isr_handler_pot(void* arg) {
 #endif  // UNI_ENABLE_POT
 
 static void handle_event_button() {
-  const int64_t button_threshold_time_us = 250 * 1000;  // 250ms
-  static int64_t last_time_pressed_us = 0;              // in microseconds
+  const int64_t button_threshold_time_us = 300 * 1000;  // 300ms
   static int enabled = 0;
 
+  // Regardless of the state, ignore the event if not enough time passed.
   int64_t now = esp_timer_get_time();
-  if ((now - last_time_pressed_us) < button_threshold_time_us)
+  if ((now - g_last_time_pressed_us) < button_threshold_time_us)
     return;
-  logi("handle_event_button\n");
-  enabled = !enabled;
-  gpio_set_level(GPIO_NUM_21, enabled);
 
-  last_time_pressed_us = now;
+  g_last_time_pressed_us = now;
+
+  // "up" button is released. Ignore event.
+  if (gpio_get_level(GPIO_PUSH_BUTTON)) {
+    return;
+  }
+
+  // "down", button pressed.
+  logi("handle_event_button: %d -> %d\n", enabled, !enabled);
+  enabled = !enabled;
 }

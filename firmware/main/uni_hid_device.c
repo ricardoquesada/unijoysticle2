@@ -136,6 +136,12 @@ void uni_hid_device_try_assign_joystick_port(uni_hid_device_t* d) {
     return;
   }
 
+  // A controller is not really needed for the assignment, but we only want to assign
+  // a joystick port when the device is ready to receive input.
+  if (!uni_hid_device_has_controller_type(d)) {
+    return;
+  }
+
   uint32_t used_joystick_ports = 0;
   for (int i = 0; i < MAX_DEVICES; i++) {
     used_joystick_ports |= g_devices[i].joystick_port;
@@ -164,6 +170,8 @@ void uni_hid_device_try_assign_joystick_port(uni_hid_device_t* d) {
   used_joystick_ports |= wanted_port;
   d->joystick_port = wanted_port;
   logi("Assigned joystick port: %d\n", wanted_port);
+
+  uni_platform_on_port_assigned(d->joystick_port);
   return;
 }
 
@@ -198,8 +206,10 @@ void uni_hid_device_set_disconnected(uni_hid_device_t* d) {
   d->hid_control_cid = 0;
   d->hid_interrupt_cid = 0;
 
-  // Joystick-state oriented
-  d->joystick_port = JOYSTICK_PORT_NONE;
+  if (d->joystick_port != JOYSTICK_PORT_NONE) {
+    uni_platform_on_port_freed(d->joystick_port);
+    d->joystick_port = JOYSTICK_PORT_NONE;
+  }
 }
 
 void uni_hid_device_set_cod(uni_hid_device_t* d, uint32_t cod) {
@@ -509,7 +519,9 @@ static void process_misc_button_system(uni_hid_device_t* d) {
   }
 
   // swap joystick A with B
+  uni_platform_on_port_freed(d->joystick_port);
   d->joystick_port = (d->joystick_port == JOYSTICK_PORT_A) ? JOYSTICK_PORT_B : JOYSTICK_PORT_A;
+  uni_platform_on_port_assigned(d->joystick_port);
   logi("device %s has new joystick port: %c\n", bd_addr_to_str(d->address),
        (d->joystick_port == JOYSTICK_PORT_A) ? 'A' : 'B');
 
