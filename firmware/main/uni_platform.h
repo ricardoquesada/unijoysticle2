@@ -24,13 +24,13 @@ limitations under the License.
 #include "uni_joystick.h"
 
 void uni_platform_init(void);
-void uni_platform_update_port_a(uni_joystick_t* joy);
-void uni_platform_update_port_b(uni_joystick_t* joy);
-void uni_platform_update_mouse(int32_t delta_x, int32_t delta_y);
 
 // events
 void uni_platform_on_init_complete(void);
 void uni_platform_on_port_assigned(uni_joystick_port_t port);
 void uni_platform_on_port_freed(uni_joystick_port_t port);
+void uni_platform_on_joy_a_data(uni_joystick_t* joy);
+void uni_platform_on_joy_b_data(uni_joystick_t* joy);
+void uni_platform_on_mouse_data(int32_t delta_x, int32_t delta_y);
 
 #endif  // UNI_PLATFORM_H

@@ -207,7 +207,6 @@ void uni_platform_on_init_complete() {
 }
 
 void uni_platform_on_port_assigned(uni_joystick_port_t port) {
-  logi("******  uni_platform_on_port_assigned: %d\n", port);
   if (port == JOYSTICK_PORT_A)
     gpio_set_level(GPIO_LED_J1, 1);
   else if (port == JOYSTICK_PORT_B)
@@ -217,7 +216,6 @@ void uni_platform_on_port_assigned(uni_joystick_port_t port) {
 }
 
 void uni_platform_on_port_freed(uni_joystick_port_t port) {
-  logi("******  uni_platform_on_port_freed: %d\n", port);
   if (port == JOYSTICK_PORT_A)
     gpio_set_level(GPIO_LED_J1, 0);
   else if (port == JOYSTICK_PORT_B)
@@ -226,7 +224,7 @@ void uni_platform_on_port_freed(uni_joystick_port_t port) {
     loge("uni_platform_on_port_freed: Unknown port: %d\n", port);
 }
 
-void uni_platform_update_mouse(int32_t delta_x, int32_t delta_y) {
+void uni_platform_on_mouse_data(int32_t delta_x, int32_t delta_y) {
   logd("mouse x=%d, y=%d\n", delta_x, delta_y);
 
   // Mouse is implemented using a quadrature encoding
@@ -243,11 +241,11 @@ void uni_platform_update_mouse(int32_t delta_x, int32_t delta_y) {
   }
 }
 
-void uni_platform_update_port_a(uni_joystick_t* joy) {
+void uni_platform_on_joy_a_data(uni_joystick_t* joy) {
   joy_update_port(joy, JOY_A_PORTS);
 }
 
-void uni_platform_update_port_b(uni_joystick_t* joy) {
+void uni_platform_on_joy_b_data(uni_joystick_t* joy) {
   joy_update_port(joy, JOY_B_PORTS);
 }
 

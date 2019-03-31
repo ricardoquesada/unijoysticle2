@@ -460,23 +460,23 @@ void uni_hid_device_process_gamepad(uni_hid_device_t* d) {
     case EMULATION_MODE_SINGLE_JOY:
       uni_gamepad_to_single_joy(gp, &joy);
       if (d->joystick_port == JOYSTICK_PORT_A)
-        uni_platform_update_port_a(&joy);
+        uni_platform_on_joy_a_data(&joy);
       else
-        uni_platform_update_port_b(&joy);
+        uni_platform_on_joy_b_data(&joy);
       break;
     case EMULATION_MODE_SINGLE_MOUSE:
       uni_gamepad_to_single_mouse(gp, &joy);
-      uni_platform_update_mouse(gp->axis_x, gp->axis_y);
+      uni_platform_on_mouse_data(gp->axis_x, gp->axis_y);
       break;
     case EMULATION_MODE_COMBO_JOY_JOY:
       uni_gamepad_to_combo_joy_joy(gp, &joy, &joy_ext);
-      uni_platform_update_port_b(&joy);
-      uni_platform_update_port_a(&joy_ext);
+      uni_platform_on_joy_b_data(&joy);
+      uni_platform_on_joy_a_data(&joy_ext);
       break;
     case EMULATION_MODE_COMBO_JOY_MOUSE:
       uni_gamepad_to_combo_joy_mouse(gp, &joy, &joy_ext);
-      uni_platform_update_port_b(&joy);
-      uni_platform_update_port_a(&joy_ext);
+      uni_platform_on_joy_b_data(&joy);
+      uni_platform_on_joy_a_data(&joy_ext);
       break;
     default:
       loge("Unsupported emulation mode: %d\n", d->emu_mode);

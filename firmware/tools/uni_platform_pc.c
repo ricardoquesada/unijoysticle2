@@ -27,13 +27,13 @@ static void print_joystick(uni_joystick_t* joy) {
          joy->fire, joy->pot_x, joy->pot_y);
 }
 void uni_platform_init(void) {}
-void uni_platform_update_port_a(uni_joystick_t* joy) {
+void uni_platform_on_joy_a_data(uni_joystick_t* joy) {
   print_joystick(joy);
 }
-void uni_platform_update_port_b(uni_joystick_t* joy) {
+void uni_platform_on_joy_b_data(uni_joystick_t* joy) {
   print_joystick(joy);
 }
-void uni_platform_update_mouse(int32_t delta_x, int32_t delta_y) {
+void uni_platform_on_mouse_data(int32_t delta_x, int32_t delta_y) {
   printf("mouse: x=%d, y=%d\n", delta_x, delta_y);
 }
 
