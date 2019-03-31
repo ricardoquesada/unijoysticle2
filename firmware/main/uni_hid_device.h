@@ -116,4 +116,8 @@ void uni_hid_device_process_gamepad(uni_hid_device_t* d);
 
 void uni_hid_device_set_connection_handle(uni_hid_device_t* d, hci_con_handle_t handle);
 
+// events
+
+void uni_hid_device_on_emu_mode_change(void);
+
 #endif  // UNI_HID_DEVICE_H

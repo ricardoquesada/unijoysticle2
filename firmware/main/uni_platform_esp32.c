@@ -449,4 +449,5 @@ static void handle_event_button() {
   // "down", button pressed.
   logi("handle_event_button: %d -> %d\n", enabled, !enabled);
   enabled = !enabled;
+  uni_hid_device_on_emu_mode_change();
 }

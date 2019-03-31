@@ -550,3 +550,31 @@ static void process_misc_button_home(uni_hid_device_t* d) {
   // Update "wait" flag.
   d->wait_release_misc_button |= MISC_BUTTON_HOME;
 }
+
+// Events
+
+void uni_hid_device_on_emu_mode_change(void) {
+  int num_devices = 0;
+  uni_hid_device_t* d = NULL;
+  for (int j = 0; j < MAX_DEVICES; j++) {
+    if (bd_addr_cmp(g_devices[j].address, zero_addr) != 0) {
+      num_devices++;
+      d = &g_devices[j];
+    }
+  }
+
+  if (num_devices != 1) {
+    loge("cannot change mode. Expected num_devices=1, actual=%d\n", num_devices);
+    return;
+  }
+
+  if (d->emu_mode == EMULATION_MODE_SINGLE_JOY) {
+    d->emu_mode = EMULATION_MODE_COMBO_JOY_JOY;
+    logi("Emulation mode = Combo Joy Joy\n");
+  } else if (d->emu_mode == EMULATION_MODE_COMBO_JOY_JOY) {
+    d->emu_mode = EMULATION_MODE_SINGLE_JOY;
+    logi("Emulation mode = Single Joy\n");
+  } else {
+    loge("Cannot switch emu mode. Current mode: %d\n", d->emu_mode);
+  }
+}
