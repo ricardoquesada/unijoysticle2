@@ -7,7 +7,7 @@ encoding utf-8
 Sheet 1 1
 Title "Unijoysticle 2"
 Date "2019-03-28"
-Rev "v0.0.2"
+Rev "B"
 Comp "Retro Moe"
 Comment1 "Ricardo Quesada"
 Comment2 ""

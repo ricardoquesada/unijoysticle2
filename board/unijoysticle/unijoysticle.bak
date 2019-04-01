@@ -56,7 +56,7 @@ Text GLabel 6700 4200 0    50   Input ~ 0
 GPIO_J1FIRE
 Text GLabel 3650 5350 0    50   Input ~ 0
 GPIO_J1POTY
-Text GLabel 8550 5000 2    50   Input ~ 0
+Text GLabel 8550 4800 2    50   Input ~ 0
 GPIO_J1POTX
 Text GLabel 6700 4000 0    50   Input ~ 0
 GPIO_J1POTY
@@ -224,7 +224,7 @@ Wire Wire Line
 Wire Wire Line
 	6700 4000 7150 4000
 Wire Wire Line
-	8550 5000 8150 5000
+	8550 4800 8150 4800
 $Comp
 L 74xx_IEEE:7405 IC1
 U 1 1 5C85C5CF
