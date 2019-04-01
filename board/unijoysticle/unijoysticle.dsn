@@ -53,13 +53,13 @@
       (place REF** 142621 -86868 front 0 (PN "OSHW-Logo2_7.3x6mm_SilkScreen"))
     )
     (component Unijoysticle:BarrelJack_Horizontal
-      (place J3 160401 -113538 front 180 (PN Barrel_Jack))
+      (place J3 161163 -113919 front 180 (PN Barrel_Jack))
     )
     (component "Unijoysticle:MH-ET_LIVE_MINIKIT_ESP32"
       (place B1 127254 -123190 front 0 (PN "ESP32 MINI KIT"))
     )
     (component "Diode_THT:D_DO-41_SOD81_P7.62mm_Horizontal"
-      (place D3 160528 -103505 front 0 (PN 1N4001))
+      (place D3 160528 -103886 front 0 (PN 1N4001))
     )
     (component Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal
       (place R2 125349 -115189 front 90 (PN 100))
