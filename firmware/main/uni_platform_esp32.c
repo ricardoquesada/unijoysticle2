@@ -435,6 +435,8 @@ static void IRAM_ATTR gpio_isr_handler_pot(void* arg) {
 #endif  // UNI_ENABLE_POT
 
 static void handle_event_button() {
+  // FIXME: Debouncer might fail when releasing the button. Implement something like this one:
+  // https://hackaday.com/2015/12/10/embed-with-elliot-debounce-your-noisy-buttons-part-ii/
   const int64_t button_threshold_time_us = 300 * 1000;  // 300ms
   static int enabled = 0;
 
