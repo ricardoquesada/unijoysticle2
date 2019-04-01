@@ -37,6 +37,10 @@ void uni_platform_on_mouse_data(int32_t delta_x, int32_t delta_y) {
   printf("mouse: x=%d, y=%d\n", delta_x, delta_y);
 }
 
+uint8_t uni_platform_is_button_pressed() {
+  return 0;
+}
+
 // Events.
 void uni_platform_on_init_complete(void) {}
 void uni_platform_on_port_assigned(uni_joystick_port_t port) {

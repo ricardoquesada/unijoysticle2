@@ -545,7 +545,9 @@ static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet, uint16_t 
   status = l2cap_event_channel_opened_get_status(packet);
   if (status) {
     logi("L2CAP Connection failed: 0x%02x.\n", status);
-    if (status == 0x6a || status == 0x69) {
+    // Practice showed that if any of these two status are received, it is best to remove the link key.
+    // But this is based on empirical evidence, not on theory.
+    if (status == L2CAP_CONNECTION_RESPONSE_RESULT_RTX_TIMEOUT || status == L2CAP_CONNECTION_BASEBAND_DISCONNECT) {
       logi("Removing previous link key for address=%s.\n", bd_addr_to_str(address));
       uni_hid_device_remove_entry_with_channel(channel);
       // Just in case the key is outdated we remove it. If fixes some
@@ -806,11 +808,18 @@ static void list_link_keys(void) {
     loge("Link key iterator not implemented\n");
     return;
   }
-  logi("Stored link keys: \n");
+  uint8_t delete_keys = uni_platform_is_button_pressed();
+
+  if (delete_keys)
+    logi("Deleting stored link keys: \n");
+  else
+    logi("Stored link keys: \n");
   while (gap_link_key_iterator_get_next(&it, addr, link_key, &type)) {
     logi("%s - type %u, key: ", bd_addr_to_str(addr), (int)type);
     printf_hexdump(link_key, 16);
-    // gap_drop_link_key_for_bd_addr(addr);
+    if (delete_keys) {
+      gap_drop_link_key_for_bd_addr(addr);
+    }
   }
   logi(".\n");
   gap_link_key_iterator_done(&it);

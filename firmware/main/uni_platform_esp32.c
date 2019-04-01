@@ -248,6 +248,10 @@ void uni_platform_on_joy_a_data(uni_joystick_t* joy) {
 void uni_platform_on_joy_b_data(uni_joystick_t* joy) {
   joy_update_port(joy, JOY_B_PORTS);
 }
+uint8_t uni_platform_is_button_pressed() {
+  // Hi-released, Low-pressed
+  return !gpio_get_level(GPIO_PUSH_BUTTON);
+}
 
 static void joy_update_port(uni_joystick_t* joy, const gpio_num_t* gpios) {
   logd("up=%d, down=%d, left=%d, right=%d, fire=%d, potx=%d, poty=%d\n", joy->up, joy->down, joy->left, joy->right,
