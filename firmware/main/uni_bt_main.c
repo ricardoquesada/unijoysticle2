@@ -86,7 +86,6 @@ static void start_scan(void);
 static void sdp_query_hid_descriptor(uni_hid_device_t* device);
 static void sdp_query_product_id(uni_hid_device_t* device);
 static void list_link_keys(void);
-static void start_connect_undiscovered(void);
 
 static void on_l2cap_channel_closed(uint16_t channel, uint8_t* packet, uint16_t size);
 static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet, uint16_t size);
@@ -95,9 +94,7 @@ static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet, uint16_t siz
 static void on_gap_inquiry_result(uint16_t channel, uint8_t* packet, uint16_t size);
 static void on_hci_connection_complete(uint16_t channel, uint8_t* packet, uint16_t size);
 static void on_hci_connection_request(uint16_t channel, uint8_t* packet, uint16_t size);
-static void on_hci_read_remote_supported_features_complete(uint16_t channel, uint8_t* packet, uint16_t size);
 static void on_hci_read_remote_version_information_complete(uint16_t channel, uint8_t* packet, uint16_t size);
-static void on_hci_role_change(uint16_t channel, uint8_t* packet, uint16_t size);
 
 static void hid_host_setup(void) {
   // enabled EIR
@@ -261,7 +258,6 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t* packe
             logi("Btstack ready!\n");
             list_link_keys();
             start_scan();
-            start_connect_undiscovered();
           }
           break;
 
@@ -300,14 +296,9 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t* packe
           break;
         case HCI_EVENT_ROLE_CHANGE:
           logi("--> HCI_EVENT_ROLE_CHANGE\n");
-          on_hci_role_change(channel, packet, size);
-          break;
-        case HCI_EVENT_READ_REMOTE_SUPPORTED_FEATURES_COMPLETE:
-          logi("--> HCI_EVENT_READ_REMOTE_SUPPORTED_FEATURES_COMPLETE:\n");
-          on_hci_read_remote_supported_features_complete(channel, packet, size);
           break;
         case HCI_EVENT_SYNCHRONOUS_CONNECTION_COMPLETE:
-          logi("--> HCI_EVENT_SYNCHRONOUS_CONNECTION_COMPLETE <--\n");
+          logi("--> HCI_EVENT_SYNCHRONOUS_CONNECTION_COMPLETE\n");
           break;
         case HCI_EVENT_INQUIRY_RESULT_WITH_RSSI:
           // logi("--> HCI_EVENT_INQUIRY_RESULT_WITH_RSSI <--\n");
@@ -316,6 +307,7 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t* packe
           // logi("--> HCI_EVENT_EXTENDED_INQUIRY_RESPONSE <--\n");
           break;
         case HCI_EVENT_REMOTE_NAME_REQUEST_COMPLETE:
+          logi("--> HCI_EVENT_REMOTE_NAME_REQUEST_COMPLETE\n");
           reverse_bd_addr(&packet[3], event_addr);
           device = uni_hid_device_get_instance_for_address(event_addr);
           if (device != NULL) {
@@ -417,27 +409,6 @@ static void on_hci_connection_complete(uint16_t channel, uint8_t* packet, uint16
   hci_send_cmd(&hci_read_remote_version_information, handle);
 }
 
-static void on_hci_read_remote_supported_features_complete(uint16_t channel, uint8_t* packet, uint16_t size) {
-  UNUSED(channel);
-  UNUSED(size);
-  // uint8_t status;
-  hci_con_handle_t handle = little_endian_read_16(packet, 3);
-  uni_hid_device_t* device = uni_hid_device_get_instance_for_connection_handle(handle);
-  if (device == NULL) {
-    logi("on_hci_read_remote_supported_features_complete: could not find device for con handle: 0x%04x", handle);
-    return;
-  }
-  // // start l2cap connection in incoming connections only
-  // if (uni_hid_device_is_incoming(device)) {
-  //   logi("on_hci_connection_complete: starting l2cap channel for %s\n", bd_addr_to_str(device->address));
-  //   status = l2cap_create_channel(packet_handler, device->address, PSM_HID_CONTROL, 48, &device->hid_control_cid);
-  //   if (status) {
-  //     loge("\nConnecting to HID Control failed: 0x%02x. Address=%s", status, bd_addr_to_str(device->address));
-  //     return;
-  //   }
-  // }
-}
-
 static void on_hci_read_remote_version_information_complete(uint16_t channel, uint8_t* packet, uint16_t size) {
   UNUSED(channel);
   UNUSED(size);
@@ -451,25 +422,7 @@ static void on_hci_read_remote_version_information_complete(uint16_t channel, ui
   uint16_t mfr_name = hci_event_read_remote_version_information_complete_get_manufacturer_name(packet);
   uint16_t lmp_subversion = hci_event_read_remote_version_information_complete_get_subversion(packet);
   logi("*******  handle=0x%04x, ver=0x%02x, mfr=0x%04x, subver=0x%04x\n", handle, lmp_ver, mfr_name, lmp_subversion);
-  hci_send_cmd(&hci_change_connection_packet_type, handle, 0xcc18);
-}
-
-static void on_hci_role_change(uint16_t channel, uint8_t* packet, uint16_t size) {
-  bd_addr_t bd_addr;
-  uint8_t status;
-  uint8_t role;
-
-  UNUSED(channel);
-  UNUSED(size);
-
-  status = hci_event_role_change_get_status(packet);
-  if (status) {
-    loge("on_hci_role_change: status error = 0x%02x\n", status);
-    return;
-  }
-  hci_event_role_change_get_bd_addr(packet, bd_addr);
-  role = hci_event_role_change_get_role(packet);
-  logi("new hci role for %s is %d\n", bd_addr_to_str(bd_addr), role);
+  // hci_send_cmd(&hci_change_connection_packet_type, handle, 0xcc18);
 }
 
 static void on_gap_inquiry_result(uint16_t channel, uint8_t* packet, uint16_t size) {
@@ -823,25 +776,6 @@ static void list_link_keys(void) {
   }
   logi(".\n");
   gap_link_key_iterator_done(&it);
-}
-
-static void start_connect_undiscovered(void) {
-  // WIP:
-  // Hardcoded address of devices that cannot be discovered.
-  if (1)
-    return;
-  // // PS3 clone: DualShock 3 PANHAI
-  // bd_addr_t addr = {0x02, 0x90, 0x52, 0x77, 0x63, 0x25};
-  // cheap mini gamepad received in conference. Unknown brand.
-  bd_addr_t addr = {0xdc, 0x2c, 0x26, 0xf8, 0xb0, 0x0e};
-
-  uni_hid_device_t* device = uni_hid_device_create(addr);
-  sdp_query_hid_descriptor(device);
-
-  uint8_t status = l2cap_create_channel(packet_handler, device->address, PSM_HID_CONTROL, 48, &device->hid_control_cid);
-  if (status) {
-    loge("\nConnecting to HID Control failed: 0x%02x", status);
-  }
 }
 
 int uni_bt_main(void) {
