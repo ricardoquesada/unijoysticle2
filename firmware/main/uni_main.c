@@ -16,8 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ****************************************************************************/
 
-#include "uni_bt_main.h"
-
+#include "uni_bluetooth.h"
 #include "uni_hid_device.h"
 #include "uni_platform.h"
 
@@ -37,7 +36,7 @@ int btstack_main(int argc, const char** argv) {
   uni_hid_device_init();
 
   // Continue with bluetooth setup.
-  uni_bt_main();
+  uni_bluetooth_init();
 
   return 0;
 }

@@ -51,7 +51,7 @@
  * That way, in theory, it should be possible to support USB devices by replacing this file.
  */
 
-#include "uni_bt_main.h"
+#include "uni_bluetooth.h"
 
 #include <inttypes.h>
 #include <stdint.h>
@@ -764,21 +764,21 @@ static void list_link_keys(void) {
   uint8_t delete_keys = uni_platform_is_button_pressed();
 
   if (delete_keys)
-    logi("Deleting stored link keys: \n");
+    printf("Deleting stored link keys:\n");
   else
-    logi("Stored link keys: \n");
+    printf("Stored link keys:\n");
   while (gap_link_key_iterator_get_next(&it, addr, link_key, &type)) {
-    logi("%s - type %u, key: ", bd_addr_to_str(addr), (int)type);
+    printf("%s - type %u, key: ", bd_addr_to_str(addr), (int)type);
     printf_hexdump(link_key, 16);
     if (delete_keys) {
       gap_drop_link_key_for_bd_addr(addr);
     }
   }
-  logi(".\n");
+  printf(".\n");
   gap_link_key_iterator_done(&it);
 }
 
-int uni_bt_main(void) {
+int uni_bluetooth_init(void) {
   // Initialize L2CAP
   l2cap_init();
 

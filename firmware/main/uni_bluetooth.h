@@ -19,6 +19,6 @@ limitations under the License.
 #ifndef UNI_BT_MAIN_H
 #define UNI_BT_MAIN_H
 
-int uni_bt_main(void);
+int uni_bluetooth_init(void);
 
 #endif  //  UNI_BT_MAIN_H
