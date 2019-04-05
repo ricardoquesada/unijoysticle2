@@ -45,9 +45,7 @@
 
         lda #$00                        ; turn off volume
         sta SID_Amp
-                                        ; multicolor mode + extended color causes
 
-                                        ; turn VIC on again
         lda #%00011011                  ; charset mode, default scroll-Y position, 25-rows
         sta $d011                       ; extended color mode: off
 
@@ -145,7 +143,7 @@ main_loop:
         ldx #7
         ldy #14
 l1:
-        lda #1                          ; setup sprite colors
+        lda #7                          ; setup sprite colors
         sta VIC_SPR0_COLOR,x
 
         lda posx,x
@@ -208,10 +206,10 @@ posy:
         lda $f9
         and #%00010000                  ; fire?
         beq no_fire
-        lda #1
+        lda #7                          ; color for fire on
         bne print_fire
 no_fire:
-        lda #11
+        lda #11                         ; color for fire off
 print_fire:
         sta $d800 + 40 * 19 + 12
 
@@ -236,10 +234,10 @@ print_fire:
         lda $f9
         and #%00010000                  ; fire?
         beq no_fire
-        lda #1
+        lda #7                          ; color for fire on
         bne print_fire
 no_fire:
-        lda #11
+        lda #11                         ; color for fire off
 print_fire:
         sta $d800 + 40 * 19 + 27
 

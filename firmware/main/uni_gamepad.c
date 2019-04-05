@@ -37,6 +37,10 @@ static void to_single_joy(const uni_gamepad_t* gp, uni_joystick_t* out_joy) {
   if (gp->updated_states & GAMEPAD_STATE_BUTTON_SHOULDER_L) {
     out_joy->fire |= ((gp->buttons & BUTTON_SHOULDER_L) == BUTTON_SHOULDER_L);
   }
+  // Thumb left is "fire"
+  if (gp->updated_states & GAMEPAD_STATE_BUTTON_THUMB_L) {
+    out_joy->fire |= ((gp->buttons & BUTTON_THUMB_L) == BUTTON_THUMB_L);
+  }
 
   // Dpad
   if (gp->updated_states & GAMEPAD_STATE_DPAD) {
@@ -89,6 +93,10 @@ void uni_gamepad_to_combo_joy_joy(const uni_gamepad_t* gp, uni_joystick_t* out_j
   // Shoulder right is "fire"
   if (gp->updated_states & GAMEPAD_STATE_BUTTON_SHOULDER_R) {
     out_joy2->fire |= ((gp->buttons & BUTTON_SHOULDER_R) == BUTTON_SHOULDER_R);
+  }
+  // Thumb right is "fire"
+  if (gp->updated_states & GAMEPAD_STATE_BUTTON_THUMB_R) {
+    out_joy2->fire |= ((gp->buttons & BUTTON_THUMB_R) == BUTTON_THUMB_R);
   }
 
   // Axis: RX and RY
