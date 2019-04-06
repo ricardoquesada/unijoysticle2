@@ -1,3 +1,12 @@
+Notice:
+Unijoysticle 2 firmware is licenced under Apache v2.0 (see below).
+But it depends on BlueKitchen bluetooth stack which has a comercial license,
+but is free for open source projects. More info about BlueKitchen here:
+http://bluekitchen-gmbh.com/
+
+Unijoysticle 2 firmware license:
+
+
                                  Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
