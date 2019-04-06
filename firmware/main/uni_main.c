@@ -28,9 +28,9 @@ int btstack_main(int argc, const char** argv) {
   UNUSED(argv);
 
   // Honoring with BT copyright + adding own message to avoid confusion
-  printf("Unijoysticle (C) 2016-2019 Ricardo Quesada and contributors.\n");
+  printf("Unijoysticle 2 (C) 2016-2019 Ricardo Quesada and contributors.\n");
   printf("Bluetooth stack: Copyright (C) 2017 BlueKitchen GmbH.\n");
-  printf("Firmware version: v0.0.1\n");
+  printf("Firmware version: v0.0.2\n");
 
   uni_platform_init();
   uni_hid_device_init();
