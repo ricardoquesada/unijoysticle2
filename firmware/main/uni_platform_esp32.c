@@ -33,10 +33,17 @@ limitations under the License.
 
 // --- Consts
 
+// 20 milliseconds ~= 1 frame in PAL
+// 17 milliseconds ~= 1 frame in NTSC
+static const int AUTOFIRE_FREQ_MS = 20 * 10;
+
+static const int MOUSE_DELAY_BETWEEN_EVENT_US = 12000;  // microseconds
+static const int MOUSE_MAX_DELTA = 32;
+
 // GPIO map for MH-ET Live mini-kit board.
-const int GPIO_LED_J1 = GPIO_NUM_5;
-const int GPIO_LED_J2 = GPIO_NUM_13;
-const int GPIO_PUSH_BUTTON = GPIO_NUM_10;
+static const int GPIO_LED_J1 = GPIO_NUM_5;
+static const int GPIO_LED_J2 = GPIO_NUM_13;
+static const int GPIO_PUSH_BUTTON = GPIO_NUM_10;
 
 enum {
 #if UNI_ENABLE_COMPACT_V1
@@ -76,13 +83,14 @@ enum {
 // GPIO_NUM_12 (input) used as input for Pot in esp32.
 // GPIO_NUM_13 (output) used to feed the Pot in the c64
 enum {
+  // Event group
   EVENT_BIT_MOUSE = (1 << 0),
   EVENT_BIT_POT = (1 << 1),
   EVENT_BIT_BUTTON = (1 << 2),
-};
 
-static const int MOUSE_DELAY_BETWEEN_EVENT_US = 12000;  // microseconds
-static const int MOUSE_MAX_DELTA = 32;
+  // Autofire Group
+  EVENT_BIT_AUTOFIRE = (1 << 0),
+};
 
 static const gpio_num_t JOY_A_PORTS[] = {GPIO_JOY_A_UP, GPIO_JOY_A_DOWN, GPIO_JOY_A_LEFT, GPIO_JOY_A_RIGHT,
                                          GPIO_JOY_A_FIRE};
@@ -93,6 +101,7 @@ static const gpio_num_t JOY_B_PORTS[] = {GPIO_JOY_B_UP, GPIO_JOY_B_DOWN, GPIO_JO
 
 static int64_t g_last_time_pressed_us = 0;  // in microseconds
 static EventGroupHandle_t g_event_group;
+static EventGroupHandle_t g_auto_fire_group;
 
 // Mouse "shared data from main task to mouse task.
 static int32_t g_delta_x = 0;
@@ -101,6 +110,10 @@ static int32_t g_delta_y = 0;
 // Pot "shared data from main task to pot task.
 static uint8_t g_pot_x = 0;
 static uint8_t g_pot_y = 0;
+
+// Autofire
+static uint8_t g_autofire_a_enabled = 0;
+static uint8_t g_autofire_b_enabled = 0;
 
 // --- Code
 
@@ -123,6 +136,7 @@ static void IRAM_ATTR gpio_isr_handler_pot(void* arg);
 #endif  // UNI_ENABLE_POT
 
 static void event_loop(void* arg);
+static void auto_fire_loop(void* arg);
 
 #define MAX(a, b)           \
   ({                        \
@@ -194,8 +208,12 @@ void uni_platform_init(void) {
   ESP_ERROR_CHECK(gpio_isr_handler_add(GPIO_NUM_12, gpio_isr_handler_pot, (void*)GPIO_NUM_12));
 #endif  // UNI_ENABLE_POT
 
+  // Split "events" from "auto_fire", since auto-fire is an on-going event.
   g_event_group = xEventGroupCreate();
   xTaskCreate(event_loop, "event_loop", 2048, NULL, 10, NULL);
+
+  g_auto_fire_group = xEventGroupCreate();
+  xTaskCreate(auto_fire_loop, "auto_fire_loop", 2048, NULL, 10, NULL);
   // xTaskCreatePinnedToCore(event_loop, "event_loop", 2048, NULL, portPRIVILEGE_BIT, NULL, 1);
 }
 
@@ -233,20 +251,24 @@ void uni_platform_on_mouse_data(int32_t delta_x, int32_t delta_y) {
   if (delta_x || delta_y) {
     g_delta_x = delta_x;
     g_delta_y = delta_y;
-    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-    xEventGroupSetBitsFromISR(g_event_group, EVENT_BIT_MOUSE, &xHigherPriorityTaskWoken);
-    if (xHigherPriorityTaskWoken == pdFALSE) {
-      logd("Failed to trigger mouse event\n");
-    }
+    xEventGroupSetBits(g_event_group, EVENT_BIT_MOUSE);
   }
 }
 
 void uni_platform_on_joy_a_data(uni_joystick_t* joy) {
   joy_update_port(joy, JOY_A_PORTS);
+  g_autofire_a_enabled = joy->auto_fire;
+  if (g_autofire_a_enabled) {
+    xEventGroupSetBits(g_auto_fire_group, EVENT_BIT_AUTOFIRE);
+  }
 }
 
 void uni_platform_on_joy_b_data(uni_joystick_t* joy) {
   joy_update_port(joy, JOY_B_PORTS);
+  g_autofire_b_enabled = joy->auto_fire;
+  if (g_autofire_b_enabled) {
+    xEventGroupSetBits(g_auto_fire_group, EVENT_BIT_AUTOFIRE);
+  }
 }
 uint8_t uni_platform_is_button_pressed() {
   // Hi-released, Low-pressed
@@ -264,7 +286,11 @@ static void joy_update_port(uni_joystick_t* joy, const gpio_num_t* gpios) {
   gpio_set_level(gpios[1], !!joy->down);
   gpio_set_level(gpios[2], !!joy->left);
   gpio_set_level(gpios[3], !!joy->right);
-  gpio_set_level(gpios[4], !!joy->fire);
+
+  // only update fire if auto-fire is off. otherwise it will conflict.
+  if (!joy->auto_fire) {
+    gpio_set_level(gpios[4], !!joy->fire);
+  }
 }
 
 static void event_loop(void* arg) {
@@ -286,6 +312,35 @@ static void event_loop(void* arg) {
 
     if (uxBits & EVENT_BIT_POT)
       handle_event_pot();
+  }
+}
+
+static void auto_fire_loop(void* arg) {
+  // timeout of 10s
+  const TickType_t xTicksToWait = 10000 / portTICK_PERIOD_MS;
+  const TickType_t delayTicks = AUTOFIRE_FREQ_MS / portTICK_PERIOD_MS;
+  while (1) {
+    EventBits_t uxBits = xEventGroupWaitBits(g_auto_fire_group, EVENT_BIT_AUTOFIRE, pdTRUE, pdFALSE, xTicksToWait);
+
+    // timeout ?
+    if (uxBits == 0)
+      continue;
+
+    while (g_autofire_a_enabled || g_autofire_b_enabled) {
+      if (g_autofire_a_enabled)
+        gpio_set_level(JOY_A_PORTS[4], 1);
+      if (g_autofire_b_enabled)
+        gpio_set_level(JOY_B_PORTS[4], 1);
+
+      vTaskDelay(delayTicks);
+
+      if (g_autofire_a_enabled)
+        gpio_set_level(JOY_A_PORTS[4], 0);
+      if (g_autofire_b_enabled)
+        gpio_set_level(JOY_B_PORTS[4], 0);
+
+      vTaskDelay(delayTicks);
+    }
   }
 }
 // Mouse handler

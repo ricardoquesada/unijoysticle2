@@ -33,13 +33,14 @@ static void to_single_joy(const uni_gamepad_t* gp, uni_joystick_t* out_joy) {
   if (gp->updated_states & GAMEPAD_STATE_BUTTON_A) {
     out_joy->fire |= ((gp->buttons & BUTTON_A) == BUTTON_A);
   }
-  // Shoulder left is "fire"
-  if (gp->updated_states & GAMEPAD_STATE_BUTTON_SHOULDER_L) {
-    out_joy->fire |= ((gp->buttons & BUTTON_SHOULDER_L) == BUTTON_SHOULDER_L);
-  }
   // Thumb left is "fire"
   if (gp->updated_states & GAMEPAD_STATE_BUTTON_THUMB_L) {
     out_joy->fire |= ((gp->buttons & BUTTON_THUMB_L) == BUTTON_THUMB_L);
+  }
+
+  // Shoulder left is "auto fire"
+  if (gp->updated_states & GAMEPAD_STATE_BUTTON_SHOULDER_L) {
+    out_joy->auto_fire |= ((gp->buttons & BUTTON_SHOULDER_L) == BUTTON_SHOULDER_L);
   }
 
   // Dpad
@@ -81,6 +82,11 @@ void uni_gamepad_to_single_joy(const uni_gamepad_t* gp, uni_joystick_t* out_joy)
   if (gp->updated_states & GAMEPAD_STATE_BUTTON_B) {
     out_joy->up |= ((gp->buttons & BUTTON_B) == BUTTON_B);
   }
+
+  // Shoulder right is "auto fire"
+  if (gp->updated_states & GAMEPAD_STATE_BUTTON_SHOULDER_R) {
+    out_joy->auto_fire |= ((gp->buttons & BUTTON_SHOULDER_R) == BUTTON_SHOULDER_R);
+  }
 }
 
 void uni_gamepad_to_combo_joy_joy(const uni_gamepad_t* gp, uni_joystick_t* out_joy1, uni_joystick_t* out_joy2) {
@@ -90,13 +96,14 @@ void uni_gamepad_to_combo_joy_joy(const uni_gamepad_t* gp, uni_joystick_t* out_j
   if (gp->updated_states & GAMEPAD_STATE_BUTTON_B) {
     out_joy2->fire |= ((gp->buttons & BUTTON_B) == BUTTON_B);
   }
-  // Shoulder right is "fire"
-  if (gp->updated_states & GAMEPAD_STATE_BUTTON_SHOULDER_R) {
-    out_joy2->fire |= ((gp->buttons & BUTTON_SHOULDER_R) == BUTTON_SHOULDER_R);
-  }
   // Thumb right is "fire"
   if (gp->updated_states & GAMEPAD_STATE_BUTTON_THUMB_R) {
     out_joy2->fire |= ((gp->buttons & BUTTON_THUMB_R) == BUTTON_THUMB_R);
+  }
+
+  // Shoulder right is "auto fire"
+  if (gp->updated_states & GAMEPAD_STATE_BUTTON_SHOULDER_R) {
+    out_joy2->auto_fire |= ((gp->buttons & BUTTON_SHOULDER_R) == BUTTON_SHOULDER_R);
   }
 
   // Axis: RX and RY
