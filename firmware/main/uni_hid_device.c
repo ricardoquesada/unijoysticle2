@@ -508,7 +508,7 @@ static void process_misc_button_system(uni_hid_device_t* d) {
   // swap joysticks if only one device is attached
   int num_devices = 0;
   for (int j = 0; j < MAX_DEVICES; j++) {
-    if (bd_addr_cmp(g_devices[j].address, zero_addr) != 0) {
+    if ((bd_addr_cmp(g_devices[j].address, zero_addr) != 0) && (g_devices[j].joystick_port > 0)) {
       num_devices++;
       if (num_devices > 1) {
         logi("cannot swap joystick ports when more than one device is attached\n");
