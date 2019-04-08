@@ -35,7 +35,7 @@ limitations under the License.
 
 // 20 milliseconds ~= 1 frame in PAL
 // 17 milliseconds ~= 1 frame in NTSC
-static const int AUTOFIRE_FREQ_MS = 20 * 10;
+static const int AUTOFIRE_FREQ_MS = 20 * 4;  // change every ~4 frames
 
 static const int MOUSE_DELAY_BETWEEN_EVENT_US = 12000;  // microseconds
 static const int MOUSE_MAX_DELTA = 32;
