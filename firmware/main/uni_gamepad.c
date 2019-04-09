@@ -27,7 +27,6 @@ const int AXIS_THRESHOLD = (1024 / 8);
 
 static void to_single_joy(const uni_gamepad_t* gp, uni_joystick_t* out_joy);
 
-// common between SINGLE_JOY and COMBO_JOY_JOY
 static void to_single_joy(const uni_gamepad_t* gp, uni_joystick_t* out_joy) {
   // Button A is "fire"
   if (gp->updated_states & GAMEPAD_STATE_BUTTON_A) {
@@ -38,9 +37,9 @@ static void to_single_joy(const uni_gamepad_t* gp, uni_joystick_t* out_joy) {
     out_joy->fire |= ((gp->buttons & BUTTON_THUMB_L) == BUTTON_THUMB_L);
   }
 
-  // Shoulder left is "auto fire"
-  if (gp->updated_states & GAMEPAD_STATE_BUTTON_SHOULDER_L) {
-    out_joy->auto_fire |= ((gp->buttons & BUTTON_SHOULDER_L) == BUTTON_SHOULDER_L);
+  // Shoulder right is "auto fire"
+  if (gp->updated_states & GAMEPAD_STATE_BUTTON_SHOULDER_R) {
+    out_joy->auto_fire |= ((gp->buttons & BUTTON_SHOULDER_R) == BUTTON_SHOULDER_R);
   }
 
   // Dpad
@@ -69,7 +68,6 @@ static void to_single_joy(const uni_gamepad_t* gp, uni_joystick_t* out_joy) {
   if (gp->updated_states & GAMEPAD_STATE_BRAKE) {
     out_joy->pot_x = (gp->brake >> 2);  // convert from 1024 to 256
   }
-
   if (gp->updated_states & GAMEPAD_STATE_ACCELERATOR) {
     out_joy->pot_y = (gp->accelerator >> 2);  // convert from 1024 to 256
   }
@@ -81,11 +79,6 @@ void uni_gamepad_to_single_joy(const uni_gamepad_t* gp, uni_joystick_t* out_joy)
   // Buttom B is "jump"
   if (gp->updated_states & GAMEPAD_STATE_BUTTON_B) {
     out_joy->up |= ((gp->buttons & BUTTON_B) == BUTTON_B);
-  }
-
-  // Shoulder right is "auto fire"
-  if (gp->updated_states & GAMEPAD_STATE_BUTTON_SHOULDER_R) {
-    out_joy->auto_fire |= ((gp->buttons & BUTTON_SHOULDER_R) == BUTTON_SHOULDER_R);
   }
 }
 
@@ -101,9 +94,9 @@ void uni_gamepad_to_combo_joy_joy(const uni_gamepad_t* gp, uni_joystick_t* out_j
     out_joy2->fire |= ((gp->buttons & BUTTON_THUMB_R) == BUTTON_THUMB_R);
   }
 
-  // Shoulder right is "auto fire"
-  if (gp->updated_states & GAMEPAD_STATE_BUTTON_SHOULDER_R) {
-    out_joy2->auto_fire |= ((gp->buttons & BUTTON_SHOULDER_R) == BUTTON_SHOULDER_R);
+  // Shoulder left is "auto fire"
+  if (gp->updated_states & GAMEPAD_STATE_BUTTON_SHOULDER_L) {
+    out_joy2->auto_fire |= ((gp->buttons & BUTTON_SHOULDER_L) == BUTTON_SHOULDER_L);
   }
 
   // Axis: RX and RY
