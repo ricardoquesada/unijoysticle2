@@ -1,10 +1,10 @@
 # Firmware setup
 
-## Want to help ?
+## How to help
 
 Development can be done locally or using Vagrant for convinience. It's recommended to read the local instructions once (or the bootstrap.sh script) before using Vagrant.
 
-### Local development 
+### Local development
 
 - Download BlueKitchen: https://github.com/bluekitchen/btstack
 - Download Unijoysticle 2 code: https://gitlab.com/ricardoquesada/unijoysticle2
@@ -18,6 +18,7 @@ Development can be done locally or using Vagrant for convinience. It's recommend
 ### Compile BTstack
 
 #### For ESP32 development
+
 ```sh
 $ cd src/btstack/port/esp32
 $ ./integrate_btstack.py
@@ -25,6 +26,7 @@ $ cd example/gap_inquiry
 $ make menuconfig
 $ make flash monitor
 ```
+
 And just in case, read the [README.md][3] that is in the `src/btstack/port/esp32` folder.
 
 Put your gamepad in bluetooth discovery mode and you should see it.
@@ -43,12 +45,12 @@ $ ./gap_inquiry
 
 Put your gamepad in bluetooth discovery mode and you should see it.
 
-
 ### Compile Unijoysticle
 
 Once you know that BTStack is working as expected, you can try with the Unijoysticle code.
 
 For ESP32 development:
+
 ```sh
 $ cd src/unijoysticle/firmware/esp32
 $ make menuconfig
@@ -56,12 +58,12 @@ $ make flash monitor
 ```
 
 For PC/Linux/Mac development:
+
 ```sh
 $ cd src/unijoysticle/firmware/esp32/tools
 $ make
 ./unijoysticle
 ```
-
 
 Put the gamepad in discovery mode. The gamepad should be recognized and when you press buttons, you should see them on the console.
 
@@ -69,7 +71,7 @@ Put the gamepad in discovery mode. The gamepad should be recognized and when you
 
 A vagrant file is provided with virtual linux boxes and the previous instructions scripted. VirtualBox provider is required for USB compatibility. Read the instructions inside the vagrant file to fill up the 'VendorID' and 'ProductID' of your ESP32 USB Serial or bluetooth dongle.
 
-#### ESP32 
+#### ESP32
 
 ```sh
 $ cd firmware
