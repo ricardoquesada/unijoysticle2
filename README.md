@@ -1,107 +1,55 @@
-# Unijosyticle v2
+# Unijoysticle 2
 
-Modern bluetooth game controllers for retro computers.
+Like the original [Unijoysticle][1], but remove WiFi and add Bluetooth.
 
-Or any bluetooth powered device for the matter. And attach it to your unicycle and play games like a pro.
+![unijoysticle 2](https://lh3.googleusercontent.com/jITwEhJs884ROmU75qeqjg6dt3YfNKg8MOkNWTjshucX_tKyrhLoEBcKN9q-AzWyeTsJPhtrIHByVFLpiv4g-sJc9UzKJvyH-7pzBMOWZLQT-JvIn_Losl8xOG6tqxKeFynksWlmFCQ=-no)
 
-## Goal #1
+Unijoysticle 2 allows you to use modern Bluetooth gamepads, e.g Xbox One gamepad,
+in old computers like the Commodore 64 & 128.
 
-**Enhance user-experience in retro computers by using modern bluetooth devices**.
+And of course, you can still  use your unicycle to control your retro computer!
 
+## Basic functionality
 
-*Enhance user-experinece* is a user-experience that is only possible by using modern devices. For example:
+One Bluetooth gamepad controls one joystick.
+You need two gamepads to control the two joysticks.
 
-*  Gamepads are more ergonomic than joysticks from the 80's.
-*  Gamepads have more buttons, and can be mapped to different options. eg: Button 'B' could be mapped to 'Jump'. Ideal in platform games.
-*  Combo Joy+Joy: One gamepad could control 2 joysticks at the same time
-*  Combo Mouse+Joy: One gamepad could be used as joystick + mouse (ideal for Atari ST / Amiga).
-*  And of course, using a unicycle to connect to your retro computer so you can play "The Uni Games" properly.
+![Basic mode](https://lh3.googleusercontent.com/hkoAJbbtSpY53cpU-FO76QjTOPwuwWgDiKhQuNdbWnSwiozcqUloeOHuPclvunSC3vjH55n8Og-_cZO2ZTq6BhEbKOc0gb3qmASyLMC7BfAbTBNXjrV2LxzJu8-q0cDMexzOYlD4QE8=-no)
 
+The mappings are:
+-  D-pad/joypad: controls up/down/left/right.
+-  Button A: fire button
+-  Button B: "up"  (ideal for platform games).
+-  Button shoulder-right: autofire.
+-  System button swaps between Joystick #1 and #2
 
-*Modern bluetooth devices* includes, but not limited to:
+## Enhanced functionality
 
-*   Gamepads (iOS, Android, Xbox, PS4, Switch, etc.)
-*   Smart TV remote controllers
-*   Mice
-*   Smartphones
+![Enhanced mode](https://lh3.googleusercontent.com/89CUlpgxrnDJ8b5hXdvHCi-X7d-2a6r6qP5vJbnFJWAHObfCsYy7Flq7pYpwrv-qXy-dT_-Jk02tgWQpgwnedKrC5STNhpl_Xd2OtJ8lgP3PnEvKDIiumTB_PZHdg5qCxsEZLc5-dWU=-no)
 
+When in "Enhanced mode", you control the two joysticks with only one gamepad.
+The mappings are:
+-  Left joypad / d-pad: control Joystick #2 movements.
+-  Right joypad: control Joystick #1 movements.
+-  Button A: fire for Joystick #2
+-  Button B: fire for Joystick #1
+-  Button Shoulder Left: auto-fire for Joystick #1
+-  Button Shoulder Right : auto-fire for Joystick #2
 
-*Retro computers* includes, but not limited to:
+This mode is ideal for games like [Commando][2] or [1942][3] since it allows you
+throw grenades / roll by pressing Button B.
 
-*   Commodore 64, 128
-*   Commodore VIC 20
-*   Commodore Amiga
-*   Atari ST
-*   Atari 8-bit faimily
-*   FPGAs like [ZX-UNO](http://zxuno.speccy.org/index_e.shtml)
-
-These are all computers that have compatible DB9, meaning that POWER & GROUND lines are the same.
-Initially, I don't want to support computers where POWER/GROUND use different lines, like the Mastersystems.
-That could be very dangerous.
-
-See here [list of compmabile systems](http://zxuno.speccy.org/index_e.shtml).
-
-In the future, we could do a PC release to support PCjr, Tandy 1000 and other PCs.
+Toggle between Basic and Enhanced modes
 
 
-## Goal #2
+## Documentation
 
-We want to create a solid, high quality product. But most important is to have fun and learn new things while developing it.
+Additional documentation can be found here:
 
-## TODO
-
-The project is divided in 3:
-
-### Hardware
-
-We can reuse parts of Unijoysticle v1, but a few things should be added / changed:
-
-*   Control all 7 lines: UP, DOWN, LEFT, RIGHT, FIRE, BUTTON LEFT (POT X), BUTTON RIGHT (POT Y).
-    Unijoysticle v1 only controls the UP, DOWN, LEFT, RIGHT, FIRE. Four 4066, instead of three, are needed.
-*   Support for C64 mouse: uses pot x / pot y, and they are both input+output lines. Additional hardware requirements might be needed.
-*   Is it possible to power the ESP32 directly from the joystick ports?
-*   In any case offer +5V power jack for external power supply (like in Unijoysticle v1).
-*   Button to select the different modes: Single, Combo Joy+Joy, Combo Mouse+Joy
-*   Button to remove all bluetooth stored keys (?) (might not be needed).
-*   Switch to swap ports A + B (A game might require the joy connected to port A, while other to port B).
-*   Offer cables to connect to different machines. (eg: for the Atari ST, it needs extension cables since the ports un under the case).
-
-Note: No additional hardware is needed to support for Amiga/Atari ST mice.
-
-Schematics + PCB in [KiCad](http://kicad-pcb.org/). Unijoysticle v1 was done in [Eagle](https://www.autodesk.com/products/eagle/overview). Since we want to learn new things, we are switching to KiCad now.
+- [Docs][4]
 
 
-### Firmware
-
-What's already done:
-
-*   Basic generic mapping for gamepad
-*   Bluetooth connect / reconnect working ok
-*   Fetch product id + vendor id from SDP record
-*   Gamepad: mappings based on product id + vendor id. Take DB from libSDL and addap the mappings to our own needs.
-*   *Gamepad System button* swaps joystick ports
-*   Mouse kind of working... movement is not smooth yet.
-*   Mouse: button are not mapped.
-*   Support Bluetooth Classic HID devices
-*   Support up until 2 gamepads connected, or one mouse + one gamepad.
-
-Missing:
-
-*   Mouse: smooth movement.
-*   Add support for Bluetooth LE devices (eg: Some smart TV remote controllers are BLE).
-*   Report back to client mode being used in the gamepads LEDS (in case avaiable).
-    The LEDs could be used for whatever purpose we want.
-
-### Smartphone client
-
-Create Android (iOS lower priority) client that allows us to:
-
-*    Works as a Bluetooth client
-*    Implement "Unijosytcile" mode: gyro / accel
-*    Implement virtual gamepad
-*    Implement Gyruss mode
-*    Add way to see logs
-*    Add way to swtich between different modes (Combo Joy+Joy, Combo Mouse+Joy, Single) (?)
-*    Add way to swap ports (?)
-
-Since we want to learn new stuff, instead of coding the client in Java (like in Unijoysticle v1), we should do it in Kotlin.
+[1]: https://retro.moe/unijoysticle
+[2]: https://csdb.dk/release/?id=137173
+[3]: https://csdb.dk/release/?id=38140
+[4]: https://gitlab.com/ricardoquesada/unijoysticle2/tree/master/docs
