@@ -83,17 +83,17 @@ for each type of controller. The parsers are reponsible for doing the mappings.
 
 Tested gamepads so far.
 
-| Model              | Mapping | Notes |
-| ------------------ | ------- | ----- |
-| ![Xbox One][4]     |         |       |
-| ![ps4_gamepad][5]  |         |       |
-| ![Android ASUS][6] |         |       |
-| ![iOS][7]          |         |       |
-| ![OUYA][8]         |         |       |
-| ![8bitdo][9]       |         |       |
-| ![iCade][10]       |         |       |
-| ![Generic][11]     |         |       |
-| ![TV Remote][12]   |         |       |
+| Model             | Mapping                               | Notes                                     |
+| ----------------- | ------------------------------------- | ----------------------------------------- |
+| ![Xbox One][4]    |                                       | Xbox One                                  |
+| ![ps4_gamepad][5] |                                       | Sony Dualshock 4                          |
+| ![Android][6]     |                                       | ASUS, Moga Pro 2, Amazon Fire TV gamepads |
+| ![iOS][7]         |                                       | SteelSeries Nimbus for iOS                |
+| ![OUYA][8]        |                                       | OUYA (1st gen)                            |
+| ![8bitdo][9]      | Buttons are swapped: A <-> B, X <-> Y | 8bitdo NES30                              |
+| ![iCade][10]      |                                       | iCade                                     |
+| ![Generic][11]    |                                       | Generic one                               |
+| ![TV Remote][12]  |                                       | Amazon Fire TV remote control             |
 
 Whitelabel:
   -> Select Button + X + Right trigger to enter into Gamepad mode
