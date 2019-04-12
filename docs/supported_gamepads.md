@@ -117,7 +117,7 @@ Tested gamepads so far.
 
 | Model              | Notes                       | Names                                                       |
 | ------------------ | --------------------------- | ----------------------------------------------------------- |
-| ![Xbox One][4]     |                             | [Xbox One][13]                                              |
+| ![Xbox One][4]     | See [issue #1][23]          | [Xbox One][13]                                              |
 | ![ps4_gamepad][5]  | Must be in PC mode          | [Sony Dualshock 4][14]                                      |
 | ![Android][6]      |                             | [ASUS][15], [Moga Pro 2][16], [Amazon Fire TV gamepads][17] |
 | ![Nimbus iOS][7]   |                             | [SteelSeries Nimbus][18] for iOS                            |
@@ -155,3 +155,4 @@ Tested gamepads so far.
 [20]: https://www.ebay.com/itm/8Bitdo-NES30-Classic-Edition-Controller-set-for-Nintendo-Switch-Android-PC-Mac/192855559380
 [21]: https://www.amazon.com/ION-iCade-Arcade-Bluetooth-Cabinet/dp/B004YC4NH6
 [22]: https://www.amazon.com/Alexa-Voice-Remote-Amazon-Stick/dp/B071D41YC3
+[23]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/1
