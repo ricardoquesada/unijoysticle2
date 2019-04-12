@@ -16,6 +16,13 @@ Example of Bluetooth Classic HID devices are:
 - Some mice
 - Some keyboards
 
+### Unknown
+
+I don't have any of these devices. It is possible that it might be easy to support them, or not.
+
+- Nintendo Switch controllers
+- Steam controllers
+
 ### Bluetooth BLE: Not supported ATM
 
 But not every Bluetooth HID device is "Classic". Some of them are "BLE" (low energy).
@@ -28,7 +35,7 @@ The good news is that all popular Bluetooth gamepads are Classic (not BLE).
 
 ### Non-Bluetooth: Not supported
 
-But not every wireless device is Bluetooth. If the device doesn't explicity say
+Not every wireless device is Bluetooth. If the device doesn't explicity say
 it is a Bluetooth, most probably it is not a Bluetooth device, hence not supported by Unijoysticle.
 
 Devices known to be non-Bluetooth:
@@ -38,8 +45,29 @@ Devices known to be non-Bluetooth:
 
 ## Virtual gamepad
 
-Internally, all devices are converted to a virtual gamepad. There is one parser
-for each type of controller. The parsers are reponsible for doing the mappings.
+Internally, all devices are converted to a virtual gamepad which is very similar
+to the Android/Xbox One gamepads layout. The different parsers convert the physical
+gamepads to the virtual gamepad.
+
+Button are mapped based on physical position, and not on names. For example, 8bitdo N30 gamepad
+uses the Nintendo layout, which is different than the Virtual Gamepad layout:
+
+```
+N30 layout       Virtual Gamepad layout
+    X                     Y
+    ^                     ^
+Y<-   ->A             X<-   ->B
+    v                     v
+    B                     A
+ ```
+
+ So, instead of honoring the button names, N30 will get remapped to match the
+ virtual gamepad layout, meaning that:
+
+- Button B -> A
+- Button A -> B
+- Button Y -> X
+- Button X -> Y
 
 ![virtual_gamepad][1]
 
@@ -57,6 +85,8 @@ for each type of controller. The parsers are reponsible for doing the mappings.
 - M1: Button System
 - M2: Button Home
 - M3: Button Back
+
+Many of the virtual buttons/pads are left unmapped, but could be mapped in the future.
 
 ## Basic mode
 
@@ -83,17 +113,17 @@ for each type of controller. The parsers are reponsible for doing the mappings.
 
 Tested gamepads so far.
 
-| Model             | Mapping                               | Notes                                     |
-| ----------------- | ------------------------------------- | ----------------------------------------- |
-| ![Xbox One][4]    |                                       | Xbox One                                  |
-| ![ps4_gamepad][5] |                                       | Sony Dualshock 4                          |
-| ![Android][6]     |                                       | ASUS, Moga Pro 2, Amazon Fire TV gamepads |
-| ![iOS][7]         |                                       | SteelSeries Nimbus for iOS                |
-| ![OUYA][8]        |                                       | OUYA (1st gen)                            |
-| ![8bitdo][9]      | Buttons are swapped: A <-> B, X <-> Y | 8bitdo NES30                              |
-| ![iCade][10]      |                                       | iCade                                     |
-| ![Generic][11]    |                                       | Generic one                               |
-| ![TV Remote][12]  |                                       | Amazon Fire TV remote control             |
+| Model             | Mapping                     | Notes                                                       |
+| ----------------- | --------------------------- | ----------------------------------------------------------- |
+| ![Xbox One][4]    |                             | [Xbox One][13]                                              |
+| ![ps4_gamepad][5] |                             | [Sony Dualshock 4][14]                                      |
+| ![Android][6]     |                             | [ASUS][15], [Moga Pro 2][16], [Amazon Fire TV gamepads][17] |
+| ![Nimbus iOS][7]  |                             | [SteelSeries Nimbus][18] for iOS                            |
+| ![OUYA][8]        | Buttons: O,U,Y,A -> A,X,Y,B | OUYA (1st gen)                                              |
+| ![8bitdo N30][9]  | Buttons: B,Y,X,A -> A,X,Y,B | 8bitdo N30                                                  |
+| ![iCade][10]      |                             | iCade                                                       |
+| ![Generic][11]    |                             | Generic one                                                 |
+| ![TV Remote][12]  |                             | Amazon Fire TV remote control                               |
 
 Whitelabel:
   -> Select Button + X + Right trigger to enter into Gamepad mode
@@ -112,3 +142,9 @@ Whitelabel:
 [10]: https://lh3.googleusercontent.com/owslbSElM2BJL5M9h3hqksaCJhjAGf7DyfEwRFxxqjdG3Y73D5V9ScI0zVNokmSJMO6jrHMuX7j437kB-ER7kCAzc8GPX4ir9MPEVdypuxMneoIuzp3yAY8DqvkItbSZY0hlaAUMPn8=-no
 [11]: https://lh3.googleusercontent.com/JG0sQGQ4lmFIITl_nincUDdPi-mlYPol-RSQrnoxsYZf1_cc16A4WMod_ttuLJoIQigvcZ_ZF6NiA7p54bBQP-Eu52b28mbjfVCwsMjuu_LCQB9Lj0k9e5UkW_PkRM12IB0HrW8ah0k=-no
 [12]: https://lh3.googleusercontent.com/qnSdv7NM5et0vDhMQsRp7oMniqcjYxGKN9QJY0_gRWT6NXFrdWBf94JKNvP77abBZoykaSQOJBtXUnGW-Z1yF-MWn3q3t2Nt_TUVVV7a2HsPFjRc_DIuLh8tPiQNsEZSWDsb0z6Ys3k=-no
+[13]: https://www.xbox.com/en-US/xbox-one/accessories/controllers/xbox-wireless-controller
+[14]: https://www.playstation.com/en-us/explore/accessories/gaming-controllers/dualshock-4/
+[15]: https://www.asus.com/us/Home-Entertainment/Gamepad-TV500BG/
+[16]: https://www.amazon.com/PowerA-MOGA-Pro-Power-Electronic-Games/dp/B00FB5RBJM?th=1
+[17]: http://www.gamingonfire.com/2014-amazon-fire-gaming-controller-1st-gen/
+[18]: https://steelseries.com/gaming-controllers/nimbus
