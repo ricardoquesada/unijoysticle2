@@ -115,18 +115,17 @@ Many of the virtual buttons/pads are left unmapped, but could be mapped in the f
 
 Tested gamepads so far.
 
-| Model             | Notes                       | Names                                                       |
-| ----------------- | --------------------------- | ----------------------------------------------------------- |
-| ![Xbox One][4]    |                             | [Xbox One][13]                                              |
-| ![ps4_gamepad][5] |                             | [Sony Dualshock 4][14]                                      |
-| ![Android][6]     |                             | [ASUS][15], [Moga Pro 2][16], [Amazon Fire TV gamepads][17] |
-| ![Nimbus iOS][7]  |                             | [SteelSeries Nimbus][18] for iOS                            |
-| ![OUYA][8]        | Buttons: O,U,Y,A -> A,X,Y,B | OUYA (1st gen)                                              |
-| ![8bitdo N30][9]  | Buttons: B,Y,X,A -> A,X,Y,B | 8bitdo N30                                                  |
-| ![iCade][10]      |                             | iCade                                                       |
-| ![Generic][11]    | [*] See below               | Generic one                                                 |
-| ![TV Remote][12]  |                             | Amazon Fire TV remote control                               |
-
+| Model              | Notes                       | Names                                                       |
+| ------------------ | --------------------------- | ----------------------------------------------------------- |
+| ![Xbox One][4]     |                             | [Xbox One][13]                                              |
+| ![ps4_gamepad][5]  | Must be in PC mode          | [Sony Dualshock 4][14]                                      |
+| ![Android][6]      |                             | [ASUS][15], [Moga Pro 2][16], [Amazon Fire TV gamepads][17] |
+| ![Nimbus iOS][7]   |                             | [SteelSeries Nimbus][18] for iOS                            |
+| ![OUYA][8]         | Buttons: O,U,Y,A -> A,X,Y,B | [OUYA (1st gen)][19]                                        |
+| ![8bitdo NES30][9] | Buttons: B,Y,X,A -> A,X,Y,B | [8bitdo NES30][20]                                          |
+| ![iCade][10]       |                             | [ION iCade][21]                                             |
+| ![Generic][11]     | [*] See below               | Generic one                                                 |
+| ![TV Remote][12]   |                             | [Amazon Fire TV remote control][22] (1st gen)               |
 
 [*] Generic gamepads:
 
@@ -152,3 +151,7 @@ Tested gamepads so far.
 [16]: https://www.amazon.com/PowerA-MOGA-Pro-Power-Electronic-Games/dp/B00FB5RBJM?th=1
 [17]: http://www.gamingonfire.com/2014-amazon-fire-gaming-controller-1st-gen/
 [18]: https://steelseries.com/gaming-controllers/nimbus
+[19]: https://www.amazon.com/OUYA-Wireless-Controller/dp/B002I0GX38?th=1
+[20]: https://www.ebay.com/itm/8Bitdo-NES30-Classic-Edition-Controller-set-for-Nintendo-Switch-Android-PC-Mac/192855559380
+[21]: https://www.amazon.com/ION-iCade-Arcade-Bluetooth-Cabinet/dp/B004YC4NH6
+[22]: https://www.amazon.com/Alexa-Voice-Remote-Amazon-Stick/dp/B071D41YC3
