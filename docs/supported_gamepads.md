@@ -69,6 +69,10 @@ Y<-   ->A             X<-   ->B
 - Button Y -> X
 - Button X -> Y
 
+### Virtual gamepad mappings
+
+Many of the virtual buttons/pads are left unmapped, but could be mapped in the future.
+
 ![virtual_gamepad][1]
 
 - 1: D-pad
@@ -85,8 +89,6 @@ Y<-   ->A             X<-   ->B
 - M1: Button System
 - M2: Button Home
 - M3: Button Back
-
-Many of the virtual buttons/pads are left unmapped, but could be mapped in the future.
 
 ## Basic mode
 
@@ -113,7 +115,7 @@ Many of the virtual buttons/pads are left unmapped, but could be mapped in the f
 
 Tested gamepads so far.
 
-| Model             | Mapping                     | Notes                                                       |
+| Model             | Notes                       | Names                                                       |
 | ----------------- | --------------------------- | ----------------------------------------------------------- |
 | ![Xbox One][4]    |                             | [Xbox One][13]                                              |
 | ![ps4_gamepad][5] |                             | [Sony Dualshock 4][14]                                      |
@@ -122,12 +124,14 @@ Tested gamepads so far.
 | ![OUYA][8]        | Buttons: O,U,Y,A -> A,X,Y,B | OUYA (1st gen)                                              |
 | ![8bitdo N30][9]  | Buttons: B,Y,X,A -> A,X,Y,B | 8bitdo N30                                                  |
 | ![iCade][10]      |                             | iCade                                                       |
-| ![Generic][11]    |                             | Generic one                                                 |
+| ![Generic][11]    | [*] See below               | Generic one                                                 |
 | ![TV Remote][12]  |                             | Amazon Fire TV remote control                               |
 
-Whitelabel:
-  -> Select Button + X + Right trigger to enter into Gamepad mode
-  -> Select Button + X + Left trigger to enter in iCade mode.
+
+[*] Generic gamepads:
+
+- Select Button + X + Right trigger to enter into Gamepad mode
+- Select Button + X + Left trigger to enter in iCade mode.
 
 
 [1]: https://lh3.googleusercontent.com/sfRd1qSHaxe4he4lt63Xjsr_ejmrthB00bPpIj4CwuUOyzKy3otIrdsPqhy_Y0U78Ibcw5bssuUOgKxNsvhvq6AQGlmigtj2tWA67HQHEaDU4tEmq850Z47rwRW9EzAhFGi6XrgUhUI=-no
