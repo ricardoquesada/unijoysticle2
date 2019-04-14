@@ -106,7 +106,6 @@ static const uni_controlelr_description_t arrControllers[] = {
     {MAKE_CONTROLLER_ID(0x0079, 0x181a), CONTROLLER_TYPE_PS3Controller},  // Venom Arcade Stick
     {MAKE_CONTROLLER_ID(0x0079, 0x0006), CONTROLLER_TYPE_PS3Controller},  // PC Twin Shock Controller - looks like a DS3 but the face buttons are 1-4 instead of symbols
     {MAKE_CONTROLLER_ID(0x0079, 0x1844), CONTROLLER_TYPE_PS3Controller},  // From SDL
-    {MAKE_CONTROLLER_ID(0x8888, 0x0308), CONTROLLER_TYPE_PS3Controller},  // From SDL
     {MAKE_CONTROLLER_ID(0x2563, 0x0575), CONTROLLER_TYPE_PS3Controller},  // From SDL
     {MAKE_CONTROLLER_ID(0x0810, 0x0001), CONTROLLER_TYPE_PS3Controller},  // actually ps2 - maybe break out later
     {MAKE_CONTROLLER_ID(0x0810, 0x0003), CONTROLLER_TYPE_PS3Controller},  // actually ps2 - maybe break out later
