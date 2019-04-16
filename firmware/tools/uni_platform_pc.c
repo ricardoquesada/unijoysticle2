@@ -1,7 +1,7 @@
 /****************************************************************************
-http://retro.moe/unijoysticle
+http://retro.moe/unijoysticle2
 
-Copyright 2017 Ricardo Quesada
+Copyright 2019 Ricardo Quesada
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
