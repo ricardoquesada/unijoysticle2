@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - Firmware: Updated link to http://retro.moe/unijoysticle2
+- Firmware: Using esp-idf v3.2. Commit: cf866f23f2384ebf078fe71a3af1757e53ec6638
+  - Enabled options:
+    - Component Bluetooth enabled
+    - Dual mode BR/BLE enabled
+    - Bluetooth Max connections 4
+    - Bluetooth eSCO connections 2
+    - Coredump to UART
 
 ## [0.1.0] - 2019-04-15
 ### Added
