@@ -10,9 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Firmware: Using esp-idf v3.2. Commit: cf866f23f2384ebf078fe71a3af1757e53ec6638
   - Enabled options:
     - Component Bluetooth enabled
-    - Dual mode BR/BLE enabled
-    - Bluetooth Max connections 4
-    - Bluetooth eSCO connections 2
+    - Bluedroid disabled
+    - Dual mode BR/EDR + BLE enabled
+    - Bluetooth BR/EDR Max connections 4
     - Coredump to UART
 
 ## [0.1.0] - 2019-04-15

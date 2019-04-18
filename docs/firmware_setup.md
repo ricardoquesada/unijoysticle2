@@ -1,6 +1,6 @@
 # Firmware setup
 
-## Flashing only
+## Flashing precompiled firmware
 
 If you only want to flash the latest firmware version without downloading the toolchain + sources you should do:
 
@@ -8,12 +8,12 @@ If you only want to flash the latest firmware version without downloading the to
 - Download latest Unijoysticle firmware from here: https://gitlab.com/ricardoquesada/unijoysticle2/releases
 
 And:
-```
+```sh
 $ export ESPPORT=/dev/cu.SLAB_USBtoUART
 $ esptool.py --chip esp32 --port $ESPPORT --baud 115200 --before "default_reset" --after "hard_reset" write_flash -z --flash_mode "dio" --flash_freq "40m" --flash_size detect   0x1000 bootloader.bin 0x10000 firmware.bin 0x8000 partitions_singleapp.bin
 ```
 
-## Compiling + Flashing
+## Compiling + flashing firmware
 
 Development can be done locally or using Vagrant for convinience. It's recommended to read the local instructions once (or the bootstrap.sh script) before using Vagrant.
 
