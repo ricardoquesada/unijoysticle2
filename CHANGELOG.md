@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Docs: User guide
+
 ### Changed
 - Firmware: Updated link to http://retro.moe/unijoysticle2
 - Firmware: Using esp-idf v3.2. Commit: cf866f23f2384ebf078fe71a3af1757e53ec6638
@@ -14,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Dual mode BR/EDR + BLE enabled
     - Bluetooth BR/EDR Max connections 4
     - Coredump to UART
+- Firmware: Using btstack develop-branch. Commit: 4c9cb4f541277c36b9abf6abcc4e0f967c1bc3d4
 
 ## [0.1.0] - 2019-04-15
 ### Added
