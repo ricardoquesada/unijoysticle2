@@ -92,8 +92,8 @@ If none of the above works, file a bug (see below).
 
 [1]: firmware_setup.md
 [2]: supported_gamepads.md
-[3]: https://oshpark.com/shared_projects/l32mADi8
-[4]: https://www.pcbway.com/project/shareproject/Unijoysticle_2.html
+[3]: https://www.pcbway.com/project/shareproject/Unijoysticle_2.html
+[4]: https://oshpark.com/shared_projects/l32mADi8
 [5]: https://www.aliexpress.com/store/product/MH-ET-LIVE-ESP32-MINI-KIT-WiFi-Bluetooth-Internet-of-Things-development-board-based-ESP8266-Fully/2348158_32819107932.html?spm=a2g0x.12010108.1000001.12.56543b1cEQVriV
 [6]: https://www.aliexpress.com/item/10PCS-40Pin-1x40P-2-54mm-Male-Breakable-Single-Row-Pin-Header-Strip-Connector-For-Arduino/32973539561.html?spm=2114.search0104.3.9.158d2b70wty222
 [7]: https://www.digikey.com/short/pprdhv
