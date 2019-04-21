@@ -1,10 +1,10 @@
 # User Guide
 
-![Unijoysticle 2][https://lh3.googleusercontent.com/5z64MnH33BL75in0eUzcMZeayM6dUNELabYsVOB-fAuXg1LogRnEZN3G132GyiEIxGKzLtu-ZNaZyxh4UwsJbNI9UwP4f19cHUyUsJkge__LU6sLx3pXXtcNG3kAuNhCuoPcRgUDaL4=-no]
+![Unijoysticle 2](https://lh3.googleusercontent.com/5z64MnH33BL75in0eUzcMZeayM6dUNELabYsVOB-fAuXg1LogRnEZN3G132GyiEIxGKzLtu-ZNaZyxh4UwsJbNI9UwP4f19cHUyUsJkge__LU6sLx3pXXtcNG3kAuNhCuoPcRgUDaL4=-no)
 
 ## Soldering the kit
 
-![Solering the kit][https://lh3.googleusercontent.com/ZTu0iD57vqErS4Db-EeZyetXIQoKDy9E449kEcDra5ZAmpwThNIXn8jBqcDD87YzG1pip65pEcRpCkp2hKvoVQL1PpANQ766RERK4ecsmgYYdreZuJID4AX9zx7e3el4v3YggfPN4FM=-no]
+![Solering the kit](https://lh3.googleusercontent.com/ZTu0iD57vqErS4Db-EeZyetXIQoKDy9E449kEcDra5ZAmpwThNIXn8jBqcDD87YzG1pip65pEcRpCkp2hKvoVQL1PpANQ766RERK4ecsmgYYdreZuJID4AX9zx7e3el4v3YggfPN4FM=-no)
 
 All components are through-hole. The only components that have polarity are the LEDs and the diode.
 See graphic for reference.
