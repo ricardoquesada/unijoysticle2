@@ -90,26 +90,6 @@ Many of the virtual buttons/pads are left unmapped, but could be mapped in the f
 - M2: Button Home
 - M3: Button Back
 
-## Basic mode
-
-![basic mode][2]
-
-- D-pad/joypad: controls up/down/left/right
-- Button A: fire button
-- Button B: "up"  (ideal for platform games)
-- Button shoulder-right: autofire
-- System button swaps between Joystick #1 and #2
-
-## Enhanced mode
-
-![enhanced mode][3]
-
-- Left joypad / d-pad: control Joystick #2 movements
-- Right joypad: control Joystick #1 movements
-- Button A: fire for Joystick #2
-- Button B: fire for Joystick #1
-- Button Shoulder Left: auto-fire for Joystick #1
-- Button Shoulder Right: auto-fire for Joystick #2
 
 ## Tested gamepads
 
