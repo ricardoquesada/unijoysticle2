@@ -41,7 +41,28 @@ Devices known to be non-Bluetooth:
 - mice / keyboards that come with their own wireless dongle.
 - NVIDIA Shield gamepad
 
-# Virtual gamepad
+# Tested gamepads
+
+Tested gamepads so far.
+
+| Model              | Notes                                           | Names                                                       |
+| ------------------ | ----------------------------------------------- | ----------------------------------------------------------- |
+| ![Xbox One][4]     | See [issue #1][23]                              | [Xbox One][13]                                              |
+| ![ps4_gamepad][5]  | Must be in PC mode                              | [Sony Dualshock 4][14]                                      |
+| ![Android][6]      |                                                 | [ASUS][15], [Moga Pro 2][16], [Amazon Fire TV gamepads][17] |
+| ![Nimbus iOS][7]   |                                                 | [SteelSeries Nimbus][18] for iOS                            |
+| ![OUYA][8]         | Buttons: O,U,Y,A -> A,X,Y,B                     | [OUYA (1st gen)][19]                                        |
+| ![8bitdo NES30][9] | Buttons: B,Y,X,A -> A,X,Y,B. See [issue #3][24] | [8bitdo NES30][20]                                          |
+| ![iCade][10]       |                                                 | [ION iCade][21]                                             |
+| ![Generic][11]     | [*] See below                                   | Generic one                                                 |
+| ![TV Remote][12]   |                                                 | [Amazon Fire TV remote control][22] (1st gen)               |
+
+[*] Generic gamepads:
+
+- Select Button + X + Right trigger to enter into Gamepad mode
+- Select Button + X + Left trigger to enter in iCade mode.
+
+# Technical notes: Virtual gamepad
 
 Internally, all devices are converted to a virtual gamepad which is very similar
 to the Android/Xbox One gamepads layout. The different parsers convert the physical
@@ -51,7 +72,7 @@ Button are mapped based on physical position, and not on names. For example, 8bi
 uses the Nintendo layout, which is different than the Virtual Gamepad layout:
 
 ```
-N30 layout       Virtual Gamepad layout
+NES30 layout     Virtual Gamepad layout
     X                     Y
     ^                     ^
 Y<-   ->A             X<-   ->B
@@ -88,26 +109,6 @@ Many of the virtual buttons/pads are left unmapped, but could be mapped in the f
 - M2: Button Home
 - M3: Button Back
 
-# Tested gamepads
-
-Tested gamepads so far.
-
-| Model              | Notes                                           | Names                                                       |
-| ------------------ | ----------------------------------------------- | ----------------------------------------------------------- |
-| ![Xbox One][4]     | See [issue #1][23]                              | [Xbox One][13]                                              |
-| ![ps4_gamepad][5]  | Must be in PC mode                              | [Sony Dualshock 4][14]                                      |
-| ![Android][6]      |                                                 | [ASUS][15], [Moga Pro 2][16], [Amazon Fire TV gamepads][17] |
-| ![Nimbus iOS][7]   |                                                 | [SteelSeries Nimbus][18] for iOS                            |
-| ![OUYA][8]         | Buttons: O,U,Y,A -> A,X,Y,B                     | [OUYA (1st gen)][19]                                        |
-| ![8bitdo NES30][9] | Buttons: B,Y,X,A -> A,X,Y,B. See [issue #3][24] | [8bitdo NES30][20]                                          |
-| ![iCade][10]       |                                                 | [ION iCade][21]                                             |
-| ![Generic][11]     | [*] See below                                   | Generic one                                                 |
-| ![TV Remote][12]   |                                                 | [Amazon Fire TV remote control][22] (1st gen)               |
-
-[*] Generic gamepads:
-
-- Select Button + X + Right trigger to enter into Gamepad mode
-- Select Button + X + Left trigger to enter in iCade mode.
 
 
 [1]: https://lh3.googleusercontent.com/sfRd1qSHaxe4he4lt63Xjsr_ejmrthB00bPpIj4CwuUOyzKy3otIrdsPqhy_Y0U78Ibcw5bssuUOgKxNsvhvq6AQGlmigtj2tWA67HQHEaDU4tEmq850Z47rwRW9EzAhFGi6XrgUhUI=-no
