@@ -1,8 +1,6 @@
-# Unijoysticle 2 gamepads
+# Supported devices
 
-## Supported devices
-
-### Bluetooth Classic: Supported
+## Bluetooth Classic: Supported
 
 All Bluetooth Classic HID devices are supported, or should be easy to support them.
 Example of Bluetooth Classic HID devices are:
@@ -16,14 +14,14 @@ Example of Bluetooth Classic HID devices are:
 - Some mice
 - Some keyboards
 
-### Unknown
+## Unknown
 
 I don't have any of these devices. It is possible that it might be easy to support them, or not.
 
 - Nintendo Switch controllers
 - Steam controllers
 
-### Bluetooth BLE: Not supported ATM
+## Bluetooth BLE: Not supported ATM
 
 But not every Bluetooth HID device is "Classic". Some of them are "BLE" (low energy).
 And "BLE" devices are **not supported** at the moment, like:
@@ -33,7 +31,7 @@ And "BLE" devices are **not supported** at the moment, like:
 
 The good news is that all popular Bluetooth gamepads are Classic (not BLE).
 
-### Non-Bluetooth: Not supported
+## Non-Bluetooth: Not supported
 
 Not every wireless device is Bluetooth. If the device doesn't explicity say
 it is a Bluetooth, most probably it is not a Bluetooth device, hence not supported by Unijoysticle.
@@ -43,7 +41,7 @@ Devices known to be non-Bluetooth:
 - mice / keyboards that come with their own wireless dongle.
 - NVIDIA Shield gamepad
 
-## Virtual gamepad
+# Virtual gamepad
 
 Internally, all devices are converted to a virtual gamepad which is very similar
 to the Android/Xbox One gamepads layout. The different parsers convert the physical
@@ -69,7 +67,7 @@ Y<-   ->A             X<-   ->B
 - Button Y -> X
 - Button X -> Y
 
-### Virtual gamepad mappings
+## Virtual gamepad mappings
 
 Many of the virtual buttons/pads are left unmapped, but could be mapped in the future.
 
@@ -90,21 +88,21 @@ Many of the virtual buttons/pads are left unmapped, but could be mapped in the f
 - M2: Button Home
 - M3: Button Back
 
-## Tested gamepads
+# Tested gamepads
 
 Tested gamepads so far.
 
-| Model              | Notes                       | Names                                                       |
-| ------------------ | --------------------------- | ----------------------------------------------------------- |
-| ![Xbox One][4]     | See [issue #1][23]          | [Xbox One][13]                                              |
-| ![ps4_gamepad][5]  | Must be in PC mode          | [Sony Dualshock 4][14]                                      |
-| ![Android][6]      |                             | [ASUS][15], [Moga Pro 2][16], [Amazon Fire TV gamepads][17] |
-| ![Nimbus iOS][7]   |                             | [SteelSeries Nimbus][18] for iOS                            |
-| ![OUYA][8]         | Buttons: O,U,Y,A -> A,X,Y,B | [OUYA (1st gen)][19]                                        |
-| ![8bitdo NES30][9] | Buttons: B,Y,X,A -> A,X,Y,B | [8bitdo NES30][20]                                          |
-| ![iCade][10]       |                             | [ION iCade][21]                                             |
-| ![Generic][11]     | [*] See below               | Generic one                                                 |
-| ![TV Remote][12]   |                             | [Amazon Fire TV remote control][22] (1st gen)               |
+| Model              | Notes                                           | Names                                                       |
+| ------------------ | ----------------------------------------------- | ----------------------------------------------------------- |
+| ![Xbox One][4]     | See [issue #1][23]                              | [Xbox One][13]                                              |
+| ![ps4_gamepad][5]  | Must be in PC mode                              | [Sony Dualshock 4][14]                                      |
+| ![Android][6]      |                                                 | [ASUS][15], [Moga Pro 2][16], [Amazon Fire TV gamepads][17] |
+| ![Nimbus iOS][7]   |                                                 | [SteelSeries Nimbus][18] for iOS                            |
+| ![OUYA][8]         | Buttons: O,U,Y,A -> A,X,Y,B                     | [OUYA (1st gen)][19]                                        |
+| ![8bitdo NES30][9] | Buttons: B,Y,X,A -> A,X,Y,B. See [issue #3][24] | [8bitdo NES30][20]                                          |
+| ![iCade][10]       |                                                 | [ION iCade][21]                                             |
+| ![Generic][11]     | [*] See below                                   | Generic one                                                 |
+| ![TV Remote][12]   |                                                 | [Amazon Fire TV remote control][22] (1st gen)               |
 
 [*] Generic gamepads:
 
@@ -133,3 +131,4 @@ Tested gamepads so far.
 [21]: https://www.amazon.com/ION-iCade-Arcade-Bluetooth-Cabinet/dp/B004YC4NH6
 [22]: https://www.amazon.com/Alexa-Voice-Remote-Amazon-Stick/dp/B071D41YC3
 [23]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/1
+[24]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/3
