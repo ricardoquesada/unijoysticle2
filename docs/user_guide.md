@@ -8,12 +8,15 @@
 
 ## Soldering the kit
 
+All components are through-hole. The only components that have polarity are the LEDs and the diode.
+See graphic for reference:
+
 ![Solering the kit](https://lh3.googleusercontent.com/ZTu0iD57vqErS4Db-EeZyetXIQoKDy9E449kEcDra5ZAmpwThNIXn8jBqcDD87YzG1pip65pEcRpCkp2hKvoVQL1PpANQ766RERK4ecsmgYYdreZuJID4AX9zx7e3el4v3YggfPN4FM=-no)
+
+An assembled + soldered kit should look like this:
 
 ![Assembled kit](https://lh3.googleusercontent.com/ajmUdFVA07CQ-HD-Z7w5bQ8Ehf92yn07OGGAG7KtJ-6NTYPcR7L1pfNEfjhBFYwxOR8zb6hFmFuHY9WvX81-PWAtoh0-bU1ez5l87fhbDvOaTmwdqO0MHizSjWBAnSh7Vo59RdISxZM=-no)
 
-All components are through-hole. The only components that have polarity are the LEDs and the diode.
-See graphic for reference.
 
 
 Neded components:
@@ -81,7 +84,6 @@ The gamepad could be in two possible modes:
 ### Basic mode
 
 ![basic mode](https://lh3.googleusercontent.com/hkoAJbbtSpY53cpU-FO76QjTOPwuwWgDiKhQuNdbWnSwiozcqUloeOHuPclvunSC3vjH55n8Og-_cZO2ZTq6BhEbKOc0gb3qmASyLMC7BfAbTBNXjrV2LxzJu8-q0cDMexzOYlD4QE8=-no)
-
 
 "Basic mode" is what you would expect, with the additional benefit that
 Button B is mapped to "jump". Ideal for platform games like Giana Sisters,
