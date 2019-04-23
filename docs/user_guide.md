@@ -10,8 +10,11 @@
 
 ![Solering the kit](https://lh3.googleusercontent.com/ZTu0iD57vqErS4Db-EeZyetXIQoKDy9E449kEcDra5ZAmpwThNIXn8jBqcDD87YzG1pip65pEcRpCkp2hKvoVQL1PpANQ766RERK4ecsmgYYdreZuJID4AX9zx7e3el4v3YggfPN4FM=-no)
 
+![Assembled kit](https://lh3.googleusercontent.com/ajmUdFVA07CQ-HD-Z7w5bQ8Ehf92yn07OGGAG7KtJ-6NTYPcR7L1pfNEfjhBFYwxOR8zb6hFmFuHY9WvX81-PWAtoh0-bU1ez5l87fhbDvOaTmwdqO0MHizSjWBAnSh7Vo59RdISxZM=-no)
+
 All components are through-hole. The only components that have polarity are the LEDs and the diode.
 See graphic for reference.
+
 
 Neded components:
 
