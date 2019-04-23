@@ -95,8 +95,10 @@ Super Mario Bros, Mayhem in Monsterland, etc.
 ![enhanced mode](https://lh3.googleusercontent.com/89CUlpgxrnDJ8b5hXdvHCi-X7d-2a6r6qP5vJbnFJWAHObfCsYy7Flq7pYpwrv-qXy-dT_-Jk02tgWQpgwnedKrC5STNhpl_Xd2OtJ8lgP3PnEvKDIiumTB_PZHdg5qCxsEZLc5-dWU=-no)
 
 In Enhanced mode, you control both joysticks from only one gamepad.
-Since "Button B" is mapped to "J1 fire" this is great for games like Commmando
-or 1942 since you can throw grenades / do rolls with it.
+Since "Button B" is mapped to "J1 fire" this is great for games like
+[Commmando][10] or [1942][9] since you can throw grenades / do rolls with it.
+It also opens up the possibility to create games that require more controls,
+like [Robotron: 2084][8]
 
 - Left joypad / d-pad: control Joystick #2 movements
 - Right joypad: control Joystick #1 movements
@@ -151,3 +153,6 @@ If none of the above works, file a bug (see below).
 [5]: https://www.aliexpress.com/store/product/MH-ET-LIVE-ESP32-MINI-KIT-WiFi-Bluetooth-Internet-of-Things-development-board-based-ESP8266-Fully/2348158_32819107932.html?spm=a2g0x.12010108.1000001.12.56543b1cEQVriV
 [6]: https://www.aliexpress.com/item/10PCS-40Pin-1x40P-2-54mm-Male-Breakable-Single-Row-Pin-Header-Strip-Connector-For-Arduino/32973539561.html?spm=2114.search0104.3.9.158d2b70wty222
 [7]: https://www.digikey.com/short/pprdhv
+[8]: https://en.wikipedia.org/wiki/Robotron:_2084
+[9]: https://csdb.dk/release/?id=38140
+[10]: https://csdb.dk/release/?id=137173
