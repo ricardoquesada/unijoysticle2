@@ -77,7 +77,8 @@ The gamepad could be in two possible modes:
 
 ### Basic mode
 
-![basic mode][2]
+![basic mode](https://lh3.googleusercontent.com/hkoAJbbtSpY53cpU-FO76QjTOPwuwWgDiKhQuNdbWnSwiozcqUloeOHuPclvunSC3vjH55n8Og-_cZO2ZTq6BhEbKOc0gb3qmASyLMC7BfAbTBNXjrV2LxzJu8-q0cDMexzOYlD4QE8=-no)
+
 
 "Basic mode" is what you would expect, with the additional benefit that
 Button B is mapped to "jump". Ideal for platform games like Giana Sisters,
@@ -91,7 +92,7 @@ Super Mario Bros, Mayhem in Monsterland, etc.
 
 ### Enhanced mode
 
-![enhanced mode][3]
+![enhanced mode](https://lh3.googleusercontent.com/89CUlpgxrnDJ8b5hXdvHCi-X7d-2a6r6qP5vJbnFJWAHObfCsYy7Flq7pYpwrv-qXy-dT_-Jk02tgWQpgwnedKrC5STNhpl_Xd2OtJ8lgP3PnEvKDIiumTB_PZHdg5qCxsEZLc5-dWU=-no)
 
 In Enhanced mode, you control both joysticks from only one gamepad.
 Since "Button B" is mapped to "J1 fire" this is great for games like Commmando
