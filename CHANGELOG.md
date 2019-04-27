@@ -23,6 +23,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Firmware: v0.1.0
   - Using esp-idf v3.1.3. Commit: cf5dbadf4f25b395887238a7d4d8251c279afa8c
-  - Using btstack develop-branch. Commit: 79ca10bb195dedeed22d0e1319a8d33730d36318
+  - Using btstack develop-branch. Commit: 8b22c04ddc425565c8e4002a6d4d26a53426a31f
 - Schematic: Rev B
 - Board layout: Rev B
