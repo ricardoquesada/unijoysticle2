@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Dual mode BR/EDR + BLE enabled
     - Bluetooth BR/EDR Max connections 4
     - Coredump to UART
-- Firmware: Using btstack develop-branch. Commit: 4c9cb4f541277c36b9abf6abcc4e0f967c1bc3d4
+- Firmware: Using btstack develop-branch. Commit: 5ec47f0f9ec2b85540930e8726a8664309398a18
 
 ## [0.1.0] - 2019-04-15
 ### Added
