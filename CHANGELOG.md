@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Docs: User guide
 
 ### Changed
+- Firmware: Combo-mode:
+  - Turn on both LEDs when enabled.
+  - When back from combo-mode, restore previously used port
+  - Cannot swap ports when in combo mode
 - Firmware: Updated link to http://retro.moe/unijoysticle2
 - Firmware: Using esp-idf v3.2. Commit: cf866f23f2384ebf078fe71a3af1757e53ec6638
   - Enabled options:

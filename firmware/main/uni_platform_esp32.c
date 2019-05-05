@@ -225,21 +225,17 @@ void uni_platform_on_init_complete() {
 }
 
 void uni_platform_on_port_assigned(uni_joystick_port_t port) {
-  if (port == JOYSTICK_PORT_A)
+  if ((port & JOYSTICK_PORT_A) == JOYSTICK_PORT_A)
     gpio_set_level(GPIO_LED_J1, 1);
-  else if (port == JOYSTICK_PORT_B)
+  if ((port & JOYSTICK_PORT_B) == JOYSTICK_PORT_B)
     gpio_set_level(GPIO_LED_J2, 1);
-  else
-    loge("uni_platform_on_port_assigned: Unknown port: %d\n", port);
 }
 
 void uni_platform_on_port_freed(uni_joystick_port_t port) {
-  if (port == JOYSTICK_PORT_A)
+  if ((port & JOYSTICK_PORT_A) == JOYSTICK_PORT_A)
     gpio_set_level(GPIO_LED_J1, 0);
-  else if (port == JOYSTICK_PORT_B)
+  if ((port & JOYSTICK_PORT_B) == JOYSTICK_PORT_B)
     gpio_set_level(GPIO_LED_J2, 0);
-  else
-    loge("uni_platform_on_port_freed: Unknown port: %d\n", port);
 }
 
 void uni_platform_on_mouse_data(int32_t delta_x, int32_t delta_y) {

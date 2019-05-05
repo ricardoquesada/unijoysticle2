@@ -209,6 +209,7 @@ void uni_hid_device_set_disconnected(uni_hid_device_t* d) {
   if (d->joystick_port != JOYSTICK_PORT_NONE) {
     uni_platform_on_port_freed(d->joystick_port);
     d->joystick_port = JOYSTICK_PORT_NONE;
+    d->emu_mode = EMULATION_MODE_SINGLE_JOY;
   }
 }
 
@@ -502,8 +503,16 @@ static void process_misc_button_system(uni_hid_device_t* d) {
   if (d->wait_release_misc_button & MISC_BUTTON_SYSTEM)
     return;
 
-  if (d->joystick_port == JOYSTICK_PORT_NONE)
+  if (d->joystick_port == JOYSTICK_PORT_NONE) {
+    logi("cannot swap port since device has joystick_port = JOYSTICK_PORT_NONE\n");
     return;
+  }
+
+  // This could happen if device is any Combo emu mode.
+  if (d->joystick_port == (JOYSTICK_PORT_A | JOYSTICK_PORT_B)) {
+    logi("cannot swap port since has more than one port associated with. Leave emu mode and try again.\n");
+    return;
+  }
 
   // swap joysticks if only one device is attached
   int num_devices = 0;
@@ -570,9 +579,17 @@ void uni_hid_device_on_emu_mode_change(void) {
 
   if (d->emu_mode == EMULATION_MODE_SINGLE_JOY) {
     d->emu_mode = EMULATION_MODE_COMBO_JOY_JOY;
+    d->prev_joystick_port = d->joystick_port;
+    d->joystick_port = JOYSTICK_PORT_A | JOYSTICK_PORT_B;
+    uni_platform_on_port_assigned(d->joystick_port);
     logi("Emulation mode = Combo Joy Joy\n");
   } else if (d->emu_mode == EMULATION_MODE_COMBO_JOY_JOY) {
     d->emu_mode = EMULATION_MODE_SINGLE_JOY;
+    // Turn off all LEDs.
+    uni_platform_on_port_freed(d->joystick_port);
+    d->joystick_port = d->prev_joystick_port;
+    // Turn on only the valid one
+    uni_platform_on_port_assigned(d->joystick_port);
     logi("Emulation mode = Single Joy\n");
   } else {
     loge("Cannot switch emu mode. Current mode: %d\n", d->emu_mode);
