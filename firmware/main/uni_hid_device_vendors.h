@@ -418,9 +418,11 @@ static const uni_controlelr_description_t arrControllers[] = {
 };
 // clang-format on
 
-static inline uni_controller_type_t guess_controller_type(uint16_t nVID, uint16_t nPID) {
+static inline uni_controller_type_t guess_controller_type(uint16_t nVID,
+                                                          uint16_t nPID) {
   uint32_t device_id = MAKE_CONTROLLER_ID(nVID, nPID);
-  for (uint32_t i = 0; i < sizeof(arrControllers) / sizeof(arrControllers[0]); ++i) {
+  for (uint32_t i = 0; i < sizeof(arrControllers) / sizeof(arrControllers[0]);
+       ++i) {
     if (device_id == arrControllers[i].device_id) {
       return arrControllers[i].controller_type;
     }

@@ -59,7 +59,8 @@ enum {
   GPIO_JOY_B_LEFT = GPIO_NUM_23,  // D7
   GPIO_JOY_B_RIGHT = GPIO_NUM_5,  // D8
   // GPIO_NUM_3 is assigned to the UART. And although it is possible to
-  // rewire the GPIOs for the UART in software, the devkits expects that GPIOS 1 and 3
+  // rewire the GPIOs for the UART in software, the devkits expects that GPIOS 1
+  // and 3
   // are assigned to UART 0. And I cannot use it.
   // Using GPIO 27 instead, which is the one that is closer to GPIO 3.
   GPIO_JOY_B_FIRE = GPIO_NUM_27,  // RX
@@ -92,9 +93,11 @@ enum {
   EVENT_BIT_AUTOFIRE = (1 << 0),
 };
 
-static const gpio_num_t JOY_A_PORTS[] = {GPIO_JOY_A_UP, GPIO_JOY_A_DOWN, GPIO_JOY_A_LEFT, GPIO_JOY_A_RIGHT,
+static const gpio_num_t JOY_A_PORTS[] = {GPIO_JOY_A_UP, GPIO_JOY_A_DOWN,
+                                         GPIO_JOY_A_LEFT, GPIO_JOY_A_RIGHT,
                                          GPIO_JOY_A_FIRE};
-static const gpio_num_t JOY_B_PORTS[] = {GPIO_JOY_B_UP, GPIO_JOY_B_DOWN, GPIO_JOY_B_LEFT, GPIO_JOY_B_RIGHT,
+static const gpio_num_t JOY_B_PORTS[] = {GPIO_JOY_B_UP, GPIO_JOY_B_DOWN,
+                                         GPIO_JOY_B_LEFT, GPIO_JOY_B_RIGHT,
                                          GPIO_JOY_B_FIRE};
 
 // --- Globals
@@ -160,11 +163,15 @@ void uni_platform_init(void) {
   io_conf.pull_up_en = GPIO_PULLUP_DISABLE;
   // Port A.
   io_conf.pin_bit_mask =
-      ((1ULL << GPIO_JOY_A_UP) | (1ULL << GPIO_JOY_A_DOWN) | (1ULL << GPIO_JOY_A_LEFT) | (1ULL << GPIO_JOY_A_RIGHT) |
-       (1ULL << GPIO_JOY_A_FIRE) | (1ULL << GPIO_JOY_A_POT_X) | (1ULL << GPIO_JOY_A_POT_Y));
+      ((1ULL << GPIO_JOY_A_UP) | (1ULL << GPIO_JOY_A_DOWN) |
+       (1ULL << GPIO_JOY_A_LEFT) | (1ULL << GPIO_JOY_A_RIGHT) |
+       (1ULL << GPIO_JOY_A_FIRE) | (1ULL << GPIO_JOY_A_POT_X) |
+       (1ULL << GPIO_JOY_A_POT_Y));
   // Port B.
-  io_conf.pin_bit_mask |= ((1ULL << GPIO_JOY_B_UP) | (1ULL << GPIO_JOY_B_DOWN) | (1ULL << GPIO_JOY_B_LEFT) |
-                           (1ULL << GPIO_JOY_B_RIGHT) | (1ULL << GPIO_JOY_B_FIRE));
+  io_conf.pin_bit_mask |=
+      ((1ULL << GPIO_JOY_B_UP) | (1ULL << GPIO_JOY_B_DOWN) |
+       (1ULL << GPIO_JOY_B_LEFT) | (1ULL << GPIO_JOY_B_RIGHT) |
+       (1ULL << GPIO_JOY_B_FIRE));
 
   // Leds
   io_conf.pin_bit_mask |= (1ULL << GPIO_LED_J1);
@@ -194,7 +201,8 @@ void uni_platform_init(void) {
   io_conf.pin_bit_mask = (1ULL << GPIO_PUSH_BUTTON);
   ESP_ERROR_CHECK(gpio_config(&io_conf));
   ESP_ERROR_CHECK(gpio_install_isr_service(0));
-  ESP_ERROR_CHECK(gpio_isr_handler_add(GPIO_PUSH_BUTTON, gpio_isr_handler_button, (void*)GPIO_PUSH_BUTTON));
+  ESP_ERROR_CHECK(gpio_isr_handler_add(
+      GPIO_PUSH_BUTTON, gpio_isr_handler_button, (void*)GPIO_PUSH_BUTTON));
 
 // C64 POT related
 #if UNI_ENABLE_POT
@@ -205,7 +213,8 @@ void uni_platform_init(void) {
   io_conf.pull_up_en = true;
   ESP_ERROR_CHECK(gpio_config(&io_conf));
   ESP_ERROR_CHECK(gpio_install_isr_service(0));
-  ESP_ERROR_CHECK(gpio_isr_handler_add(GPIO_NUM_12, gpio_isr_handler_pot, (void*)GPIO_NUM_12));
+  ESP_ERROR_CHECK(gpio_isr_handler_add(GPIO_NUM_12, gpio_isr_handler_pot,
+                                       (void*)GPIO_NUM_12));
 #endif  // UNI_ENABLE_POT
 
   // Split "events" from "auto_fire", since auto-fire is an on-going event.
@@ -214,7 +223,8 @@ void uni_platform_init(void) {
 
   g_auto_fire_group = xEventGroupCreate();
   xTaskCreate(auto_fire_loop, "auto_fire_loop", 2048, NULL, 10, NULL);
-  // xTaskCreatePinnedToCore(event_loop, "event_loop", 2048, NULL, portPRIVILEGE_BIT, NULL, 1);
+  // xTaskCreatePinnedToCore(event_loop, "event_loop", 2048, NULL,
+  // portPRIVILEGE_BIT, NULL, 1);
 }
 
 // Events
@@ -242,8 +252,9 @@ void uni_platform_on_mouse_data(int32_t delta_x, int32_t delta_y) {
   logd("mouse x=%d, y=%d\n", delta_x, delta_y);
 
   // Mouse is implemented using a quadrature encoding
-  // FIXME: Passing values to mouse task using global variables. This is, of course,
-  // error-prone to raaces and what not, but seeems to be good enough for our purpose.
+  // FIXME: Passing values to mouse task using global variables. This is, of
+  // course, error-prone to races and what not, but seeems to be good enough for
+  // our purpose.
   if (delta_x || delta_y) {
     g_delta_x = delta_x;
     g_delta_y = delta_y;
@@ -272,8 +283,9 @@ uint8_t uni_platform_is_button_pressed() {
 }
 
 static void joy_update_port(uni_joystick_t* joy, const gpio_num_t* gpios) {
-  logd("up=%d, down=%d, left=%d, right=%d, fire=%d, potx=%d, poty=%d\n", joy->up, joy->down, joy->left, joy->right,
-       joy->fire, joy->pot_x, joy->pot_y);
+  logd("up=%d, down=%d, left=%d, right=%d, fire=%d, potx=%d, poty=%d\n",
+       joy->up, joy->down, joy->left, joy->right, joy->fire, joy->pot_x,
+       joy->pot_y);
 
   g_pot_x = joy->pot_x;
   g_pot_y = joy->pot_y;
@@ -293,8 +305,9 @@ static void event_loop(void* arg) {
   // timeout of 10s
   const TickType_t xTicksToWait = 10000 / portTICK_PERIOD_MS;
   while (1) {
-    EventBits_t uxBits = xEventGroupWaitBits(g_event_group, (EVENT_BIT_MOUSE | EVENT_BIT_BUTTON | EVENT_BIT_POT),
-                                             pdTRUE, pdFALSE, xTicksToWait);
+    EventBits_t uxBits = xEventGroupWaitBits(
+        g_event_group, (EVENT_BIT_MOUSE | EVENT_BIT_BUTTON | EVENT_BIT_POT),
+        pdTRUE, pdFALSE, xTicksToWait);
 
     // timeout ?
     if (uxBits == 0)
@@ -316,7 +329,8 @@ static void auto_fire_loop(void* arg) {
   const TickType_t xTicksToWait = 10000 / portTICK_PERIOD_MS;
   const TickType_t delayTicks = AUTOFIRE_FREQ_MS / portTICK_PERIOD_MS;
   while (1) {
-    EventBits_t uxBits = xEventGroupWaitBits(g_auto_fire_group, EVENT_BIT_AUTOFIRE, pdTRUE, pdFALSE, xTicksToWait);
+    EventBits_t uxBits = xEventGroupWaitBits(
+        g_auto_fire_group, EVENT_BIT_AUTOFIRE, pdTRUE, pdFALSE, xTicksToWait);
 
     // timeout ?
     if (uxBits == 0)
@@ -357,7 +371,7 @@ void handle_event_mouse() {
     abs_y = MIN(15, MAX(1, abs_y >> 3));
 
   // dir_x / dir_y have the same values as the global delta, but they are easy
-  // to understand its meaning when being passed to move_x() / move_y().
+  // to understand their meaning when being passed to move_x() / move_y().
   int dir_x = g_delta_x;
   int dir_y = g_delta_y;
   // Y = 0
@@ -439,8 +453,8 @@ static void move_y(int dir, uint32_t delay) {
 }
 
 // Delay in microseconds. Anything bigger than 1000 microseconds (1 millisecond)
-// should be scheduled using vTaskDelay(), which will allow context-switch and allow
-// other tasks to run.
+// should be scheduled using vTaskDelay(), which will allow context-switch and
+// allow other tasks to run.
 static void delay_us(uint32_t delay) {
   if (delay > 1000)
     vTaskDelay(delay / 1000);
@@ -468,7 +482,8 @@ static void IRAM_ATTR gpio_isr_handler_button(void* arg) {
 
   // button pressed
   BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-  xEventGroupSetBitsFromISR(g_event_group, EVENT_BIT_BUTTON, &xHigherPriorityTaskWoken);
+  xEventGroupSetBitsFromISR(g_event_group, EVENT_BIT_BUTTON,
+                            &xHigherPriorityTaskWoken);
   if (xHigherPriorityTaskWoken == pdTRUE)
     portYIELD_FROM_ISR();
 }
@@ -479,14 +494,16 @@ static void IRAM_ATTR gpio_isr_handler_pot(void* arg) {
   (void)gpio_num;
 
   BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-  xEventGroupSetBitsFromISR(g_event_group, EVENT_BIT_POT, &xHigherPriorityTaskWoken);
+  xEventGroupSetBitsFromISR(g_event_group, EVENT_BIT_POT,
+                            &xHigherPriorityTaskWoken);
   if (xHigherPriorityTaskWoken == pdTRUE)
     portYIELD_FROM_ISR();
 }
 #endif  // UNI_ENABLE_POT
 
 static void handle_event_button() {
-  // FIXME: Debouncer might fail when releasing the button. Implement something like this one:
+  // FIXME: Debouncer might fail when releasing the button. Implement something
+  // like this one:
   // https://hackaday.com/2015/12/10/embed-with-elliot-debounce-your-noisy-buttons-part-ii/
   const int64_t button_threshold_time_us = 300 * 1000;  // 300ms
   static int enabled = 0;
