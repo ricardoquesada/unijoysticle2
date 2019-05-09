@@ -37,7 +37,7 @@ limitations under the License.
 // 17 milliseconds ~= 1 frame in NTSC
 static const int AUTOFIRE_FREQ_MS = 20 * 4;  // change every ~4 frames
 
-static const int MOUSE_DELAY_BETWEEN_EVENT_US = 12000;  // microseconds
+static const int MOUSE_DELAY_BETWEEN_EVENT_US = 400;  // microseconds
 static const int MOUSE_MAX_DELTA = 32;
 
 // GPIO map for MH-ET Live mini-kit board.
@@ -127,9 +127,10 @@ static void handle_event_button();
 
 // Mouse related
 static void joy_update_port(uni_joystick_t* joy, const gpio_num_t* gpios);
-static void send_move(int pin_a, int pin_b, uint32_t delay);
-static void move_x(int dir, uint32_t delay);
-static void move_y(int dir, uint32_t delay);
+static void mouse_send_move(int pin_a, int pin_b, uint32_t delay);
+static void mouse_move_x(int dir, uint32_t delay);
+static void mouse_move_y(int dir, uint32_t delay);
+
 static void delay_us(uint32_t delay);
 
 // GPIO Interrupt handlers
@@ -248,8 +249,11 @@ void uni_platform_on_port_freed(uni_joystick_port_t port) {
     gpio_set_level(GPIO_LED_J2, 0);
 }
 
-void uni_platform_on_mouse_data(int32_t delta_x, int32_t delta_y) {
-  logd("mouse x=%d, y=%d\n", delta_x, delta_y);
+void uni_platform_on_mouse_data(int32_t delta_x,
+                                int32_t delta_y,
+                                uint16_t buttons) {
+  static uint16_t prev_buttons = 0;
+  printf("mouse: x=%d, y=%d, buttons=0x%4x\n", delta_x, delta_y, buttons);
 
   // Mouse is implemented using a quadrature encoding
   // FIXME: Passing values to mouse task using global variables. This is, of
@@ -259,6 +263,11 @@ void uni_platform_on_mouse_data(int32_t delta_x, int32_t delta_y) {
     g_delta_x = delta_x;
     g_delta_y = delta_y;
     xEventGroupSetBits(g_event_group, EVENT_BIT_MOUSE);
+  }
+  if (buttons != prev_buttons) {
+    prev_buttons = buttons;
+    gpio_set_level(GPIO_JOY_A_FIRE, (buttons & BUTTON_A));
+    gpio_set_level(GPIO_JOY_A_POT_X, (buttons & BUTTON_B));
   }
 }
 
@@ -363,68 +372,77 @@ void handle_event_mouse() {
   // We consider these 4 cases:
   // Y = 0, X = 0, X > Y, Y > X
   // Any delta greater than MOUSE_MAX_DELTA is capped to MOUSE_MAX_DELTA
-  int abs_x = abs(g_delta_x);
-  if (abs_x > 2)
-    abs_x = MIN(15, MAX(1, abs_x >> 3));
-  int abs_y = abs(g_delta_y);
-  if (abs_y > 2)
-    abs_y = MIN(15, MAX(1, abs_y >> 3));
+  int abs_x = 0;
+  int abs_y = 0;
+  if (g_delta_x)
+    abs_x = abs(g_delta_x / 2) + 1;
+  // if (abs_x > 2)
+  //   abs_x = MIN(15, MAX(1, abs_x >> 3));
+  if (g_delta_y)
+    abs_y = abs(g_delta_y / 2) + 1;
+  // if (abs_y > 2)
+  //   abs_y = MIN(15, MAX(1, abs_y >> 3));
 
-  // dir_x / dir_y have the same values as the global delta, but they are easy
-  // to understand their meaning when being passed to move_x() / move_y().
+  // dir_x / dir_y have the same values as the global delta, but it is easy
+  // to understand their meaning when being passed to mouse_move_x() /
+  // mouse_move_y().
   int dir_x = g_delta_x;
   int dir_y = g_delta_y;
+  abs_y = MIN(abs_y, 15);
+  abs_x = MIN(abs_x, 15);
+  int total = abs_y + abs_x;
+  int delay = MOUSE_DELAY_BETWEEN_EVENT_US;
+
+  logd("mouse x=%d -> %d, y=%d -> %d, delay=%d\n", g_delta_x, abs_x, g_delta_y,
+       abs_y, delay);
+
   // Y = 0
   if (abs_x != 0 && abs_y == 0) {
     // Horizontal movment
-    // The faster it moves, the less delay it has.
-    uint32_t delay = (MOUSE_DELAY_BETWEEN_EVENT_US / abs_x) + 1;
     for (int i = 0; i < abs_x; i++) {
-      move_x(dir_x, delay);
+      mouse_move_x(dir_x, delay);
     }
   }
   // X = 0
   else if (abs_x == 0 && abs_y != 0) {
     // Vertical movement
-    // The faster it moves, the less delay it has.
-    uint32_t delay = (MOUSE_DELAY_BETWEEN_EVENT_US / abs_y) + 1;
     for (int i = 0; i < abs_y; i++) {
-      move_y(dir_y, delay);
+      mouse_move_y(dir_y, delay);
     }
   } else if (abs_x > abs_y) {
     // X is the driving the loop.
-    uint32_t delay = (MOUSE_DELAY_BETWEEN_EVENT_US / (abs_x + abs_y)) + 1;
-    // Avoid floating points to make it more portable between microcontrollers.
-    int inc_y = abs_y * 100 / abs_x;
+    // Avoid floating points to make it more portable between
+    // microcontrollers.
+    int inc_y = abs_y * 1000 / abs_x;
     int accum_y = 0;
 
     for (int i = 0; i < abs_x; i++) {
-      move_x(dir_x, delay);
+      mouse_move_x(dir_x, delay);
       accum_y += inc_y;
-      if (accum_y >= 100) {
-        move_y(dir_y, delay);
-        accum_y -= 100;
+      if (accum_y >= 1000) {
+        mouse_move_y(dir_y, delay);
+        accum_y -= 1000;
       }
     }
   } else {
     // Y is the driving the loop.
-    uint32_t delay = (MOUSE_DELAY_BETWEEN_EVENT_US / (abs_x + abs_y)) + 1;
-    // Avoid floating points to make it more portable between microcontrollers.
-    int inc_x = abs_x * 100 / abs_y;
+    // Avoid floating points to make it more portable between
+    // microcontrollers.
+    int inc_x = abs_x * 1000 / abs_y;
     int accum_x = 0;
 
     for (int i = 0; i < abs_y; i++) {
-      move_y(dir_y, delay);
+      mouse_move_y(dir_y, delay);
       accum_x += inc_x;
-      if (accum_x >= 100) {
-        move_x(dir_x, delay);
-        accum_x -= 100;
+      if (accum_x >= 1000) {
+        mouse_move_x(dir_x, delay);
+        accum_x -= 1000;
       }
     }
   }
 }
 
-static void send_move(int pin_a, int pin_b, uint32_t delay) {
+static void mouse_send_move(int pin_a, int pin_b, uint32_t delay) {
   gpio_set_level(pin_a, 1);
   delay_us(delay);
   gpio_set_level(pin_b, 1);
@@ -434,22 +452,24 @@ static void send_move(int pin_a, int pin_b, uint32_t delay) {
   delay_us(delay);
   gpio_set_level(pin_b, 0);
   delay_us(delay);
+
+  vTaskDelay(0);
 }
 
-static void move_x(int dir, uint32_t delay) {
+static void mouse_move_x(int dir, uint32_t delay) {
   // up, down, left, right, fire
   if (dir < 0)
-    send_move(JOY_A_PORTS[0], JOY_A_PORTS[1], delay);
+    mouse_send_move(JOY_A_PORTS[0], JOY_A_PORTS[1], delay);
   else
-    send_move(JOY_A_PORTS[1], JOY_A_PORTS[0], delay);
+    mouse_send_move(JOY_A_PORTS[1], JOY_A_PORTS[0], delay);
 }
 
-static void move_y(int dir, uint32_t delay) {
+static void mouse_move_y(int dir, uint32_t delay) {
   // up, down, left, right, fire
   if (dir < 0)
-    send_move(JOY_A_PORTS[2], JOY_A_PORTS[3], delay);
+    mouse_send_move(JOY_A_PORTS[2], JOY_A_PORTS[3], delay);
   else
-    send_move(JOY_A_PORTS[3], JOY_A_PORTS[2], delay);
+    mouse_send_move(JOY_A_PORTS[3], JOY_A_PORTS[2], delay);
 }
 
 // Delay in microseconds. Anything bigger than 1000 microseconds (1 millisecond)

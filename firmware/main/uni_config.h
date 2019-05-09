@@ -25,9 +25,9 @@ limitations under the License.
 #define UNI_LOG_INFO 1
 #define UNI_LOG_DEBUG 0
 
-// Enable pin compatibility with Unijoysticle v1 pinout. Enable this if you have a Unijoysticle v1
-// (the one with ESP8266) and want to replace the ESP8266 with an ESP32.
-// If you are Esteban/Arleka most probably you want this enabled.
+// Enable pin compatibility with Unijoysticle v1 pinout. Enable this if you have
+// a Unijoysticle v1 (the one with ESP8266) and want to replace the ESP8266 with
+// an ESP32. If you are Esteban/Arleka most probably you want this enabled.
 #define UNI_ENABLE_COMPAT_V1 0  // Enabled if 1
 
 // Enable C64 POT support. Currently not implemented

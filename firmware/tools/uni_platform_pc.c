@@ -23,8 +23,9 @@ limitations under the License.
 #include <stdio.h>
 
 static void print_joystick(uni_joystick_t* joy) {
-  printf("up=%d, down=%d, left=%d, right=%d, fire=%d, potx=%d, poty=%d\n", joy->up, joy->down, joy->left, joy->right,
-         joy->fire, joy->pot_x, joy->pot_y);
+  printf("up=%d, down=%d, left=%d, right=%d, fire=%d, potx=%d, poty=%d\n",
+         joy->up, joy->down, joy->left, joy->right, joy->fire, joy->pot_x,
+         joy->pot_y);
 }
 void uni_platform_init(void) {}
 void uni_platform_on_joy_a_data(uni_joystick_t* joy) {
@@ -33,8 +34,10 @@ void uni_platform_on_joy_a_data(uni_joystick_t* joy) {
 void uni_platform_on_joy_b_data(uni_joystick_t* joy) {
   print_joystick(joy);
 }
-void uni_platform_on_mouse_data(int32_t delta_x, int32_t delta_y) {
-  printf("mouse: x=%d, y=%d\n", delta_x, delta_y);
+void uni_platform_on_mouse_data(int32_t delta_x,
+                                int32_t delta_y,
+                                uint16_t buttons) {
+  printf("mouse: x=%d, y=%d, buttons=0x%4x\n", delta_x, delta_y, buttons);
 }
 
 uint8_t uni_platform_is_button_pressed() {

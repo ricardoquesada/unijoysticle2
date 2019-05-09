@@ -91,14 +91,16 @@ uni_hid_device_t* uni_hid_device_get_instance_for_cid(uint16_t cid) {
   if (cid == 0)
     return NULL;
   for (int i = 0; i < MAX_DEVICES; i++) {
-    if (g_devices[i].hid_interrupt_cid == cid || g_devices[i].hid_control_cid == cid) {
+    if (g_devices[i].hid_interrupt_cid == cid ||
+        g_devices[i].hid_control_cid == cid) {
       return &g_devices[i];
     }
   }
   return NULL;
 }
 
-uni_hid_device_t* uni_hid_device_get_instance_for_connection_handle(hci_con_handle_t handle) {
+uni_hid_device_t* uni_hid_device_get_instance_for_connection_handle(
+    hci_con_handle_t handle) {
   if (handle == 0)
     return NULL;
   for (int i = 0; i < MAX_DEVICES; i++) {
@@ -136,8 +138,8 @@ void uni_hid_device_try_assign_joystick_port(uni_hid_device_t* d) {
     return;
   }
 
-  // A controller is not really needed for the assignment, but we only want to assign
-  // a joystick port when the device is ready to receive input.
+  // A controller is not really needed for the assignment, but we only want to
+  // assign a joystick port when the device is ready to receive input.
   if (!uni_hid_device_has_controller_type(d)) {
     return;
   }
@@ -179,7 +181,8 @@ void uni_hid_device_remove_entry_with_channel(uint16_t channel) {
   if (channel == 0)
     return;
   for (int i = 0; i < MAX_DEVICES; i++) {
-    if (g_devices[i].hid_control_cid == channel || g_devices[i].hid_interrupt_cid == channel) {
+    if (g_devices[i].hid_control_cid == channel ||
+        g_devices[i].hid_interrupt_cid == channel) {
       memset(&g_devices[i], 0, sizeof(g_devices[i]));
       break;
     }
@@ -232,13 +235,15 @@ uint8_t uni_hid_device_is_cod_supported(uint32_t cod) {
   // Joysticks, mice, gamepads are valid.
   if ((cod & MASK_COD_MAJOR_PERIPHERAL) == MASK_COD_MAJOR_PERIPHERAL) {
     // Device is a peripheral: keyboard, mouse, joystick, gamepad, etc.
-    // We only care about joysticks, gamepads & mice. But some gamepads, specially
-    // cheap ones are advertised as keyboards.
-    return !!(minor_cod & (MASK_COD_MINOR_GAMEPAD | MASK_COD_MINOR_JOYSTICK | MASK_COD_MINOR_POINT_DEVICE |
-                           MASK_COD_MINOR_KEYBOARD));
+    // We only care about joysticks, gamepads & mice. But some gamepads,
+    // specially cheap ones are advertised as keyboards.
+    return !!(minor_cod &
+              (MASK_COD_MINOR_GAMEPAD | MASK_COD_MINOR_JOYSTICK |
+               MASK_COD_MINOR_POINT_DEVICE | MASK_COD_MINOR_KEYBOARD));
   }
 
-  // Hack for Amazon Fire TV remote control: CoD: 0x00400408 (Audio + Telephony Hands free)
+  // Hack for Amazon Fire TV remote control: CoD: 0x00400408 (Audio + Telephony
+  // Hands free)
   if ((cod & MASK_COD_MAJOR_AUDIO) == MASK_COD_MAJOR_AUDIO) {
     return (cod == 0x400408);
   }
@@ -261,7 +266,9 @@ uint8_t uni_hid_device_is_incoming(uni_hid_device_t* d) {
   return !!(d->flags & FLAGS_INCOMING);
 }
 
-void uni_hid_device_set_name(uni_hid_device_t* d, const uint8_t* name, int name_len) {
+void uni_hid_device_set_name(uni_hid_device_t* d,
+                             const uint8_t* name,
+                             int name_len) {
   if (d == NULL) {
     log_error("ERROR: Invalid device\n");
     return;
@@ -290,7 +297,9 @@ uint8_t uni_hid_device_has_name(uni_hid_device_t* d) {
   return !!(d->flags & FLAGS_HAS_NAME);
 }
 
-void uni_hid_device_set_hid_descriptor(uni_hid_device_t* d, const uint8_t* descriptor, int len) {
+void uni_hid_device_set_hid_descriptor(uni_hid_device_t* d,
+                                       const uint8_t* descriptor,
+                                       int len) {
   if (d == NULL) {
     log_error("ERROR: Invalid device\n");
     return;
@@ -335,10 +344,12 @@ uint16_t uni_hid_device_get_vendor_id(uni_hid_device_t* d) {
 
 void uni_hid_device_dump_device(uni_hid_device_t* d) {
   logi(
-      "%s, handle=%d, ctrl_cid=0x%04x, intr_cid=0x%04x, cod=0x%08x, vid=0x%04x, pid=0x%04x, flags=0x%08x, "
+      "%s, handle=%d, ctrl_cid=0x%04x, intr_cid=0x%04x, cod=0x%08x, "
+      "vid=0x%04x, pid=0x%04x, flags=0x%08x, "
       "port=%d, name='%s'\n",
-      bd_addr_to_str(d->address), d->con_handle, d->hid_control_cid, d->hid_interrupt_cid, d->cod, d->vendor_id,
-      d->product_id, d->flags, d->joystick_port, d->name);
+      bd_addr_to_str(d->address), d->con_handle, d->hid_control_cid,
+      d->hid_interrupt_cid, d->cod, d->vendor_id, d->product_id, d->flags,
+      d->joystick_port, d->name);
 }
 
 void uni_hid_device_dump_all(void) {
@@ -366,11 +377,13 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
     return;
   }
   // Try to guess it from Vendor/Product id.
-  uni_controller_type_t type = guess_controller_type(d->vendor_id, d->product_id);
+  uni_controller_type_t type =
+      guess_controller_type(d->vendor_id, d->product_id);
 
   // If it fails, try to guess it from COD
   if (type == CONTROLLER_TYPE_Unknown) {
-    uint32_t mouse_cod = MASK_COD_MAJOR_PERIPHERAL | MASK_COD_MINOR_POINT_DEVICE;
+    uint32_t mouse_cod =
+        MASK_COD_MAJOR_PERIPHERAL | MASK_COD_MINOR_POINT_DEVICE;
     uint32_t keyboard_cod = MASK_COD_MAJOR_PERIPHERAL | MASK_COD_MINOR_KEYBOARD;
     if ((d->cod & mouse_cod) == mouse_cod) {
       type = CONTROLLER_TYPE_GenericMouse;
@@ -438,7 +451,8 @@ uint8_t uni_hid_device_has_controller_type(uni_hid_device_t* d) {
   return !!(d->flags & FLAGS_HAS_CONTROLLER_TYPE);
 }
 
-void uni_hid_device_set_connection_handle(uni_hid_device_t* d, hci_con_handle_t handle) {
+void uni_hid_device_set_connection_handle(uni_hid_device_t* d,
+                                          hci_con_handle_t handle) {
   d->con_handle = handle;
 }
 
@@ -467,7 +481,7 @@ void uni_hid_device_process_gamepad(uni_hid_device_t* d) {
       break;
     case EMULATION_MODE_SINGLE_MOUSE:
       uni_gamepad_to_single_mouse(gp, &joy);
-      uni_platform_on_mouse_data(gp->axis_x, gp->axis_y);
+      uni_platform_on_mouse_data(gp->axis_x, gp->axis_y, gp->buttons);
       break;
     case EMULATION_MODE_COMBO_JOY_JOY:
       uni_gamepad_to_combo_joy_joy(gp, &joy, &joy_ext);
@@ -487,10 +501,12 @@ void uni_hid_device_process_gamepad(uni_hid_device_t* d) {
 
 // Helpers
 
-// process_mic_button_system swaps joystick port A and B only if there is one device attached.
+// process_mic_button_system swaps joystick port A and B only if there is one
+// device attached.
 static void process_misc_button_system(uni_hid_device_t* d) {
   if ((d->gamepad.updated_states & GAMEPAD_STATE_MISC_BUTTON_SYSTEM) == 0) {
-    // System button released (or never have been pressed). Return, and clean wait_release button
+    // System button released (or never have been pressed). Return, and clean
+    // wait_release button
     return;
   }
 
@@ -504,23 +520,30 @@ static void process_misc_button_system(uni_hid_device_t* d) {
     return;
 
   if (d->joystick_port == JOYSTICK_PORT_NONE) {
-    logi("cannot swap port since device has joystick_port = JOYSTICK_PORT_NONE\n");
+    logi(
+        "cannot swap port since device has joystick_port = "
+        "JOYSTICK_PORT_NONE\n");
     return;
   }
 
   // This could happen if device is any Combo emu mode.
   if (d->joystick_port == (JOYSTICK_PORT_A | JOYSTICK_PORT_B)) {
-    logi("cannot swap port since has more than one port associated with. Leave emu mode and try again.\n");
+    logi(
+        "cannot swap port since has more than one port associated with. Leave "
+        "emu mode and try again.\n");
     return;
   }
 
   // swap joysticks if only one device is attached
   int num_devices = 0;
   for (int j = 0; j < MAX_DEVICES; j++) {
-    if ((bd_addr_cmp(g_devices[j].address, zero_addr) != 0) && (g_devices[j].joystick_port > 0)) {
+    if ((bd_addr_cmp(g_devices[j].address, zero_addr) != 0) &&
+        (g_devices[j].joystick_port > 0)) {
       num_devices++;
       if (num_devices > 1) {
-        logi("cannot swap joystick ports when more than one device is attached\n");
+        logi(
+            "cannot swap joystick ports when more than one device is "
+            "attached\n");
         uni_hid_device_dump_all();
         return;
       }
@@ -529,7 +552,8 @@ static void process_misc_button_system(uni_hid_device_t* d) {
 
   // swap joystick A with B
   uni_platform_on_port_freed(d->joystick_port);
-  d->joystick_port = (d->joystick_port == JOYSTICK_PORT_A) ? JOYSTICK_PORT_B : JOYSTICK_PORT_A;
+  d->joystick_port =
+      (d->joystick_port == JOYSTICK_PORT_A) ? JOYSTICK_PORT_B : JOYSTICK_PORT_A;
   uni_platform_on_port_assigned(d->joystick_port);
   logi("device %s has new joystick port: %c\n", bd_addr_to_str(d->address),
        (d->joystick_port == JOYSTICK_PORT_A) ? 'A' : 'B');
@@ -573,7 +597,8 @@ void uni_hid_device_on_emu_mode_change(void) {
   }
 
   if (num_devices != 1) {
-    loge("cannot change mode. Expected num_devices=1, actual=%d\n", num_devices);
+    loge("cannot change mode. Expected num_devices=1, actual=%d\n",
+         num_devices);
     return;
   }
 
