@@ -20,12 +20,12 @@ limitations under the License.
 
 #include "uni_platform.h"
 
+#include "driver/gpio.h"
 #include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/event_groups.h"
 #include "freertos/queue.h"
-
-#include "driver/gpio.h"
+#include "math.h"
 
 #include "uni_config.h"
 #include "uni_debug.h"
@@ -37,7 +37,7 @@ limitations under the License.
 // 17 milliseconds ~= 1 frame in NTSC
 static const int AUTOFIRE_FREQ_MS = 20 * 4;  // change every ~4 frames
 
-static const int MOUSE_DELAY_BETWEEN_EVENT_US = 400;  // microseconds
+static const int MOUSE_DELAY_BETWEEN_EVENT_US = 1200;  // microseconds
 static const int MOUSE_MAX_DELTA = 32;
 
 // GPIO map for MH-ET Live mini-kit board.
@@ -69,9 +69,15 @@ enum {
   GPIO_JOY_A_DOWN = GPIO_NUM_18,
   GPIO_JOY_A_LEFT = GPIO_NUM_19,
   GPIO_JOY_A_RIGHT = GPIO_NUM_23,
+
   GPIO_JOY_A_FIRE = GPIO_NUM_14,
+  GPIO_MOUSE_BUTTON_L = GPIO_NUM_14,
+
   GPIO_JOY_A_POT_Y = GPIO_NUM_16,
+  GPIO_MOUSE_BUTTON_M = GPIO_NUM_16,
+
   GPIO_JOY_A_POT_X = GPIO_NUM_33,
+  GPIO_MOUSE_BUTTON_R = GPIO_NUM_33,
 
   GPIO_JOY_B_UP = GPIO_NUM_27,
   GPIO_JOY_B_DOWN = GPIO_NUM_25,
@@ -253,7 +259,7 @@ void uni_platform_on_mouse_data(int32_t delta_x,
                                 int32_t delta_y,
                                 uint16_t buttons) {
   static uint16_t prev_buttons = 0;
-  printf("mouse: x=%d, y=%d, buttons=0x%4x\n", delta_x, delta_y, buttons);
+  logd("mouse: x=%d, y=%d, buttons=0x%4x\n", delta_x, delta_y, buttons);
 
   // Mouse is implemented using a quadrature encoding
   // FIXME: Passing values to mouse task using global variables. This is, of
@@ -266,8 +272,9 @@ void uni_platform_on_mouse_data(int32_t delta_x,
   }
   if (buttons != prev_buttons) {
     prev_buttons = buttons;
-    gpio_set_level(GPIO_JOY_A_FIRE, (buttons & BUTTON_A));
-    gpio_set_level(GPIO_JOY_A_POT_X, (buttons & BUTTON_B));
+    gpio_set_level(GPIO_MOUSE_BUTTON_L, (buttons & BUTTON_A));
+    gpio_set_level(GPIO_MOUSE_BUTTON_R, (buttons & BUTTON_B));
+    gpio_set_level(GPIO_MOUSE_BUTTON_M, (buttons & BUTTON_X));
   }
 }
 
@@ -364,81 +371,43 @@ static void auto_fire_loop(void* arg) {
 }
 // Mouse handler
 void handle_event_mouse() {
+  // Copy global variables to local, in case they changed.
+  int delta_x = g_delta_x;
+  int delta_y = g_delta_y;
+
   // Should not happen, but better safe than sorry
-  if (g_delta_x == 0 && g_delta_y == 0)
+  if (delta_x == 0 && delta_y == 0)
     return;
 
-  // Based on the deltas, generate a line. It uses Bresenham-sort-of algorithm.
-  // We consider these 4 cases:
-  // Y = 0, X = 0, X > Y, Y > X
-  // Any delta greater than MOUSE_MAX_DELTA is capped to MOUSE_MAX_DELTA
-  int abs_x = 0;
-  int abs_y = 0;
-  if (g_delta_x)
-    abs_x = abs(g_delta_x / 2) + 1;
-  // if (abs_x > 2)
-  //   abs_x = MIN(15, MAX(1, abs_x >> 3));
-  if (g_delta_y)
-    abs_y = abs(g_delta_y / 2) + 1;
-  // if (abs_y > 2)
-  //   abs_y = MIN(15, MAX(1, abs_y >> 3));
+  int dir_x = 0;
+  int dir_y = 0;
+  float a = atan2f(delta_y, delta_x) + M_PI;
+  float d = a * (180.0 / M_PI);
+  logd("x=%d, y=%d, r=%f, d=%f\n", delta_x, delta_y, a, d);
 
-  // dir_x / dir_y have the same values as the global delta, but it is easy
-  // to understand their meaning when being passed to mouse_move_x() /
-  // mouse_move_y().
-  int dir_x = g_delta_x;
-  int dir_y = g_delta_y;
-  abs_y = MIN(abs_y, 15);
-  abs_x = MIN(abs_x, 15);
-  int total = abs_y + abs_x;
-  int delay = MOUSE_DELAY_BETWEEN_EVENT_US;
-
-  logd("mouse x=%d -> %d, y=%d -> %d, delay=%d\n", g_delta_x, abs_x, g_delta_y,
-       abs_y, delay);
-
-  // Y = 0
-  if (abs_x != 0 && abs_y == 0) {
-    // Horizontal movment
-    for (int i = 0; i < abs_x; i++) {
-      mouse_move_x(dir_x, delay);
-    }
+  if (d < 60 || d >= 300) {
+    // Moving left? (a<60, a>=300)
+    dir_x = -1;
+  } else if (d > 120 && d <= 240) {
+    // Moving right? (120 < a <= 240)
+    dir_x = 1;
   }
-  // X = 0
-  else if (abs_x == 0 && abs_y != 0) {
-    // Vertical movement
-    for (int i = 0; i < abs_y; i++) {
-      mouse_move_y(dir_y, delay);
-    }
-  } else if (abs_x > abs_y) {
-    // X is the driving the loop.
-    // Avoid floating points to make it more portable between
-    // microcontrollers.
-    int inc_y = abs_y * 1000 / abs_x;
-    int accum_y = 0;
 
-    for (int i = 0; i < abs_x; i++) {
-      mouse_move_x(dir_x, delay);
-      accum_y += inc_y;
-      if (accum_y >= 1000) {
-        mouse_move_y(dir_y, delay);
-        accum_y -= 1000;
-      }
-    }
-  } else {
-    // Y is the driving the loop.
-    // Avoid floating points to make it more portable between
-    // microcontrollers.
-    int inc_x = abs_x * 1000 / abs_y;
-    int accum_x = 0;
+  if (d > 30 && d <= 150) {
+    // Moving down? (30 < a <= 150)
+    dir_y = -1;
+  } else if (d > 210 && d <= 330) {
+    // Moving up?
+    dir_y = 1;
+  }
 
-    for (int i = 0; i < abs_y; i++) {
-      mouse_move_y(dir_y, delay);
-      accum_x += inc_x;
-      if (accum_x >= 1000) {
-        mouse_move_x(dir_x, delay);
-        accum_x -= 1000;
-      }
-    }
+  int delay = MOUSE_DELAY_BETWEEN_EVENT_US - (abs(delta_x) + abs(delta_y)) * 3;
+
+  if (dir_y != 0) {
+    mouse_move_y(dir_y, delay);
+  }
+  if (dir_x != 0) {
+    mouse_move_x(dir_x, delay);
   }
 }
 
