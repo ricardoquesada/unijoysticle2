@@ -64,9 +64,7 @@ static const bd_addr_t zero_addr = {0, 0, 0, 0, 0, 0};
 static void process_misc_button_system(uni_hid_device_t* d);
 static void process_misc_button_home(uni_hid_device_t* d);
 
-void uni_hid_device_init(void) {
-  memset(g_devices, 0, sizeof(g_devices));
-}
+void uni_hid_device_init(void) { memset(g_devices, 0, sizeof(g_devices)); }
 
 uni_hid_device_t* uni_hid_device_create(bd_addr_t address) {
   for (int j = 0; j < MAX_DEVICES; j++) {
@@ -88,8 +86,7 @@ uni_hid_device_t* uni_hid_device_get_instance_for_address(bd_addr_t addr) {
 }
 
 uni_hid_device_t* uni_hid_device_get_instance_for_cid(uint16_t cid) {
-  if (cid == 0)
-    return NULL;
+  if (cid == 0) return NULL;
   for (int i = 0; i < MAX_DEVICES; i++) {
     if (g_devices[i].hid_interrupt_cid == cid ||
         g_devices[i].hid_control_cid == cid) {
@@ -101,8 +98,7 @@ uni_hid_device_t* uni_hid_device_get_instance_for_cid(uint16_t cid) {
 
 uni_hid_device_t* uni_hid_device_get_instance_for_connection_handle(
     hci_con_handle_t handle) {
-  if (handle == 0)
-    return NULL;
+  if (handle == 0) return NULL;
   for (int i = 0; i < MAX_DEVICES; i++) {
     if (g_devices[i].con_handle == handle) {
       return &g_devices[i];
@@ -113,8 +109,7 @@ uni_hid_device_t* uni_hid_device_get_instance_for_connection_handle(
 
 uni_hid_device_t* uni_hid_device_get_first_device_with_state(int state) {
   for (int i = 0; i < g_device_count; i++) {
-    if (g_devices[i].state == state)
-      return &g_devices[i];
+    if (g_devices[i].state == state) return &g_devices[i];
   }
   return NULL;
 }
@@ -178,8 +173,7 @@ void uni_hid_device_try_assign_joystick_port(uni_hid_device_t* d) {
 }
 
 void uni_hid_device_remove_entry_with_channel(uint16_t channel) {
-  if (channel == 0)
-    return;
+  if (channel == 0) return;
   for (int i = 0; i < MAX_DEVICES; i++) {
     if (g_devices[i].hid_control_cid == channel ||
         g_devices[i].hid_interrupt_cid == channel) {
@@ -266,8 +260,7 @@ uint8_t uni_hid_device_is_incoming(uni_hid_device_t* d) {
   return !!(d->flags & FLAGS_INCOMING);
 }
 
-void uni_hid_device_set_name(uni_hid_device_t* d,
-                             const uint8_t* name,
+void uni_hid_device_set_name(uni_hid_device_t* d, const uint8_t* name,
                              int name_len) {
   if (d == NULL) {
     log_error("ERROR: Invalid device\n");
@@ -298,8 +291,7 @@ uint8_t uni_hid_device_has_name(uni_hid_device_t* d) {
 }
 
 void uni_hid_device_set_hid_descriptor(uni_hid_device_t* d,
-                                       const uint8_t* descriptor,
-                                       int len) {
+                                       const uint8_t* descriptor, int len) {
   if (d == NULL) {
     log_error("ERROR: Invalid device\n");
     return;
@@ -355,8 +347,7 @@ void uni_hid_device_dump_device(uni_hid_device_t* d) {
 void uni_hid_device_dump_all(void) {
   logi("Connected devices:\n");
   for (int i = 0; i < MAX_DEVICES; i++) {
-    if (bd_addr_cmp(g_devices[i].address, zero_addr) == 0)
-      continue;
+    if (bd_addr_cmp(g_devices[i].address, zero_addr) == 0) continue;
     uni_hid_device_dump_device(&g_devices[i]);
   }
 }
@@ -461,8 +452,7 @@ void uni_hid_device_process_gamepad(uni_hid_device_t* d) {
   process_misc_button_system(d);
   process_misc_button_home(d);
 
-  if (d->joystick_port == JOYSTICK_PORT_NONE)
-    return;
+  if (d->joystick_port == JOYSTICK_PORT_NONE) return;
 
   // FIXME: Add support for EMULATION_MODE_COMBO_JOY_MOUSE
   uni_joystick_t joy, joy_ext;
@@ -516,8 +506,7 @@ static void process_misc_button_system(uni_hid_device_t* d) {
     return;
   }
 
-  if (d->wait_release_misc_button & MISC_BUTTON_SYSTEM)
-    return;
+  if (d->wait_release_misc_button & MISC_BUTTON_SYSTEM) return;
 
   if (d->joystick_port == JOYSTICK_PORT_NONE) {
     logi(
@@ -575,8 +564,7 @@ static void process_misc_button_home(uni_hid_device_t* d) {
   }
 
   // "Wait" flag present? Return.
-  if (d->wait_release_misc_button & MISC_BUTTON_HOME)
-    return;
+  if (d->wait_release_misc_button & MISC_BUTTON_HOME) return;
 
   uni_hid_device_dump_all();
 

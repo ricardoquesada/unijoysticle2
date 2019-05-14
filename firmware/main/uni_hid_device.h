@@ -29,7 +29,11 @@ limitations under the License.
 #define MAX_NAME_LEN 240
 #define MAX_DESCRIPTOR_LEN 512
 
-enum DEVICE_STATE { REMOTE_NAME_REQUEST, REMOTE_NAME_INQUIRED, REMOTE_NAME_FETCHED };
+enum DEVICE_STATE {
+  REMOTE_NAME_REQUEST,
+  REMOTE_NAME_INQUIRED,
+  REMOTE_NAME_FETCHED
+};
 
 typedef struct uni_hid_device_s {
   bd_addr_t address;
@@ -56,7 +60,8 @@ typedef struct uni_hid_device_s {
   // Gamepad
   uni_emulation_mode_t emu_mode;      // type of controller to emulate
   uni_joystick_port_t joystick_port;  // which port does it control, A or B?
-  uni_joystick_port_t prev_joystick_port;   // which port was used before switching emu mode
+  uni_joystick_port_t
+      prev_joystick_port;  // which port was used before switching emu mode
 
   // Functions used to parse the usage page/usage.
   uni_report_parser_t report_parser;
@@ -73,7 +78,8 @@ void uni_hid_device_init(void);
 uni_hid_device_t* uni_hid_device_create(bd_addr_t address);
 uni_hid_device_t* uni_hid_device_get_instance_for_address(bd_addr_t addr);
 uni_hid_device_t* uni_hid_device_get_instance_for_cid(uint16_t cid);
-uni_hid_device_t* uni_hid_device_get_instance_for_connection_handle(hci_con_handle_t handle);
+uni_hid_device_t* uni_hid_device_get_instance_for_connection_handle(
+    hci_con_handle_t handle);
 uni_hid_device_t* uni_hid_device_get_first_device_with_state(int state);
 
 void uni_hid_device_set_current_device(uni_hid_device_t* d);
@@ -90,13 +96,15 @@ void uni_hid_device_set_disconnected(uni_hid_device_t* d);
 void uni_hid_device_set_cod(uni_hid_device_t* d, uint32_t cod);
 uint8_t uni_hid_device_is_cod_supported(uint32_t cod);
 
-void uni_hid_device_set_hid_descriptor(uni_hid_device_t* d, const uint8_t* descriptor, int len);
+void uni_hid_device_set_hid_descriptor(uni_hid_device_t* d,
+                                       const uint8_t* descriptor, int len);
 uint8_t uni_hid_device_has_hid_descriptor(uni_hid_device_t* d);
 
 void uni_hid_device_set_incoming(uni_hid_device_t* d, uint8_t incoming);
 uint8_t uni_hid_device_is_incoming(uni_hid_device_t* d);
 
-void uni_hid_device_set_name(uni_hid_device_t* d, const uint8_t* name, int name_len);
+void uni_hid_device_set_name(uni_hid_device_t* d, const uint8_t* name,
+                             int name_len);
 uint8_t uni_hid_device_has_name(uni_hid_device_t* d);
 
 void uni_hid_device_set_product_id(uni_hid_device_t* d, uint16_t product_id);
@@ -115,7 +123,8 @@ uint8_t uni_hid_device_has_controller_type(uni_hid_device_t* d);
 
 void uni_hid_device_process_gamepad(uni_hid_device_t* d);
 
-void uni_hid_device_set_connection_handle(uni_hid_device_t* d, hci_con_handle_t handle);
+void uni_hid_device_set_connection_handle(uni_hid_device_t* d,
+                                          hci_con_handle_t handle);
 
 // events
 

@@ -27,10 +27,8 @@ void uni_hid_parser_apple_init(uni_gamepad_t* gp) {
   gp->updated_states = 0;
 }
 
-void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gp,
-                                      hid_globals_t* globals,
-                                      uint16_t usage_page,
-                                      uint16_t usage,
+void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gp, hid_globals_t* globals,
+                                      uint16_t usage_page, uint16_t usage,
                                       int32_t value) {
   // print_parser_globals(globals);
   uint8_t hat;
@@ -68,7 +66,8 @@ void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gp,
           gp->updated_states |= GAMEPAD_STATE_DPAD;
           break;
         default:
-          logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+          logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+               usage_page, usage, value);
           break;
       }
       break;
@@ -83,7 +82,8 @@ void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gp,
           gp->updated_states |= GAMEPAD_STATE_BRAKE;
           break;
         default:
-          logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+          logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+               usage_page, usage, value);
           break;
       };
       break;
@@ -93,7 +93,8 @@ void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gp,
           gp->battery = value;
           break;
         default:
-          logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+          logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+               usage_page, usage, value);
           break;
       }
       break;
@@ -142,9 +143,10 @@ void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gp,
           gp->updated_states |= GAMEPAD_STATE_BUTTON_SHOULDER_R;
           break;
         case 0x07:
-          // FIXME: On the Steelseries Nimbus, 0x07 / 0x08 are brake/accelerator, but are reported as buttons.
-          // Don't know if this is valid for all iOS controllers. Treating both as buttons and pedals.
-          // More samples needed.
+          // FIXME: On the Steelseries Nimbus, 0x07 / 0x08 are
+          // brake/accelerator, but are reported as buttons. Don't know if this
+          // is valid for all iOS controllers. Treating both as buttons and
+          // pedals. More samples needed.
           if (value)
             gp->buttons |= BUTTON_TRIGGER_L;
           else
@@ -163,7 +165,8 @@ void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gp,
           gp->updated_states |= GAMEPAD_STATE_ACCELERATOR;
           break;
         default:
-          logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+          logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+               usage_page, usage, value);
           break;
       }
       break;
@@ -181,14 +184,16 @@ void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gp,
         case HID_USAGE_AC_BACK:
           break;
         default:
-          logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+          logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+               usage_page, usage, value);
           break;
       }
       break;
 
     // unknown usage page
     default:
-      logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+      logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+           usage_page, usage, value);
       break;
   }
 }

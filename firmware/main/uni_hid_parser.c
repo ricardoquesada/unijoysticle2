@@ -23,23 +23,23 @@ limitations under the License.
 #include "uni_gamepad.h"
 #include "uni_hid_device.h"
 
-void uni_hid_parser(uni_gamepad_t* gamepad,
-                    uni_report_parser_t* report_parser,
-                    const uint8_t* report,
-                    uint16_t report_len,
+void uni_hid_parser(uni_gamepad_t* gamepad, uni_report_parser_t* report_parser,
+                    const uint8_t* report, uint16_t report_len,
                     const uint8_t* hid_descriptor,
                     uint16_t hid_descriptor_len) {
   btstack_hid_parser_t parser;
 
   report_parser->init(gamepad);
-  btstack_hid_parser_init(&parser, hid_descriptor, hid_descriptor_len, HID_REPORT_TYPE_INPUT, report, report_len);
+  btstack_hid_parser_init(&parser, hid_descriptor, hid_descriptor_len,
+                          HID_REPORT_TYPE_INPUT, report, report_len);
   while (btstack_hid_parser_has_more(&parser)) {
     uint16_t usage_page;
     uint16_t usage;
     int32_t value;
     hid_globals_t globals;
 
-    // Save globals, otherwise they are going to get destroyed by btstack_hid_parser_get_field()
+    // Save globals, otherwise they are going to get destroyed by
+    // btstack_hid_parser_get_field()
     globals.logical_minimum = parser.global_logical_minimum;
     globals.logical_maximum = parser.global_logical_maximum;
     globals.report_count = parser.global_report_count;
@@ -49,7 +49,8 @@ void uni_hid_parser(uni_gamepad_t* gamepad,
 
     btstack_hid_parser_get_field(&parser, &usage_page, &usage, &value);
 
-    logd("usage_page = 0x%04x, usage = 0x%04x, value = 0x%x\n", usage_page, usage, value);
+    logd("usage_page = 0x%04x, usage = 0x%04x, value = 0x%x\n", usage_page,
+         usage, value);
     report_parser->parse_usage(gamepad, &globals, usage_page, usage, value);
   }
 }
@@ -64,13 +65,14 @@ void uni_hid_parser(uni_gamepad_t* gamepad,
 //     return n + 1;
 // }
 
-// Converts a possible value between (0, x) to (-x/2, x/2), and normalizes it between -512 and 511.
+// Converts a possible value between (0, x) to (-x/2, x/2), and normalizes it
+// between -512 and 511.
 int32_t uni_hid_parser_process_axis(hid_globals_t* globals, uint32_t value) {
   int32_t max = globals->logical_maximum;
   int32_t min = globals->logical_minimum;
 
-  // Amazon Fire 1st Gen reports max value as unsigned (0xff == 255) but the spec says they are signed.
-  // So the parser correctly treats it as -1 (0xff).
+  // Amazon Fire 1st Gen reports max value as unsigned (0xff == 255) but the
+  // spec says they are signed. So the parser correctly treats it as -1 (0xff).
   if (max == -1) {
     max = (1 << globals->report_size) - 1;
   }
@@ -84,8 +86,10 @@ int32_t uni_hid_parser_process_axis(hid_globals_t* globals, uint32_t value) {
 
   // Then we normalize between -512 and 511
   int32_t normalized = centered * AXIS_NORMALIZE_RANGE / range;
-  logd("original = %d, centered = %d, normalized = %d (range = %d, min=%d, max=%d)\n", value, centered, normalized,
-       range, min, max);
+  logd(
+      "original = %d, centered = %d, normalized = %d (range = %d, min=%d, "
+      "max=%d)\n",
+      value, centered, normalized, range, min, max);
 
   return normalized;
 }
@@ -95,8 +99,8 @@ int32_t uni_hid_parser_process_pedal(hid_globals_t* globals, uint32_t value) {
   int32_t max = globals->logical_maximum;
   int32_t min = globals->logical_minimum;
 
-  // Amazon Fire 1st Gen reports max value as unsigned (0xff == 255) but the spec says they are signed.
-  // So the parser correctly treats it as -1 (0xff).
+  // Amazon Fire 1st Gen reports max value as unsigned (0xff == 255) but the
+  // spec says they are signed. So the parser correctly treats it as -1 (0xff).
   if (max == -1) {
     max = (1 << globals->report_size) - 1;
   }
@@ -104,7 +108,8 @@ int32_t uni_hid_parser_process_pedal(hid_globals_t* globals, uint32_t value) {
   // Get the range: how big can be the number
   int32_t range = (max - min) + 1;
   int32_t normalized = value * AXIS_NORMALIZE_RANGE / range;
-  logd("original = %d, normalized = %d (range = %d, min=%d, max=%d)\n", value, normalized, range, min, max);
+  logd("original = %d, normalized = %d (range = %d, min=%d, max=%d)\n", value,
+       normalized, range, min, max);
 
   return normalized;
 }
@@ -112,13 +117,13 @@ int32_t uni_hid_parser_process_pedal(hid_globals_t* globals, uint32_t value) {
 uint8_t uni_hid_parser_process_hat(hid_globals_t* globals, uint32_t value) {
   int32_t v = (int32_t)value;
   // Assumes if value is outside valid range, then it is a "null value"
-  if (v < globals->logical_minimum || v > globals->logical_maximum)
-    return 0xff;
+  if (v < globals->logical_minimum || v > globals->logical_maximum) return 0xff;
   // 0 should be the first value for hat, meaning that 0 is the "up" position.
   return v - globals->logical_minimum;
 }
 
-void uni_hid_parser_process_dpad(uint16_t usage, uint32_t value, uint8_t* dpad) {
+void uni_hid_parser_process_dpad(uint16_t usage, uint32_t value,
+                                 uint8_t* dpad) {
   switch (usage) {
     case HID_USAGE_DPAD_UP:
       if (value)

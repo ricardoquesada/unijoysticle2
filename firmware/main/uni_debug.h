@@ -23,20 +23,17 @@ limitations under the License.
 
 #include "uni_config.h"
 
-#define loge(fmt, ...)                     \
-  do {                                     \
-    if (UNI_LOG_ERROR)                     \
-      fprintf(stderr, fmt, ##__VA_ARGS__); \
+#define loge(fmt, ...)                                      \
+  do {                                                      \
+    if (UNI_LOG_ERROR) fprintf(stderr, fmt, ##__VA_ARGS__); \
   } while (0)
-#define logi(fmt, ...)                     \
-  do {                                     \
-    if (UNI_LOG_INFO)                      \
-      fprintf(stderr, fmt, ##__VA_ARGS__); \
+#define logi(fmt, ...)                                     \
+  do {                                                     \
+    if (UNI_LOG_INFO) fprintf(stderr, fmt, ##__VA_ARGS__); \
   } while (0)
-#define logd(fmt, ...)                     \
-  do {                                     \
-    if (UNI_LOG_DEBUG)                     \
-      fprintf(stderr, fmt, ##__VA_ARGS__); \
+#define logd(fmt, ...)                                      \
+  do {                                                      \
+    if (UNI_LOG_DEBUG) fprintf(stderr, fmt, ##__VA_ARGS__); \
   } while (0)
 
 #endif  // UNI_LOG_H

@@ -30,10 +30,8 @@ void uni_hid_parser_ps4_init(uni_gamepad_t* gp) {
   gp->updated_states = 0;
 }
 
-void uni_hid_parser_ps4_parse_usage(uni_gamepad_t* gp,
-                                    hid_globals_t* globals,
-                                    uint16_t usage_page,
-                                    uint16_t usage,
+void uni_hid_parser_ps4_parse_usage(uni_gamepad_t* gp, hid_globals_t* globals,
+                                    uint16_t usage_page, uint16_t usage,
                                     int32_t value) {
   // print_parser_globals(globals);
   uint8_t hat;
@@ -84,7 +82,8 @@ void uni_hid_parser_ps4_parse_usage(uni_gamepad_t* gp,
           gp->updated_states |= GAMEPAD_STATE_DPAD;
           break;
         default:
-          logi("PS4: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+          logi("PS4: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+               usage_page, usage, value);
           break;
       }
       break;
@@ -94,7 +93,8 @@ void uni_hid_parser_ps4_parse_usage(uni_gamepad_t* gp,
           gp->battery = value;
           break;
         default:
-          logi("PS4: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+          logi("PS4: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+               usage_page, usage, value);
           break;
       }
       break;
@@ -195,14 +195,16 @@ void uni_hid_parser_ps4_parse_usage(uni_gamepad_t* gp,
         case 0x0e:  // touch pad ??? (0x2000)
           break;
         default:
-          logi("PS4: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+          logi("PS4: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+               usage_page, usage, value);
           break;
       }
       break;
     }
     // unknown usage page
     default:
-      logi("PS4: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+      logi("PS4: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+           usage_page, usage, value);
       break;
   }
 }

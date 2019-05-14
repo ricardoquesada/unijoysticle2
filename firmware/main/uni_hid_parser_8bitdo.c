@@ -29,8 +29,7 @@ void uni_hid_parser_8bitdo_init(uni_gamepad_t* gp) {
 
 void uni_hid_parser_8bitdo_parse_usage(uni_gamepad_t* gp,
                                        hid_globals_t* globals,
-                                       uint16_t usage_page,
-                                       uint16_t usage,
+                                       uint16_t usage_page, uint16_t usage,
                                        int32_t value) {
   // print_parser_globals(globals);
   uint8_t hat;
@@ -66,7 +65,8 @@ void uni_hid_parser_8bitdo_parse_usage(uni_gamepad_t* gp,
           gp->updated_states |= GAMEPAD_STATE_DPAD;
           break;
         default:
-          logi("8Bitdo: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+          logi("8Bitdo: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+               usage_page, usage, value);
           break;
       }
       break;
@@ -81,7 +81,8 @@ void uni_hid_parser_8bitdo_parse_usage(uni_gamepad_t* gp,
           gp->updated_states |= GAMEPAD_STATE_BRAKE;
           break;
         default:
-          logi("Android: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+          logi("Android: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+               usage_page, usage, value);
           break;
       };
       break;
@@ -156,14 +157,16 @@ void uni_hid_parser_8bitdo_parse_usage(uni_gamepad_t* gp,
         case 0x10:  // Not mapped
           break;
         default:
-          logi("8Bitdo: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+          logi("8Bitdo: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+               usage_page, usage, value);
           break;
       }
       break;
     }
     // unknown usage page
     default:
-      logi("8Bitdo: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+      logi("8Bitdo: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+           usage_page, usage, value);
       break;
   }
 }

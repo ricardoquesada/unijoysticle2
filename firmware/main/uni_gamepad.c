@@ -39,19 +39,16 @@ static void to_single_joy(const uni_gamepad_t* gp, uni_joystick_t* out_joy) {
 
   // Shoulder right is "auto fire"
   if (gp->updated_states & GAMEPAD_STATE_BUTTON_SHOULDER_R) {
-    out_joy->auto_fire |= ((gp->buttons & BUTTON_SHOULDER_R) == BUTTON_SHOULDER_R);
+    out_joy->auto_fire |=
+        ((gp->buttons & BUTTON_SHOULDER_R) == BUTTON_SHOULDER_R);
   }
 
   // Dpad
   if (gp->updated_states & GAMEPAD_STATE_DPAD) {
-    if (gp->dpad & 0x01)
-      out_joy->up |= 1;
-    if (gp->dpad & 0x02)
-      out_joy->down |= 1;
-    if (gp->dpad & 0x04)
-      out_joy->right |= 1;
-    if (gp->dpad & 0x08)
-      out_joy->left |= 1;
+    if (gp->dpad & 0x01) out_joy->up |= 1;
+    if (gp->dpad & 0x02) out_joy->down |= 1;
+    if (gp->dpad & 0x04) out_joy->right |= 1;
+    if (gp->dpad & 0x08) out_joy->left |= 1;
   }
 
   // Axis: X and Y
@@ -73,7 +70,8 @@ static void to_single_joy(const uni_gamepad_t* gp, uni_joystick_t* out_joy) {
   }
 }
 
-void uni_gamepad_to_single_joy(const uni_gamepad_t* gp, uni_joystick_t* out_joy) {
+void uni_gamepad_to_single_joy(const uni_gamepad_t* gp,
+                               uni_joystick_t* out_joy) {
   to_single_joy(gp, out_joy);
 
   // Buttom B is "jump"
@@ -82,7 +80,9 @@ void uni_gamepad_to_single_joy(const uni_gamepad_t* gp, uni_joystick_t* out_joy)
   }
 }
 
-void uni_gamepad_to_combo_joy_joy(const uni_gamepad_t* gp, uni_joystick_t* out_joy1, uni_joystick_t* out_joy2) {
+void uni_gamepad_to_combo_joy_joy(const uni_gamepad_t* gp,
+                                  uni_joystick_t* out_joy1,
+                                  uni_joystick_t* out_joy2) {
   to_single_joy(gp, out_joy1);
 
   // Buttom B is "fire"
@@ -96,7 +96,8 @@ void uni_gamepad_to_combo_joy_joy(const uni_gamepad_t* gp, uni_joystick_t* out_j
 
   // Shoulder left is "auto fire"
   if (gp->updated_states & GAMEPAD_STATE_BUTTON_SHOULDER_L) {
-    out_joy2->auto_fire |= ((gp->buttons & BUTTON_SHOULDER_L) == BUTTON_SHOULDER_L);
+    out_joy2->auto_fire |=
+        ((gp->buttons & BUTTON_SHOULDER_L) == BUTTON_SHOULDER_L);
   }
 
   // Axis: RX and RY
@@ -110,11 +111,14 @@ void uni_gamepad_to_combo_joy_joy(const uni_gamepad_t* gp, uni_joystick_t* out_j
   }
 }
 
-void uni_gamepad_to_single_mouse(const uni_gamepad_t* gp, uni_joystick_t* out_mouse) {
+void uni_gamepad_to_single_mouse(const uni_gamepad_t* gp,
+                                 uni_joystick_t* out_mouse) {
   to_single_joy(gp, out_mouse);
 }
 
-void uni_gamepad_to_combo_joy_mouse(const uni_gamepad_t* gp, uni_joystick_t* out_joy, uni_joystick_t* out_mouse) {
+void uni_gamepad_to_combo_joy_mouse(const uni_gamepad_t* gp,
+                                    uni_joystick_t* out_joy,
+                                    uni_joystick_t* out_mouse) {
   to_single_joy(gp, out_joy);
 
   // Axis: RX and RY
@@ -144,7 +148,9 @@ void uni_gamepad_to_combo_joy_mouse(const uni_gamepad_t* gp, uni_joystick_t* out
 }
 
 void uni_gamepad_dump(const uni_gamepad_t* gp) {
-  logd("(0x%04x) dpad=0x%02x, x=%d, y=%d, rx=%d, ry=%d, brake=%d, accel=%d, buttons=0x%08x, misc=0x%02x\n",
-       gp->updated_states, gp->dpad, gp->axis_x, gp->axis_y, gp->axis_rx, gp->axis_ry, gp->brake, gp->accelerator,
-       gp->buttons, gp->misc_buttons);
+  logd(
+      "(0x%04x) dpad=0x%02x, x=%d, y=%d, rx=%d, ry=%d, brake=%d, accel=%d, "
+      "buttons=0x%08x, misc=0x%02x\n",
+      gp->updated_states, gp->dpad, gp->axis_x, gp->axis_y, gp->axis_rx,
+      gp->axis_ry, gp->brake, gp->accelerator, gp->buttons, gp->misc_buttons);
 }

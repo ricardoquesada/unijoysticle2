@@ -143,9 +143,15 @@ typedef struct {
 } uni_gamepad_t;
 
 void uni_gamepad_dump(const uni_gamepad_t* gp);
-void uni_gamepad_to_single_joy(const uni_gamepad_t* gp, uni_joystick_t* out_joy);
-void uni_gamepad_to_combo_joy_joy(const uni_gamepad_t* gp, uni_joystick_t* out_joy1, uni_joystick_t* out_joy2);
-void uni_gamepad_to_single_mouse(const uni_gamepad_t* gp, uni_joystick_t* out_mouse);
-void uni_gamepad_to_combo_joy_mouse(const uni_gamepad_t* gp, uni_joystick_t* out_joy, uni_joystick_t* out_mouse);
+void uni_gamepad_to_single_joy(const uni_gamepad_t* gp,
+                               uni_joystick_t* out_joy);
+void uni_gamepad_to_combo_joy_joy(const uni_gamepad_t* gp,
+                                  uni_joystick_t* out_joy1,
+                                  uni_joystick_t* out_joy2);
+void uni_gamepad_to_single_mouse(const uni_gamepad_t* gp,
+                                 uni_joystick_t* out_mouse);
+void uni_gamepad_to_combo_joy_mouse(const uni_gamepad_t* gp,
+                                    uni_joystick_t* out_joy,
+                                    uni_joystick_t* out_mouse);
 
 #endif  // UNI_GAMEPAD_H

@@ -46,9 +46,10 @@
  *   - gap_link_keys.c
  */
 
-/* This file controls everything related to Bluetooth, like connections, state, queries, etc.
- * No Bluetooth logic should be placed outside this file.
- * That way, in theory, it should be possible to support USB devices by replacing this file.
+/* This file controls everything related to Bluetooth, like connections, state,
+ * queries, etc. No Bluetooth logic should be placed outside this file. That
+ * way, in theory, it should be possible to support USB devices by replacing
+ * this file.
  */
 
 #include "uni_bluetooth.h"
@@ -74,27 +75,40 @@
 // globals
 // SDP
 static uint8_t attribute_value[MAX_ATTRIBUTE_VALUE_SIZE];
-static const unsigned int attribute_value_buffer_size = MAX_ATTRIBUTE_VALUE_SIZE;
+static const unsigned int attribute_value_buffer_size =
+    MAX_ATTRIBUTE_VALUE_SIZE;
 
 static btstack_packet_callback_registration_t hci_event_callback_registration;
 
-static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t* packet, uint16_t size);
-static void handle_sdp_hid_query_result(uint8_t packet_type, uint16_t channel, uint8_t* packet, uint16_t size);
-static void handle_sdp_pid_query_result(uint8_t packet_type, uint16_t channel, uint8_t* packet, uint16_t size);
+static void packet_handler(uint8_t packet_type, uint16_t channel,
+                           uint8_t* packet, uint16_t size);
+static void handle_sdp_hid_query_result(uint8_t packet_type, uint16_t channel,
+                                        uint8_t* packet, uint16_t size);
+static void handle_sdp_pid_query_result(uint8_t packet_type, uint16_t channel,
+                                        uint8_t* packet, uint16_t size);
 static void continue_remote_names(void);
 static void start_scan(void);
 static void sdp_query_hid_descriptor(uni_hid_device_t* device);
 static void sdp_query_product_id(uni_hid_device_t* device);
 static void list_link_keys(void);
 
-static void on_l2cap_channel_closed(uint16_t channel, uint8_t* packet, uint16_t size);
-static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet, uint16_t size);
-static void on_l2cap_incoming_connection(uint16_t channel, uint8_t* packet, uint16_t size);
-static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet, uint16_t sizel);
-static void on_gap_inquiry_result(uint16_t channel, uint8_t* packet, uint16_t size);
-static void on_hci_connection_complete(uint16_t channel, uint8_t* packet, uint16_t size);
-static void on_hci_connection_request(uint16_t channel, uint8_t* packet, uint16_t size);
-static void on_hci_read_remote_version_information_complete(uint16_t channel, uint8_t* packet, uint16_t size);
+static void on_l2cap_channel_closed(uint16_t channel, uint8_t* packet,
+                                    uint16_t size);
+static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet,
+                                    uint16_t size);
+static void on_l2cap_incoming_connection(uint16_t channel, uint8_t* packet,
+                                         uint16_t size);
+static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet,
+                                 uint16_t sizel);
+static void on_gap_inquiry_result(uint16_t channel, uint8_t* packet,
+                                  uint16_t size);
+static void on_hci_connection_complete(uint16_t channel, uint8_t* packet,
+                                       uint16_t size);
+static void on_hci_connection_request(uint16_t channel, uint8_t* packet,
+                                      uint16_t size);
+static void on_hci_read_remote_version_information_complete(uint16_t channel,
+                                                            uint8_t* packet,
+                                                            uint16_t size);
 
 static void hid_host_setup(void) {
   // enabled EIR
@@ -112,7 +126,8 @@ static void hid_host_setup(void) {
 }
 
 // HID results: HID descriptor, PSM interrupt, PSM control, etc.
-static void handle_sdp_hid_query_result(uint8_t packet_type, uint16_t channel, uint8_t* packet, uint16_t size) {
+static void handle_sdp_hid_query_result(uint8_t packet_type, uint16_t channel,
+                                        uint8_t* packet, uint16_t size) {
   UNUSED(packet_type);
   UNUSED(channel);
   UNUSED(size);
@@ -131,19 +146,23 @@ static void handle_sdp_hid_query_result(uint8_t packet_type, uint16_t channel, u
 
   switch (hci_event_packet_get_type(packet)) {
     case SDP_EVENT_QUERY_ATTRIBUTE_VALUE:
-      if (sdp_event_query_attribute_byte_get_attribute_length(packet) <= attribute_value_buffer_size) {
-        attribute_value[sdp_event_query_attribute_byte_get_data_offset(packet)] =
-            sdp_event_query_attribute_byte_get_data(packet);
-        if ((uint16_t)(sdp_event_query_attribute_byte_get_data_offset(packet) + 1) ==
+      if (sdp_event_query_attribute_byte_get_attribute_length(packet) <=
+          attribute_value_buffer_size) {
+        attribute_value[sdp_event_query_attribute_byte_get_data_offset(
+            packet)] = sdp_event_query_attribute_byte_get_data(packet);
+        if ((uint16_t)(sdp_event_query_attribute_byte_get_data_offset(packet) +
+                       1) ==
             sdp_event_query_attribute_byte_get_attribute_length(packet)) {
           switch (sdp_event_query_attribute_byte_get_attribute_id(packet)) {
             case BLUETOOTH_ATTRIBUTE_HID_DESCRIPTOR_LIST:
-              for (des_iterator_init(&attribute_list_it, attribute_value); des_iterator_has_more(&attribute_list_it);
+              for (des_iterator_init(&attribute_list_it, attribute_value);
+                   des_iterator_has_more(&attribute_list_it);
                    des_iterator_next(&attribute_list_it)) {
                 if (des_iterator_get_type(&attribute_list_it) != DE_DES)
                   continue;
                 des_element = des_iterator_get_element(&attribute_list_it);
-                for (des_iterator_init(&additional_des_it, des_element); des_iterator_has_more(&additional_des_it);
+                for (des_iterator_init(&additional_des_it, des_element);
+                     des_iterator_has_more(&additional_des_it);
                      des_iterator_next(&additional_des_it)) {
                   if (des_iterator_get_type(&additional_des_it) != DE_STRING)
                     continue;
@@ -151,7 +170,8 @@ static void handle_sdp_hid_query_result(uint8_t packet_type, uint16_t channel, u
                   const uint8_t* descriptor = de_get_string(element);
                   int descriptor_len = de_get_data_size(element);
                   logi("SDP HID Descriptor (%d):\n", descriptor_len);
-                  uni_hid_device_set_hid_descriptor(device, descriptor, descriptor_len);
+                  uni_hid_device_set_hid_descriptor(device, descriptor,
+                                                    descriptor_len);
                   printf_hexdump(descriptor, descriptor_len);
                 }
               }
@@ -164,7 +184,8 @@ static void handle_sdp_hid_query_result(uint8_t packet_type, uint16_t channel, u
         loge(
             "SDP attribute value buffer size exceeded: available %d, required "
             "%d\n",
-            attribute_value_buffer_size, sdp_event_query_attribute_byte_get_attribute_length(packet));
+            attribute_value_buffer_size,
+            sdp_event_query_attribute_byte_get_attribute_length(packet));
       }
       break;
     case SDP_EVENT_QUERY_COMPLETE:
@@ -176,7 +197,8 @@ static void handle_sdp_hid_query_result(uint8_t packet_type, uint16_t channel, u
 }
 
 // Device ID results: Vendor ID, Product ID, Version, etc...
-static void handle_sdp_pid_query_result(uint8_t packet_type, uint16_t channel, uint8_t* packet, uint16_t size) {
+static void handle_sdp_pid_query_result(uint8_t packet_type, uint16_t channel,
+                                        uint8_t* packet, uint16_t size) {
   UNUSED(packet_type);
   UNUSED(channel);
   UNUSED(size);
@@ -192,10 +214,12 @@ static void handle_sdp_pid_query_result(uint8_t packet_type, uint16_t channel, u
 
   switch (hci_event_packet_get_type(packet)) {
     case SDP_EVENT_QUERY_ATTRIBUTE_VALUE:
-      if (sdp_event_query_attribute_byte_get_attribute_length(packet) <= attribute_value_buffer_size) {
-        attribute_value[sdp_event_query_attribute_byte_get_data_offset(packet)] =
-            sdp_event_query_attribute_byte_get_data(packet);
-        if ((uint16_t)(sdp_event_query_attribute_byte_get_data_offset(packet) + 1) ==
+      if (sdp_event_query_attribute_byte_get_attribute_length(packet) <=
+          attribute_value_buffer_size) {
+        attribute_value[sdp_event_query_attribute_byte_get_data_offset(
+            packet)] = sdp_event_query_attribute_byte_get_data(packet);
+        if ((uint16_t)(sdp_event_query_attribute_byte_get_data_offset(packet) +
+                       1) ==
             sdp_event_query_attribute_byte_get_attribute_length(packet)) {
           switch (sdp_event_query_attribute_byte_get_attribute_id(packet)) {
             case BLUETOOTH_ATTRIBUTE_VENDOR_ID:
@@ -219,11 +243,13 @@ static void handle_sdp_pid_query_result(uint8_t packet_type, uint16_t channel, u
         loge(
             "SDP attribute value buffer size exceeded: available %d, required "
             "%d\n",
-            attribute_value_buffer_size, sdp_event_query_attribute_byte_get_attribute_length(packet));
+            attribute_value_buffer_size,
+            sdp_event_query_attribute_byte_get_attribute_length(packet));
       }
       break;
     case SDP_EVENT_QUERY_COMPLETE:
-      logi("Vendor ID: 0x%04x - Product ID: 0x%04x\n", uni_hid_device_get_vendor_id(device),
+      logi("Vendor ID: 0x%04x - Product ID: 0x%04x\n",
+           uni_hid_device_get_vendor_id(device),
            uni_hid_device_get_product_id(device));
       uni_hid_device_guess_controller_type(device);
       uni_hid_device_try_assign_joystick_port(device);
@@ -232,7 +258,8 @@ static void handle_sdp_pid_query_result(uint8_t packet_type, uint16_t channel, u
   }
 }
 
-static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t* packet, uint16_t size) {
+static void packet_handler(uint8_t packet_type, uint16_t channel,
+                           uint8_t* packet, uint16_t size) {
   static uint8_t bt_ready = 0;
 
   uint8_t event;
@@ -242,7 +269,8 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t* packe
   // Ignore all packet events if bt is not ready, with the exception of the "bt
   // is ready" event.
   if ((!bt_ready) &&
-      !((packet_type == HCI_EVENT_PACKET) && (hci_event_packet_get_type(packet) == BTSTACK_EVENT_STATE))) {
+      !((packet_type == HCI_EVENT_PACKET) &&
+        (hci_event_packet_get_type(packet) == BTSTACK_EVENT_STATE))) {
     // printf("Ignoring packet. BT not ready yet\n");
     return;
   }
@@ -270,7 +298,9 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t* packe
           break;
         case HCI_EVENT_USER_CONFIRMATION_REQUEST:
           // inform about user confirmation request
-          logi("SSP User Confirmation Request with numeric value '%" PRIu32 "'\n", little_endian_read_32(packet, 8));
+          logi("SSP User Confirmation Request with numeric value '%" PRIu32
+               "'\n",
+               little_endian_read_32(packet, 8));
           logi("SSP User Confirmation Auto accept\n");
           break;
         case HCI_EVENT_HID_META:
@@ -313,7 +343,8 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t* packe
           if (device != NULL) {
             if (packet[2] == 0) {
               logi("Name: '%s'\n", &packet[9]);
-              uni_hid_device_set_name(device, &packet[9], strlen((const char*)&packet[9]));
+              uni_hid_device_set_name(device, &packet[9],
+                                      strlen((const char*)&packet[9]));
             } else {
               logi("Failed to get name: page timeout\n");
             }
@@ -322,7 +353,8 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t* packe
           break;
         case HCI_EVENT_READ_REMOTE_VERSION_INFORMATION_COMPLETE:
           logi("--> HCI_EVENT_READ_REMOTE_VERSION_INFORMATION_COMPLETE:\n");
-          on_hci_read_remote_version_information_complete(channel, packet, size);
+          on_hci_read_remote_version_information_complete(channel, packet,
+                                                          size);
           break;
         // L2CAP EVENTS
         case L2CAP_EVENT_INCOMING_CONNECTION:
@@ -354,7 +386,8 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t* packe
       break;
   }
 }
-static void on_hci_connection_request(uint16_t channel, uint8_t* packet, uint16_t size) {
+static void on_hci_connection_request(uint16_t channel, uint8_t* packet,
+                                      uint16_t size) {
   bd_addr_t event_addr;
   uint32_t cod;
   uni_hid_device_t* device;
@@ -375,10 +408,12 @@ static void on_hci_connection_request(uint16_t channel, uint8_t* packet, uint16_
   }
   uni_hid_device_set_cod(device, cod);
   uni_hid_device_set_incoming(device, 1);
-  logi("on_hci_connection_request from: address = %s, cod=0x%04x\n", bd_addr_to_str(event_addr), cod);
+  logi("on_hci_connection_request from: address = %s, cod=0x%04x\n",
+       bd_addr_to_str(event_addr), cod);
 }
 
-static void on_hci_connection_complete(uint16_t channel, uint8_t* packet, uint16_t size) {
+static void on_hci_connection_complete(uint16_t channel, uint8_t* packet,
+                                       uint16_t size) {
   bd_addr_t event_addr;
   uni_hid_device_t* device;
   hci_con_handle_t handle;
@@ -390,13 +425,15 @@ static void on_hci_connection_complete(uint16_t channel, uint8_t* packet, uint16
   hci_event_connection_complete_get_bd_addr(packet, event_addr);
   status = hci_event_connection_complete_get_status(packet);
   if (status) {
-    logi("on_hci_connection_complete failed (%d) for %s\n", status, bd_addr_to_str(event_addr));
+    logi("on_hci_connection_complete failed (%d) for %s\n", status,
+         bd_addr_to_str(event_addr));
     return;
   }
 
   device = uni_hid_device_get_instance_for_address(event_addr);
   if (device == NULL) {
-    logi("on_hci_connection_complete: failed to get device for %s\n", bd_addr_to_str(event_addr));
+    logi("on_hci_connection_complete: failed to get device for %s\n",
+         bd_addr_to_str(event_addr));
     return;
   }
 
@@ -409,32 +446,46 @@ static void on_hci_connection_complete(uint16_t channel, uint8_t* packet, uint16
   hci_send_cmd(&hci_read_remote_version_information, handle);
 }
 
-static void on_hci_read_remote_version_information_complete(uint16_t channel, uint8_t* packet, uint16_t size) {
+static void on_hci_read_remote_version_information_complete(uint16_t channel,
+                                                            uint8_t* packet,
+                                                            uint16_t size) {
   UNUSED(channel);
   UNUSED(size);
 
-  uint8_t status = hci_event_read_remote_version_information_complete_get_status(packet);
-  if (status != 0)
-    return;
+  uint8_t status =
+      hci_event_read_remote_version_information_complete_get_status(packet);
+  if (status != 0) return;
 
-  hci_con_handle_t handle = hci_event_read_remote_version_information_complete_get_connection_handle(packet);
-  uint8_t lmp_ver = hci_event_read_remote_version_information_complete_get_version(packet);
-  uint16_t mfr_name = hci_event_read_remote_version_information_complete_get_manufacturer_name(packet);
-  uint16_t lmp_subversion = hci_event_read_remote_version_information_complete_get_subversion(packet);
-  logi("*******  handle=0x%04x, ver=0x%02x, mfr=0x%04x, subver=0x%04x\n", handle, lmp_ver, mfr_name, lmp_subversion);
+  hci_con_handle_t handle =
+      hci_event_read_remote_version_information_complete_get_connection_handle(
+          packet);
+  uint8_t lmp_ver =
+      hci_event_read_remote_version_information_complete_get_version(packet);
+  uint16_t mfr_name =
+      hci_event_read_remote_version_information_complete_get_manufacturer_name(
+          packet);
+  uint16_t lmp_subversion =
+      hci_event_read_remote_version_information_complete_get_subversion(packet);
+  logi("*******  handle=0x%04x, ver=0x%02x, mfr=0x%04x, subver=0x%04x\n",
+       handle, lmp_ver, mfr_name, lmp_subversion);
   // hci_send_cmd(&hci_change_connection_packet_type, handle, 0xcc18);
 }
 
-static void on_gap_inquiry_result(uint16_t channel, uint8_t* packet, uint16_t size) {
+static void on_gap_inquiry_result(uint16_t channel, uint8_t* packet,
+                                  uint16_t size) {
+  const int NAME_LEN_MAX = 240;
   bd_addr_t addr;
   uint8_t status;
   uni_hid_device_t* device;
+  uint8_t name_buffer[NAME_LEN_MAX];
+  int name_len = -1;
 
   UNUSED(channel);
   UNUSED(size);
 
   gap_event_inquiry_result_get_bd_addr(packet, addr);
-  uint8_t page_scan_repetition_mode = gap_event_inquiry_result_get_page_scan_repetition_mode(packet);
+  uint8_t page_scan_repetition_mode =
+      gap_event_inquiry_result_get_page_scan_repetition_mode(packet);
   uint16_t clock_offset = gap_event_inquiry_result_get_clock_offset(packet);
   uint32_t cod = gap_event_inquiry_result_get_class_of_device(packet);
 
@@ -445,6 +496,13 @@ static void on_gap_inquiry_result(uint16_t channel, uint8_t* packet, uint16_t si
   if (gap_event_inquiry_result_get_rssi_available(packet)) {
     logi(", rssi %d dBm", (int8_t)gap_event_inquiry_result_get_rssi(packet));
   }
+  if (gap_event_inquiry_result_get_name_available(packet)) {
+    name_len = btstack_min(NAME_LEN_MAX - 1,
+                           gap_event_inquiry_result_get_name_len(packet));
+    memcpy(name_buffer, gap_event_inquiry_result_get_name(packet), name_len);
+    name_buffer[name_len] = 0;
+    logi(", name '%s'", name_buffer);
+  }
 
   if (uni_hid_device_is_cod_supported(cod)) {
     device = uni_hid_device_get_instance_for_address(addr);
@@ -453,8 +511,7 @@ static void on_gap_inquiry_result(uint16_t channel, uint8_t* packet, uint16_t si
       uni_hid_device_dump_device(device);
       return;
     }
-    if (!device)
-      device = uni_hid_device_create(addr);
+    if (!device) device = uni_hid_device_create(addr);
     if (device == NULL) {
       loge("\nError: no more available device slots\n");
       return;
@@ -463,24 +520,23 @@ static void on_gap_inquiry_result(uint16_t channel, uint8_t* packet, uint16_t si
     device->page_scan_repetition_mode = page_scan_repetition_mode;
     device->clock_offset = clock_offset;
 
-    if (!uni_hid_device_has_name(device)) {
-      if (gap_event_inquiry_result_get_name_available(packet)) {
-        int name_len = gap_event_inquiry_result_get_name_len(packet);
-        uni_hid_device_set_name(device, gap_event_inquiry_result_get_name(packet), name_len);
-        logi(", name '%s'", device->name);
-      } else {
-        device->state = REMOTE_NAME_REQUEST;
-      }
+    if (name_len != -1 && !uni_hid_device_has_name(device)) {
+      uni_hid_device_set_name(device, name_buffer, name_len);
+    } else {
+      device->state = REMOTE_NAME_REQUEST;
     }
     logi("\n");
-    status = l2cap_create_channel(packet_handler, device->address, PSM_HID_CONTROL, 48, &device->hid_control_cid);
+    status =
+        l2cap_create_channel(packet_handler, device->address, PSM_HID_CONTROL,
+                             48, &device->hid_control_cid);
     if (status) {
       loge("\nConnecting to HID Control failed: 0x%02x", status);
     }
   }
   logi("\n");
 }
-static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet, uint16_t size) {
+static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet,
+                                    uint16_t size) {
   uint16_t psm;
   uint8_t status;
   uint16_t local_cid;
@@ -498,10 +554,13 @@ static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet, uint16_t 
   status = l2cap_event_channel_opened_get_status(packet);
   if (status) {
     logi("L2CAP Connection failed: 0x%02x.\n", status);
-    // Practice showed that if any of these two status are received, it is best to remove the link key.
-    // But this is based on empirical evidence, not on theory.
-    if (status == L2CAP_CONNECTION_RESPONSE_RESULT_RTX_TIMEOUT || status == L2CAP_CONNECTION_BASEBAND_DISCONNECT) {
-      logi("Removing previous link key for address=%s.\n", bd_addr_to_str(address));
+    // Practice showed that if any of these two status are received, it is best
+    // to remove the link key. But this is based on empirical evidence, not on
+    // theory.
+    if (status == L2CAP_CONNECTION_RESPONSE_RESULT_RTX_TIMEOUT ||
+        status == L2CAP_CONNECTION_BASEBAND_DISCONNECT) {
+      logi("Removing previous link key for address=%s.\n",
+           bd_addr_to_str(address));
       uni_hid_device_remove_entry_with_channel(channel);
       // Just in case the key is outdated we remove it. If fixes some
       // l2cap_channel_opened issues. It proves that it works when the status is
@@ -529,11 +588,13 @@ static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet, uint16_t 
 
   switch (psm) {
     case PSM_HID_CONTROL:
-      device->hid_control_cid = l2cap_event_channel_opened_get_local_cid(packet);
+      device->hid_control_cid =
+          l2cap_event_channel_opened_get_local_cid(packet);
       logi("HID Control opened, cid 0x%02x\n", device->hid_control_cid);
       break;
     case PSM_HID_INTERRUPT:
-      device->hid_interrupt_cid = l2cap_event_channel_opened_get_local_cid(packet);
+      device->hid_interrupt_cid =
+          l2cap_event_channel_opened_get_local_cid(packet);
       logi("HID Interrupt opened, cid 0x%02x\n", device->hid_interrupt_cid);
       // Don't request HID descriptor if we already have it.
       if (!uni_hid_device_has_hid_descriptor(device)) {
@@ -552,7 +613,9 @@ static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet, uint16_t 
     }
     if (local_cid == device->hid_control_cid) {
       logi("Creating HID INTERRUPT channel\n");
-      status = l2cap_create_channel(packet_handler, device->address, PSM_HID_INTERRUPT, 48, &device->hid_interrupt_cid);
+      status = l2cap_create_channel(packet_handler, device->address,
+                                    PSM_HID_INTERRUPT, 48,
+                                    &device->hid_interrupt_cid);
       if (status) {
         loge("Connecting to HID Control failed: 0x%02x\n", status);
         uni_hid_device_remove_entry_with_channel(channel);
@@ -568,14 +631,16 @@ static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet, uint16_t 
   uni_hid_device_try_assign_joystick_port(device);
 }
 
-static void on_l2cap_channel_closed(uint16_t channel, uint8_t* packet, uint16_t size) {
+static void on_l2cap_channel_closed(uint16_t channel, uint8_t* packet,
+                                    uint16_t size) {
   uint16_t local_cid;
   uni_hid_device_t* device;
 
   UNUSED(size);
 
   local_cid = l2cap_event_channel_closed_get_local_cid(packet);
-  logi("L2CAP_EVENT_CHANNEL_CLOSED: 0x%04x (channel=0x%04x)\n", local_cid, channel);
+  logi("L2CAP_EVENT_CHANNEL_CLOSED: 0x%04x (channel=0x%04x)\n", local_cid,
+       channel);
   device = uni_hid_device_get_instance_for_cid(local_cid);
   if (device == NULL) {
     // Device might already been closed if the Control or Interrupt PSM was
@@ -586,7 +651,8 @@ static void on_l2cap_channel_closed(uint16_t channel, uint8_t* packet, uint16_t 
   uni_hid_device_set_disconnected(device);
 }
 
-static void on_l2cap_incoming_connection(uint16_t channel, uint8_t* packet, uint16_t size) {
+static void on_l2cap_incoming_connection(uint16_t channel, uint8_t* packet,
+                                         uint16_t size) {
   bd_addr_t event_addr;
   uni_hid_device_t* device;
   uint16_t local_cid;
@@ -639,7 +705,8 @@ static void on_l2cap_incoming_connection(uint16_t channel, uint8_t* packet, uint
   }
 }
 
-static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet, uint16_t size) {
+static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet,
+                                 uint16_t size) {
   uni_hid_device_t* device;
 
   device = uni_hid_device_get_instance_for_cid(channel);
@@ -648,8 +715,7 @@ static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet, uint16_t siz
     return;
   }
 
-  if (channel != device->hid_interrupt_cid)
-    return;
+  if (channel != device->hid_interrupt_cid) return;
 
   if (!uni_hid_device_has_hid_descriptor(device)) {
     logi("Device without HID descriptor yet. Ignoring report\n");
@@ -665,18 +731,16 @@ static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet, uint16_t siz
   uint8_t* report = packet;
 
   // check if HID Input Report
-  if (report_len < 1)
-    return;
-  if (*report != 0xa1)
-    return;
+  if (report_len < 1) return;
+  if (*report != 0xa1) return;
   report++;
   report_len--;
 
   // In case a joystick port hasn't been assign yet, assign one.
   // uni_hid_device_try_assign_joystick_port(device);
 
-  uni_hid_parser(&device->gamepad, &device->report_parser, report, report_len, device->hid_descriptor,
-                 device->hid_descriptor_len);
+  uni_hid_parser(&device->gamepad, &device->report_parser, report, report_len,
+                 device->hid_descriptor, device->hid_descriptor_len);
 
   // Debug info
   uni_gamepad_dump(&device->gamepad);
@@ -698,7 +762,8 @@ static void do_next_remote_name_request(void) {
   if (device != NULL) {
     device->state = REMOTE_NAME_INQUIRED;
     logi("Get remote name of %s...\n", bd_addr_to_str(device->address));
-    gap_remote_name_request(device->address, device->page_scan_repetition_mode, device->clock_offset | 0x8000);
+    gap_remote_name_request(device->address, device->page_scan_repetition_mode,
+                            device->clock_offset | 0x8000);
   }
 }
 
@@ -716,17 +781,21 @@ static void start_scan(void) {
 }
 
 static void sdp_query_hid_descriptor(uni_hid_device_t* device) {
-  logi("Starting SDP query for HID descriptor for: %s\n", bd_addr_to_str(device->address));
+  logi("Starting SDP query for HID descriptor for: %s\n",
+       bd_addr_to_str(device->address));
   // Needed for the SDP query since it only supports oe SDP query at the time.
   uni_hid_device_t* current = uni_hid_device_get_current_device();
   if (current != NULL) {
-    loge("Error: Ouch, another SDP query is in progress (%s) Try again later.\n", bd_addr_to_str(current->address));
+    loge(
+        "Error: Ouch, another SDP query is in progress (%s) Try again later.\n",
+        bd_addr_to_str(current->address));
     return;
   }
 
   uni_hid_device_set_current_device(device);
-  uint8_t status = sdp_client_query_uuid16(&handle_sdp_hid_query_result, device->address,
-                                           BLUETOOTH_SERVICE_CLASS_HUMAN_INTERFACE_DEVICE_SERVICE);
+  uint8_t status = sdp_client_query_uuid16(
+      &handle_sdp_hid_query_result, device->address,
+      BLUETOOTH_SERVICE_CLASS_HUMAN_INTERFACE_DEVICE_SERVICE);
   if (status != 0) {
     uni_hid_device_set_current_device(NULL);
     loge("Failed to perform sdp query\n");
@@ -743,7 +812,8 @@ static void sdp_query_product_id(uni_hid_device_t* device) {
     return;
   }
   uint8_t status =
-      sdp_client_query_uuid16(&handle_sdp_pid_query_result, device->address, BLUETOOTH_SERVICE_CLASS_PNP_INFORMATION);
+      sdp_client_query_uuid16(&handle_sdp_pid_query_result, device->address,
+                              BLUETOOTH_SERVICE_CLASS_PNP_INFORMATION);
   if (status != 0) {
     uni_hid_device_set_current_device(NULL);
     loge("Failed to perform SDP DeviceID query\n");

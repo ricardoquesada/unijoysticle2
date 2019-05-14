@@ -57,7 +57,7 @@ typedef enum {
   CONTROLLER_TYPE_GenericController = 48,        // (Unijoysicle)
 
   CONTROLLER_TYPE_LastController,  // Don't add game controllers below this
-                                   // enumeration
+  // enumeration
   // this enumeration can change value
 
   // Keyboards and Mice

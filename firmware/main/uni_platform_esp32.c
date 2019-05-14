@@ -255,8 +255,7 @@ void uni_platform_on_port_freed(uni_joystick_port_t port) {
     gpio_set_level(GPIO_LED_J2, 0);
 }
 
-void uni_platform_on_mouse_data(int32_t delta_x,
-                                int32_t delta_y,
+void uni_platform_on_mouse_data(int32_t delta_x, int32_t delta_y,
                                 uint16_t buttons) {
   static uint16_t prev_buttons = 0;
   logd("mouse: x=%d, y=%d, buttons=0x%4x\n", delta_x, delta_y, buttons);
@@ -326,17 +325,13 @@ static void event_loop(void* arg) {
         pdTRUE, pdFALSE, xTicksToWait);
 
     // timeout ?
-    if (uxBits == 0)
-      continue;
+    if (uxBits == 0) continue;
 
-    if (uxBits & EVENT_BIT_MOUSE)
-      handle_event_mouse();
+    if (uxBits & EVENT_BIT_MOUSE) handle_event_mouse();
 
-    if (uxBits & EVENT_BIT_BUTTON)
-      handle_event_button();
+    if (uxBits & EVENT_BIT_BUTTON) handle_event_button();
 
-    if (uxBits & EVENT_BIT_POT)
-      handle_event_pot();
+    if (uxBits & EVENT_BIT_POT) handle_event_pot();
   }
 }
 
@@ -349,21 +344,16 @@ static void auto_fire_loop(void* arg) {
         g_auto_fire_group, EVENT_BIT_AUTOFIRE, pdTRUE, pdFALSE, xTicksToWait);
 
     // timeout ?
-    if (uxBits == 0)
-      continue;
+    if (uxBits == 0) continue;
 
     while (g_autofire_a_enabled || g_autofire_b_enabled) {
-      if (g_autofire_a_enabled)
-        gpio_set_level(JOY_A_PORTS[4], 1);
-      if (g_autofire_b_enabled)
-        gpio_set_level(JOY_B_PORTS[4], 1);
+      if (g_autofire_a_enabled) gpio_set_level(JOY_A_PORTS[4], 1);
+      if (g_autofire_b_enabled) gpio_set_level(JOY_B_PORTS[4], 1);
 
       vTaskDelay(delayTicks);
 
-      if (g_autofire_a_enabled)
-        gpio_set_level(JOY_A_PORTS[4], 0);
-      if (g_autofire_b_enabled)
-        gpio_set_level(JOY_B_PORTS[4], 0);
+      if (g_autofire_a_enabled) gpio_set_level(JOY_A_PORTS[4], 0);
+      if (g_autofire_b_enabled) gpio_set_level(JOY_B_PORTS[4], 0);
 
       vTaskDelay(delayTicks);
     }
@@ -376,8 +366,7 @@ void handle_event_mouse() {
   int delta_y = g_delta_y;
 
   // Should not happen, but better safe than sorry
-  if (delta_x == 0 && delta_y == 0)
-    return;
+  if (delta_x == 0 && delta_y == 0) return;
 
   int dir_x = 0;
   int dir_y = 0;
@@ -473,8 +462,7 @@ static void IRAM_ATTR gpio_isr_handler_button(void* arg) {
   BaseType_t xHigherPriorityTaskWoken = pdFALSE;
   xEventGroupSetBitsFromISR(g_event_group, EVENT_BIT_BUTTON,
                             &xHigherPriorityTaskWoken);
-  if (xHigherPriorityTaskWoken == pdTRUE)
-    portYIELD_FROM_ISR();
+  if (xHigherPriorityTaskWoken == pdTRUE) portYIELD_FROM_ISR();
 }
 
 #if UNI_ENABLE_POT
@@ -485,8 +473,7 @@ static void IRAM_ATTR gpio_isr_handler_pot(void* arg) {
   BaseType_t xHigherPriorityTaskWoken = pdFALSE;
   xEventGroupSetBitsFromISR(g_event_group, EVENT_BIT_POT,
                             &xHigherPriorityTaskWoken);
-  if (xHigherPriorityTaskWoken == pdTRUE)
-    portYIELD_FROM_ISR();
+  if (xHigherPriorityTaskWoken == pdTRUE) portYIELD_FROM_ISR();
 }
 #endif  // UNI_ENABLE_POT
 
@@ -499,8 +486,7 @@ static void handle_event_button() {
 
   // Regardless of the state, ignore the event if not enough time passed.
   int64_t now = esp_timer_get_time();
-  if ((now - g_last_time_pressed_us) < button_threshold_time_us)
-    return;
+  if ((now - g_last_time_pressed_us) < button_threshold_time_us) return;
 
   g_last_time_pressed_us = now;
 

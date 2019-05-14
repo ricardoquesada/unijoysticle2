@@ -32,8 +32,7 @@ void uni_hid_parser_smarttvremote_init(uni_gamepad_t* gp) {
 void uni_hid_parser_smarttvremote_parse_usage(uni_gamepad_t* gp,
                                               hid_globals_t* globals,
                                               uint16_t usage_page,
-                                              uint16_t usage,
-                                              int32_t value) {
+                                              uint16_t usage, int32_t value) {
   UNUSED(globals);
   // print_parser_globals(globals);
   switch (usage_page) {
@@ -43,13 +42,17 @@ void uni_hid_parser_smarttvremote_parse_usage(uni_gamepad_t* gp,
           gp->battery = value;
           break;
         default:
-          logi("SmartTVRemote: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+          logi(
+              "SmartTVRemote: Unsupported page: 0x%04x, usage: 0x%04x, "
+              "value=0x%x\n",
+              usage_page, usage, value);
           break;
       }
       break;
     case HID_USAGE_PAGE_KEYBOARD_KEYPAD:
-      // FIXME: It is unlikely a device has both a dpap a keyboard, so we report certain keys
-      // as dpad, just to avoid having a entry entry in the uni_gamepad_t type.
+      // FIXME: It is unlikely a device has both a dpap a keyboard, so we report
+      // certain keys as dpad, just to avoid having a entry entry in the
+      // uni_gamepad_t type.
       switch (usage) {
         case 0x00:  // Reserved, empty on purpose
           break;
@@ -98,7 +101,10 @@ void uni_hid_parser_smarttvremote_parse_usage(uni_gamepad_t* gp,
           gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_BACK;
           break;
         default:
-          logi("SmartTVRemote: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+          logi(
+              "SmartTVRemote: Unsupported page: 0x%04x, usage: 0x%04x, "
+              "value=0x%x\n",
+              usage_page, usage, value);
           break;
       }
       break;
@@ -128,14 +134,20 @@ void uni_hid_parser_smarttvremote_parse_usage(uni_gamepad_t* gp,
           gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_HOME;
           break;
         default:
-          logi("SmartTVRemote: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+          logi(
+              "SmartTVRemote: Unsupported page: 0x%04x, usage: 0x%04x, "
+              "value=0x%x\n",
+              usage_page, usage, value);
           break;
       }
       break;
     }
     // unknown usage page
     default:
-      logi("SmartTVRemote: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+      logi(
+          "SmartTVRemote: Unsupported page: 0x%04x, usage: 0x%04x, "
+          "value=0x%x\n",
+          usage_page, usage, value);
       break;
   }
 }

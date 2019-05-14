@@ -16,9 +16,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ****************************************************************************/
 
-// Generic gamepads. Gamepads that were desigened to be "multi console, and might
-// implemenet usages that are invalid for specific consoles.
-// In order to keep clean the pure-console implementations, add here the generic ones.
+// Generic gamepads. Gamepads that were desigened to be "multi console, and
+// might implemenet usages that are invalid for specific consoles. In order to
+// keep clean the pure-console implementations, add here the generic ones.
 
 #include "uni_hid_parser_generic.h"
 
@@ -33,8 +33,7 @@ void uni_hid_parser_generic_init(uni_gamepad_t* gp) {
 
 void uni_hid_parser_generic_parse_usage(uni_gamepad_t* gp,
                                         hid_globals_t* globals,
-                                        uint16_t usage_page,
-                                        uint16_t usage,
+                                        uint16_t usage_page, uint16_t usage,
                                         int32_t value) {
   // print_parser_globals(globals);
   uint8_t hat;
@@ -78,7 +77,8 @@ void uni_hid_parser_generic_parse_usage(uni_gamepad_t* gp,
           gp->updated_states |= GAMEPAD_STATE_DPAD;
           break;
         default:
-          logi("Generic: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+          logi("Generic: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+               usage_page, usage, value);
           break;
       }
       break;
@@ -93,7 +93,8 @@ void uni_hid_parser_generic_parse_usage(uni_gamepad_t* gp,
           gp->updated_states |= GAMEPAD_STATE_BRAKE;
           break;
         default:
-          logi("Generic: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+          logi("Generic: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+               usage_page, usage, value);
           break;
       };
       break;
@@ -118,7 +119,8 @@ void uni_hid_parser_generic_parse_usage(uni_gamepad_t* gp,
         case 0xe7:  // keyboard right GUI
           break;
         default:
-          logi("Generic: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+          logi("Generic: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+               usage_page, usage, value);
           break;
       }
       break;
@@ -128,7 +130,8 @@ void uni_hid_parser_generic_parse_usage(uni_gamepad_t* gp,
           gp->battery = value;
           break;
         default:
-          logi("Generic: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+          logi("Generic: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+               usage_page, usage, value);
           break;
       }
       break;
@@ -222,7 +225,8 @@ void uni_hid_parser_generic_parse_usage(uni_gamepad_t* gp,
         case 0x10:  // unsupported
           break;
         default:
-          logi("Generic: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+          logi("Generic: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+               usage_page, usage, value);
           break;
       }
       break;
@@ -252,14 +256,16 @@ void uni_hid_parser_generic_parse_usage(uni_gamepad_t* gp,
           gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_BACK;
           break;
         default:
-          logi("Generic: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+          logi("Generic: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+               usage_page, usage, value);
           break;
       }
       break;
 
     // unknown usage page
     default:
-      logi("Generic: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+      logi("Generic: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+           usage_page, usage, value);
       break;
   }
 }

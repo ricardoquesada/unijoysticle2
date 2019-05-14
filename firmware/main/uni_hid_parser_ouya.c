@@ -26,10 +26,8 @@ void uni_hid_parser_ouya_init(uni_gamepad_t* gp) {
   gp->updated_states = 0;
 }
 
-void uni_hid_parser_ouya_parse_usage(uni_gamepad_t* gp,
-                                     hid_globals_t* globals,
-                                     uint16_t usage_page,
-                                     uint16_t usage,
+void uni_hid_parser_ouya_parse_usage(uni_gamepad_t* gp, hid_globals_t* globals,
+                                     uint16_t usage_page, uint16_t usage,
                                      int32_t value) {
   switch (usage_page) {
     case HID_USAGE_PAGE_GENERIC_DESKTOP:
@@ -59,7 +57,10 @@ void uni_hid_parser_ouya_parse_usage(uni_gamepad_t* gp,
           gp->updated_states |= GAMEPAD_STATE_ACCELERATOR;
           break;
         default:
-          logi("OUYA: Unsupported usage page=0x%04x, page=0x%04x, value=0x%04x\n", usage_page, usage, value);
+          logi(
+              "OUYA: Unsupported usage page=0x%04x, page=0x%04x, "
+              "value=0x%04x\n",
+              usage_page, usage, value);
           break;
       }
       break;
@@ -171,14 +172,18 @@ void uni_hid_parser_ouya_parse_usage(uni_gamepad_t* gp,
         case 0x10:  // Not mapped but reported.
           break;
         default:
-          logi("OUYA: Unsupported usage page=0x%04x, page=0x%04x, value=0x%04x\n", usage_page, usage, value);
+          logi(
+              "OUYA: Unsupported usage page=0x%04x, page=0x%04x, "
+              "value=0x%04x\n",
+              usage_page, usage, value);
           break;
       }
       break;
     case 0xff00:  // OUYA specific, but not mapped apparently
       break;
     default:
-      logi("OUYA: Unsupported usage page=0x%04x, page=0x%04x, value=0x%04x\n", usage_page, usage, value);
+      logi("OUYA: Unsupported usage page=0x%04x, page=0x%04x, value=0x%04x\n",
+           usage_page, usage, value);
       break;
   }
 }

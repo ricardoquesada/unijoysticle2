@@ -28,10 +28,8 @@ limitations under the License.
 
 // For PS4 gamepads
 void uni_hid_parser_ps4_init(uni_gamepad_t* gp);
-void uni_hid_parser_ps4_parse_usage(uni_gamepad_t* gp,
-                                    hid_globals_t* globals,
-                                    uint16_t usage_page,
-                                    uint16_t usage,
+void uni_hid_parser_ps4_parse_usage(uni_gamepad_t* gp, hid_globals_t* globals,
+                                    uint16_t usage_page, uint16_t usage,
                                     int32_t value);
 
 #endif  // UNI_HID_PARSER_PS4_H

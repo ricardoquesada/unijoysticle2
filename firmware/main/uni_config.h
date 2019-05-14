@@ -23,7 +23,7 @@ limitations under the License.
 // It is safe to leave UNI_LOG_DEBUG disabled (unless you are a developer).
 #define UNI_LOG_ERROR 1
 #define UNI_LOG_INFO 1
-#define UNI_LOG_DEBUG 0
+#define UNI_LOG_DEBUG 1
 
 // Enable pin compatibility with Unijoysticle v1 pinout. Enable this if you have
 // a Unijoysticle v1 (the one with ESP8266) and want to replace the ESP8266 with

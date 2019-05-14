@@ -47,10 +47,8 @@ void uni_hid_parser_icade_init(uni_gamepad_t* gp) {
   // since each report is a "delta", and doesn't include a full state.
 }
 
-void uni_hid_parser_icade_parse_usage(uni_gamepad_t* gp,
-                                      hid_globals_t* globals,
-                                      uint16_t usage_page,
-                                      uint16_t usage,
+void uni_hid_parser_icade_parse_usage(uni_gamepad_t* gp, hid_globals_t* globals,
+                                      uint16_t usage_page, uint16_t usage,
                                       int32_t value) {
   UNUSED(globals);
   switch (usage_page) {
@@ -147,7 +145,8 @@ void uni_hid_parser_icade_parse_usage(uni_gamepad_t* gp,
           // unmapped buttons
           break;
         default:
-          logi("iCade: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n", usage_page, usage, value);
+          logi("iCade: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+               usage_page, usage, value);
           break;
       }
   }
