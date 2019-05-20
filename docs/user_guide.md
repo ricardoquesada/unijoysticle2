@@ -35,8 +35,9 @@ Neded components:
 
 You can source the components from here:
 
-- Unijoysticle 2 PCB from: [PCBWay][3] or [OSHPark][4]
-- [ESP32 Mini Kit][5] and some extra [pins][6]
+- Unijoysticle 2 PCB from: [PCBWay (blue)][3] or [PCBWay (black)][11] or [OSHPark][4]
+- ESP32 devkit from: [ESP32 Mini Kit (blue)][5] or [ESP32 TTGO Mini (black)][12]
+  -  extra [pins might be needed][6]
 - [Remaining components][7] (you must be logged in into DigiKey)
 
 ## Flashing the firmware
@@ -151,6 +152,8 @@ If none of the above works, file a bug (see below).
 
 ## Reporting bugs
 
+File bugs in Gitlab project: https://gitlab.com/ricardoquesada/unijoysticle2/issues
+
 [1]: firmware_setup.md
 [2]: supported_gamepads.md
 [3]: https://www.pcbway.com/project/shareproject/Unijoysticle_2.html
@@ -161,3 +164,8 @@ If none of the above works, file a bug (see below).
 [8]: https://en.wikipedia.org/wiki/Robotron:_2084
 [9]: https://csdb.dk/release/?id=38140
 [10]: https://csdb.dk/release/?id=137173
+[11]: https://www.pcbway.com/project/shareproject/Unijoysticle_2__black_edition_.html
+[12]: https://www.aliexpress.com/item/TTGO-MINI32-V2-0-13-ESP32-rev1-rev-one-WiFi-Bluetooth-Module-For-D1-mini/32845357819.html?spm=a2g0s.9042311.0.0.6dd64c4diLRDMz
+
+
+
