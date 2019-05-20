@@ -48,7 +48,7 @@ Tested gamepads so far.
 | Model              | Notes                                           | Names                                                       |
 | ------------------ | ----------------------------------------------- | ----------------------------------------------------------- |
 | ![Xbox One][4]     | See [issue #1][23]                              | [Xbox One][13]                                              |
-| ![ps4_gamepad][5]  | Must be in PC mode                              | [Sony Dualshock 4][14]                                      |
+| ![ps4_gamepad][5]  | [Must be in PC mode][25]. Clones might not work | [Sony Dualshock 4][14]                                      |
 | ![Android][6]      |                                                 | [ASUS][15], [Moga Pro 2][16], [Amazon Fire TV gamepads][17] |
 | ![Nimbus iOS][7]   |                                                 | [SteelSeries Nimbus][18] for iOS                            |
 | ![OUYA][8]         | Buttons: O,U,Y,A -> A,X,Y,B                     | [OUYA (1st gen)][19]                                        |
@@ -133,3 +133,4 @@ Many of the virtual buttons/pads are left unmapped, but could be mapped in the f
 [22]: https://www.amazon.com/Alexa-Voice-Remote-Amazon-Stick/dp/B071D41YC3
 [23]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/1
 [24]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/3
+[25]: https://www.techradar.com/how-to/gaming/how-to-use-the-ps4-dualshock-4-controller-on-a-pc-1309014
