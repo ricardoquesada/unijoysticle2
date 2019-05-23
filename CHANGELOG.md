@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.2.0] - 2019-05-22
 ### Added
 - Docs: User guide
 
@@ -13,15 +15,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Turn on both LEDs when enabled.
   - When back from combo-mode, restore previously used port
   - Cannot swap ports when in combo mode
+- Firmware: Atari ST mouse support
+  - Buttons working as expected
+  - A bit smoother than v0.1.0 but still not good enough
 - Firmware: Updated link to http://retro.moe/unijoysticle2
-- Firmware: Using esp-idf v3.2. Commit: cf866f23f2384ebf078fe71a3af1757e53ec6638
+- Firmware: Using esp-idf v3.2. Commit: 286202caa31b61c2182209f37f8069a0b60fb942
   - Enabled options:
     - Component Bluetooth enabled
     - Bluedroid disabled
     - Dual mode BR/EDR + BLE enabled
     - Bluetooth BR/EDR Max connections 4
     - Coredump to UART
-- Firmware: Using btstack develop-branch. Commit: 5ec47f0f9ec2b85540930e8726a8664309398a18
+- Firmware: Using btstack develop-branch. Commit: 4ce43359e6190a70dcb8ef079b902c1583c2abe4
 
 ## [0.1.0] - 2019-04-15
 ### Added
