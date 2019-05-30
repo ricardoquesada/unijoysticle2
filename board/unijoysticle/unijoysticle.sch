@@ -130,7 +130,7 @@ F 3 "" H 6900 5600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L SparkFun-Boards:ESP32_THING_W_ANT_KEEPOUT B1
+L unijoysticle-rescue:ESP32_THING_W_ANT_KEEPOUT-SparkFun-Boards B1
 U 1 1 5C6B6FCB
 P 7650 4600
 F 0 "B1" H 7650 5960 45  0000 C CNN
