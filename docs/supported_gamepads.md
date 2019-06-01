@@ -5,7 +5,7 @@
 All Bluetooth Classic HID devices are supported, or should be easy to support them.
 Example of Bluetooth Classic HID devices are:
 
-- Xbox One gamepad
+- Xbox One S gamepad
 - Sony Dualshock 4 (in PC mode)
 - Android gamepads
 - PC/Windows gamepads
@@ -46,8 +46,8 @@ Devices known to be non-Bluetooth:
 Tested gamepads so far.
 
 | Model              | Notes                                           | Names                                                       |
-| ------------------ | ----------------------------------------------- | ----------------------------------------------------------- |
-| ![Xbox One][4]     | See [issue #1][23]                              | [Xbox One][13]                                              |
+|--------------------|-------------------------------------------------|-------------------------------------------------------------|
+| ![Xbox One S][4]   | See [issue #1][23]                              | [Xbox One S][13]                                            |
 | ![ps4_gamepad][5]  | [Must be in PC mode][25]. Clones might not work | [Sony Dualshock 4][14]                                      |
 | ![Android][6]      |                                                 | [ASUS][15], [Moga Pro 2][16], [Amazon Fire TV gamepads][17] |
 | ![Nimbus iOS][7]   |                                                 | [SteelSeries Nimbus][18] for iOS                            |
