@@ -373,6 +373,8 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
 
   // If it fails, try to guess it from COD
   if (type == CONTROLLER_TYPE_Unknown) {
+    logi("Device (vendor_id=0x%04x, product_id=0x%04x) not found in DB.",
+         d->vendor_id, d->product_id);
     uint32_t mouse_cod =
         MASK_COD_MAJOR_PERIPHERAL | MASK_COD_MINOR_POINT_DEVICE;
     uint32_t keyboard_cod = MASK_COD_MAJOR_PERIPHERAL | MASK_COD_MINOR_KEYBOARD;
@@ -381,7 +383,7 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
     } else if ((d->cod & keyboard_cod) == keyboard_cod) {
       type = CONTROLLER_TYPE_GenericKeyboard;
     } else {
-      // FIXME: Default shold be the most popular bluetooth device.
+      // FIXME: Default should be the most popular bluetooth device.
       type = CONTROLLER_TYPE_AndroidController;
     }
   }
@@ -390,46 +392,55 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
     case CONTROLLER_TYPE_iCadeController:
       d->report_parser.init = uni_hid_parser_icade_init;
       d->report_parser.parse_usage = uni_hid_parser_icade_parse_usage;
+      logi("Device detected as iCade: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_OUYAController:
       d->report_parser.init = uni_hid_parser_ouya_init;
       d->report_parser.parse_usage = uni_hid_parser_ouya_parse_usage;
+      logi("Device detected as OUYA: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_XBoxOneController:
       d->report_parser.init = uni_hid_parser_xboxone_init;
       d->report_parser.parse_usage = uni_hid_parser_xboxone_parse_usage;
+      logi("Device detected as Xbox One: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_AndroidController:
       d->report_parser.init = uni_hid_parser_android_init;
       d->report_parser.parse_usage = uni_hid_parser_android_parse_usage;
+      logi("Device detected as Android: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_AppleController:
       d->report_parser.init = uni_hid_parser_apple_init;
       d->report_parser.parse_usage = uni_hid_parser_apple_parse_usage;
+      logi("Device detected as Apple: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_SmartTVRemoteController:
       d->report_parser.init = uni_hid_parser_smarttvremote_init;
       d->report_parser.parse_usage = uni_hid_parser_smarttvremote_parse_usage;
+      logi("Device detected as Smart TV remote: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_PS4Controller:
       d->report_parser.init = uni_hid_parser_ps4_init;
       d->report_parser.parse_usage = uni_hid_parser_ps4_parse_usage;
+      logi("Device detected as PS4: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_8BitdoController:
       d->report_parser.init = uni_hid_parser_8bitdo_init;
       d->report_parser.parse_usage = uni_hid_parser_8bitdo_parse_usage;
+      logi("Device detected as 8BITDO: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_GenericController:
       d->report_parser.init = uni_hid_parser_generic_init;
       d->report_parser.parse_usage = uni_hid_parser_generic_parse_usage;
+      logi("Device detected as generic: 0x%02x\n", type);
       break;
     default:
       d->report_parser.init = uni_hid_parser_generic_init;
       d->report_parser.parse_usage = uni_hid_parser_generic_parse_usage;
+      logi("Device detected as generic: 0x%02x\n", type);
       break;
   }
 
-  logi("Device detected as: 0x%02x\n", type);
   d->flags |= FLAGS_HAS_CONTROLLER_TYPE;
 }
 
