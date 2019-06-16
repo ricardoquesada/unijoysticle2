@@ -107,7 +107,8 @@ uni_hid_device_t* uni_hid_device_get_instance_for_connection_handle(
   return NULL;
 }
 
-uni_hid_device_t* uni_hid_device_get_first_device_with_state(int state) {
+uni_hid_device_t* uni_hid_device_get_first_device_with_state(
+    enum DEVICE_STATE state) {
   for (int i = 0; i < g_device_count; i++) {
     if (g_devices[i].state == state) return &g_devices[i];
   }

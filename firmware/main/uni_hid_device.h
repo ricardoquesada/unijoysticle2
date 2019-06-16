@@ -80,7 +80,8 @@ uni_hid_device_t* uni_hid_device_get_instance_for_address(bd_addr_t addr);
 uni_hid_device_t* uni_hid_device_get_instance_for_cid(uint16_t cid);
 uni_hid_device_t* uni_hid_device_get_instance_for_connection_handle(
     hci_con_handle_t handle);
-uni_hid_device_t* uni_hid_device_get_first_device_with_state(int state);
+uni_hid_device_t* uni_hid_device_get_first_device_with_state(
+    enum DEVICE_STATE state);
 
 void uni_hid_device_set_current_device(uni_hid_device_t* d);
 uni_hid_device_t* uni_hid_device_get_current_device(void);
