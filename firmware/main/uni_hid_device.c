@@ -58,7 +58,6 @@ enum {
 
 static uni_hid_device_t g_devices[MAX_DEVICES];
 static uni_hid_device_t* g_current_device = NULL;
-static int g_device_count = 0;
 static const bd_addr_t zero_addr = {0, 0, 0, 0, 0, 0};
 
 static void process_misc_button_system(uni_hid_device_t* d);
@@ -109,8 +108,10 @@ uni_hid_device_t* uni_hid_device_get_instance_for_connection_handle(
 
 uni_hid_device_t* uni_hid_device_get_first_device_with_state(
     enum DEVICE_STATE state) {
-  for (int i = 0; i < g_device_count; i++) {
-    if (g_devices[i].state == state) return &g_devices[i];
+  for (int i = 0; i < MAX_DEVICES; i++) {
+    if ((bd_addr_cmp(g_devices[i].address, zero_addr) != 0) &&
+        (g_devices[i].state == state))
+      return &g_devices[i];
   }
   return NULL;
 }
@@ -193,21 +194,26 @@ void uni_hid_device_request_inquire(void) {
   }
 }
 
-void uni_hid_device_set_disconnected(uni_hid_device_t* d) {
+void uni_hid_device_set_connected(uni_hid_device_t* d, bool connected) {
   if (d == NULL) {
     log_error("ERROR: Invalid device\n");
     return;
   }
 
-  // Connection oriented
-  d->flags &= ~(FLAGS_CONNECTED | FLAGS_INCOMING);
-  d->hid_control_cid = 0;
-  d->hid_interrupt_cid = 0;
+  if (connected) {
+    // connected
+    d->flags |= FLAGS_CONNECTED;
+  } else {
+    // disconnected
+    d->flags &= ~(FLAGS_CONNECTED | FLAGS_INCOMING);
+    d->hid_control_cid = 0;
+    d->hid_interrupt_cid = 0;
 
-  if (d->joystick_port != JOYSTICK_PORT_NONE) {
-    uni_platform_on_port_freed(d->joystick_port);
-    d->joystick_port = JOYSTICK_PORT_NONE;
-    d->emu_mode = EMULATION_MODE_SINGLE_JOY;
+    if (d->joystick_port != JOYSTICK_PORT_NONE) {
+      uni_platform_on_port_freed(d->joystick_port);
+      d->joystick_port = JOYSTICK_PORT_NONE;
+      d->emu_mode = EMULATION_MODE_SINGLE_JOY;
+    }
   }
 }
 
@@ -224,7 +230,7 @@ void uni_hid_device_set_cod(uni_hid_device_t* d, uint32_t cod) {
     d->flags |= FLAGS_HAS_COD;
 }
 
-uint8_t uni_hid_device_is_cod_supported(uint32_t cod) {
+bool uni_hid_device_is_cod_supported(uint32_t cod) {
   const uint32_t minor_cod = cod & MASK_COD_MINOR_MASK;
 
   // Joysticks, mice, gamepads are valid.
@@ -245,7 +251,7 @@ uint8_t uni_hid_device_is_cod_supported(uint32_t cod) {
   return 0;
 }
 
-void uni_hid_device_set_incoming(uni_hid_device_t* d, uint8_t incoming) {
+void uni_hid_device_set_incoming(uni_hid_device_t* d, bool incoming) {
   if (d == NULL) {
     log_error("ERROR: Invalid device\n");
     return;
@@ -257,7 +263,7 @@ void uni_hid_device_set_incoming(uni_hid_device_t* d, uint8_t incoming) {
     d->flags &= ~FLAGS_INCOMING;
 }
 
-uint8_t uni_hid_device_is_incoming(uni_hid_device_t* d) {
+bool uni_hid_device_is_incoming(uni_hid_device_t* d) {
   return !!(d->flags & FLAGS_INCOMING);
 }
 
@@ -282,10 +288,10 @@ void uni_hid_device_set_name(uni_hid_device_t* d, const uint8_t* name,
   }
 }
 
-uint8_t uni_hid_device_has_name(uni_hid_device_t* d) {
+bool uni_hid_device_has_name(uni_hid_device_t* d) {
   if (d == NULL) {
     log_error("ERROR: Invalid device\n");
-    return 0;
+    return false;
   }
 
   return !!(d->flags & FLAGS_HAS_NAME);
@@ -304,10 +310,10 @@ void uni_hid_device_set_hid_descriptor(uni_hid_device_t* d,
   d->flags |= FLAGS_HAS_HID_DESCRIPTOR;
 }
 
-uint8_t uni_hid_device_has_hid_descriptor(uni_hid_device_t* d) {
+bool uni_hid_device_has_hid_descriptor(uni_hid_device_t* d) {
   if (d == NULL) {
     log_error("ERROR: Invalid device\n");
-    return 0;
+    return false;
   }
 
   return !!(d->flags & FLAGS_HAS_HID_DESCRIPTOR);
@@ -353,11 +359,11 @@ void uni_hid_device_dump_all(void) {
   }
 }
 
-uint8_t uni_hid_device_is_orphan(uni_hid_device_t* d) {
+bool uni_hid_device_is_orphan(uni_hid_device_t* d) {
   // There is a case with the Apple mouse, and possibly other devices, sends
   // the on_hci_connection_request but doesn't complete the connection.
   // The device gets added into the DB at on_hci_connection_request time, and
-  // if you later put the device in discovery mode, we won't start a Connection
+  // if you later put the device in discovery mode, we won't start a connection
   // because it is already added to the DB.
   // This prevents that scenario.
   return (d->flags == FLAGS_HAS_COD);
@@ -445,10 +451,10 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
   d->flags |= FLAGS_HAS_CONTROLLER_TYPE;
 }
 
-uint8_t uni_hid_device_has_controller_type(uni_hid_device_t* d) {
+bool uni_hid_device_has_controller_type(uni_hid_device_t* d) {
   if (d == NULL) {
     log_error("ERROR: Invalid device\n");
-    return 0;
+    return false;
   }
 
   return !!(d->flags & FLAGS_HAS_CONTROLLER_TYPE);
@@ -619,4 +625,12 @@ void uni_hid_device_on_emu_mode_change(void) {
   } else {
     loge("Cannot switch emu mode. Current mode: %d\n", d->emu_mode);
   }
+}
+
+void uni_hid_device_set_state(uni_hid_device_t* d, enum DEVICE_STATE s) {
+  if (d == NULL) {
+    log_error("ERROR: Invalid device\n");
+    return;
+  }
+  d->state = s;
 }

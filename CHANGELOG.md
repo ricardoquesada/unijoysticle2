@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Board: moved SparkFun.lib inside unijoysticle project
 - Firmware: more verbose logs when detecting the type of device
 
+### Changed
+- Firmware: Gamepad names are fetched correctly.
+- Firmware: Using btstack develop-branch. Commit: 32b46fec1df77000b2e383d209074f4c2866ebdf
+
 ## [0.2.0] - 2019-05-22
 ### Added
 - Docs: User guide

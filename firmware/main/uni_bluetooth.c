@@ -523,9 +523,10 @@ static void on_gap_inquiry_result(uint16_t channel, uint8_t* packet,
     if (name_len != -1 && !uni_hid_device_has_name(device)) {
       uni_hid_device_set_name(device, name_buffer, name_len);
     } else {
-      device->state = REMOTE_NAME_REQUEST;
+      uni_hid_device_set_state(device, REMOTE_NAME_REQUEST);
     }
-    logi("\n");
+
+    // Try to establish l2cap channel
     status =
         l2cap_create_channel(packet_handler, device->address, PSM_HID_CONTROL,
                              48, &device->hid_control_cid);
@@ -585,6 +586,8 @@ static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet,
     uni_hid_device_remove_entry_with_channel(channel);
     return;
   }
+
+  uni_hid_device_set_connected(device, true);
 
   switch (psm) {
     case PSM_HID_CONTROL:
@@ -648,7 +651,7 @@ static void on_l2cap_channel_closed(uint16_t channel, uint8_t* packet,
     logi("Couldn't not find hid_device for cid = 0x%04x\n", local_cid);
     return;
   }
-  uni_hid_device_set_disconnected(device);
+  uni_hid_device_set_connected(device, false);
 }
 
 static void on_l2cap_incoming_connection(uint16_t channel, uint8_t* packet,
@@ -715,6 +718,9 @@ static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet,
     return;
   }
 
+  // printf("on_l2cap_data_packet\n");
+  // printf_hexdump(packet, size);
+
   if (channel != device->hid_interrupt_cid) return;
 
   if (!uni_hid_device_has_hid_descriptor(device)) {
@@ -749,10 +755,10 @@ static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet,
 }
 
 static int has_more_remote_name_requests(void) {
-  uni_hid_device_t* device;
+  uni_hid_device_t* d;
 
-  device = uni_hid_device_get_first_device_with_state(REMOTE_NAME_REQUEST);
-  return (device != NULL);
+  d = uni_hid_device_get_first_device_with_state(REMOTE_NAME_REQUEST);
+  return (d != NULL);
 }
 
 static void do_next_remote_name_request(void) {
@@ -760,7 +766,7 @@ static void do_next_remote_name_request(void) {
 
   device = uni_hid_device_get_first_device_with_state(REMOTE_NAME_REQUEST);
   if (device != NULL) {
-    device->state = REMOTE_NAME_INQUIRED;
+    uni_hid_device_set_state(device, REMOTE_NAME_INQUIRED);
     logi("Get remote name of %s...\n", bd_addr_to_str(device->address));
     gap_remote_name_request(device->address, device->page_scan_repetition_mode,
                             device->clock_offset | 0x8000);
