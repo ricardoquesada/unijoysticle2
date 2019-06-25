@@ -30,6 +30,15 @@ void uni_hid_parser(uni_gamepad_t* gamepad, uni_report_parser_t* report_parser,
   btstack_hid_parser_t parser;
 
   report_parser->init(gamepad);
+
+  // Certain devices like Nintendo Wii U Pro doesn't support HID descriptor.
+  // For those kind of devices, just send the raw report.
+  if (report_parser->parse_raw) {
+    report_parser->parse_raw(gamepad, report, report_len);
+    return;
+  }
+
+  // For the rest, send the HID usage.
   btstack_hid_parser_init(&parser, hid_descriptor, hid_descriptor_len,
                           HID_REPORT_TYPE_INPUT, report, report_len);
   while (btstack_hid_parser_has_more(&parser)) {

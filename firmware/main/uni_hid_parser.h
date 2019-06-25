@@ -39,6 +39,9 @@ typedef void (*report_parse_usage_fn_t)(uni_gamepad_t* gamepad,
                                         hid_globals_t* globals,
                                         uint16_t usage_page, uint16_t usage,
                                         int32_t value);
+typedef void (*report_parse_raw_fn_t)(uni_gamepad_t* gamepad,
+                                      const uint8_t* report,
+                                      uint16_t report_len);
 
 // Each parse should implement these 2 functions:
 typedef struct {
@@ -46,6 +49,8 @@ typedef struct {
   report_init_fn_t init;
   // Called for each usage: usage page + usage + value
   report_parse_usage_fn_t parse_usage;
+  // Called with the raw report
+  report_parse_raw_fn_t parse_raw;
 } uni_report_parser_t;
 
 void uni_hid_parser(uni_gamepad_t* gamepad, uni_report_parser_t* report_parser,

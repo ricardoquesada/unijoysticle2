@@ -16,8 +16,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ****************************************************************************/
 
-#ifndef UNI_HID_PARSER_APPLE_H
-#define UNI_HID_PARSER_APPLE_H
+#ifndef UNI_HID_PARSER_NIMBUS_H
+#define UNI_HID_PARSER_NIMBUS_H
 
 #include <stdint.h>
 
@@ -26,10 +26,11 @@ limitations under the License.
 #include "uni_gamepad.h"
 #include "uni_hid_parser.h"
 
-// iOS devices / Apple TV devices
-void uni_hid_parser_apple_init(uni_gamepad_t* gp);
-void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gp, hid_globals_t* globals,
-                                      uint16_t usage_page, uint16_t usage,
-                                      int32_t value);
+// For the Nimbus gamepad.
+void uni_hid_parser_nimbus_init(uni_gamepad_t* gp);
+void uni_hid_parser_nimbus_parse_usage(uni_gamepad_t* gp,
+                                       hid_globals_t* globals,
+                                       uint16_t usage_page, uint16_t usage,
+                                       int32_t value);
 
-#endif  // UNI_HID_PARSER_APPLE_H
+#endif  // UNI_HID_PARSER_NIMBUS_H

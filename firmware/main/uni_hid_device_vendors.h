@@ -55,6 +55,8 @@ typedef enum {
   CONTROLLER_TYPE_SmartTVRemoteController = 46,  // (Unijoysticle)
   CONTROLLER_TYPE_8BitdoController = 47,         // (Unijoysticle)
   CONTROLLER_TYPE_GenericController = 48,        // (Unijoysicle)
+  CONTROLLER_TYPE_NimbusController = 49,         // (Unijoysticle)
+  CONTROLLER_TYPE_WiiUProController = 50,        // (Unijoysticle)
 
   CONTROLLER_TYPE_LastController,  // Don't add game controllers below this
   // enumeration
@@ -360,9 +362,9 @@ static const uni_controlelr_description_t arrControllers[] = {
 
     //{ MAKE_CONTROLLER_ID( 0x1949, 0x0402 ), /*android*/ },	// Unknown Controller
 
+    // MFi gamepads unsupported (unijoysticle).
     {MAKE_CONTROLLER_ID(0x05ac, 0x0001), CONTROLLER_TYPE_AppleController},  // MFI Extended Gamepad (generic entry for iOS/tvOS)
     {MAKE_CONTROLLER_ID(0x05ac, 0x0002), CONTROLLER_TYPE_AppleController},  // MFI Standard Gamepad (generic entry for iOS/tvOS)
-    {MAKE_CONTROLLER_ID(0x0111, 0x1420), CONTROLLER_TYPE_AppleController},  // SteelSeries Nimbus (Unijoysicle)
 
     // We currently don't support using a pair of Switch Joy-Con's as a single
     // controller and we don't want to support using them individually for the
@@ -415,6 +417,11 @@ static const uni_controlelr_description_t arrControllers[] = {
     // Generic gamepad
     {MAKE_CONTROLLER_ID(0x0a5c, 0x4502), CONTROLLER_TYPE_GenericController},  // White-label mini gamepad received as gift in conference (Unijoysticle)
 
+    // SteelSeries Nimbus
+    {MAKE_CONTROLLER_ID(0x0111, 0x1420), CONTROLLER_TYPE_NimbusController},  // SteelSeries Nimbus (Unijoysicle)
+
+    // Nintendo Wii U Pro
+    {MAKE_CONTROLLER_ID(0x057e, 0x0330), CONTROLLER_TYPE_WiiUProController},  // Nintendo Wii U Pro (Unijoysicle)
 };
 // clang-format on
 

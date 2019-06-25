@@ -718,8 +718,8 @@ static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet,
     return;
   }
 
-  // printf("on_l2cap_data_packet\n");
-  // printf_hexdump(packet, size);
+  printf("on_l2cap_data_packet\n");
+  printf_hexdump(packet, size);
 
   if (channel != device->hid_interrupt_cid) return;
 

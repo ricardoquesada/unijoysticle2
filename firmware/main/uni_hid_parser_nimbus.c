@@ -16,20 +16,21 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ****************************************************************************/
 
-#include "uni_hid_parser_apple.h"
+#include "uni_hid_parser_nimbus.h"
 
 #include "hid_usage.h"
 #include "uni_debug.h"
 #include "uni_hid_parser.h"
 
-void uni_hid_parser_apple_init(uni_gamepad_t* gp) {
+void uni_hid_parser_nimbus_init(uni_gamepad_t* gp) {
   // Reset old state. Each report contains a full-state.
   gp->updated_states = 0;
 }
 
-void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gp, hid_globals_t* globals,
-                                      uint16_t usage_page, uint16_t usage,
-                                      int32_t value) {
+void uni_hid_parser_nimbus_parse_usage(uni_gamepad_t* gp,
+                                       hid_globals_t* globals,
+                                       uint16_t usage_page, uint16_t usage,
+                                       int32_t value) {
   // print_parser_globals(globals);
   uint8_t hat;
   switch (usage_page) {
@@ -66,7 +67,7 @@ void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gp, hid_globals_t* globals,
           gp->updated_states |= GAMEPAD_STATE_DPAD;
           break;
         default:
-          logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+          logi("Nimbus: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
                usage_page, usage, value);
           break;
       }
@@ -82,7 +83,7 @@ void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gp, hid_globals_t* globals,
           gp->updated_states |= GAMEPAD_STATE_BRAKE;
           break;
         default:
-          logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+          logi("Nimbus: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
                usage_page, usage, value);
           break;
       };
@@ -93,7 +94,7 @@ void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gp, hid_globals_t* globals,
           gp->battery = value;
           break;
         default:
-          logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+          logi("Nimbus: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
                usage_page, usage, value);
           break;
       }
@@ -165,7 +166,7 @@ void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gp, hid_globals_t* globals,
           gp->updated_states |= GAMEPAD_STATE_ACCELERATOR;
           break;
         default:
-          logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+          logi("Nimbus: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
                usage_page, usage, value);
           break;
       }
@@ -184,7 +185,7 @@ void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gp, hid_globals_t* globals,
         case HID_USAGE_AC_BACK:
           break;
         default:
-          logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+          logi("Nimbus: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
                usage_page, usage, value);
           break;
       }
@@ -192,7 +193,7 @@ void uni_hid_parser_apple_parse_usage(uni_gamepad_t* gp, hid_globals_t* globals,
 
     // unknown usage page
     default:
-      logi("Apple: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+      logi("Nimbus: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
            usage_page, usage, value);
       break;
   }

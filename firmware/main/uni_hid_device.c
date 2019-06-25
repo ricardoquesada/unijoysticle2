@@ -22,12 +22,13 @@ limitations under the License.
 #include "uni_hid_device_vendors.h"
 #include "uni_hid_parser_8bitdo.h"
 #include "uni_hid_parser_android.h"
-#include "uni_hid_parser_apple.h"
 #include "uni_hid_parser_generic.h"
 #include "uni_hid_parser_icade.h"
+#include "uni_hid_parser_nimbus.h"
 #include "uni_hid_parser_ouya.h"
 #include "uni_hid_parser_ps4.h"
 #include "uni_hid_parser_smarttvremote.h"
+#include "uni_hid_parser_wiiupro.h"
 #include "uni_hid_parser_xboxone.h"
 #include "uni_platform.h"
 
@@ -416,10 +417,10 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
       d->report_parser.parse_usage = uni_hid_parser_android_parse_usage;
       logi("Device detected as Android: 0x%02x\n", type);
       break;
-    case CONTROLLER_TYPE_AppleController:
-      d->report_parser.init = uni_hid_parser_apple_init;
-      d->report_parser.parse_usage = uni_hid_parser_apple_parse_usage;
-      logi("Device detected as Apple: 0x%02x\n", type);
+    case CONTROLLER_TYPE_NimbusController:
+      d->report_parser.init = uni_hid_parser_nimbus_init;
+      d->report_parser.parse_usage = uni_hid_parser_nimbus_parse_usage;
+      logi("Device detected as Nimbus: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_SmartTVRemoteController:
       d->report_parser.init = uni_hid_parser_smarttvremote_init;
@@ -441,10 +442,15 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
       d->report_parser.parse_usage = uni_hid_parser_generic_parse_usage;
       logi("Device detected as generic: 0x%02x\n", type);
       break;
+    case CONTROLLER_TYPE_WiiUProController:
+      d->report_parser.init = uni_hid_parser_wiiupro_init;
+      d->report_parser.parse_usage = uni_hid_parser_wiiupro_parse_usage;
+      logi("Device detected as Wii U Pro: 0x%02x\n", type);
+      break;
     default:
       d->report_parser.init = uni_hid_parser_generic_init;
       d->report_parser.parse_usage = uni_hid_parser_generic_parse_usage;
-      logi("Device detected as generic: 0x%02x\n", type);
+      logi("Device not detected (0x%02x). Using generic driver.\n", type);
       break;
   }
 
