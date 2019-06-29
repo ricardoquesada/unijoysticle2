@@ -400,56 +400,67 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
     case CONTROLLER_TYPE_iCadeController:
       d->report_parser.init = uni_hid_parser_icade_init;
       d->report_parser.parse_usage = uni_hid_parser_icade_parse_usage;
+      d->report_parser.parse_raw = NULL;
       logi("Device detected as iCade: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_OUYAController:
       d->report_parser.init = uni_hid_parser_ouya_init;
       d->report_parser.parse_usage = uni_hid_parser_ouya_parse_usage;
+      d->report_parser.parse_raw = NULL;
       logi("Device detected as OUYA: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_XBoxOneController:
       d->report_parser.init = uni_hid_parser_xboxone_init;
       d->report_parser.parse_usage = uni_hid_parser_xboxone_parse_usage;
+      d->report_parser.parse_raw = NULL;
       logi("Device detected as Xbox One: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_AndroidController:
       d->report_parser.init = uni_hid_parser_android_init;
       d->report_parser.parse_usage = uni_hid_parser_android_parse_usage;
+      d->report_parser.parse_raw = NULL;
       logi("Device detected as Android: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_NimbusController:
       d->report_parser.init = uni_hid_parser_nimbus_init;
       d->report_parser.parse_usage = uni_hid_parser_nimbus_parse_usage;
+      d->report_parser.parse_raw = NULL;
       logi("Device detected as Nimbus: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_SmartTVRemoteController:
       d->report_parser.init = uni_hid_parser_smarttvremote_init;
       d->report_parser.parse_usage = uni_hid_parser_smarttvremote_parse_usage;
+      d->report_parser.parse_raw = NULL;
       logi("Device detected as Smart TV remote: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_PS4Controller:
       d->report_parser.init = uni_hid_parser_ps4_init;
       d->report_parser.parse_usage = uni_hid_parser_ps4_parse_usage;
+      d->report_parser.parse_raw = NULL;
       logi("Device detected as PS4: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_8BitdoController:
       d->report_parser.init = uni_hid_parser_8bitdo_init;
       d->report_parser.parse_usage = uni_hid_parser_8bitdo_parse_usage;
+      d->report_parser.parse_raw = NULL;
       logi("Device detected as 8BITDO: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_GenericController:
       d->report_parser.init = uni_hid_parser_generic_init;
       d->report_parser.parse_usage = uni_hid_parser_generic_parse_usage;
+      d->report_parser.parse_raw = NULL;
       logi("Device detected as generic: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_WiiUProController:
       d->report_parser.init = uni_hid_parser_wiiupro_init;
-      d->report_parser.parse_usage = uni_hid_parser_wiiupro_parse_usage;
+      d->report_parser.parse_usage = NULL;
+      d->report_parser.parse_raw = uni_hid_parser_wiiupro_parse_raw;
       logi("Device detected as Wii U Pro: 0x%02x\n", type);
       break;
     default:
       d->report_parser.init = uni_hid_parser_generic_init;
       d->report_parser.parse_usage = uni_hid_parser_generic_parse_usage;
+      d->report_parser.parse_raw = NULL;
       logi("Device not detected (0x%02x). Using generic driver.\n", type);
       break;
   }

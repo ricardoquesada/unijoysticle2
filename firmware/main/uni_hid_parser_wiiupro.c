@@ -16,27 +16,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ****************************************************************************/
 
-#include "uni_bluetooth.h"
-#include "uni_hid_device.h"
-#include "uni_platform.h"
+#include "uni_hid_parser_wiiupro.h"
 
-int btstack_main(int argc, const char** argv);
+#include "hid_usage.h"
+#include "uni_debug.h"
+#include "uni_hid_parser.h"
 
-// Main. Called by BlueKitchen bluetooth stack
-int btstack_main(int argc, const char** argv) {
-  UNUSED(argc);
-  UNUSED(argv);
-
-  // Honoring with BT copyright + adding own message to avoid confusion
-  printf("Unijoysticle 2 (C) 2016-2019 Ricardo Quesada and contributors.\n");
-  printf("Bluetooth stack: Copyright (C) 2017 BlueKitchen GmbH.\n");
-  printf("Firmware version: v0.2.1\n");
-
-  uni_platform_init();
-  uni_hid_device_init();
-
-  // Continue with bluetooth setup.
-  uni_bluetooth_init();
-
-  return 0;
+void uni_hid_parser_wiiupro_init(uni_gamepad_t* gp) {
+  // Reset old state. Each report contains a full-state.
+  gp->updated_states = 0;
+  log_info("Nintendo Wii U Pro controller not supported yet");
 }
+
+void uni_hid_parser_wiiupro_parse_raw(uni_gamepad_t* gp, const uint8_t* report,
+                                      uint16_t len) {}

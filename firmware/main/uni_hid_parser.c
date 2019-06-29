@@ -35,32 +35,34 @@ void uni_hid_parser(uni_gamepad_t* gamepad, uni_report_parser_t* report_parser,
   // For those kind of devices, just send the raw report.
   if (report_parser->parse_raw) {
     report_parser->parse_raw(gamepad, report, report_len);
-    return;
   }
 
-  // For the rest, send the HID usage.
-  btstack_hid_parser_init(&parser, hid_descriptor, hid_descriptor_len,
-                          HID_REPORT_TYPE_INPUT, report, report_len);
-  while (btstack_hid_parser_has_more(&parser)) {
-    uint16_t usage_page;
-    uint16_t usage;
-    int32_t value;
-    hid_globals_t globals;
+  // Devices that suport regular HID reports. Basically everyone except the
+  // Nintendo Wii U.
+  if (report_parser->parse_usage) {
+    btstack_hid_parser_init(&parser, hid_descriptor, hid_descriptor_len,
+                            HID_REPORT_TYPE_INPUT, report, report_len);
+    while (btstack_hid_parser_has_more(&parser)) {
+      uint16_t usage_page;
+      uint16_t usage;
+      int32_t value;
+      hid_globals_t globals;
 
-    // Save globals, otherwise they are going to get destroyed by
-    // btstack_hid_parser_get_field()
-    globals.logical_minimum = parser.global_logical_minimum;
-    globals.logical_maximum = parser.global_logical_maximum;
-    globals.report_count = parser.global_report_count;
-    globals.report_id = parser.global_report_id;
-    globals.report_size = parser.global_report_size;
-    globals.usage_page = parser.global_usage_page;
+      // Save globals, otherwise they are going to get destroyed by
+      // btstack_hid_parser_get_field()
+      globals.logical_minimum = parser.global_logical_minimum;
+      globals.logical_maximum = parser.global_logical_maximum;
+      globals.report_count = parser.global_report_count;
+      globals.report_id = parser.global_report_id;
+      globals.report_size = parser.global_report_size;
+      globals.usage_page = parser.global_usage_page;
 
-    btstack_hid_parser_get_field(&parser, &usage_page, &usage, &value);
+      btstack_hid_parser_get_field(&parser, &usage_page, &usage, &value);
 
-    logd("usage_page = 0x%04x, usage = 0x%04x, value = 0x%x\n", usage_page,
-         usage, value);
-    report_parser->parse_usage(gamepad, &globals, usage_page, usage, value);
+      logd("usage_page = 0x%04x, usage = 0x%04x, value = 0x%x\n", usage_page,
+           usage, value);
+      report_parser->parse_usage(gamepad, &globals, usage_page, usage, value);
+    }
   }
 }
 
