@@ -733,6 +733,8 @@ static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet,
   int report_len = size;
   uint8_t* report = packet;
 
+  printf_hexdump(report, report_len);
+
   // check if HID Input Report
   if (report_len < 1) return;
   if (*report != 0xa1) return;

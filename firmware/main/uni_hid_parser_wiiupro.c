@@ -16,6 +16,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ****************************************************************************/
 
+/* Protocol info taken from:
+   https://github.com/dvdhrm/xwiimote/blob/master/doc/PROTOCOL
+ */
+
 #include "uni_hid_parser_wiiupro.h"
 
 #include "hid_usage.h"
@@ -24,7 +28,9 @@ limitations under the License.
 #include "uni_hid_parser.h"
 
 void uni_hid_parser_wiiupro_setup(void* device /* uni_hid_device_t */) {
-  uni_hid_device_send_report(device, NULL, 0);
+  const uint8_t led_report[] = {0x52, 0x15, 0xff};
+  log_info("Wii U Pro: sending LED report");
+  uni_hid_device_send_report(device, led_report, sizeof(led_report));
 }
 
 void uni_hid_parser_wiiupro_init_report(uni_gamepad_t* gp) {
