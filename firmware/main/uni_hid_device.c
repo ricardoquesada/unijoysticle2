@@ -398,66 +398,77 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
 
   switch (type) {
     case CONTROLLER_TYPE_iCadeController:
+      d->report_parser.setup = NULL;
       d->report_parser.init_report = NULL;
       d->report_parser.parse_usage = uni_hid_parser_icade_parse_usage;
       d->report_parser.parse_raw = NULL;
       logi("Device detected as iCade: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_OUYAController:
+      d->report_parser.setup = NULL;
       d->report_parser.init_report = uni_hid_parser_ouya_init_report;
       d->report_parser.parse_usage = uni_hid_parser_ouya_parse_usage;
       d->report_parser.parse_raw = NULL;
       logi("Device detected as OUYA: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_XBoxOneController:
+      d->report_parser.setup = NULL;
       d->report_parser.init_report = uni_hid_parser_xboxone_init_report;
       d->report_parser.parse_usage = uni_hid_parser_xboxone_parse_usage;
       d->report_parser.parse_raw = NULL;
       logi("Device detected as Xbox One: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_AndroidController:
+      d->report_parser.setup = NULL;
       d->report_parser.init_report = uni_hid_parser_android_init_report;
       d->report_parser.parse_usage = uni_hid_parser_android_parse_usage;
       d->report_parser.parse_raw = NULL;
       logi("Device detected as Android: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_NimbusController:
+      d->report_parser.setup = NULL;
       d->report_parser.init_report = uni_hid_parser_nimbus_init_report;
       d->report_parser.parse_usage = uni_hid_parser_nimbus_parse_usage;
       d->report_parser.parse_raw = NULL;
       logi("Device detected as Nimbus: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_SmartTVRemoteController:
+      d->report_parser.setup = NULL;
       d->report_parser.init_report = uni_hid_parser_smarttvremote_init_report;
       d->report_parser.parse_usage = uni_hid_parser_smarttvremote_parse_usage;
       d->report_parser.parse_raw = NULL;
       logi("Device detected as Smart TV remote: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_PS4Controller:
+      d->report_parser.setup = NULL;
       d->report_parser.init_report = uni_hid_parser_ps4_init_report;
       d->report_parser.parse_usage = uni_hid_parser_ps4_parse_usage;
       d->report_parser.parse_raw = NULL;
       logi("Device detected as PS4: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_8BitdoController:
+      d->report_parser.setup = NULL;
       d->report_parser.init_report = uni_hid_parser_8bitdo_init_report;
       d->report_parser.parse_usage = uni_hid_parser_8bitdo_parse_usage;
       d->report_parser.parse_raw = NULL;
       logi("Device detected as 8BITDO: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_GenericController:
+      d->report_parser.setup = NULL;
       d->report_parser.init_report = uni_hid_parser_generic_init_report;
       d->report_parser.parse_usage = uni_hid_parser_generic_parse_usage;
       d->report_parser.parse_raw = NULL;
       logi("Device detected as generic: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_WiiUProController:
+      d->report_parser.setup = uni_hid_parser_wiiupro_setup;
       d->report_parser.init_report = uni_hid_parser_wiiupro_init_report;
       d->report_parser.parse_usage = NULL;
       d->report_parser.parse_raw = uni_hid_parser_wiiupro_parse_raw;
       logi("Device detected as Wii U Pro: 0x%02x\n", type);
       break;
     default:
+      d->report_parser.setup = NULL;
       d->report_parser.init_report = uni_hid_parser_generic_init_report;
       d->report_parser.parse_usage = uni_hid_parser_generic_parse_usage;
       d->report_parser.parse_raw = NULL;
@@ -466,6 +477,8 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
   }
 
   d->flags |= FLAGS_HAS_CONTROLLER_TYPE;
+
+  if (d->report_parser.setup) d->report_parser.setup(d);
 }
 
 bool uni_hid_device_has_controller_type(uni_hid_device_t* d) {
@@ -650,4 +663,10 @@ void uni_hid_device_set_state(uni_hid_device_t* d, enum DEVICE_STATE s) {
     return;
   }
   d->state = s;
+}
+
+void uni_hid_device_send_raw(void* d, char* buf, int len) {
+  UNUSED(d);
+  UNUSED(buf);
+  UNUSED(len);
 }

@@ -20,7 +20,12 @@ limitations under the License.
 
 #include "hid_usage.h"
 #include "uni_debug.h"
+#include "uni_hid_device.h"
 #include "uni_hid_parser.h"
+
+void uni_hid_parser_wiiupro_setup(void* device /* uni_hid_device_t */) {
+  uni_hid_device_send_raw(device, NULL, 0);
+}
 
 void uni_hid_parser_wiiupro_init_report(uni_gamepad_t* gp) {
   // Reset old state. Each report contains a full-state.

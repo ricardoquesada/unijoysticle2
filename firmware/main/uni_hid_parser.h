@@ -34,6 +34,7 @@ typedef struct {
   uint8_t report_id;
 } hid_globals_t;
 
+typedef void (*report_setup_fn_t)(void* device);
 typedef void (*report_init_fn_t)(uni_gamepad_t* gamepad);
 typedef void (*report_parse_usage_fn_t)(uni_gamepad_t* gamepad,
                                         hid_globals_t* globals,
@@ -43,8 +44,10 @@ typedef void (*report_parse_raw_fn_t)(uni_gamepad_t* gamepad,
                                       const uint8_t* report,
                                       uint16_t report_len);
 
-// Each parse should implement these 2 functions:
+// Parsers should implement these optional functions:
 typedef struct {
+  // Called only once, when the type of gamepad is known.
+  report_setup_fn_t setup;
   // Called before starting a new report
   report_init_fn_t init_report;
   // Called for each usage in the report: usage page + usage + value

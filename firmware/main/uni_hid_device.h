@@ -130,6 +130,9 @@ void uni_hid_device_set_connection_handle(uni_hid_device_t* d,
 
 void uni_hid_device_set_state(uni_hid_device_t* d, enum DEVICE_STATE s);
 
+void uni_hid_device_send_raw(void* d /* uni_hid_device_t */, char* buf,
+                             int len);
+
 // events
 
 void uni_hid_device_on_emu_mode_change(void);
