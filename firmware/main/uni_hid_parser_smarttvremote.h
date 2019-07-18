@@ -27,7 +27,7 @@ limitations under the License.
 #include "uni_hid_parser.h"
 
 // Android devices
-void uni_hid_parser_smarttvremote_init(uni_gamepad_t* gp);
+void uni_hid_parser_smarttvremote_init_report(uni_gamepad_t* gp);
 void uni_hid_parser_smarttvremote_parse_usage(uni_gamepad_t* gp,
                                               hid_globals_t* globals,
                                               uint16_t usage_page,

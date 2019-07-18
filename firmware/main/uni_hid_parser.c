@@ -29,7 +29,8 @@ void uni_hid_parser(uni_gamepad_t* gamepad, uni_report_parser_t* report_parser,
                     uint16_t hid_descriptor_len) {
   btstack_hid_parser_t parser;
 
-  report_parser->init(gamepad);
+  // Certain devices like iCade might not set "init_report".
+  if (report_parser->init_report) report_parser->init_report(gamepad);
 
   // Certain devices like Nintendo Wii U Pro doesn't support HID descriptor.
   // For those kind of devices, just send the raw report.

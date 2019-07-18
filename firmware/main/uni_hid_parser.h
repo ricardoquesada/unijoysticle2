@@ -46,8 +46,8 @@ typedef void (*report_parse_raw_fn_t)(uni_gamepad_t* gamepad,
 // Each parse should implement these 2 functions:
 typedef struct {
   // Called before starting a new report
-  report_init_fn_t init;
-  // Called for each usage: usage page + usage + value
+  report_init_fn_t init_report;
+  // Called for each usage in the report: usage page + usage + value
   report_parse_usage_fn_t parse_usage;
   // Called with the raw report
   report_parse_raw_fn_t parse_raw;

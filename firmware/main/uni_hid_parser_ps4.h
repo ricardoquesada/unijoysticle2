@@ -27,7 +27,7 @@ limitations under the License.
 #include "uni_hid_parser.h"
 
 // For PS4 gamepads
-void uni_hid_parser_ps4_init(uni_gamepad_t* gp);
+void uni_hid_parser_ps4_init_report(uni_gamepad_t* gp);
 void uni_hid_parser_ps4_parse_usage(uni_gamepad_t* gp, hid_globals_t* globals,
                                     uint16_t usage_page, uint16_t usage,
                                     int32_t value);

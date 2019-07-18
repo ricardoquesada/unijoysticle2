@@ -27,7 +27,7 @@ limitations under the License.
 #include "uni_hid_parser.h"
 
 // For the Nimbus gamepad.
-void uni_hid_parser_wiiupro_init(uni_gamepad_t* gp);
+void uni_hid_parser_wiiupro_init_report(uni_gamepad_t* gp);
 void uni_hid_parser_wiiupro_parse_raw(uni_gamepad_t* gp, const uint8_t* report,
                                       uint16_t len);
 

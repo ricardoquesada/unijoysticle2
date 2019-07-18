@@ -41,12 +41,6 @@ limitations under the License.
  *  R  ON,OFF  = l,v        : unmapped
  */
 
-void uni_hid_parser_icade_init(uni_gamepad_t* gp) {
-  UNUSED(gp);
-  // Don't do anything, like reseting the gp->updated_states,
-  // since each report is a "delta", and doesn't include a full state.
-}
-
 void uni_hid_parser_icade_parse_usage(uni_gamepad_t* gp, hid_globals_t* globals,
                                       uint16_t usage_page, uint16_t usage,
                                       int32_t value) {

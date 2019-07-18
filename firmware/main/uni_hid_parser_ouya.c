@@ -21,7 +21,7 @@ limitations under the License.
 #include "hid_usage.h"
 #include "uni_debug.h"
 
-void uni_hid_parser_ouya_init(uni_gamepad_t* gp) {
+void uni_hid_parser_ouya_init_report(uni_gamepad_t* gp) {
   // Reset old state. Each report contains a full-state.
   gp->updated_states = 0;
 }

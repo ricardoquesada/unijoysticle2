@@ -26,7 +26,7 @@ limitations under the License.
 #include "uni_debug.h"
 #include "uni_hid_parser.h"
 
-void uni_hid_parser_generic_init(uni_gamepad_t* gp) {
+void uni_hid_parser_generic_init_report(uni_gamepad_t* gp) {
   // Reset old state. Each report contains a full-state.
   gp->updated_states = 0;
 }
