@@ -665,8 +665,23 @@ void uni_hid_device_set_state(uni_hid_device_t* d, enum DEVICE_STATE s) {
   d->state = s;
 }
 
-void uni_hid_device_send_raw(void* d, char* buf, int len) {
-  UNUSED(d);
-  UNUSED(buf);
-  UNUSED(len);
+void uni_hid_device_send_report(void* d, const uint8_t* report, uint16_t len) {
+  uni_hid_device_t* self = (uni_hid_device_t*)d;
+  if (self == NULL) {
+    log_error("ERROR: Invalid device\n");
+    return;
+  }
+  if (self->hid_interrupt_cid <= 0) {
+    log_error("ERROR: Invalid hid_interrupt_cid: %d", self->hid_interrupt_cid);
+    return;
+  }
+
+  if (!report || len <= 0) {
+    log_error("ERROR: Invalid report");
+    return;
+  }
+
+  l2cap_send(self->hid_interrupt_cid, (uint8_t*)report, len);
+  // request user can send now if pending
+  l2cap_request_can_send_now_event((self->hid_interrupt_cid));
 }
