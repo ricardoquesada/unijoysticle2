@@ -29,4 +29,8 @@ void uni_hid_parser_wiiupro_init(uni_gamepad_t* gp) {
 }
 
 void uni_hid_parser_wiiupro_parse_raw(uni_gamepad_t* gp, const uint8_t* report,
-                                      uint16_t len) {}
+                                      uint16_t len) {
+  UNUSED(gp);
+  UNUSED(report);
+  UNUSED(len);
+}
