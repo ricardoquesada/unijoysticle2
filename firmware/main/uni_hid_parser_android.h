@@ -27,6 +27,7 @@ limitations under the License.
 #include "uni_hid_parser.h"
 
 // Android devices
+void uni_hid_parser_android_setup(void* device);
 void uni_hid_parser_android_init_report(uni_gamepad_t* gp);
 void uni_hid_parser_android_parse_usage(uni_gamepad_t* gp,
                                         hid_globals_t* globals,

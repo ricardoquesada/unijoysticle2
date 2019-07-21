@@ -419,7 +419,7 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
       logi("Device detected as Xbox One: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_AndroidController:
-      d->report_parser.setup = NULL;
+      d->report_parser.setup = uni_hid_parser_android_setup;
       d->report_parser.init_report = uni_hid_parser_android_init_report;
       d->report_parser.parse_usage = uni_hid_parser_android_parse_usage;
       d->report_parser.parse_raw = NULL;
