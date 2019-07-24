@@ -36,7 +36,7 @@ enum DEVICE_STATE {
   REMOTE_NAME_FETCHED
 };
 
-typedef struct uni_hid_device_s {
+struct uni_hid_device_s {
   bd_addr_t address;
   hci_con_handle_t con_handle;
   uint8_t page_scan_repetition_mode;
@@ -71,8 +71,8 @@ typedef struct uni_hid_device_s {
 
   // Buttons that needs to be released before triggering the action again.
   uint32_t wait_release_misc_button;
-
-} uni_hid_device_t;
+};
+typedef struct uni_hid_device_s uni_hid_device_t;
 
 void uni_hid_device_init(void);
 

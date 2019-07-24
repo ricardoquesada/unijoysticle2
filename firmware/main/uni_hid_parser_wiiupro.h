@@ -26,7 +26,7 @@ limitations under the License.
 #include "uni_gamepad.h"
 #include "uni_hid_parser.h"
 
-void uni_hid_parser_wiiupro_setup(void* device /* uni_hid_device_t */);
+void uni_hid_parser_wiiupro_setup(uni_hid_device_t* d);
 void uni_hid_parser_wiiupro_init_report(uni_gamepad_t* gp);
 void uni_hid_parser_wiiupro_parse_raw(uni_gamepad_t* gp, const uint8_t* report,
                                       uint16_t len);

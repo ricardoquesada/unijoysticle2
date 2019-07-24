@@ -23,6 +23,10 @@ limitations under the License.
 
 #include "uni_gamepad.h"
 
+// Forward declarations
+struct uni_hid_device_s;
+typedef struct uni_hid_device_s uni_hid_device_t;
+
 // btstack bug:
 // see: https://github.com/bluekitchen/btstack/issues/187
 typedef struct {
@@ -34,7 +38,7 @@ typedef struct {
   uint8_t report_id;
 } hid_globals_t;
 
-typedef void (*report_setup_fn_t)(void* device);
+typedef void (*report_setup_fn_t)(uni_hid_device_t* d);
 typedef void (*report_init_fn_t)(uni_gamepad_t* gamepad);
 typedef void (*report_parse_usage_fn_t)(uni_gamepad_t* gamepad,
                                         hid_globals_t* globals,

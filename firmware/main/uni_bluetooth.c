@@ -290,11 +290,34 @@ static void packet_handler(uint8_t packet_type, uint16_t channel,
           break;
 
         // HCI EVENTS
+        case HCI_EVENT_COMMAND_COMPLETE: {
+          uint16_t opcode =
+              hci_event_command_complete_get_command_opcode(packet);
+          const uint8_t* param =
+              hci_event_command_complete_get_return_parameters(packet);
+          uint8_t status = param[0];
+          logi("--> HCI_EVENT_COMMAND_COMPLETE. opcode = 0x%04x - status=%d\n",
+               opcode, status);
+          break;
+        }
+        case HCI_EVENT_AUTHENTICATION_COMPLETE_EVENT: {
+          uint8_t status = hci_event_authentication_complete_get_status(packet);
+          uint16_t handle =
+              hci_event_authentication_complete_get_connection_handle(packet);
+          logi(
+              "--> HCI_EVENT_AUTHENTICATION_COMPLETE_EVENT: status=%d, "
+              "handle=0x%04x\n",
+              status, handle);
+          break;
+        }
         case HCI_EVENT_PIN_CODE_REQUEST:
           // inform about pin code request
-          logi("Pin code request - using '0000'\n");
+          log_info("----------------> Pin code request - using '123456'\n");
+          logi("----------------> Pin code request - using '123456'\n");
           hci_event_pin_code_request_get_bd_addr(packet, event_addr);
-          gap_pin_code_response(event_addr, "0000");
+          const char pin_code[] = {0x13, 0x71, 0xda, 0x7d, 0x1a, 0x00};
+          hci_send_cmd(&hci_pin_code_request_reply, event_addr,
+                       sizeof(pin_code), pin_code);
           break;
         case HCI_EVENT_USER_CONFIRMATION_REQUEST:
           // inform about user confirmation request
@@ -443,7 +466,11 @@ static void on_hci_connection_complete(uint16_t channel, uint8_t* packet,
   if (uni_hid_device_is_incoming(device)) {
     // hci_send_cmd(&hci_authentication_requested, handle);
   }
-  hci_send_cmd(&hci_read_remote_version_information, handle);
+  // hci_send_cmd(&hci_read_remote_version_information, handle);
+
+  // logi("**** sending auth requested to handle: 0x%04x\n", handle);
+  // hci_send_cmd(&hci_authentication_requested, handle);
+  gap_request_security_level(handle, LEVEL_1);
 }
 
 static void on_hci_read_remote_version_information_complete(uint16_t channel,
@@ -531,11 +558,12 @@ static void on_gap_inquiry_result(uint16_t channel, uint8_t* packet,
         l2cap_create_channel(packet_handler, device->address, PSM_HID_CONTROL,
                              48, &device->hid_control_cid);
     if (status) {
-      loge("\nConnecting to HID Control failed: 0x%02x", status);
+      loge("\nConnecting or Auth to HID Control failed: 0x%02x", status);
     }
   }
   logi("\n");
 }
+
 static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet,
                                     uint16_t size) {
   uint16_t psm;
@@ -688,7 +716,7 @@ static void on_l2cap_incoming_connection(uint16_t channel, uint8_t* packet,
         }
       }
       l2cap_accept_connection(channel);
-      device->con_handle = l2cap_event_incoming_connection_get_handle(packet);
+      uni_hid_device_set_connection_handle(device, handle);
       device->hid_control_cid = channel;
       uni_hid_device_set_incoming(device, 1);
       break;
@@ -720,6 +748,9 @@ static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet,
 
   if (channel != device->hid_interrupt_cid) return;
 
+  log_info("PACKET!!");
+  printf_hexdump(packet, size);
+
   if (!uni_hid_device_has_hid_descriptor(device)) {
     logi("Device without HID descriptor yet. Ignoring report\n");
     return;
@@ -732,8 +763,6 @@ static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet,
 
   int report_len = size;
   uint8_t* report = packet;
-
-  printf_hexdump(report, report_len);
 
   // check if HID Input Report
   if (report_len < 1) return;
@@ -837,6 +866,7 @@ static void list_link_keys(void) {
     return;
   }
   uint8_t delete_keys = uni_platform_is_button_pressed();
+  delete_keys = true;
 
   if (delete_keys)
     printf("Deleting stored link keys:\n");

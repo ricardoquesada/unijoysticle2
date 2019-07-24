@@ -27,10 +27,18 @@ limitations under the License.
 #include "uni_hid_device.h"
 #include "uni_hid_parser.h"
 
-void uni_hid_parser_wiiupro_setup(void* device /* uni_hid_device_t */) {
-  const uint8_t led_report[] = {0x52, 0x15, 0xff};
-  log_info("Wii U Pro: sending LED report");
-  uni_hid_device_send_report(device, led_report, sizeof(led_report));
+static uni_hid_device_t* g_device = NULL;
+void uni_hid_parser_wiiupro_setup(uni_hid_device_t* d) {
+  g_device = d;
+  const uint8_t led_report[] = {0xa2, 0x15, 0x00};
+  logi("Wii U Pro: sending DRM set report\n");
+  log_info("Wii U Pro: sending DRM set report");
+  uni_hid_device_send_report(d, led_report, sizeof(led_report));
+
+  // const uint8_t led_report1[] = {0xa2, 0x12, 0x00, 0x30};
+  // uni_hid_device_send_report(d, led_report1, sizeof(led_report1));
+  // log_info("**** sending auth requested ****");
+  // hci_send_cmd(&hci_authentication_requested, d->con_handle);
 }
 
 void uni_hid_parser_wiiupro_init_report(uni_gamepad_t* gp) {
@@ -42,6 +50,29 @@ void uni_hid_parser_wiiupro_init_report(uni_gamepad_t* gp) {
 void uni_hid_parser_wiiupro_parse_raw(uni_gamepad_t* gp, const uint8_t* report,
                                       uint16_t len) {
   UNUSED(gp);
-  UNUSED(report);
   UNUSED(len);
+  if (!g_device) {
+    return;
+  }
+  switch (report[0]) {
+    case 0x20: {
+      const uint8_t r[] = {0xa2, 0x12, 0x00, 0x30};
+      uni_hid_device_send_report(g_device, r, sizeof(r));
+      break;
+    }
+
+    case 0x30: {
+      const uint8_t r[] = {0xa2, 0x16, 0x04, 0xa4, 0x00, 0xf0, 0x01, 0x55,
+                           00,   00,   00,   00,   00,   00,   00,   00,
+                           00,   00,   00,   00,   00,   00,   00};
+      uni_hid_device_send_report(g_device, r, sizeof(r));
+      break;
+    }
+
+    case 0x22: {
+      const uint8_t r[] = {0xa2, 0x11, 0x01};
+      uni_hid_device_send_report(g_device, r, sizeof(r));
+      break;
+    }
+  }
 }
