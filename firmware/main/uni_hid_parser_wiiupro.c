@@ -70,7 +70,7 @@ void uni_hid_parser_wiiupro_parse_raw(uni_gamepad_t* gp, const uint8_t* report,
     }
 
     case 0x22: {
-      const uint8_t r[] = {0xa2, 0x11, 0x01};
+      const uint8_t r[] = {0xa2, 0x11, 0x20};
       uni_hid_device_send_report(g_device, r, sizeof(r));
       break;
     }
