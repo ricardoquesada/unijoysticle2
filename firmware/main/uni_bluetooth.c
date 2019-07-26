@@ -310,15 +310,19 @@ static void packet_handler(uint8_t packet_type, uint16_t channel,
               status, handle);
           break;
         }
-        case HCI_EVENT_PIN_CODE_REQUEST:
-          // inform about pin code request
-          log_info("----------------> Pin code request - using '123456'\n");
-          logi("----------------> Pin code request - using '123456'\n");
+        case HCI_EVENT_PIN_CODE_REQUEST: {
+          bd_addr_t pin_code, local_addr;
+          gap_local_bd_addr(local_addr);
+          logi("--> HCI_EVENT_PIN_CODE_REQUEST\n");
           hci_event_pin_code_request_get_bd_addr(packet, event_addr);
-          const char pin_code[] = {0x13, 0x71, 0xda, 0x7d, 0x1a, 0x00};
+          // Pin is the reversed local address
+          reverse_bd_addr(local_addr, pin_code);
+          logi("Using pin code: ");
+          printf_hexdump(pin_code, sizeof(pin_code));
           hci_send_cmd(&hci_pin_code_request_reply, event_addr,
                        sizeof(pin_code), pin_code);
           break;
+        }
         case HCI_EVENT_USER_CONFIRMATION_REQUEST:
           // inform about user confirmation request
           logi("SSP User Confirmation Request with numeric value '%" PRIu32
@@ -438,7 +442,7 @@ static void on_hci_connection_request(uint16_t channel, uint8_t* packet,
 static void on_hci_connection_complete(uint16_t channel, uint8_t* packet,
                                        uint16_t size) {
   bd_addr_t event_addr;
-  uni_hid_device_t* device;
+  uni_hid_device_t* d;
   hci_con_handle_t handle;
   uint8_t status;
 
@@ -453,24 +457,34 @@ static void on_hci_connection_complete(uint16_t channel, uint8_t* packet,
     return;
   }
 
-  device = uni_hid_device_get_instance_for_address(event_addr);
-  if (device == NULL) {
+  d = uni_hid_device_get_instance_for_address(event_addr);
+  if (d == NULL) {
     logi("on_hci_connection_complete: failed to get device for %s\n",
          bd_addr_to_str(event_addr));
     return;
   }
 
   handle = hci_event_connection_complete_get_connection_handle(packet);
-  uni_hid_device_set_connection_handle(device, handle);
+  uni_hid_device_set_connection_handle(d, handle);
 
-  if (uni_hid_device_is_incoming(device)) {
-    // hci_send_cmd(&hci_authentication_requested, handle);
-  }
+  // if (uni_hid_device_is_incoming(d)) {
+  //   hci_send_cmd(&hci_authentication_requested, handle);
+  // }
   // hci_send_cmd(&hci_read_remote_version_information, handle);
 
-  // logi("**** sending auth requested to handle: 0x%04x\n", handle);
-  // hci_send_cmd(&hci_authentication_requested, handle);
-  gap_request_security_level(handle, LEVEL_1);
+  int cod = d->cod;
+  bool is_keyboard =
+      ((cod & MASK_COD_MAJOR_PERIPHERAL) == MASK_COD_MAJOR_PERIPHERAL) &&
+      ((cod & MASK_COD_MINOR_MASK) & MASK_COD_MINOR_KEYBOARD);
+  // FIXME: Check for device name instead of address.
+  // Assuming that all Nintendo devices has an address like: 18:2a:7b:xx:yy:zz
+  bool is_nintendo = (d->address[0] == 0x18) && (d->address[1] == 0x2a) &&
+                     (d->address[2] == 0x7b);
+
+  // Pin code only required for some devices like Nintendo and keyboards
+  if (is_nintendo || is_keyboard) {
+    gap_request_security_level(handle, LEVEL_1);
+  }
 }
 
 static void on_hci_read_remote_version_information_complete(uint16_t channel,
@@ -495,7 +509,6 @@ static void on_hci_read_remote_version_information_complete(uint16_t channel,
       hci_event_read_remote_version_information_complete_get_subversion(packet);
   logi("*******  handle=0x%04x, ver=0x%02x, mfr=0x%04x, subver=0x%04x\n",
        handle, lmp_ver, mfr_name, lmp_subversion);
-  // hci_send_cmd(&hci_change_connection_packet_type, handle, 0xcc18);
 }
 
 static void on_gap_inquiry_result(uint16_t channel, uint8_t* packet,
@@ -583,17 +596,17 @@ static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet,
   status = l2cap_event_channel_opened_get_status(packet);
   if (status) {
     logi("L2CAP Connection failed: 0x%02x.\n", status);
-    // Practice showed that if any of these two status are received, it is best
-    // to remove the link key. But this is based on empirical evidence, not on
-    // theory.
+    // Practice showed that if any of these two status are received, it is
+    // best to remove the link key. But this is based on empirical evidence,
+    // not on theory.
     if (status == L2CAP_CONNECTION_RESPONSE_RESULT_RTX_TIMEOUT ||
         status == L2CAP_CONNECTION_BASEBAND_DISCONNECT) {
       logi("Removing previous link key for address=%s.\n",
            bd_addr_to_str(address));
       uni_hid_device_remove_entry_with_channel(channel);
       // Just in case the key is outdated we remove it. If fixes some
-      // l2cap_channel_opened issues. It proves that it works when the status is
-      // 0x6a (L2CAP_CONNECTION_BASEBAND_DISCONNECT).
+      // l2cap_channel_opened issues. It proves that it works when the status
+      // is 0x6a (L2CAP_CONNECTION_BASEBAND_DISCONNECT).
       gap_drop_link_key_for_bd_addr(address);
     }
     return;
@@ -818,7 +831,8 @@ static void sdp_query_hid_descriptor(uni_hid_device_t* device) {
   uni_hid_device_t* current = uni_hid_device_get_current_device();
   if (current != NULL) {
     loge(
-        "Error: Ouch, another SDP query is in progress (%s) Try again later.\n",
+        "Error: Ouch, another SDP query is in progress (%s) Try again "
+        "later.\n",
         bd_addr_to_str(current->address));
     return;
   }

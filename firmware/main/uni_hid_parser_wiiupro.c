@@ -119,15 +119,15 @@ void uni_hid_parser_wiiupro_parse_raw(uni_gamepad_t* gp, const uint8_t* report,
   gp->dpad |= !(data[9] & 0x01) ? DPAD_UP : 0;     // BDU
   gp->updated_states |= GAMEPAD_STATE_DPAD;
 
-  // Process buttons
-  gp->buttons |= !(data[9] & 0x80) ? BUTTON_SHOULDER_L : 0;  // BZL
-  gp->buttons |= !(data[9] & 0x04) ? BUTTON_SHOULDER_R : 0;  // BZR
-  gp->buttons |= !(data[8] & 0x20) ? BUTTON_TRIGGER_L : 0;   // BLT
-  gp->buttons |= !(data[8] & 0x02) ? BUTTON_TRIGGER_R : 0;   // BRT
-  gp->buttons |= !(data[9] & 0x10) ? BUTTON_A : 0;           // BA
-  gp->buttons |= !(data[9] & 0x40) ? BUTTON_B : 0;           // BB
-  gp->buttons |= !(data[9] & 0x08) ? BUTTON_X : 0;           // BX
-  gp->buttons |= !(data[9] & 0x20) ? BUTTON_Y : 0;           // BY
+  // Process buttons. A,B -> B,A; X,Y -> Y,X; trigger <--> shoulder
+  gp->buttons |= !(data[9] & 0x10) ? BUTTON_B : 0;           // BA
+  gp->buttons |= !(data[9] & 0x40) ? BUTTON_A : 0;           // BB
+  gp->buttons |= !(data[9] & 0x08) ? BUTTON_Y : 0;           // BX
+  gp->buttons |= !(data[9] & 0x20) ? BUTTON_X : 0;           // BY
+  gp->buttons |= !(data[9] & 0x80) ? BUTTON_TRIGGER_L : 0;   // BZL
+  gp->buttons |= !(data[9] & 0x04) ? BUTTON_TRIGGER_R : 0;   // BZR
+  gp->buttons |= !(data[8] & 0x20) ? BUTTON_SHOULDER_L : 0;  // BLT
+  gp->buttons |= !(data[8] & 0x02) ? BUTTON_SHOULDER_R : 0;  // BRT
   gp->buttons |= !(data[10] & 0x02) ? BUTTON_THUMB_L : 0;    // LTHUM
   gp->buttons |= !(data[10] & 0x01) ? BUTTON_THUMB_R : 0;    // RTHUM
   gp->updated_states |=
@@ -139,5 +139,7 @@ void uni_hid_parser_wiiupro_parse_raw(uni_gamepad_t* gp, const uint8_t* report,
 
   // Process misc buttons
   gp->misc_buttons |= !(data[8] & 0x08) ? MISC_BUTTON_SYSTEM : 0;  // BH
-  gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
+  gp->misc_buttons |= !(data[8] & 0x04) ? MISC_BUTTON_HOME : 0;    // B+
+  gp->updated_states |=
+      GAMEPAD_STATE_MISC_BUTTON_SYSTEM | GAMEPAD_STATE_MISC_BUTTON_HOME;
 }
