@@ -748,9 +748,6 @@ static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet,
 
   if (channel != device->hid_interrupt_cid) return;
 
-  log_info("PACKET!!");
-  printf_hexdump(packet, size);
-
   if (!uni_hid_device_has_hid_descriptor(device)) {
     logi("Device without HID descriptor yet. Ignoring report\n");
     return;

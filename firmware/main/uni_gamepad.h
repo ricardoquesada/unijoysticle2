@@ -111,7 +111,7 @@ enum {
 //  brake: 0-1023    Menu button       accelerator: 0-1023
 //  L-shoulder button                  R-shoulder button
 //  L-trigger button                   R-trigger button
-//  d-pad                              buttons: A,B,,X,Y,
+//  d-pad                              buttons: A,B,X,Y,
 //  l-joypad (axis: -512, 511)         r-joypad (axis: -512, 511)
 //  axis-l button                      axis-r button
 //
