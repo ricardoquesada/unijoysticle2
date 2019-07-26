@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Added
+- Firmware: Added Wii U Pro controller support.
+
+### Changed
+- Firmware: Using btstack develop-branch. Commit: a4ea32feba8ca8a16509a75d3d80e8017ca2cf3b
+
 ## [0.2.1] - 2019-06-29
 ### Added
 - Board: moved SparkFun.lib inside unijoysticle project
