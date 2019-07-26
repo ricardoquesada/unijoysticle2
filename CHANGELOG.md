@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Firmware: Added Wii U Pro controller support.
 
 ### Changed
+- Firmware: Using esp-idf v3.2.2
 - Firmware: Using btstack develop-branch. Commit: a4ea32feba8ca8a16509a75d3d80e8017ca2cf3b
 
 ## [0.2.1] - 2019-06-29
@@ -37,11 +38,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Firmware: Updated link to http://retro.moe/unijoysticle2
 - Firmware: Using esp-idf v3.2. Commit: 286202caa31b61c2182209f37f8069a0b60fb942
   - Enabled options:
-    - Component Bluetooth enabled
-    - Bluedroid disabled
-    - Dual mode BR/EDR + BLE enabled
-    - Bluetooth BR/EDR Max connections 4
-    - Coredump to UART
+    - Bluetooth enabled
+       - Controller -> Bluedroid disabled
+       - Controller -> Dual mode BR/EDR + BLE enabled
+       - Controller -> Bluetooth BR/EDR Max connections 4
+    - ESP32-specific -> Coredump to UART
 - Firmware: Using btstack develop-branch. Commit: 4ce43359e6190a70dcb8ef079b902c1583c2abe4
 
 ## [0.1.0] - 2019-04-15
