@@ -877,8 +877,6 @@ static void list_link_keys(void) {
     return;
   }
   uint8_t delete_keys = uni_platform_is_button_pressed();
-  delete_keys = true;
-
   if (delete_keys)
     printf("Deleting stored link keys:\n");
   else
