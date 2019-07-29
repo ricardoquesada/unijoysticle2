@@ -21,11 +21,18 @@ limitations under the License.
 #include "uni_platform.h"
 
 #include <stdio.h>
+#include <string.h>
 
 static void print_joystick(uni_joystick_t* joy) {
-  printf("up=%d, down=%d, left=%d, right=%d, fire=%d, potx=%d, poty=%d\n",
-         joy->up, joy->down, joy->left, joy->right, joy->fire, joy->pot_x,
-         joy->pot_y);
+  static uni_joystick_t prev_joy = {.auto_fire = 255};
+  if (memcmp(joy, &prev_joy, sizeof(*joy)) != 0) {
+    printf(
+        "up=%d, down=%d, left=%d, right=%d, fire=%d, potx=%d, poty=%d, "
+        "autofire=%d\n",
+        joy->up, joy->down, joy->left, joy->right, joy->fire, joy->pot_x,
+        joy->pot_y, joy->auto_fire);
+    memcpy(&prev_joy, joy, sizeof(prev_joy));
+  }
 }
 void uni_platform_init(void) {}
 void uni_platform_on_joy_a_data(uni_joystick_t* joy) { print_joystick(joy); }
