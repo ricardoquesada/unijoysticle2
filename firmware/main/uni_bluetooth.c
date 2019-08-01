@@ -493,7 +493,7 @@ static void on_hci_connection_complete(uint16_t channel, uint8_t* packet,
 
   // Pin code only required for some devices like Nintendo and keyboards
   if (is_nintendo || is_keyboard) {
-    gap_request_security_level(handle, LEVEL_1);
+    // gap_request_security_level(handle, LEVEL_1);
   }
 }
 
