@@ -26,11 +26,6 @@ limitations under the License.
 #include "uni_hid_device.h"
 #include "uni_hid_parser.h"
 
-void uni_hid_parser_android_setup(void* device) {
-  const uint8_t report[] = {0x02, 0x0f};
-  uni_hid_device_send_report(device, report, sizeof(report));
-}
-
 void uni_hid_parser_android_init_report(uni_gamepad_t* gp) {
   // Reset old state. Each report contains a full-state.
   gp->updated_states = 0;

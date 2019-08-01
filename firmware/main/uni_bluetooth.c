@@ -384,6 +384,16 @@ static void packet_handler(uint8_t packet_type, uint16_t channel,
                                                           size);
           break;
         // L2CAP EVENTS
+        case L2CAP_EVENT_CAN_SEND_NOW:
+          loge("-----------> L2CAP_EVENT_CAN_SEND_NOW!\n");
+          uint16_t local_cid = l2cap_event_can_send_now_get_local_cid(packet);
+          device = uni_hid_device_get_instance_for_cid(local_cid);
+          if (device == NULL) {
+            loge("--->>> CANNOT FIND DEVICE");
+          } else {
+            uni_hid_device_send_queued_report(device);
+          }
+          break;
         case L2CAP_EVENT_INCOMING_CONNECTION:
           on_l2cap_incoming_connection(channel, packet, size);
           break;

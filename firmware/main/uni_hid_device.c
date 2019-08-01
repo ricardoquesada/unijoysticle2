@@ -18,6 +18,7 @@ limitations under the License.
 
 #include "uni_hid_device.h"
 
+#include "uni_circular_buffer.h"
 #include "uni_debug.h"
 #include "uni_hid_device_vendors.h"
 #include "uni_hid_parser_8bitdo.h"
@@ -408,7 +409,7 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
       logi("Device detected as Xbox One: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_AndroidController:
-      d->report_parser.setup = uni_hid_parser_android_setup;
+      d->report_parser.setup = NULL;
       d->report_parser.init_report = uni_hid_parser_android_init_report;
       d->report_parser.parse_usage = uni_hid_parser_android_parse_usage;
       d->report_parser.parse_raw = NULL;
@@ -654,23 +655,55 @@ void uni_hid_device_set_state(uni_hid_device_t* d, enum DEVICE_STATE s) {
   d->state = s;
 }
 
+// Only call if it is known that you can "send now".
 void uni_hid_device_send_report(void* d, const uint8_t* report, uint16_t len) {
   uni_hid_device_t* self = (uni_hid_device_t*)d;
   if (self == NULL) {
-    log_error("ERROR: Invalid device\n");
+    loge("Invalid device\n");
     return;
   }
   if (self->hid_interrupt_cid <= 0) {
-    log_error("ERROR: Invalid hid_interrupt_cid: %d", self->hid_interrupt_cid);
+    loge("Invalid hid_interrupt_cid: %d", self->hid_interrupt_cid);
     return;
   }
 
   if (!report || len <= 0) {
-    log_error("ERROR: Invalid report");
+    loge("Invalid report");
     return;
   }
 
-  l2cap_send(self->hid_interrupt_cid, (uint8_t*)report, len);
+  int err = l2cap_send(self->hid_interrupt_cid, (uint8_t*)report, len);
+  if (err != 0) {
+    logi("Could not send report (error=0x%04x). Adding it to queue\n", err);
+    if (uni_circular_buffer_put(&self->outgoing_buffer, report, len) != 0) {
+      loge("ERROR: ciruclar buffer full. Cannot queue report\n");
+    }
+    return;
+  }
   // request user can send now if pending
   l2cap_request_can_send_now_event((self->hid_interrupt_cid));
+}
+
+void uni_hid_device_send_queued_report(uni_hid_device_t* d) {
+  if (d == NULL) {
+    loge("Invalid device\n");
+    return;
+  }
+  if (d->hid_interrupt_cid <= 0) {
+    loge("Invalid hid_interrupt_cid: %d\n", d->hid_interrupt_cid);
+    return;
+  }
+
+  if (uni_circular_buffer_is_empty(&d->outgoing_buffer)) {
+    logi("circular buffer empty?\n");
+    return;
+  }
+
+  void* data;
+  int data_len;
+  if (uni_circular_buffer_get(&d->outgoing_buffer, &data, &data_len) != 0) {
+    loge("ERROR: could not get buffer from circular buffer.\n");
+    return;
+  }
+  uni_hid_device_send_report(d, data, data_len);
 }

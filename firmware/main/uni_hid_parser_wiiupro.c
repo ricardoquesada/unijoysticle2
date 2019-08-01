@@ -31,6 +31,10 @@ void uni_hid_parser_wiiupro_setup(uni_hid_device_t* d) {
   // We care about report 0x34: the one used by the gamepad.
   const uint8_t report[] = {0xa2, 0x12, 0x00, 0x34};
   uni_hid_device_send_report(d, report, sizeof(report));
+
+  // Set LED to 1.
+  const uint8_t led[] = {0xa2, 0x11, 0x10};
+  uni_hid_device_send_report(d, led, sizeof(led));
 }
 
 void uni_hid_parser_wiiupro_init_report(uni_gamepad_t* gp) {

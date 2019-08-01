@@ -24,6 +24,7 @@ limitations under the License.
 
 #include "btstack.h"
 
+#include "uni_circular_buffer.h"
 #include "uni_gamepad.h"
 #include "uni_hid_parser.h"
 
@@ -82,6 +83,10 @@ struct uni_hid_device_s {
 
   // Buttons that needs to be released before triggering the action again.
   uint32_t wait_release_misc_button;
+
+  // Circular buffer that contains the outgoing packets that couldn't be sent
+  // immediately.
+  uni_circular_buffer_t outgoing_buffer;
 };
 typedef struct uni_hid_device_s uni_hid_device_t;
 
@@ -143,6 +148,7 @@ void uni_hid_device_set_state(uni_hid_device_t* d, enum DEVICE_STATE s);
 
 void uni_hid_device_send_report(void* d /* uni_hid_device_t */,
                                 const uint8_t* report, uint16_t len);
+void uni_hid_device_send_queued_report(uni_hid_device_t* d);
 
 // events
 
