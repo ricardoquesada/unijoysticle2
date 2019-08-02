@@ -29,8 +29,11 @@ limitations under the License.
 
 void uni_hid_parser_wiiupro_setup(uni_hid_device_t* d) {
   // We care about report 0x34: the one used by the gamepad.
-  const uint8_t report[] = {0xa2, 0x12, 0x00, 0x34};
-  uni_hid_device_send_report(d, report, sizeof(report));
+  const uint8_t report34[] = {0xa2, 0x12, 0x00, 0x34};
+  uni_hid_device_send_report(d, report34, sizeof(report34));
+
+  // const uint8_t report30[] = {0xa2, 0x12, 0x00, 0x30};
+  // uni_hid_device_send_report(d, report30, sizeof(report30));
 
   // Set LED to 1.
   const uint8_t led[] = {0xa2, 0x11, 0x10};

@@ -121,6 +121,9 @@ void uni_hid_device_try_assign_joystick_port(uni_hid_device_t* d) {
     return;
   }
 
+  // FIXME: Joystick might not get assigned here. This is to make the FSM happy.
+  uni_hid_device_set_state(d, STATE_JOYSTICK_ASSIGNED);
+
   // Port already assigned. Do nothing. Not an error.
   if (d->joystick_port != JOYSTICK_PORT_NONE) {
     return;
@@ -162,7 +165,8 @@ void uni_hid_device_try_assign_joystick_port(uni_hid_device_t* d) {
   logi("Assigned joystick port: %d\n", wanted_port);
 
   uni_platform_on_port_assigned(d->joystick_port);
-  return;
+
+  if (d->report_parser.setup) d->report_parser.setup(d);
 }
 
 void uni_hid_device_remove_entry_with_channel(uint16_t channel) {
@@ -179,8 +183,8 @@ void uni_hid_device_remove_entry_with_channel(uint16_t channel) {
 void uni_hid_device_request_inquire(void) {
   for (int i = 0; i < MAX_DEVICES; i++) {
     // retry remote name request
-    if (g_devices[i].state == REMOTE_NAME_INQUIRED) {
-      g_devices[i].state = REMOTE_NAME_REQUEST;
+    if (g_devices[i].state == STATE_REMOTE_NAME_INQUIRED) {
+      g_devices[i].state = STATE_REMOTE_NAME_REQUEST;
     }
   }
 }
@@ -275,7 +279,7 @@ void uni_hid_device_set_name(uni_hid_device_t* d, const uint8_t* name,
     d->name[min] = 0;
 
     d->flags |= FLAGS_HAS_NAME;
-    d->state = REMOTE_NAME_FETCHED;
+    d->state = STATE_REMOTE_NAME_FETCHED;
   }
 }
 
@@ -467,8 +471,6 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
   }
 
   d->flags |= FLAGS_HAS_CONTROLLER_TYPE;
-
-  if (d->report_parser.setup) d->report_parser.setup(d);
 }
 
 bool uni_hid_device_has_controller_type(uni_hid_device_t* d) {
@@ -649,9 +651,10 @@ void uni_hid_device_on_emu_mode_change(void) {
 
 void uni_hid_device_set_state(uni_hid_device_t* d, enum DEVICE_STATE s) {
   if (d == NULL) {
-    log_error("ERROR: Invalid device\n");
+    loge("ERROR: Invalid device\n");
     return;
   }
+  logi("set_state: 0x%02x -> 0x%02x\n", d->state, s);
   d->state = s;
 }
 
@@ -663,12 +666,12 @@ void uni_hid_device_send_report(void* d, const uint8_t* report, uint16_t len) {
     return;
   }
   if (self->hid_interrupt_cid <= 0) {
-    loge("Invalid hid_interrupt_cid: %d", self->hid_interrupt_cid);
+    loge("Invalid hid_interrupt_cid: %d\n", self->hid_interrupt_cid);
     return;
   }
 
   if (!report || len <= 0) {
-    loge("Invalid report");
+    loge("Invalid report\n");
     return;
   }
 
