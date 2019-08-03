@@ -27,20 +27,71 @@ limitations under the License.
 #include "uni_hid_device.h"
 #include "uni_hid_parser.h"
 
-static void process_wii_remote(uni_gamepad_t* gp, const uint8_t* report,
-                               uint16_t len);
-static void process_wii_u_pro(uni_gamepad_t* gp, const uint8_t* report,
-                              uint16_t len);
+// Taken from Linux kernel: hid-wiimote.h
+enum wiiproto_reqs {
+  WIIPROTO_REQ_NULL = 0x0,
+  WIIPROTO_REQ_RUMBLE = 0x10,
+  WIIPROTO_REQ_LED = 0x11,
+  WIIPROTO_REQ_DRM = 0x12,
+  WIIPROTO_REQ_IR1 = 0x13,
+  WIIPROTO_REQ_SREQ = 0x15,
+  WIIPROTO_REQ_WMEM = 0x16,
+  WIIPROTO_REQ_RMEM = 0x17,
+  WIIPROTO_REQ_IR2 = 0x1a,
+  WIIPROTO_REQ_STATUS = 0x20,
+  WIIPROTO_REQ_DATA = 0x21,
+  WIIPROTO_REQ_RETURN = 0x22,
+
+  /* DRM_K: BB*2 */
+  WIIPROTO_REQ_DRM_K = 0x30,
+
+  /* DRM_KA: BB*2 AA*3 */
+  WIIPROTO_REQ_DRM_KA = 0x31,
+
+  /* DRM_KE: BB*2 EE*8 */
+  WIIPROTO_REQ_DRM_KE = 0x32,
+
+  /* DRM_KAI: BB*2 AA*3 II*12 */
+  WIIPROTO_REQ_DRM_KAI = 0x33,
+
+  /* DRM_KEE: BB*2 EE*19 */
+  WIIPROTO_REQ_DRM_KEE = 0x34,
+
+  /* DRM_KAE: BB*2 AA*3 EE*16 */
+  WIIPROTO_REQ_DRM_KAE = 0x35,
+
+  /* DRM_KIE: BB*2 II*10 EE*9 */
+  WIIPROTO_REQ_DRM_KIE = 0x36,
+
+  /* DRM_KAIE: BB*2 AA*3 II*10 EE*6 */
+  WIIPROTO_REQ_DRM_KAIE = 0x37,
+
+  /* DRM_E: EE*21 */
+  WIIPROTO_REQ_DRM_E = 0x3d,
+
+  /* DRM_SKAI1: BB*2 AA*1 II*18 */
+  WIIPROTO_REQ_DRM_SKAI1 = 0x3e,
+
+  /* DRM_SKAI2: BB*2 AA*1 II*18 */
+  WIIPROTO_REQ_DRM_SKAI2 = 0x3f,
+
+  WIIPROTO_REQ_MAX
+};
+
+static void process_drm_k(uni_gamepad_t* gp, const uint8_t* report,
+                          uint16_t len);
+static void process_drm_kee(uni_gamepad_t* gp, const uint8_t* report,
+                            uint16_t len);
 static void request_report(uni_hid_device_t* d);
 
 void uni_hid_parser_wii_setup(uni_hid_device_t* d) {
   // Set LED to 1.
-  const uint8_t led[] = {0xa2, 0x11, 0x10};
+  const uint8_t led[] = {0xa2, WIIPROTO_REQ_LED, 0x10 /* LED 1 */};
   uni_hid_device_send_report(d, led, sizeof(led));
 
-  // Incoming connection might lose the first 0x20 report.
-  // Just in case, we request the report.
-  if (uni_hid_device_is_incoming(d)) request_report(d);
+  // Just in case, we request the status report:
+  const uint8_t status[] = {0xa2, WIIPROTO_REQ_SREQ, 0x00 /* rumble off */};
+  uni_hid_device_send_report(d, status, sizeof(status));
 }
 
 void uni_hid_parser_wii_init_report(uni_gamepad_t* gp) {
@@ -49,30 +100,31 @@ void uni_hid_parser_wii_init_report(uni_gamepad_t* gp) {
   gp->dpad = 0;
   gp->buttons = 0;
   gp->misc_buttons = 0;
-  log_info("Nintendo Wii U Pro controller not supported yet");
 }
 
 void uni_hid_parser_wii_parse_raw(uni_hid_device_t* d, const uint8_t* report,
                                   uint16_t len) {
   if (len == 0) return;
   switch (report[0]) {
-    case 0x20:
+    case WIIPROTO_REQ_STATUS:
       logi("Nintendo Wii: Status report: ");
       printf_hexdump(report, len);
       request_report(d);
       break;
-    case 0x30:
-      process_wii_remote(&d->gamepad, report, len);
+    case WIIPROTO_REQ_DRM_K:
+      process_drm_k(&d->gamepad, report, len);
       break;
-    case 0x34:
-      process_wii_u_pro(&d->gamepad, report, len);
+    case WIIPROTO_REQ_DRM_KEE:
+      process_drm_kee(&d->gamepad, report, len);
       break;
     default:
       logi("Wii parser: unknown report type: 0x%02x\n", report[0]);
+      printf_hexdump(report, len);
   }
 }
-static void process_wii_remote(uni_gamepad_t* gp, const uint8_t* report,
-                               uint16_t len) {
+static void process_drm_k(uni_gamepad_t* gp, const uint8_t* report,
+                          uint16_t len) {
+  /* DRM_K: BB*2 */
   // Expecting something like:
   // 30 00 08
   if (len < 3) {
@@ -104,12 +156,14 @@ static void process_wii_remote(uni_gamepad_t* gp, const uint8_t* report,
       GAMEPAD_STATE_MISC_BUTTON_SYSTEM | GAMEPAD_STATE_MISC_BUTTON_HOME;
 }
 
-static void process_wii_u_pro(uni_gamepad_t* gp, const uint8_t* report,
-                              uint16_t len) {
+static void process_drm_kee(uni_gamepad_t* gp, const uint8_t* report,
+                            uint16_t len) {
+  /* DRM_KEE: BB*2 EE*19 */
   // Expecting something like:
   // 34 00 00 19 08 D5 07 20 08 21 08 FF FF CF 00 00 00 00 00 00 00 00
 
   // Doc taken from hid-wiimote-modules.c from Linux Kernel
+
   /*   Byte |  8  |  7  |  6  |  5  |  4  |  3  |  2  |  1  |
    *   -----+-----+-----+-----+-----+-----+-----+-----+-----+
    *    0   |                   LX <7:0>                    |
@@ -205,14 +259,17 @@ static void process_wii_u_pro(uni_gamepad_t* gp, const uint8_t* report,
 }
 
 void static request_report(uni_hid_device_t* d) {
-  // We care about report 0x34: the one used by the gamepad.
-  if (d->product_id == 0x306) {
-    // Wii Remote uses report 0x30
-    const uint8_t report30[] = {0xa2, 0x12, 0x00, 0x30};
-    uni_hid_device_send_report(d, report30, sizeof(report30));
-  } else if (d->product_id == 0x0330) {
-    // Wii U Pro uses report 0x34
-    const uint8_t report34[] = {0xa2, 0x12, 0x00, 0x34};
-    uni_hid_device_send_report(d, report34, sizeof(report34));
+  // FIXME: Instead of hardcoding the types of reports, I should query flags
+  // and based on that request the correct report.
+  if (d->product_id == 0x306 /* wii remote */) {
+    // 0x30 WIIPROTO_REQ_DRM_K (present in Wii Remote)
+    const uint8_t reportK[] = {0xa2, WIIPROTO_REQ_DRM, 0x00,
+                               WIIPROTO_REQ_DRM_K};
+    uni_hid_device_send_report(d, reportK, sizeof(reportK));
+  } else if (d->product_id == 0x0330 /* wii u pro */) {
+    // 0x34 WIIPROTO_REQ_DRM_KEE (present in Wii U Pro controller)
+    const uint8_t reportKee[] = {0xa2, WIIPROTO_REQ_DRM, 0x00,
+                                 WIIPROTO_REQ_DRM_KEE};
+    uni_hid_device_send_report(d, reportKee, sizeof(reportKee));
   }
 }
