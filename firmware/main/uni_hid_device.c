@@ -459,7 +459,7 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
       d->report_parser.init_report = uni_hid_parser_wii_init_report;
       d->report_parser.parse_usage = NULL;
       d->report_parser.parse_raw = uni_hid_parser_wii_parse_raw;
-      logi("Device detected as Wii U Pro: 0x%02x\n", type);
+      logi("Device detected as Wii controller: 0x%02x\n", type);
       break;
     default:
       d->report_parser.setup = NULL;
@@ -654,7 +654,7 @@ void uni_hid_device_set_state(uni_hid_device_t* d, enum DEVICE_STATE s) {
     loge("ERROR: Invalid device\n");
     return;
   }
-  logi("set_state: 0x%02x -> 0x%02x\n", d->state, s);
+  // logi("set_state: 0x%02x -> 0x%02x\n", d->state, s);
   d->state = s;
 }
 
@@ -681,7 +681,6 @@ void uni_hid_device_send_report(void* d, const uint8_t* report, uint16_t len) {
     if (uni_circular_buffer_put(&self->outgoing_buffer, report, len) != 0) {
       loge("ERROR: ciruclar buffer full. Cannot queue report\n");
     }
-    return;
   }
   // request user can send now if pending
   l2cap_request_can_send_now_event((self->hid_interrupt_cid));

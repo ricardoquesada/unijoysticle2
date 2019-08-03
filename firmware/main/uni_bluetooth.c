@@ -106,9 +106,6 @@ static void on_hci_connection_complete(uint16_t channel, uint8_t* packet,
                                        uint16_t size);
 static void on_hci_connection_request(uint16_t channel, uint8_t* packet,
                                       uint16_t size);
-static void on_hci_read_remote_version_information_complete(uint16_t channel,
-                                                            uint8_t* packet,
-                                                            uint16_t size);
 static void fsm_process(uni_hid_device_t* d);
 static void l2cap_create_control_connection(uni_hid_device_t* d);
 static void l2cap_create_interrupt_connection(uni_hid_device_t* d);
@@ -385,14 +382,9 @@ static void packet_handler(uint8_t packet_type, uint16_t channel,
           }
           continue_remote_names();
           break;
-        case HCI_EVENT_READ_REMOTE_VERSION_INFORMATION_COMPLETE:
-          logi("--> HCI_EVENT_READ_REMOTE_VERSION_INFORMATION_COMPLETE:\n");
-          on_hci_read_remote_version_information_complete(channel, packet,
-                                                          size);
-          break;
         // L2CAP EVENTS
         case L2CAP_EVENT_CAN_SEND_NOW:
-          loge("-----------> L2CAP_EVENT_CAN_SEND_NOW!\n");
+          loge("--> L2CAP_EVENT_CAN_SEND_NOW\n");
           uint16_t local_cid = l2cap_event_can_send_now_get_local_cid(packet);
           device = uni_hid_device_get_instance_for_cid(local_cid);
           if (device == NULL) {
@@ -413,9 +405,11 @@ static void packet_handler(uint8_t packet_type, uint16_t channel,
 
         // GAP EVENTS
         case GAP_EVENT_INQUIRY_RESULT:
+          logi("--> GAP_EVENT_INQUIRY_RESULT\n");
           on_gap_inquiry_result(channel, packet, size);
           break;
         case GAP_EVENT_INQUIRY_COMPLETE:
+          logi("--> GAP_EVENT_INQUIRY_COMPLETE\n");
           uni_hid_device_request_inquire();
           continue_remote_names();
           break;
@@ -487,45 +481,14 @@ static void on_hci_connection_complete(uint16_t channel, uint8_t* packet,
   // if (uni_hid_device_is_incoming(d)) {
   //   hci_send_cmd(&hci_authentication_requested, handle);
   // }
-  // hci_send_cmd(&hci_read_remote_version_information, handle);
 
   int cod = d->cod;
   bool is_keyboard =
       ((cod & MASK_COD_MAJOR_PERIPHERAL) == MASK_COD_MAJOR_PERIPHERAL) &&
       ((cod & MASK_COD_MINOR_MASK) & MASK_COD_MINOR_KEYBOARD);
-  // FIXME: Check for device name instead of address.
-  // Assuming that all Nintendo devices has an address like: 18:2a:7b:xx:yy:zz
-  bool is_nintendo = (d->address[0] == 0x18) && (d->address[1] == 0x2a) &&
-                     (d->address[2] == 0x7b);
-
-  // Pin code only required for some devices like Nintendo and keyboards
-  if (is_nintendo || is_keyboard) {
+  if (is_keyboard) {
     // gap_request_security_level(handle, LEVEL_1);
   }
-}
-
-static void on_hci_read_remote_version_information_complete(uint16_t channel,
-                                                            uint8_t* packet,
-                                                            uint16_t size) {
-  UNUSED(channel);
-  UNUSED(size);
-
-  uint8_t status =
-      hci_event_read_remote_version_information_complete_get_status(packet);
-  if (status != 0) return;
-
-  hci_con_handle_t handle =
-      hci_event_read_remote_version_information_complete_get_connection_handle(
-          packet);
-  uint8_t lmp_ver =
-      hci_event_read_remote_version_information_complete_get_version(packet);
-  uint16_t mfr_name =
-      hci_event_read_remote_version_information_complete_get_manufacturer_name(
-          packet);
-  uint16_t lmp_subversion =
-      hci_event_read_remote_version_information_complete_get_subversion(packet);
-  logi("*******  handle=0x%04x, ver=0x%02x, mfr=0x%04x, subver=0x%04x\n",
-       handle, lmp_ver, mfr_name, lmp_subversion);
 }
 
 static void on_gap_inquiry_result(uint16_t channel, uint8_t* packet,
@@ -573,7 +536,6 @@ static void on_gap_inquiry_result(uint16_t channel, uint8_t* packet,
         loge("\nError: no more available device slots\n");
         return;
       }
-      logi("\n--> device created\n");
       uni_hid_device_set_state(device, STATE_DEVICE_DISCOVERED);
       uni_hid_device_set_cod(device, cod);
       device->page_scan_repetition_mode = page_scan_repetition_mode;
@@ -802,31 +764,19 @@ static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet,
   uni_hid_device_process_gamepad(device);
 }
 
-static int has_more_remote_name_requests(void) {
-  uni_hid_device_t* d =
-      uni_hid_device_get_first_device_with_state(STATE_REMOTE_NAME_REQUEST);
-  logi("has_more_remote_name_requestes() = %d\n", (d != NULL));
-  return (d != NULL);
-}
-
-static void do_next_remote_name_request(void) {
-  uni_hid_device_t* d =
-      uni_hid_device_get_first_device_with_state(STATE_REMOTE_NAME_REQUEST);
-  if (d != NULL) {
-    uni_hid_device_set_state(d, STATE_REMOTE_NAME_INQUIRED);
-    logi("Get remote name of %s...\n", bd_addr_to_str(d->address));
-    gap_remote_name_request(d->address, d->page_scan_repetition_mode,
-                            d->clock_offset | 0x8000);
-  }
-}
-
 static void continue_remote_names(void) {
   logi("--> continue_remote_names()\n");
-  if (has_more_remote_name_requests()) {
-    do_next_remote_name_request();
+  uni_hid_device_t* d =
+      uni_hid_device_get_first_device_with_state(STATE_REMOTE_NAME_REQUEST);
+  if (!d) {
+    // No device ready? Continue scanning
+    start_scan();
     return;
   }
-  start_scan();
+  uni_hid_device_set_state(d, STATE_REMOTE_NAME_INQUIRED);
+  logi("Fetching remote name of %s\n", bd_addr_to_str(d->address));
+  gap_remote_name_request(d->address, d->page_scan_repetition_mode,
+                          d->clock_offset | 0x8000);
 }
 
 static void start_scan(void) {
@@ -925,7 +875,7 @@ static void l2cap_create_interrupt_connection(uni_hid_device_t* d) {
 }
 
 static void fsm_process(uni_hid_device_t* d) {
-  logi("fsm_process: %p = 0x%02x\n", d, d->state);
+  // logi("fsm_process: %p = 0x%02x\n", d, d->state);
   if (d == NULL) {
     loge("Invalid device\n");
   }
