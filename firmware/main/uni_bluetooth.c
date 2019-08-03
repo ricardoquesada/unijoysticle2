@@ -314,12 +314,13 @@ static void packet_handler(uint8_t packet_type, uint16_t channel,
           break;
         }
         case HCI_EVENT_PIN_CODE_REQUEST: {
-          bd_addr_t pin_code, local_addr;
-          gap_local_bd_addr(local_addr);
+          bd_addr_t pin_code;
           logi("--> HCI_EVENT_PIN_CODE_REQUEST\n");
+          // FIXME: Assumes an incoming connection from Nintendo Wii was
+          // initiated. Sending reversed mac-address as pin.
           hci_event_pin_code_request_get_bd_addr(packet, event_addr);
-          // Pin is the reversed local address
-          reverse_bd_addr(local_addr, pin_code);
+          // Pin is the reversed address
+          reverse_bd_addr(event_addr, pin_code);
           logi("Using pin code: ");
           printf_hexdump(pin_code, sizeof(pin_code));
           hci_send_cmd(&hci_pin_code_request_reply, event_addr,
@@ -875,7 +876,9 @@ static void fsm_process(uni_hid_device_t* d) {
     }
   } else {
     if (d->state == STATE_DEVICE_DISCOVERED) {
-      uni_hid_device_set_state(d, STATE_REMOTE_NAME_REQUEST);
+      // FIXME: Temporary skip name discovery
+      // uni_hid_device_set_state(d, STATE_REMOTE_NAME_REQUEST);
+      sdp_query_hid_descriptor(d);
     } else if (d->state == STATE_REMOTE_NAME_FETCHED) {
       sdp_query_hid_descriptor(d);
     } else if (d->state == STATE_SDP_HID_DESCRIPTOR_FETCHED) {

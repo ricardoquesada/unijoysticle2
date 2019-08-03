@@ -31,11 +31,16 @@ static void process_wii_remote(uni_gamepad_t* gp, const uint8_t* report,
                                uint16_t len);
 static void process_wii_u_pro(uni_gamepad_t* gp, const uint8_t* report,
                               uint16_t len);
+static void request_report(uni_hid_device_t* d);
 
 void uni_hid_parser_wii_setup(uni_hid_device_t* d) {
   // Set LED to 1.
   const uint8_t led[] = {0xa2, 0x11, 0x10};
   uni_hid_device_send_report(d, led, sizeof(led));
+
+  // Incoming connection might lose the first 0x20 report.
+  // Just in case, we request the report.
+  if (uni_hid_device_is_incoming(d)) request_report(d);
 }
 
 void uni_hid_parser_wii_init_report(uni_gamepad_t* gp) {
@@ -54,16 +59,7 @@ void uni_hid_parser_wii_parse_raw(uni_hid_device_t* d, const uint8_t* report,
     case 0x20:
       logi("Nintendo Wii: Status report: ");
       printf_hexdump(report, len);
-      // We care about report 0x34: the one used by the gamepad.
-      if (d->product_id == 0x306) {
-        // Wii Remote uses report 0x30
-        const uint8_t report30[] = {0xa2, 0x12, 0x00, 0x30};
-        uni_hid_device_send_report(d, report30, sizeof(report30));
-      } else if (d->product_id == 0x0330) {
-        // Wii U Pro uses report 0x34
-        const uint8_t report34[] = {0xa2, 0x12, 0x00, 0x34};
-        uni_hid_device_send_report(d, report34, sizeof(report34));
-      }
+      request_report(d);
       break;
     case 0x30:
       process_wii_remote(&d->gamepad, report, len);
@@ -206,4 +202,17 @@ static void process_wii_u_pro(uni_gamepad_t* gp, const uint8_t* report,
   gp->misc_buttons |= !(data[8] & 0x04) ? MISC_BUTTON_HOME : 0;    // B+
   gp->updated_states |=
       GAMEPAD_STATE_MISC_BUTTON_SYSTEM | GAMEPAD_STATE_MISC_BUTTON_HOME;
+}
+
+void static request_report(uni_hid_device_t* d) {
+  // We care about report 0x34: the one used by the gamepad.
+  if (d->product_id == 0x306) {
+    // Wii Remote uses report 0x30
+    const uint8_t report30[] = {0xa2, 0x12, 0x00, 0x30};
+    uni_hid_device_send_report(d, report30, sizeof(report30));
+  } else if (d->product_id == 0x0330) {
+    // Wii U Pro uses report 0x34
+    const uint8_t report34[] = {0xa2, 0x12, 0x00, 0x34};
+    uni_hid_device_send_report(d, report34, sizeof(report34));
+  }
 }
