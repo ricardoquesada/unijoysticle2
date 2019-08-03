@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Added
+- Firmware: Add Nintendo Wii generic support. This includes
+  - Wii U Pro controller
+  - Wii Remote
+  - Possibly other Nitendo Wii controllers
+
+### Changed
+- Firmware: Nintendo Wii U Pro support: Works Ok on ESP32.
+- Firmware: Bluetooth state machine. Code clean-up. It is easier to mantain.
+- Firmware: Using btstack master-branch. Commit: dbb3cbc198393187c63748b8b0ed0a7357c9f190
+
+### Removed
+- Firmware: Name discovery disabled for the moment
+
 ## [0.3-beta] - 2019-07-27
 ### Added
 - Firmware: Added Wii U Pro controller support.

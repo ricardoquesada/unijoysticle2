@@ -742,7 +742,6 @@ static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet,
 }
 
 static void continue_remote_names(void) {
-  logi("--> continue_remote_names()\n");
   uni_hid_device_t* d =
       uni_hid_device_get_first_device_with_state(STATE_REMOTE_NAME_REQUEST);
   if (!d) {
@@ -757,7 +756,7 @@ static void continue_remote_names(void) {
 }
 
 static void start_scan(void) {
-  logi("--> start_scan()\n");
+  logi("--> Scanning for new devices...\n");
   gap_inquiry_start(INQUIRY_INTERVAL);
 }
 
