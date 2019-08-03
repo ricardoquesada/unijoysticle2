@@ -405,7 +405,7 @@ static void packet_handler(uint8_t packet_type, uint16_t channel,
 
         // GAP EVENTS
         case GAP_EVENT_INQUIRY_RESULT:
-          logi("--> GAP_EVENT_INQUIRY_RESULT\n");
+          // logi("--> GAP_EVENT_INQUIRY_RESULT\n");
           on_gap_inquiry_result(channel, packet, size);
           break;
         case GAP_EVENT_INQUIRY_COMPLETE:
@@ -544,9 +544,11 @@ static void on_gap_inquiry_result(uint16_t channel, uint8_t* packet,
         uni_hid_device_set_name(device, name_buffer, name_len);
       }
     }
+    logi("\n");
     fsm_process(device);
+  } else {
+    logi("\n");
   }
-  logi("\n");
 }
 
 static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet,
@@ -619,31 +621,6 @@ static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet,
       break;
   }
   fsm_process(device);
-
-  // if (!uni_hid_device_is_incoming(device)) {
-  //   if (local_cid == 0) {
-  //     loge("local_cid == 0. Abort\n");
-  //     uni_hid_device_remove_entry_with_channel(channel);
-  //     return;
-  //   }
-  //   if (local_cid == device->hid_control_cid) {
-  //     logi("Creating HID INTERRUPT channel\n");
-  //     status = l2cap_create_channel(packet_handler, device->address,
-  //                                   PSM_HID_INTERRUPT, 48,
-  //                                   &device->hid_interrupt_cid);
-  //     if (status) {
-  //       loge("Connecting to HID Control failed: 0x%02x\n", status);
-  //       uni_hid_device_remove_entry_with_channel(channel);
-  //       return;
-  //     }
-  //     logi("New hid interrupt psm = 0x%04x\n", device->hid_interrupt_cid);
-  //   }
-  //   if (local_cid == device->hid_interrupt_cid) {
-  //     logi("HID connection established\n");
-  //   }
-  // }
-
-  // uni_hid_device_try_assign_joystick_port(device);
 }
 
 static void on_l2cap_channel_closed(uint16_t channel, uint8_t* packet,
@@ -879,18 +856,39 @@ static void fsm_process(uni_hid_device_t* d) {
   if (d == NULL) {
     loge("Invalid device\n");
   }
-  if (d->state == STATE_DEVICE_DISCOVERED) {
-    uni_hid_device_set_state(d, STATE_REMOTE_NAME_REQUEST);
-  } else if (d->state == STATE_REMOTE_NAME_FETCHED) {
-    sdp_query_hid_descriptor(d);
-  } else if (d->state == STATE_SDP_HID_DESCRIPTOR_FETCHED) {
-    sdp_query_product_id(d);
-  } else if (d->state == STATE_SDP_VENDOR_FETCHED) {
-    l2cap_create_control_connection(d);
-  } else if (d->state == STATE_L2CAP_CONTROL_CONNECTED) {
-    l2cap_create_interrupt_connection(d);
-  } else if (d->state == STATE_L2CAP_INTERRUPT_CONNECTED) {
-    uni_hid_device_try_assign_joystick_port(d);
+  // Two flows: Incoming (initiated by gamepad) vs. discovered (initiated by
+  // Unijoysticle).
+
+  // Incoming connections might have the HID already pre-fecthed, or not.
+  if (uni_hid_device_is_incoming(d)) {
+    if (d->state == STATE_L2CAP_INTERRUPT_CONNECTED) {
+      if (uni_hid_device_has_hid_descriptor(d)) {
+        /* done */
+        uni_hid_device_try_assign_joystick_port(d);
+      } else {
+        sdp_query_hid_descriptor(d);
+      }
+    } else if (d->state == STATE_SDP_HID_DESCRIPTOR_FETCHED) {
+      sdp_query_product_id(d);
+    } else if (d->state == STATE_SDP_VENDOR_FETCHED) {
+      /* done */
+      uni_hid_device_try_assign_joystick_port(d);
+    }
+  } else {
+    if (d->state == STATE_DEVICE_DISCOVERED) {
+      uni_hid_device_set_state(d, STATE_REMOTE_NAME_REQUEST);
+    } else if (d->state == STATE_REMOTE_NAME_FETCHED) {
+      sdp_query_hid_descriptor(d);
+    } else if (d->state == STATE_SDP_HID_DESCRIPTOR_FETCHED) {
+      sdp_query_product_id(d);
+    } else if (d->state == STATE_SDP_VENDOR_FETCHED) {
+      l2cap_create_control_connection(d);
+    } else if (d->state == STATE_L2CAP_CONTROL_CONNECTED) {
+      l2cap_create_interrupt_connection(d);
+    } else if (d->state == STATE_L2CAP_INTERRUPT_CONNECTED) {
+      /* done */
+      uni_hid_device_try_assign_joystick_port(d);
+    }
   }
 }
 
