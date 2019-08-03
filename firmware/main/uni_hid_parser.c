@@ -23,25 +23,26 @@ limitations under the License.
 #include "uni_gamepad.h"
 #include "uni_hid_device.h"
 
-void uni_hid_parser(uni_gamepad_t* gamepad, uni_report_parser_t* report_parser,
-                    const uint8_t* report, uint16_t report_len,
-                    const uint8_t* hid_descriptor,
-                    uint16_t hid_descriptor_len) {
+void uni_hid_parser(uni_hid_device_t* d, const uint8_t* report,
+                    uint16_t report_len) {
   btstack_hid_parser_t parser;
 
+  uni_gamepad_t* gp = &d->gamepad;
+  uni_report_parser_t* rp = &d->report_parser;
+
   // Certain devices like iCade might not set "init_report".
-  if (report_parser->init_report) report_parser->init_report(gamepad);
+  if (rp->init_report) rp->init_report(gp);
 
   // Certain devices like Nintendo Wii U Pro doesn't support HID descriptor.
   // For those kind of devices, just send the raw report.
-  if (report_parser->parse_raw) {
-    report_parser->parse_raw(gamepad, report, report_len);
+  if (rp->parse_raw) {
+    rp->parse_raw(d, report, report_len);
   }
 
   // Devices that suport regular HID reports. Basically everyone except the
   // Nintendo Wii U.
-  if (report_parser->parse_usage) {
-    btstack_hid_parser_init(&parser, hid_descriptor, hid_descriptor_len,
+  if (rp->parse_usage) {
+    btstack_hid_parser_init(&parser, d->hid_descriptor, d->hid_descriptor_len,
                             HID_REPORT_TYPE_INPUT, report, report_len);
     while (btstack_hid_parser_has_more(&parser)) {
       uint16_t usage_page;
@@ -62,7 +63,7 @@ void uni_hid_parser(uni_gamepad_t* gamepad, uni_report_parser_t* report_parser,
 
       logd("usage_page = 0x%04x, usage = 0x%04x, value = 0x%x\n", usage_page,
            usage, value);
-      report_parser->parse_usage(gamepad, &globals, usage_page, usage, value);
+      rp->parse_usage(gp, &globals, usage_page, usage, value);
     }
   }
 }

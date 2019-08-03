@@ -39,12 +39,15 @@ typedef struct {
 } hid_globals_t;
 
 typedef void (*report_setup_fn_t)(uni_hid_device_t* d);
-typedef void (*report_init_fn_t)(uni_gamepad_t* gamepad);
-typedef void (*report_parse_usage_fn_t)(uni_gamepad_t* gamepad,
+typedef void (*report_init_fn_t)(uni_gamepad_t* gp);
+typedef void (*report_parse_usage_fn_t)(uni_gamepad_t* gp,
                                         hid_globals_t* globals,
                                         uint16_t usage_page, uint16_t usage,
                                         int32_t value);
-typedef void (*report_parse_raw_fn_t)(uni_gamepad_t* gamepad,
+// "parse_raw" receives uni_hid_device_t instead of gamepad since it is needed
+// for devices like Nintendo. If needed, the same thing should be done for
+// "parse_usage".
+typedef void (*report_parse_raw_fn_t)(uni_hid_device_t* d,
                                       const uint8_t* report,
                                       uint16_t report_len);
 
@@ -60,9 +63,8 @@ typedef struct {
   report_parse_raw_fn_t parse_raw;
 } uni_report_parser_t;
 
-void uni_hid_parser(uni_gamepad_t* gamepad, uni_report_parser_t* report_parser,
-                    const uint8_t* report, uint16_t report_len,
-                    const uint8_t* hid_descriptor, uint16_t hid_descriptor_len);
+void uni_hid_parser(uni_hid_device_t* d, const uint8_t* report,
+                    uint16_t report_len);
 int32_t uni_hid_parser_process_axis(hid_globals_t* globals, uint32_t value);
 int32_t uni_hid_parser_process_pedal(hid_globals_t* globals, uint32_t value);
 uint8_t uni_hid_parser_process_hat(hid_globals_t* globals, uint32_t value);

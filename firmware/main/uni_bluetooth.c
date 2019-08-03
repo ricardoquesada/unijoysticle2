@@ -732,8 +732,7 @@ static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet,
   // uni_hid_device_try_assign_joystick_port(device);
 
   // printf_hexdump(packet, size);
-  uni_hid_parser(&device->gamepad, &device->report_parser, report, report_len,
-                 device->hid_descriptor, device->hid_descriptor_len);
+  uni_hid_parser(device, report, report_len);
 
   // Debug info
   uni_gamepad_dump(&device->gamepad);

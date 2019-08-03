@@ -33,17 +33,6 @@ static void process_wii_u_pro(uni_gamepad_t* gp, const uint8_t* report,
                               uint16_t len);
 
 void uni_hid_parser_wii_setup(uni_hid_device_t* d) {
-  // We care about report 0x34: the one used by the gamepad.
-  if (d->product_id == 0x306) {
-    // Wii Remote uses report 0x30
-    const uint8_t report30[] = {0xa2, 0x12, 0x00, 0x30};
-    uni_hid_device_send_report(d, report30, sizeof(report30));
-  } else if (d->product_id == 0x0330) {
-    // Wii U Pro uses report 0x34
-    const uint8_t report34[] = {0xa2, 0x12, 0x00, 0x34};
-    uni_hid_device_send_report(d, report34, sizeof(report34));
-  }
-
   // Set LED to 1.
   const uint8_t led[] = {0xa2, 0x11, 0x10};
   uni_hid_device_send_report(d, led, sizeof(led));
@@ -58,18 +47,29 @@ void uni_hid_parser_wii_init_report(uni_gamepad_t* gp) {
   log_info("Nintendo Wii U Pro controller not supported yet");
 }
 
-void uni_hid_parser_wii_parse_raw(uni_gamepad_t* gp, const uint8_t* report,
+void uni_hid_parser_wii_parse_raw(uni_hid_device_t* d, const uint8_t* report,
                                   uint16_t len) {
-  UNUSED(gp);
   if (len == 0) return;
   switch (report[0]) {
     case 0x20:
+      logi("Nintendo Wii: Status report: ");
+      printf_hexdump(report, len);
+      // We care about report 0x34: the one used by the gamepad.
+      if (d->product_id == 0x306) {
+        // Wii Remote uses report 0x30
+        const uint8_t report30[] = {0xa2, 0x12, 0x00, 0x30};
+        uni_hid_device_send_report(d, report30, sizeof(report30));
+      } else if (d->product_id == 0x0330) {
+        // Wii U Pro uses report 0x34
+        const uint8_t report34[] = {0xa2, 0x12, 0x00, 0x34};
+        uni_hid_device_send_report(d, report34, sizeof(report34));
+      }
       break;
     case 0x30:
-      process_wii_remote(gp, report, len);
+      process_wii_remote(&d->gamepad, report, len);
       break;
     case 0x34:
-      process_wii_u_pro(gp, report, len);
+      process_wii_u_pro(&d->gamepad, report, len);
       break;
     default:
       logi("Wii parser: unknown report type: 0x%02x\n", report[0]);
