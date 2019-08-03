@@ -142,8 +142,8 @@ static void process_drm_k(uni_gamepad_t* gp, const uint8_t* report,
   gp->updated_states |= GAMEPAD_STATE_DPAD;
 
   // buttons
-  gp->buttons |= (data[1] & 0x08) ? BUTTON_A : 0;  // Big button "A"
-  gp->buttons |= (data[1] & 0x04) ? BUTTON_B : 0;  // Shoulder button
+  gp->buttons |= (data[1] & 0x04) ? BUTTON_A : 0;  // Shoulder button
+  gp->buttons |= (data[1] & 0x08) ? BUTTON_B : 0;  // Big button "A"
   gp->buttons |= (data[1] & 0x02) ? BUTTON_X : 0;  // Button "1"
   gp->buttons |= (data[1] & 0x01) ? BUTTON_Y : 0;  // Button "2"
   gp->updated_states |= GAMEPAD_STATE_BUTTON_A | GAMEPAD_STATE_BUTTON_B |
