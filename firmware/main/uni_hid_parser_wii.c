@@ -20,27 +20,36 @@ limitations under the License.
    https://github.com/dvdhrm/xwiimote/blob/master/doc/PROTOCOL
  */
 
-#include "uni_hid_parser_wiiupro.h"
+#include "uni_hid_parser_wii.h"
 
 #include "hid_usage.h"
 #include "uni_debug.h"
 #include "uni_hid_device.h"
 #include "uni_hid_parser.h"
 
-void uni_hid_parser_wiiupro_setup(uni_hid_device_t* d) {
-  // We care about report 0x34: the one used by the gamepad.
-  const uint8_t report34[] = {0xa2, 0x12, 0x00, 0x34};
-  uni_hid_device_send_report(d, report34, sizeof(report34));
+static void process_wii_remote(uni_gamepad_t* gp, const uint8_t* report,
+                               uint16_t len);
+static void process_wii_u_pro(uni_gamepad_t* gp, const uint8_t* report,
+                              uint16_t len);
 
-  // const uint8_t report30[] = {0xa2, 0x12, 0x00, 0x30};
-  // uni_hid_device_send_report(d, report30, sizeof(report30));
+void uni_hid_parser_wii_setup(uni_hid_device_t* d) {
+  // We care about report 0x34: the one used by the gamepad.
+  if (d->product_id == 0x306) {
+    // Wii Remote uses report 0x30
+    const uint8_t report30[] = {0xa2, 0x12, 0x00, 0x30};
+    uni_hid_device_send_report(d, report30, sizeof(report30));
+  } else if (d->product_id == 0x0330) {
+    // Wii U Pro uses report 0x34
+    const uint8_t report34[] = {0xa2, 0x12, 0x00, 0x34};
+    uni_hid_device_send_report(d, report34, sizeof(report34));
+  }
 
   // Set LED to 1.
   const uint8_t led[] = {0xa2, 0x11, 0x10};
   uni_hid_device_send_report(d, led, sizeof(led));
 }
 
-void uni_hid_parser_wiiupro_init_report(uni_gamepad_t* gp) {
+void uni_hid_parser_wii_init_report(uni_gamepad_t* gp) {
   // Reset old state. Each report contains a full-state.
   gp->updated_states = 0;
   gp->dpad = 0;
@@ -49,10 +58,58 @@ void uni_hid_parser_wiiupro_init_report(uni_gamepad_t* gp) {
   log_info("Nintendo Wii U Pro controller not supported yet");
 }
 
-void uni_hid_parser_wiiupro_parse_raw(uni_gamepad_t* gp, const uint8_t* report,
-                                      uint16_t len) {
+void uni_hid_parser_wii_parse_raw(uni_gamepad_t* gp, const uint8_t* report,
+                                  uint16_t len) {
   UNUSED(gp);
   if (len == 0) return;
+  switch (report[0]) {
+    case 0x20:
+      break;
+    case 0x30:
+      process_wii_remote(gp, report, len);
+      break;
+    case 0x34:
+      process_wii_u_pro(gp, report, len);
+      break;
+    default:
+      logi("Wii parser: unknown report type: 0x%02x\n", report[0]);
+  }
+}
+static void process_wii_remote(uni_gamepad_t* gp, const uint8_t* report,
+                               uint16_t len) {
+  // Expecting something like:
+  // 30 00 08
+  if (len < 3) {
+    loge("wii remote parser: invalid report len %d\n", len);
+    return;
+  }
+
+  const uint8_t* data = &report[1];
+
+  // dpad
+  gp->dpad |= (data[0] & 0x01) ? DPAD_LEFT : 0;
+  gp->dpad |= (data[0] & 0x02) ? DPAD_RIGHT : 0;
+  gp->dpad |= (data[0] & 0x04) ? DPAD_DOWN : 0;
+  gp->dpad |= (data[0] & 0x08) ? DPAD_UP : 0;
+  gp->updated_states |= GAMEPAD_STATE_DPAD;
+
+  // buttons
+  gp->buttons |= (data[1] & 0x08) ? BUTTON_A : 0;  // Big button "A"
+  gp->buttons |= (data[1] & 0x04) ? BUTTON_B : 0;  // Shoulder button
+  gp->buttons |= (data[1] & 0x02) ? BUTTON_X : 0;  // Button "1"
+  gp->buttons |= (data[1] & 0x01) ? BUTTON_Y : 0;  // Button "2"
+  gp->updated_states |= GAMEPAD_STATE_BUTTON_A | GAMEPAD_STATE_BUTTON_B |
+                        GAMEPAD_STATE_BUTTON_X | GAMEPAD_STATE_BUTTON_Y;
+
+  // Process misc buttons
+  gp->misc_buttons |= !(data[1] & 0x80) ? MISC_BUTTON_SYSTEM : 0;
+  gp->misc_buttons |= !(data[0] & 0x10) ? MISC_BUTTON_HOME : 0;  // Button "+"
+  gp->updated_states |=
+      GAMEPAD_STATE_MISC_BUTTON_SYSTEM | GAMEPAD_STATE_MISC_BUTTON_HOME;
+}
+
+static void process_wii_u_pro(uni_gamepad_t* gp, const uint8_t* report,
+                              uint16_t len) {
   // Expecting something like:
   // 34 00 00 19 08 D5 07 20 08 21 08 FF FF CF 00 00 00 00 00 00 00 00
 
@@ -97,10 +154,10 @@ void uni_hid_parser_wiiupro_parse_raw(uni_gamepad_t* gp, const uint8_t* report,
    *   USB: 1 if not connected, 0 if connected
    *   BATTERY: battery capacity from 000 (empty) to 100 (full)
    */
-  if (report[0] != 0x34) {
-    logi("Unsupported report type: 0x%02x\n", report[0]);
+  if (len < 14) {
+    loge("wii u pro parser: invalid report len %d\n", len);
+    return;
   }
-  if (len < 14) return;
 
   const uint8_t* data = &report[3];
 

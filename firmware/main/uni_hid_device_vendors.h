@@ -41,7 +41,7 @@ typedef enum {
   CONTROLLER_TYPE_XBoxOneController = 32,
   CONTROLLER_TYPE_PS3Controller = 33,
   CONTROLLER_TYPE_PS4Controller = 34,
-  CONTROLLER_TYPE_WiiController = 35,
+  CONTROLLER_TYPE_WiiController = 35,  // (Unijoysticle)
   CONTROLLER_TYPE_AppleController = 36,
   CONTROLLER_TYPE_AndroidController = 37,
   CONTROLLER_TYPE_SwitchProController = 38,
@@ -56,7 +56,6 @@ typedef enum {
   CONTROLLER_TYPE_8BitdoController = 47,         // (Unijoysticle)
   CONTROLLER_TYPE_GenericController = 48,        // (Unijoysicle)
   CONTROLLER_TYPE_NimbusController = 49,         // (Unijoysticle)
-  CONTROLLER_TYPE_WiiUProController = 50,        // (Unijoysticle)
 
   CONTROLLER_TYPE_LastController,  // Don't add game controllers below this
   // enumeration
@@ -369,10 +368,8 @@ static const uni_controlelr_description_t arrControllers[] = {
     // We currently don't support using a pair of Switch Joy-Con's as a single
     // controller and we don't want to support using them individually for the
     // time being, so these should be disabled until one of the above is true
-    // { MAKE_CONTROLLER_ID( 0x057e, 0x2006 ), CONTROLLER_TYPE_SwitchJoyConLeft
-    // },    // Nintendo Switch Joy-Con (Left) { MAKE_CONTROLLER_ID( 0x057e,
-    // 0x2007 ), CONTROLLER_TYPE_SwitchJoyConRight },   // Nintendo Switch
-    // Joy-Con (Right)
+    // { MAKE_CONTROLLER_ID( 0x057e, 0x2006 ), CONTROLLER_TYPE_SwitchJoyConLeft },  // Nintendo Switch Joy-Con (Left)
+    // { MAKE_CONTROLLER_ID( 0x057e, 0x2007 ), CONTROLLER_TYPE_SwitchJoyConRight }, // Nintendo Switch  Joy-Con (Right)
 
     // This same controller ID is spoofed by many 3rd-party Switch controllers.
     // The ones we currently know of are:
@@ -421,7 +418,9 @@ static const uni_controlelr_description_t arrControllers[] = {
     {MAKE_CONTROLLER_ID(0x0111, 0x1420), CONTROLLER_TYPE_NimbusController},  // SteelSeries Nimbus (Unijoysicle)
 
     // Nintendo Wii U Pro
-    {MAKE_CONTROLLER_ID(0x057e, 0x0330), CONTROLLER_TYPE_WiiUProController},  // Nintendo Wii U Pro (Unijoysicle)
+    {MAKE_CONTROLLER_ID(0x057e, 0x0330), CONTROLLER_TYPE_WiiController},  // Nintendo Wii U Pro (Unijoysicle)
+    // Nintendo Wii Remote 
+    {MAKE_CONTROLLER_ID(0x057e, 0x0306), CONTROLLER_TYPE_WiiController},  // Nintendo Wii Remote (Unijoysicle)
 };
 // clang-format on
 

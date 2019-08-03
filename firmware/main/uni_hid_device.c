@@ -29,7 +29,7 @@ limitations under the License.
 #include "uni_hid_parser_ouya.h"
 #include "uni_hid_parser_ps4.h"
 #include "uni_hid_parser_smarttvremote.h"
-#include "uni_hid_parser_wiiupro.h"
+#include "uni_hid_parser_wii.h"
 #include "uni_hid_parser_xboxone.h"
 #include "uni_platform.h"
 
@@ -454,11 +454,11 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
       d->report_parser.parse_raw = NULL;
       logi("Device detected as generic: 0x%02x\n", type);
       break;
-    case CONTROLLER_TYPE_WiiUProController:
-      d->report_parser.setup = uni_hid_parser_wiiupro_setup;
-      d->report_parser.init_report = uni_hid_parser_wiiupro_init_report;
+    case CONTROLLER_TYPE_WiiController:
+      d->report_parser.setup = uni_hid_parser_wii_setup;
+      d->report_parser.init_report = uni_hid_parser_wii_init_report;
       d->report_parser.parse_usage = NULL;
-      d->report_parser.parse_raw = uni_hid_parser_wiiupro_parse_raw;
+      d->report_parser.parse_raw = uni_hid_parser_wii_parse_raw;
       logi("Device detected as Wii U Pro: 0x%02x\n", type);
       break;
     default:
