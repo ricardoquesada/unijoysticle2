@@ -115,25 +115,21 @@ uni_hid_device_t* uni_hid_device_get_current_device(void) {
   return g_current_device;
 }
 
-void uni_hid_device_try_assign_joystick_port(uni_hid_device_t* d) {
+void uni_hid_device_assign_joystick_port(uni_hid_device_t* d) {
   if (d == NULL) {
-    log_error("ERROR: Invalid device\n");
+    loge("ERROR: Invalid device\n");
+    return;
+  }
+
+  // Some safety checks. These conditions should not happen
+  if ((d->joystick_port != JOYSTICK_PORT_NONE) ||
+      (!uni_hid_device_has_controller_type(d))) {
+    loge("uni_hid_device_assign_joystick_port: pre-condition not met\n");
     return;
   }
 
   // FIXME: Joystick might not get assigned here. This is to make the FSM happy.
   uni_hid_device_set_state(d, STATE_JOYSTICK_ASSIGNED);
-
-  // Port already assigned. Do nothing. Not an error.
-  if (d->joystick_port != JOYSTICK_PORT_NONE) {
-    return;
-  }
-
-  // A controller is not really needed for the assignment, but we only want to
-  // assign a joystick port when the device is ready to receive input.
-  if (!uni_hid_device_has_controller_type(d)) {
-    return;
-  }
 
   uint32_t used_joystick_ports = 0;
   for (int i = 0; i < MAX_DEVICES; i++) {

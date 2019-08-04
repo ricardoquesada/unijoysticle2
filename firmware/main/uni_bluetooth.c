@@ -299,7 +299,7 @@ static void packet_handler(uint8_t packet_type, uint16_t channel,
           const uint8_t* param =
               hci_event_command_complete_get_return_parameters(packet);
           status = param[0];
-          logi("--> HCI_EVENT_COMMAND_COMPLETE. opcode = 0x%04x - status=%d\n",
+          logi("--> HCI_EVENT_COMMAND_COMPLETE: opcode = 0x%04x - status=%d\n",
                opcode, status);
           break;
         }
@@ -346,7 +346,7 @@ static void packet_handler(uint8_t packet_type, uint16_t channel,
           on_hci_connection_request(channel, packet, size);
           break;
         case HCI_EVENT_CONNECTION_COMPLETE:
-          logi("--> HCI_EVENT_CONNECTION_COMPLETE:\n");
+          logi("--> HCI_EVENT_CONNECTION_COMPLETE\n");
           on_hci_connection_complete(channel, packet, size);
           break;
         case HCI_EVENT_DISCONNECTION_COMPLETE:
@@ -395,6 +395,7 @@ static void packet_handler(uint8_t packet_type, uint16_t channel,
           }
           break;
         case L2CAP_EVENT_INCOMING_CONNECTION:
+          logi("--> L2CAP_EVENT_INCOMING_CONNECTION\n");
           on_l2cap_incoming_connection(channel, packet, size);
           break;
         case L2CAP_EVENT_CHANNEL_OPENED:
@@ -729,9 +730,6 @@ static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet,
   report++;
   report_len--;
 
-  // In case a joystick port hasn't been assign yet, assign one.
-  // uni_hid_device_try_assign_joystick_port(device);
-
   // printf_hexdump(packet, size);
   uni_hid_parser(device, report, report_len);
 
@@ -863,7 +861,7 @@ static void fsm_process(uni_hid_device_t* d) {
     if (d->state == STATE_L2CAP_INTERRUPT_CONNECTED) {
       if (uni_hid_device_has_hid_descriptor(d)) {
         /* done */
-        uni_hid_device_try_assign_joystick_port(d);
+        uni_hid_device_assign_joystick_port(d);
       } else {
         sdp_query_hid_descriptor(d);
       }
@@ -871,7 +869,7 @@ static void fsm_process(uni_hid_device_t* d) {
       sdp_query_product_id(d);
     } else if (d->state == STATE_SDP_VENDOR_FETCHED) {
       /* done */
-      uni_hid_device_try_assign_joystick_port(d);
+      uni_hid_device_assign_joystick_port(d);
     }
   } else {
     if (d->state == STATE_DEVICE_DISCOVERED) {
@@ -888,7 +886,7 @@ static void fsm_process(uni_hid_device_t* d) {
       l2cap_create_interrupt_connection(d);
     } else if (d->state == STATE_L2CAP_INTERRUPT_CONNECTED) {
       /* done */
-      uni_hid_device_try_assign_joystick_port(d);
+      uni_hid_device_assign_joystick_port(d);
     }
   }
 }

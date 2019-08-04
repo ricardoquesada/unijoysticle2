@@ -113,7 +113,7 @@ uni_hid_device_t* uni_hid_device_get_first_device_with_state(
 void uni_hid_device_set_current_device(uni_hid_device_t* d);
 uni_hid_device_t* uni_hid_device_get_current_device(void);
 
-void uni_hid_device_try_assign_joystick_port(uni_hid_device_t* d);
+void uni_hid_device_assign_joystick_port(uni_hid_device_t* d);
 
 void uni_hid_device_remove_entry_with_channel(uint16_t channel);
 

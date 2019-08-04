@@ -219,10 +219,11 @@ static void process_drm_kee(uni_gamepad_t* gp, const uint8_t* report,
   int16_t ly = data[4] + ((data[5] & 0x0f) << 8) - axis_base;
   int16_t ry = data[6] + ((data[7] & 0x0f) << 8) - axis_base;
 
+  // Y is inverted
   gp->axis_x = lx;
-  gp->axis_y = ly;
+  gp->axis_y = -ly;
   gp->axis_rx = rx;
-  gp->axis_ry = ry;
+  gp->axis_ry = -ry;
   gp->updated_states |= GAMEPAD_STATE_AXIS_X | GAMEPAD_STATE_AXIS_Y |
                         GAMEPAD_STATE_AXIS_RX | GAMEPAD_STATE_AXIS_RY;
 
