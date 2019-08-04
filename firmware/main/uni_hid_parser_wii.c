@@ -78,10 +78,13 @@ enum wiiproto_reqs {
   WIIPROTO_REQ_MAX
 };
 
-static void process_drm_k(uni_gamepad_t* gp, const uint8_t* report,
-                          uint16_t len);
 static void process_drm_kee(uni_gamepad_t* gp, const uint8_t* report,
                             uint16_t len);
+static void process_drm_k(uni_gamepad_t* gp, const uint8_t* report,
+                          uint16_t len);
+static void process_drm_k_vertical(uni_gamepad_t* gp, const uint8_t* data);
+static void process_drm_k_horizontal(uni_gamepad_t* gp, const uint8_t* data);
+
 static void request_report(uni_hid_device_t* d);
 
 void uni_hid_parser_wii_setup(uni_hid_device_t* d) {
@@ -132,8 +135,38 @@ static void process_drm_k(uni_gamepad_t* gp, const uint8_t* report,
     return;
   }
 
+  // TODO: Read accelerometer, and based on that treat rotated/vertical modes
   const uint8_t* data = &report[1];
+  if (true) {
+    process_drm_k_horizontal(gp, data);
+  } else {
+    process_drm_k_vertical(gp, data);
+  }
+  // Process misc buttons
+  gp->misc_buttons |= !(data[1] & 0x80) ? MISC_BUTTON_SYSTEM : 0;
+  gp->misc_buttons |= !(data[0] & 0x10) ? MISC_BUTTON_HOME : 0;  // Button "+"
+  gp->updated_states |=
+      GAMEPAD_STATE_MISC_BUTTON_SYSTEM | GAMEPAD_STATE_MISC_BUTTON_HOME;
+}
 
+static void process_drm_k_horizontal(uni_gamepad_t* gp, const uint8_t* data) {
+  // dpad
+  gp->dpad |= (data[0] & 0x01) ? DPAD_DOWN : 0;
+  gp->dpad |= (data[0] & 0x02) ? DPAD_UP : 0;
+  gp->dpad |= (data[0] & 0x04) ? DPAD_RIGHT : 0;
+  gp->dpad |= (data[0] & 0x08) ? DPAD_LEFT : 0;
+  gp->updated_states |= GAMEPAD_STATE_DPAD;
+
+  // buttons
+  gp->buttons |= (data[1] & 0x04) ? BUTTON_Y : 0;  // Shoulder button
+  gp->buttons |= (data[1] & 0x08) ? BUTTON_X : 0;  // Big button "A"
+  gp->buttons |= (data[1] & 0x02) ? BUTTON_A : 0;  // Button "1"
+  gp->buttons |= (data[1] & 0x01) ? BUTTON_B : 0;  // Button "2"
+  gp->updated_states |= GAMEPAD_STATE_BUTTON_A | GAMEPAD_STATE_BUTTON_B |
+                        GAMEPAD_STATE_BUTTON_X | GAMEPAD_STATE_BUTTON_Y;
+}
+
+static void process_drm_k_vertical(uni_gamepad_t* gp, const uint8_t* data) {
   // dpad
   gp->dpad |= (data[0] & 0x01) ? DPAD_LEFT : 0;
   gp->dpad |= (data[0] & 0x02) ? DPAD_RIGHT : 0;
@@ -148,12 +181,6 @@ static void process_drm_k(uni_gamepad_t* gp, const uint8_t* report,
   gp->buttons |= (data[1] & 0x01) ? BUTTON_Y : 0;  // Button "2"
   gp->updated_states |= GAMEPAD_STATE_BUTTON_A | GAMEPAD_STATE_BUTTON_B |
                         GAMEPAD_STATE_BUTTON_X | GAMEPAD_STATE_BUTTON_Y;
-
-  // Process misc buttons
-  gp->misc_buttons |= !(data[1] & 0x80) ? MISC_BUTTON_SYSTEM : 0;
-  gp->misc_buttons |= !(data[0] & 0x10) ? MISC_BUTTON_HOME : 0;  // Button "+"
-  gp->updated_states |=
-      GAMEPAD_STATE_MISC_BUTTON_SYSTEM | GAMEPAD_STATE_MISC_BUTTON_HOME;
 }
 
 static void process_drm_kee(uni_gamepad_t* gp, const uint8_t* report,
