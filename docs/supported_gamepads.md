@@ -45,17 +45,19 @@ Devices known to be non-Bluetooth:
 
 Tested gamepads so far.
 
-| Model              | Notes                                           | Names                                                       |
-|--------------------|-------------------------------------------------|-------------------------------------------------------------|
-| ![Xbox One S][4]   | See [issue #1][23]                              | [Xbox One S][13]                                            |
-| ![ps4_gamepad][5]  | [Must be in PC mode][25]. Clones might not work | [Sony Dualshock 4][14]                                      |
-| ![Android][6]      |                                                 | [ASUS][15], [Moga Pro 2][16], [Amazon Fire TV gamepads][17] |
-| ![Nimbus iOS][7]   |                                                 | [SteelSeries Nimbus][18] for iOS                            |
-| ![OUYA][8]         | Buttons: O,U,Y,A -> A,X,Y,B                     | [OUYA (1st gen)][19]                                        |
-| ![8bitdo NES30][9] | Buttons: B,Y,X,A -> A,X,Y,B. See [issue #3][24] | [8bitdo NES30][20]                                          |
-| ![iCade][10]       |                                                 | [ION iCade][21]                                             |
-| ![Generic][11]     | [*] See below                                   | Generic one                                                 |
-| ![TV Remote][12]   |                                                 | [Amazon Fire TV remote control][22] (1st gen)               |
+| Model              | Notes                                                               | Names                                                       |
+|--------------------|---------------------------------------------------------------------|-------------------------------------------------------------|
+| ![Xbox One S][4]   | See [issue #1][23]                                                  | [Xbox One S][13]                                            |
+| ![ps4_gamepad][5]  | [Must be in PC mode][25]. Clones might not work. See [issue #4][32] | [Sony Dualshock 4][14]                                      |
+| ![Android][6]      |                                                                     | [ASUS][15], [Moga Pro 2][16], [Amazon Fire TV gamepads][17] |
+| ![Nimbus iOS][7]   |                                                                     | [SteelSeries Nimbus][18] for iOS                            |
+| ![OUYA][8]         | Buttons: O,U,Y,A -> A,X,Y,B. See [issue #7][31]                     | [OUYA (1st gen)][19]                                        |
+| ![8bitdo NES30][9] | Buttons: B,Y,X,A -> A,X,Y,B. See [issue #3][24]                     | [8bitdo NES30][20]                                          |
+| ![iCade][10]       |                                                                     | [ION iCade][21]                                             |
+| ![Generic][11]     | [*] See below                                                       | Generic one                                                 |
+| ![TV Remote][12]   |                                                                     | [Amazon Fire TV remote control][22] (1st gen)               |
+| ![Wii U Pro][26]   | See [issue #6][30]                                                  | [Nitendo Wii U Pro controller][27]                          |
+| ![Wii Remote][28]  | See [issue #6][30]                                                  | [Nitendo Wii remote][29]                                    |
 
 [*] Generic gamepads:
 
@@ -134,3 +136,10 @@ Many of the virtual buttons/pads are left unmapped, but could be mapped in the f
 [23]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/1
 [24]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/3
 [25]: https://www.techradar.com/how-to/gaming/how-to-use-the-ps4-dualshock-4-controller-on-a-pc-1309014
+[26]: https://lh3.googleusercontent.com/m8B2jqZhW8Bc7TR05Gnzb3P5QCuZm1NvK8T4j52Oa5unwZQMZMBZWVL7k8bUCQOrfNX2TKXpMmKCqz4T1t096I5gXHzPBwZmJpC5U4h9J2EPcFuDJreeVZCsq5e2ueM-QvopOrfGnkY=-no
+[27]: https://en.wikipedia.org/wiki/Wii_U_Pro_Controller
+[28]: https://lh3.googleusercontent.com/dPxkT9ktt8nSvohqE3xdkJhNyTh9zNAsI8ZaA-s_TSP8zD6ua762ZYebfgWljHBx8Rp7Lrht7de3sIqE5w3T8wDI74Yjnmy_xiXRZMtsb6tK1kkzvhwWePgKhhKpItQfsifOn7ck10g=-no
+[29]: https://en.wikipedia.org/wiki/Wii_Remote
+[30]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/6
+[31]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/7
+[32]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/4
