@@ -449,6 +449,7 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
     case CONTROLLER_TYPE_WiiController:
       d->report_parser.setup = uni_hid_parser_wii_setup;
       d->report_parser.init_report = uni_hid_parser_wii_init_report;
+      d->report_parser.update_led = uni_hid_parser_wii_update_led;
       d->report_parser.parse_usage = NULL;
       d->report_parser.parse_raw = uni_hid_parser_wii_parse_raw;
       logi("Device detected as Wii controller: 0x%02x\n", type);
@@ -651,6 +652,9 @@ void uni_hid_device_set_joystick_port(uni_hid_device_t* d,
   d->joystick_port = p;
   logi("device %s has new joystick port: %d\n", bd_addr_to_str(d->address), p);
   uni_platform_on_port_assign_changed(p);
+  if (d->report_parser.update_led != NULL) {
+    d->report_parser.update_led(d);
+  }
 }
 
 // Only call if it is known that you can "send now".

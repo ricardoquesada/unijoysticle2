@@ -39,7 +39,7 @@ typedef struct {
 } hid_globals_t;
 
 typedef void (*report_setup_fn_t)(uni_hid_device_t* d);
-typedef void (*report_init_fn_t)(uni_gamepad_t* gp);
+typedef void (*report_init_report_fn_t)(uni_gamepad_t* gp);
 typedef void (*report_parse_usage_fn_t)(uni_gamepad_t* gp,
                                         hid_globals_t* globals,
                                         uint16_t usage_page, uint16_t usage,
@@ -50,17 +50,20 @@ typedef void (*report_parse_usage_fn_t)(uni_gamepad_t* gp,
 typedef void (*report_parse_raw_fn_t)(uni_hid_device_t* d,
                                       const uint8_t* report,
                                       uint16_t report_len);
+typedef void (*report_update_led_t)(uni_hid_device_t* d);
 
 // Parsers should implement these optional functions:
 typedef struct {
   // Called only once, when the type of gamepad is known.
   report_setup_fn_t setup;
   // Called before starting a new report
-  report_init_fn_t init_report;
+  report_init_report_fn_t init_report;
   // Called for each usage in the report: usage page + usage + value
   report_parse_usage_fn_t parse_usage;
   // Called with the raw report
   report_parse_raw_fn_t parse_raw;
+  // Called when gamepad LEDs needs to be updated
+  report_update_led_t update_led;
 } uni_report_parser_t;
 
 void uni_hid_parser(uni_hid_device_t* d, const uint8_t* report,

@@ -88,10 +88,6 @@ static void process_drm_k_horizontal(uni_gamepad_t* gp, const uint8_t* data);
 static void request_report(uni_hid_device_t* d);
 
 void uni_hid_parser_wii_setup(uni_hid_device_t* d) {
-  // Set LED to 1.
-  const uint8_t led[] = {0xa2, WIIPROTO_REQ_LED, 0x10 /* LED 1 */};
-  uni_hid_device_send_report(d, led, sizeof(led));
-
   // Just in case, we request the status report:
   const uint8_t status[] = {0xa2, WIIPROTO_REQ_SREQ, 0x00 /* rumble off */};
   uni_hid_device_send_report(d, status, sizeof(status));
@@ -143,8 +139,9 @@ static void process_drm_k(uni_gamepad_t* gp, const uint8_t* report,
     process_drm_k_vertical(gp, data);
   }
   // Process misc buttons
-  gp->misc_buttons |= !(data[1] & 0x80) ? MISC_BUTTON_SYSTEM : 0;
-  gp->misc_buttons |= !(data[0] & 0x10) ? MISC_BUTTON_HOME : 0;  // Button "+"
+  gp->misc_buttons |=
+      (data[1] & 0x80) ? MISC_BUTTON_SYSTEM : 0;                // Button "home"
+  gp->misc_buttons |= (data[0] & 0x10) ? MISC_BUTTON_HOME : 0;  // Button "+"
   gp->updated_states |=
       GAMEPAD_STATE_MISC_BUTTON_SYSTEM | GAMEPAD_STATE_MISC_BUTTON_HOME;
 }
@@ -300,4 +297,15 @@ void static request_report(uni_hid_device_t* d) {
                                  WIIPROTO_REQ_DRM_KEE};
     uni_hid_device_send_report(d, reportKee, sizeof(reportKee));
   }
+}
+
+void uni_hid_parser_wii_update_led(uni_hid_device_t* d) {
+  if (d == NULL) {
+    loge("ERROR: Invalid device\n");
+  }
+  // Set LED to 1.
+  uint8_t report[] = {0xa2, WIIPROTO_REQ_LED, 0x00 /* LED */};
+  uint8_t led = (d->joystick_port) << 4;
+  report[2] = led;
+  uni_hid_device_send_report(d, report, sizeof(report));
 }

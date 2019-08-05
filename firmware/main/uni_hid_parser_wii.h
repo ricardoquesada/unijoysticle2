@@ -30,5 +30,6 @@ void uni_hid_parser_wii_setup(uni_hid_device_t* d);
 void uni_hid_parser_wii_init_report(uni_gamepad_t* gp);
 void uni_hid_parser_wii_parse_raw(uni_hid_device_t* d, const uint8_t* report,
                                   uint16_t len);
+void uni_hid_parser_wii_update_led(uni_hid_device_t* d);
 
 #endif  // UNI_HID_PARSER_WIIUPRO_H
