@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3] - 2019-08-05
+### Added
+- Firmware: Nintendo Wii controller LED's represent the joystick port assigned to.
+
+### Changed
+- Firmware: Nintendo Wii controller uses "horizontal" orientation setup.
+- Firmware: Nintendo Wii U has Y axis working correctly.
+
 ## [0.3-rc0] - 2019-08-03
 ### Added
 - Firmware: Add Nintendo Wii generic support. This includes
