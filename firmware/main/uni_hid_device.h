@@ -160,6 +160,9 @@ void uni_hid_device_send_report(void* d /* uni_hid_device_t */,
                                 const uint8_t* report, uint16_t len);
 void uni_hid_device_send_queued_report(uni_hid_device_t* d);
 
+void uni_hid_device_set_joystick_port(uni_hid_device_t* d,
+                                      uni_joystick_port_t p);
+
 // events
 
 void uni_hid_device_on_emu_mode_change(void);

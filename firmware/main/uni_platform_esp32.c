@@ -241,18 +241,11 @@ void uni_platform_on_init_complete() {
   gpio_set_level(GPIO_LED_J2, 0);
 }
 
-void uni_platform_on_port_assigned(uni_joystick_port_t port) {
-  if ((port & JOYSTICK_PORT_A) == JOYSTICK_PORT_A)
-    gpio_set_level(GPIO_LED_J1, 1);
-  if ((port & JOYSTICK_PORT_B) == JOYSTICK_PORT_B)
-    gpio_set_level(GPIO_LED_J2, 1);
-}
-
-void uni_platform_on_port_freed(uni_joystick_port_t port) {
-  if ((port & JOYSTICK_PORT_A) == JOYSTICK_PORT_A)
-    gpio_set_level(GPIO_LED_J1, 0);
-  if ((port & JOYSTICK_PORT_B) == JOYSTICK_PORT_B)
-    gpio_set_level(GPIO_LED_J2, 0);
+void uni_platform_on_port_assign_changed(uni_joystick_port_t port) {
+  bool port_status_a = ((port & JOYSTICK_PORT_A) == JOYSTICK_PORT_A);
+  bool port_status_b = ((port & JOYSTICK_PORT_B) == JOYSTICK_PORT_B);
+  gpio_set_level(GPIO_LED_J1, port_status_a);
+  gpio_set_level(GPIO_LED_J2, port_status_b);
 }
 
 void uni_platform_on_mouse_data(int32_t delta_x, int32_t delta_y,

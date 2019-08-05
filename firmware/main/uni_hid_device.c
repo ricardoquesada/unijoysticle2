@@ -157,10 +157,7 @@ void uni_hid_device_assign_joystick_port(uni_hid_device_t* d) {
   }
 
   used_joystick_ports |= wanted_port;
-  d->joystick_port = wanted_port;
-  logi("Assigned joystick port: %d\n", wanted_port);
-
-  uni_platform_on_port_assigned(d->joystick_port);
+  uni_hid_device_set_joystick_port(d, wanted_port);
 
   if (d->report_parser.setup) d->report_parser.setup(d);
 }
@@ -201,8 +198,7 @@ void uni_hid_device_set_connected(uni_hid_device_t* d, bool connected) {
     d->hid_interrupt_cid = 0;
 
     if (d->joystick_port != JOYSTICK_PORT_NONE) {
-      uni_platform_on_port_freed(d->joystick_port);
-      d->joystick_port = JOYSTICK_PORT_NONE;
+      uni_hid_device_set_joystick_port(d, JOYSTICK_PORT_NONE);
       d->emu_mode = EMULATION_MODE_SINGLE_JOY;
     }
   }
@@ -576,13 +572,9 @@ static void process_misc_button_system(uni_hid_device_t* d) {
   }
 
   // swap joystick A with B
-  uni_platform_on_port_freed(d->joystick_port);
-  d->joystick_port =
+  uni_joystick_port_t p =
       (d->joystick_port == JOYSTICK_PORT_A) ? JOYSTICK_PORT_B : JOYSTICK_PORT_A;
-  uni_platform_on_port_assigned(d->joystick_port);
-  logi("device %s has new joystick port: %c\n", bd_addr_to_str(d->address),
-       (d->joystick_port == JOYSTICK_PORT_A) ? 'A' : 'B');
-
+  uni_hid_device_set_joystick_port(d, p);
   d->wait_release_misc_button |= MISC_BUTTON_SYSTEM;
 }
 
@@ -629,16 +621,12 @@ void uni_hid_device_on_emu_mode_change(void) {
   if (d->emu_mode == EMULATION_MODE_SINGLE_JOY) {
     d->emu_mode = EMULATION_MODE_COMBO_JOY_JOY;
     d->prev_joystick_port = d->joystick_port;
-    d->joystick_port = JOYSTICK_PORT_A | JOYSTICK_PORT_B;
-    uni_platform_on_port_assigned(d->joystick_port);
+    uni_hid_device_set_joystick_port(d, JOYSTICK_PORT_A | JOYSTICK_PORT_B);
     logi("Emulation mode = Combo Joy Joy\n");
   } else if (d->emu_mode == EMULATION_MODE_COMBO_JOY_JOY) {
     d->emu_mode = EMULATION_MODE_SINGLE_JOY;
-    // Turn off all LEDs.
-    uni_platform_on_port_freed(d->joystick_port);
-    d->joystick_port = d->prev_joystick_port;
+    uni_hid_device_set_joystick_port(d, d->prev_joystick_port);
     // Turn on only the valid one
-    uni_platform_on_port_assigned(d->joystick_port);
     logi("Emulation mode = Single Joy\n");
   } else {
     loge("Cannot switch emu mode. Current mode: %d\n", d->emu_mode);
@@ -652,6 +640,17 @@ void uni_hid_device_set_state(uni_hid_device_t* d, enum DEVICE_STATE s) {
   }
   // logi("set_state: 0x%02x -> 0x%02x\n", d->state, s);
   d->state = s;
+}
+
+void uni_hid_device_set_joystick_port(uni_hid_device_t* d,
+                                      uni_joystick_port_t p) {
+  if (d == NULL) {
+    loge("ERROR: Invalid device\n");
+    return;
+  }
+  d->joystick_port = p;
+  logi("device %s has new joystick port: %d\n", bd_addr_to_str(d->address), p);
+  uni_platform_on_port_assign_changed(p);
 }
 
 // Only call if it is known that you can "send now".

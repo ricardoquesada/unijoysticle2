@@ -27,8 +27,7 @@ void uni_platform_init(void);
 
 // events
 void uni_platform_on_init_complete(void);
-void uni_platform_on_port_assigned(uni_joystick_port_t port);
-void uni_platform_on_port_freed(uni_joystick_port_t port);
+void uni_platform_on_port_assign_changed(uni_joystick_port_t port);
 void uni_platform_on_joy_a_data(uni_joystick_t* joy);
 void uni_platform_on_joy_b_data(uni_joystick_t* joy);
 void uni_platform_on_mouse_data(int32_t delta_x, int32_t delta_y,
