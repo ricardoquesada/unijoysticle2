@@ -85,7 +85,7 @@ static void process_drm_k(uni_gamepad_t* gp, const uint8_t* report,
 static void process_drm_k_vertical(uni_gamepad_t* gp, const uint8_t* data);
 static void process_drm_k_horizontal(uni_gamepad_t* gp, const uint8_t* data);
 
-static void request_report(uni_hid_device_t* d);
+static void request_report(uni_hid_device_t* d, const uint8_t* status_report);
 
 void uni_hid_parser_wii_setup(uni_hid_device_t* d) {
   // Just in case, we request the status report:
@@ -108,7 +108,11 @@ void uni_hid_parser_wii_parse_raw(uni_hid_device_t* d, const uint8_t* report,
     case WIIPROTO_REQ_STATUS:
       logi("Nintendo Wii: Status report: ");
       printf_hexdump(report, len);
-      request_report(d);
+      if (len < 7) {
+        loge("uni_hid_parser_wii: invalid status report\n");
+        return;
+      }
+      request_report(d, report);
       break;
     case WIIPROTO_REQ_DRM_K:
       process_drm_k(&d->gamepad, report, len);
@@ -283,19 +287,59 @@ static void process_drm_kee(uni_gamepad_t* gp, const uint8_t* report,
       GAMEPAD_STATE_MISC_BUTTON_SYSTEM | GAMEPAD_STATE_MISC_BUTTON_HOME;
 }
 
-void static request_report(uni_hid_device_t* d) {
+void static request_report(uni_hid_device_t* d, const uint8_t* status_report) {
+  enum { WII_UNK, WII_REMOTE, WII_REMOTE_2ND, WII_U_PRO };
+  int dev_type = WII_UNK;
+
   // FIXME: Instead of hardcoding the types of reports, I should query flags
   // and based on that request the correct report.
   if (d->product_id == 0x306 /* wii remote */) {
-    // 0x30 WIIPROTO_REQ_DRM_K (present in Wii Remote)
-    const uint8_t reportK[] = {0xa2, WIIPROTO_REQ_DRM, 0x00,
-                               WIIPROTO_REQ_DRM_K};
-    uni_hid_device_send_report(d, reportK, sizeof(reportK));
-  } else if (d->product_id == 0x0330 /* wii u pro */) {
-    // 0x34 WIIPROTO_REQ_DRM_KEE (present in Wii U Pro controller)
-    const uint8_t reportKee[] = {0xa2, WIIPROTO_REQ_DRM, 0x00,
-                                 WIIPROTO_REQ_DRM_KEE};
-    uni_hid_device_send_report(d, reportKee, sizeof(reportKee));
+    dev_type = WII_REMOTE;
+  } else if (d->product_id == 0x0330 /* Wii U Pro or Wii Remote 2nd gen */) {
+    // FIXME: A Wii Remote could have an extension attached, like the Nunchk.
+    // This check will fail if that is the case.
+    // Assumes that if an extension is present, then it must be a Wii U Pro
+    // Otherwise a Wii Remote
+    char lf = status_report[3];  // LED + flags
+    /*
+      The lower 4 bits of LF (F) specfiy different things:
+        0x01: Set if battery is nearly empty
+        0x02: Set if an extension is plugged
+        0x04: Set if speaker is enabled
+        0x08: Set if IR is enabled
+     */
+    if (lf & 0x02) {
+      dev_type = WII_U_PRO;
+    } else {
+      dev_type = WII_REMOTE_2ND;
+    }
+  }
+
+  switch (dev_type) {
+    case WII_UNK:
+    case WII_REMOTE_2ND:
+    case WII_REMOTE: {
+      if (dev_type == WII_REMOTE) {
+        logi("Wii Remote detected.\n");
+      } else if (dev_type == WII_REMOTE_2ND) {
+        logi("Wii Remote Plus detected.\n");
+      } else {
+        logi("Unknown Wii device detected. Treating it as Wii Remote.\n");
+      }
+      // 0x30 WIIPROTO_REQ_DRM_K (present in Wii Remote)
+      const uint8_t reportK[] = {0xa2, WIIPROTO_REQ_DRM, 0x00,
+                                 WIIPROTO_REQ_DRM_K};
+      uni_hid_device_send_report(d, reportK, sizeof(reportK));
+      break;
+    }
+    case WII_U_PRO: {
+      logi("Wii U Pro controller detected.\n");
+      // 0x34 WIIPROTO_REQ_DRM_KEE (present in Wii U Pro controller)
+      const uint8_t reportKee[] = {0xa2, WIIPROTO_REQ_DRM, 0x00,
+                                   WIIPROTO_REQ_DRM_KEE};
+      uni_hid_device_send_report(d, reportKee, sizeof(reportKee));
+      break;
+    }
   }
 }
 
@@ -304,7 +348,9 @@ void uni_hid_parser_wii_update_led(uni_hid_device_t* d) {
     loge("ERROR: Invalid device\n");
   }
   // Set LED to 1.
-  uint8_t report[] = {0xa2, WIIPROTO_REQ_LED, 0x00 /* LED */};
+  uint8_t report[] = {
+      0xa2, WIIPROTO_REQ_LED, 0x00 /* LED */
+  };
   uint8_t led = (d->joystick_port) << 4;
   report[2] = led;
   uni_hid_device_send_report(d, report, sizeof(report));
