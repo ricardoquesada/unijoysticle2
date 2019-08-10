@@ -17,6 +17,7 @@ limitations under the License.
 ****************************************************************************/
 
 /* Protocol info taken from:
+   http://wiibrew.org/wiki/Wiimote
    https://github.com/dvdhrm/xwiimote/blob/master/doc/PROTOCOL
  */
 
