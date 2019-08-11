@@ -730,7 +730,6 @@ static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet,
   report++;
   report_len--;
 
-  // printf_hexdump(packet, size);
   uni_hid_parser(device, report, report_len);
 
   // Debug info

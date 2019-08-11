@@ -129,14 +129,14 @@ void uni_hid_parser_ps4_parse_usage(uni_gamepad_t* gp, hid_globals_t* globals,
             gp->buttons &= ~BUTTON_Y;
           gp->updated_states |= GAMEPAD_STATE_BUTTON_Y;
           break;
-        case 0x05:  // Button Left (0x10)
+        case 0x05:  // Shoulder Left (0x10)
           if (value)
             gp->buttons |= BUTTON_SHOULDER_L;
           else
             gp->buttons &= ~BUTTON_SHOULDER_L;
           gp->updated_states |= GAMEPAD_STATE_BUTTON_SHOULDER_L;
           break;
-        case 0x06:  // Button Right (0x20)
+        case 0x06:  // Shoulder Right (0x20)
           if (value)
             gp->buttons |= BUTTON_SHOULDER_R;
           else
@@ -157,7 +157,7 @@ void uni_hid_parser_ps4_parse_usage(uni_gamepad_t* gp, hid_globals_t* globals,
             gp->buttons &= ~BUTTON_TRIGGER_R;
           gp->updated_states |= GAMEPAD_STATE_BUTTON_TRIGGER_R;
           break;
-        case 0x09:  // Shake (0x100)
+        case 0x09:  // Share (0x100)
           if (value)
             gp->misc_buttons |= MISC_BUTTON_BACK;
           else
@@ -185,14 +185,15 @@ void uni_hid_parser_ps4_parse_usage(uni_gamepad_t* gp, hid_globals_t* globals,
             gp->buttons &= ~BUTTON_THUMB_R;
           gp->updated_states |= GAMEPAD_STATE_BUTTON_THUMB_R;
           break;
-        case 0x0d:  // ps ??? (0x1000)
+        case 0x0d:  // ps button (0x1000)
           if (value)
             gp->misc_buttons |= MISC_BUTTON_SYSTEM;
           else
             gp->misc_buttons &= ~MISC_BUTTON_SYSTEM;
           gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
           break;
-        case 0x0e:  // touch pad ??? (0x2000)
+        case 0x0e:  // touch pad button (0x2000)
+          // unassigned
           break;
         default:
           logi("PS4: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",

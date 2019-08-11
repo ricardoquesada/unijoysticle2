@@ -45,21 +45,58 @@ Devices known to be non-Bluetooth:
 
 Tested gamepads so far.
 
-| Model              | Notes                                                               | Names                                                       |
-|--------------------|---------------------------------------------------------------------|-------------------------------------------------------------|
-| ![Xbox One S][4]   | See [issue #1][23]                                                  | [Xbox One S][13]                                            |
-| ![ps4_gamepad][5]  | [Must be in PC mode][25]. Clones might not work. See [issue #4][32] | [Sony Dualshock 4][14]                                      |
-| ![Android][6]      |                                                                     | [ASUS][15], [Moga Pro 2][16], [Amazon Fire TV gamepads][17] |
-| ![Nimbus iOS][7]   |                                                                     | [SteelSeries Nimbus][18] for iOS                            |
-| ![OUYA][8]         | Buttons: O,U,Y,A -> A,X,Y,B. See [issue #7][31]                     | [OUYA (1st gen)][19]                                        |
-| ![8bitdo NES30][9] | Buttons: B,Y,X,A -> A,X,Y,B. See [issue #3][24]                     | [8bitdo NES30][20]                                          |
-| ![iCade][10]       |                                                                     | [ION iCade][21]                                             |
-| ![Generic][11]     | [*] See below                                                       | Generic one                                                 |
-| ![TV Remote][12]   |                                                                     | [Amazon Fire TV remote control][22] (1st gen)               |
-| ![Wii U Pro][26]   | See [issue #6][30]                                                  | [Nitendo Wii U Pro controller][27]                          |
-| ![Wii Remote][28]  | See [issue #6][30]                                                  | [Nitendo Wii remote][29]                                    |
+## Xbox One S
+[![Xbox One S][4]][13]
 
-[*] Generic gamepads:
+Issues: [issue #1][23]
+[Xbox One S][13]
+
+## Sony DualShock 4
+![ps4_gamepad][5]
+[Must be in PC mode][25].
+Clones might not work. See [issue #4][32]
+[Sony Dualshock 4][14]
+
+## Wii Remote
+![Wii Remote][28]
+See [issue #6][30]
+[Nitendo Wii remote][29]
+
+## Wii U Pro controller
+![Wii U Pro][26]
+See [issue #6][30]
+[Nitendo Wii U Pro controller][27]
+
+## Android
+![Android][6]
+[ASUS][15], [Moga Pro 2][16], [Amazon Fire TV gamepads][17]
+
+## Nimbus SteelSeries
+![Nimbus iOS][7]
+[SteelSeries Nimbus][18] for iOS
+
+## OUYA
+![OUYA][8]
+Buttons: O,U,Y,A -> A,X,Y,B.
+See [issue #7][31]
+[OUYA (1st gen)][19]
+
+## 8Bitdo NES30
+![8bitdo NES30][9]
+Buttons: B,Y,X,A -> A,X,Y,B.
+See [issue #3][24]
+[8bitdo NES30][20]
+
+## iCade
+![iCade][10]
+[ION iCade][21]
+
+## Amazon TV Remote
+![TV Remote][12]
+[Amazon Fire TV remote control][22] (1st gen)
+
+## Generic HID devices
+![Generic][11] 
 
 - Select Button + X + Right trigger to enter into Gamepad mode
 - Select Button + X + Left trigger to enter in iCade mode.
