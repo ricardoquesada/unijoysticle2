@@ -151,7 +151,7 @@ Press the big button in the center (depends on the Android gamepad) to swap joys
 
 [![Amazon Fire TV Remote 1st gen][fire_tv_remote]][22]
 
-- Only *1st gen* is supported. Apparently *2nd gen* uses BLE intead of regular BT.
+- Only *1st gen* is supported. Apparently *2nd gen* uses BLE intead of BT Classic.
 - Press *Home button* to swap joystick port
 
 [fire_tv_remote]: https://lh3.googleusercontent.com/qnSdv7NM5et0vDhMQsRp7oMniqcjYxGKN9QJY0_gRWT6NXFrdWBf94JKNvP77abBZoykaSQOJBtXUnGW-Z1yF-MWn3q3t2Nt_TUVVV7a2HsPFjRc_DIuLh8tPiQNsEZSWDsb0z6Ys3k=-no
@@ -160,7 +160,7 @@ Press the big button in the center (depends on the Android gamepad) to swap joys
 
 ![Generic][generic_gamepad] 
 
-In general, any regular Bluetooth (not BLE) device that supports HID is supported, or should be easy to support it.
+In general, any Bluetooth Classic (not BLE) device that supports HID is supported, or should be easy to support it.
 
 There many *generic* Bluetooth devices that sometimes are offered as gifts in conferences. Usually these *generic* Bluetooth devices have different connection modes. Use the HID one.
 
