@@ -73,7 +73,7 @@ Tested gamepads so far.
 - Press *Home* button to swap joystick port
 - Known issues: [issue #6][30]
 
-[wii_remote]: https://lh3.googleusercontent.com/wvVIOEBrtiZFGMHWqNKHKDX9dcP2gFnLb9kXX9aySqQbq7Fux_B2Sq4a4Tx9ws1c-9uiRXnxWunLb2LYBowBXRhjHtgmQ21VnhArBPax9Y92UlJbQLO4IjYxDtDqVZIOG8FvgcfNQns=h480-no
+[wii_remote]: https://lh3.googleusercontent.com/HtQgfME-mwm59JFfASHLwHRzvrfesY_FkJTZKfUSAD5XTsPhi-r7Veqvs3n5zr5igm5ug9WmL3rKWuoA7AToeXKIsHpSeMhFRfHfTi53mqu5boTHRtzQSrUex8kHEd8Ny6CS0bpUhEk=h360-no
 [wii_sideways]: https://forums.dolphin-emu.org/Thread-how-to-hold-the-wii-remote
 
 ## Wii U Pro controller
