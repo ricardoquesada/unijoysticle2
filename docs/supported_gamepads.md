@@ -18,13 +18,6 @@ Example of Bluetooth Classic HID devices are:
 - Some TV remote controls, like the Amazon Fire TV
 - Some mice
 
-## Unknown
-
-I don't have any of the following devices. It is possible that it might be easy to support them, or not.
-
-- Nintendo Switch controllers
-- Steam controllers
-
 ## Bluetooth BLE: Not supported ATM
 
 Not every Bluetooth HID device is "Classic". Some of them are "BLE" (low energy).
