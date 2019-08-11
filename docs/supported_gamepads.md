@@ -46,7 +46,7 @@ Tested gamepads so far.
 [![Xbox One S][xbox_one_s]][13]
 
 - Must be the *Xbox One S* and not the *Xbox One* gamepad. The *Xbox One S* supports Bluetooth, while the regular *Xbox One* doesn't.
-- Press *Xbox button* to swap joystick port
+- Press *Xbox* button to swap joystick port
 - Known Issues: [issue #1][23]
 
 [xbox_one_s]: https://lh3.googleusercontent.com/YmONc-MhVZhnE8HVRgzH7FKSpT_29MLeIF70U5AfrcBuCtuNJ2Ln5xkmSpNqO0myrFpnDLbFvR2TRTRu0xcqvP3cLNaq1BBpruEAn-Z7vBbwzNtaXx7eQaLLF7aa8tt2Wa0IcYxeD08=-no
@@ -56,7 +56,7 @@ Tested gamepads so far.
 [![ps4_gamepad][dualshock_4]][14]
 
 - [Must be in PC mode][25]. Clones might not work.
-- Press *Play button* to swap joystick port
+- Press *Play* button to swap joystick port
 - Known issues: [issue #4][32]
 
 [dualshock_4]: https://lh3.googleusercontent.com/_0sAxKXbSkk4g8rWJzTNxAirz2hD632jW4TGjGVOwjoac8sD4AfiN9PA1HdGWhm_ujcVygDlEG-LENPemF7IyFhqVsHgVHfCMVeFVjBbeDl-fUUjdMbRYAE8FiKdyWM_UBNUNmVy9Ro=-no
@@ -69,18 +69,18 @@ Tested gamepads so far.
 - Supports both:
   - Sideways mode (default): Use Wii Remote in [horiontal position][wii_sideways].
   - Vertical mode. To enter vertical mode, press Wii Remote button `A` while connecting. When in vertical mode, LED #4 will be lit.
-- LEDs #1 and #2 indicates while joystick is being controlled. E.g: If LED #1 is lit, it means that the Wii Remote is controlling Joystick #1.
-- Press *Home button* to swap joystick port
+- LEDs #1 and #2 indicates what joystick is being controlled. E.g: If LED #1 is lit, it means that the Wii Remote is controlling Joystick #1.
+- Press *Home* button to swap joystick port
 - Known issues: [issue #6][30]
 
-[wii_remote]: https://lh3.googleusercontent.com/dPxkT9ktt8nSvohqE3xdkJhNyTh9zNAsI8ZaA-s_TSP8zD6ua762ZYebfgWljHBx8Rp7Lrht7de3sIqE5w3T8wDI74Yjnmy_xiXRZMtsb6tK1kkzvhwWePgKhhKpItQfsifOn7ck10g=-no
+[wii_remote]: https://lh3.googleusercontent.com/wvVIOEBrtiZFGMHWqNKHKDX9dcP2gFnLb9kXX9aySqQbq7Fux_B2Sq4a4Tx9ws1c-9uiRXnxWunLb2LYBowBXRhjHtgmQ21VnhArBPax9Y92UlJbQLO4IjYxDtDqVZIOG8FvgcfNQns=h480-no
 [wii_sideways]: https://forums.dolphin-emu.org/Thread-how-to-hold-the-wii-remote
 
 ## Wii U Pro controller
 [![Wii U Pro][wii_u_pro]][27]
 
 - LEDs #1 and #2 indicates while joystick is being controlled. E.g: If LED #1 is lit, it means that the Wii Remote is controlling Joystick #1.
-- Press *Home button* to swap joystick port
+- Press *Home* button to swap joystick port
 - Known issues: [issue #6][30]
 
 [wii_u_pro]: https://lh3.googleusercontent.com/m8B2jqZhW8Bc7TR05Gnzb3P5QCuZm1NvK8T4j52Oa5unwZQMZMBZWVL7k8bUCQOrfNX2TKXpMmKCqz4T1t096I5gXHzPBwZmJpC5U4h9J2EPcFuDJreeVZCsq5e2ueM-QvopOrfGnkY=-no
@@ -95,7 +95,7 @@ Tested with different Android gamepads:
 - [Moga Pro 2][16]
 - [Amazon Fire TV gamepads][17]
 
-Press the big button in the center (depends on the Android gamepad) to swap joystick port.
+Press the main/big button in the center (depends on the Android gamepad) to swap joystick port.
 
 [android_gamepad]: https://lh3.googleusercontent.com/S3H1pEGYGT5aVTwF3ySWHF7vqbonDYR0UxOLJBxFe5At6Q4AP_4TQUCaNOiEXD22U4H3C0lVP1E3m26H3QM4rIbgp1wysbQoSt1NpD61snlWES5N5zGUgx20c2sfFCKZL4w_Gl66Y1s=-no
 
