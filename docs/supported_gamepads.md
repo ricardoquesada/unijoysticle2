@@ -79,7 +79,7 @@ Tested gamepads so far.
 ## Wii U Pro controller
 [![Wii U Pro][wii_u_pro]][27]
 
-- LEDs #1 and #2 indicates while joystick is being controlled. E.g: If LED #1 is lit, it means that the Wii Remote is controlling Joystick #1.
+- LEDs #1 and #2 indicates what joystick is being controlled. E.g: If LED #1 is lit, it means that the Wii Remote is controlling Joystick #1.
 - Press *Home* button to swap joystick port
 - Known issues: [issue #6][30]
 
