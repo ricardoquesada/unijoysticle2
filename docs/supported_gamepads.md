@@ -48,54 +48,74 @@ Tested gamepads so far.
 ## Xbox One S
 [![Xbox One S][4]][13]
 
-Issues: [issue #1][23]
-[Xbox One S][13]
+Note: Must be the *Xbox One S* and not the *Xbox One* gamepad. The *Xbox One S* supports Bluetooth, while the regular *Xbox One* doesn't.
+
+* Known Issues: [issue #1][23]
 
 ## Sony DualShock 4
-![ps4_gamepad][5]
-[Must be in PC mode][25].
-Clones might not work. See [issue #4][32]
-[Sony Dualshock 4][14]
+
+[![ps4_gamepad][5]][14]
+
+[Must be in PC mode][25]. Clones might not work.
+
+* Known issues: [issue #4][32]
 
 ## Wii Remote
-![Wii Remote][28]
-See [issue #6][30]
-[Nitendo Wii remote][29]
+
+[![Wii Remote][28]][29]
+
+* Supports both Wii Remote and Wii Remote Motion Plus.
+* Supports both:
+  * Horizontal mode (default): Use Wii Remote in horiontal position.
+  * Vertical mode. To enter vertical mode, press Wii Remote button `A` while connecting. When in vertical mode, LED #4 will be lit.
+* LEDs #1 and #2 indicates while joystick is being controlled. E.g: If LED #1 is lit, it means that the Wii Remote is controlling Joystick #1.
+* Known issues: [issue #6][30]
 
 ## Wii U Pro controller
-![Wii U Pro][26]
-See [issue #6][30]
-[Nitendo Wii U Pro controller][27]
+[![Wii U Pro][26]][27]
+
+* LEDs #1 and #2 indicates while joystick is being controlled. E.g: If LED #1 is lit, it means that the Wii Remote is controlling Joystick #1.
+* Known issues: [issue #6][30]
 
 ## Android
+
 ![Android][6]
-[ASUS][15], [Moga Pro 2][16], [Amazon Fire TV gamepads][17]
+
+Tested with different Android gamepads:
+
+* [ASUS][15]
+* [Moga Pro 2][16]
+* [Amazon Fire TV gamepads][17]
 
 ## Nimbus SteelSeries
-![Nimbus iOS][7]
-[SteelSeries Nimbus][18] for iOS
+
+[![Nimbus SteelSeries for iOS][7]][18]
 
 ## OUYA
-![OUYA][8]
+
+[![OUYA 1st gen][8]][19]
 Buttons: O,U,Y,A -> A,X,Y,B.
-See [issue #7][31]
-[OUYA (1st gen)][19]
+
+* Known issues: [issue #7][31]
 
 ## 8Bitdo NES30
-![8bitdo NES30][9]
+
+[![8bitdo NES30][9]][20]
+
 Buttons: B,Y,X,A -> A,X,Y,B.
-See [issue #3][24]
-[8bitdo NES30][20]
+
+* Known issues: [issue #3][24]
 
 ## iCade
-![iCade][10]
-[ION iCade][21]
+
+[![iCade][10]][21]
 
 ## Amazon TV Remote
-![TV Remote][12]
-[Amazon Fire TV remote control][22] (1st gen)
+
+[![Amazon Fire TV Remote 1st gen][12]][22]
 
 ## Generic HID devices
+
 ![Generic][11] 
 
 - Select Button + X + Right trigger to enter into Gamepad mode
