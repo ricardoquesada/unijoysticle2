@@ -7,12 +7,12 @@ Example of Bluetooth Classic HID devices are:
 
 - Xbox One S gamepad
 - Sony Dualshock 4 (in PC mode)
+- Nitendo Wii / Wii u controllers
 - Android gamepads
 - PC/Windows gamepads
 - iCade joystick
 - Some TV remote controls, like the Amazon Fire TV
 - Some mice
-- Some keyboards
 
 ## Unknown
 
@@ -48,34 +48,36 @@ Tested gamepads so far.
 ## Xbox One S
 [![Xbox One S][4]][13]
 
-Note: Must be the *Xbox One S* and not the *Xbox One* gamepad. The *Xbox One S* supports Bluetooth, while the regular *Xbox One* doesn't.
-
-* Known Issues: [issue #1][23]
+- Must be the *Xbox One S* and not the *Xbox One* gamepad. The *Xbox One S* supports Bluetooth, while the regular *Xbox One* doesn't.
+- Press *Xbox button* to swap joystick port
+- Known Issues: [issue #1][23]
 
 ## Sony DualShock 4
 
 [![ps4_gamepad][5]][14]
 
-[Must be in PC mode][25]. Clones might not work.
-
-* Known issues: [issue #4][32]
+- [Must be in PC mode][25]. Clones might not work.
+- Press *Play button* to swap joystick port
+- Known issues: [issue #4][32]
 
 ## Wii Remote
 
 [![Wii Remote][28]][29]
 
-* Supports both Wii Remote and Wii Remote Motion Plus.
-* Supports both:
-  * Horizontal mode (default): Use Wii Remote in horiontal position.
-  * Vertical mode. To enter vertical mode, press Wii Remote button `A` while connecting. When in vertical mode, LED #4 will be lit.
-* LEDs #1 and #2 indicates while joystick is being controlled. E.g: If LED #1 is lit, it means that the Wii Remote is controlling Joystick #1.
-* Known issues: [issue #6][30]
+- Supports both Wii Remote and Wii Remote Motion Plus.
+- Supports both:
+  - Horizontal mode (default): Use Wii Remote in horiontal position.
+  - Vertical mode. To enter vertical mode, press Wii Remote button `A` while connecting. When in vertical mode, LED #4 will be lit.
+- LEDs #1 and #2 indicates while joystick is being controlled. E.g: If LED #1 is lit, it means that the Wii Remote is controlling Joystick #1.
+- Press *Home button* to swap joystick port
+- Known issues: [issue #6][30]
 
 ## Wii U Pro controller
 [![Wii U Pro][26]][27]
 
-* LEDs #1 and #2 indicates while joystick is being controlled. E.g: If LED #1 is lit, it means that the Wii Remote is controlling Joystick #1.
-* Known issues: [issue #6][30]
+- LEDs #1 and #2 indicates while joystick is being controlled. E.g: If LED #1 is lit, it means that the Wii Remote is controlling Joystick #1.
+- Press *Home button* to swap joystick port
+- Known issues: [issue #6][30]
 
 ## Android
 
@@ -83,40 +85,59 @@ Note: Must be the *Xbox One S* and not the *Xbox One* gamepad. The *Xbox One S* 
 
 Tested with different Android gamepads:
 
-* [ASUS][15]
-* [Moga Pro 2][16]
-* [Amazon Fire TV gamepads][17]
+- [ASUS][15]
+- [Moga Pro 2][16]
+- [Amazon Fire TV gamepads][17]
+
+Press the big button in the center (depends on the Android gamepad) to swap joystick port.
 
 ## Nimbus SteelSeries
 
 [![Nimbus SteelSeries for iOS][7]][18]
+
+- Tested with Nimbus SteelSeries for iOS.
+- Press *Menu button* to swap joystick port
 
 ## OUYA
 
 [![OUYA 1st gen][8]][19]
 Buttons: O,U,Y,A -> A,X,Y,B.
 
-* Known issues: [issue #7][31]
+- Only 1st gen is supported. It is unknown the status on newer version. They might or might not work.
+- Press *OUYA button* to swap joystick port
+- Known issues: [issue #7][31]
 
 ## 8Bitdo NES30
 
 [![8bitdo NES30][9]][20]
 
-Buttons: B,Y,X,A -> A,X,Y,B.
-
-* Known issues: [issue #3][24]
+- Only tested with 8Bitdo NES30. It is probable that other 8Bitdo are supported as well.
+- Mappings: Buttons: B,Y,X,A -> A,X,Y,B.
+- Press *Start button* to swap joystick port
+- Known issues: [issue #3][24]
 
 ## iCade
 
 [![iCade][10]][21]
 
-## Amazon TV Remote
+- The original iCade cabines works great.
+- Press *Top Right button* to swap joystick port
+- Might work with other devices that support the iCade protocol, but the `uni_hid_device_vendors.h` file might need to be updated.
+
+## Amazon Fire TV Remote
 
 [![Amazon Fire TV Remote 1st gen][12]][22]
+
+- Only *1st gen* is supported. Apparently *2nd gen* uses BLE intead of regular BT.
+- Press *Home button* to swap joystick port
 
 ## Generic HID devices
 
 ![Generic][11] 
+
+In general, any regular Bluetooth (not BLE) device that supports HID is supported, or should be easy to support it.
+
+There many *generic* Bluetooth devices that sometimes are offered as gifts in conferences. Usually these *generic* Bluetooth devices have different connection modes. Use the HID one.
 
 - Select Button + X + Right trigger to enter into Gamepad mode
 - Select Button + X + Left trigger to enter in iCade mode.
