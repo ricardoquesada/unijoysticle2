@@ -97,6 +97,10 @@ struct uni_hid_device_s {
   // Circular buffer that contains the outgoing packets that couldn't be sent
   // immediately.
   uni_circular_buffer_t outgoing_buffer;
+
+  // Eight bytes reserved to gamepad's implementations.
+  // E.g: The Wii implementation needs its own state machine.
+  uint8_t data[8];
 };
 typedef struct uni_hid_device_s uni_hid_device_t;
 

@@ -43,42 +43,47 @@ enum wiiproto_reqs {
   WIIPROTO_REQ_DATA = 0x21,
   WIIPROTO_REQ_RETURN = 0x22,
 
-  /* DRM_K: BB*2 */
   WIIPROTO_REQ_DRM_K = 0x30,
-
-  /* DRM_KA: BB*2 AA*3 */
   WIIPROTO_REQ_DRM_KA = 0x31,
-
-  /* DRM_KE: BB*2 EE*8 */
   WIIPROTO_REQ_DRM_KE = 0x32,
-
-  /* DRM_KAI: BB*2 AA*3 II*12 */
   WIIPROTO_REQ_DRM_KAI = 0x33,
-
-  /* DRM_KEE: BB*2 EE*19 */
   WIIPROTO_REQ_DRM_KEE = 0x34,
-
-  /* DRM_KAE: BB*2 AA*3 EE*16 */
   WIIPROTO_REQ_DRM_KAE = 0x35,
-
-  /* DRM_KIE: BB*2 II*10 EE*9 */
   WIIPROTO_REQ_DRM_KIE = 0x36,
-
-  /* DRM_KAIE: BB*2 AA*3 II*10 EE*6 */
   WIIPROTO_REQ_DRM_KAIE = 0x37,
-
-  /* DRM_E: EE*21 */
   WIIPROTO_REQ_DRM_E = 0x3d,
-
-  /* DRM_SKAI1: BB*2 AA*1 II*18 */
   WIIPROTO_REQ_DRM_SKAI1 = 0x3e,
-
-  /* DRM_SKAI2: BB*2 AA*1 II*18 */
   WIIPROTO_REQ_DRM_SKAI2 = 0x3f,
 
   WIIPROTO_REQ_MAX
 };
 
+// Supported Wii devices
+enum wii_devtype {
+  WII_DEVTYPE_NONE,
+  WII_DEVTYPE_PRO_CONTROLLER,  // Wii U Pro controller
+  WII_DEVTYPE_REMOTE,          // 1st gen
+  WII_DEVTYPE_REMOTE_MP,       // MP: motion plus (wii remote 2nd gen)
+};
+
+// Required steps to determine what kind of extensions are supported.
+enum wii_fsm {
+  WII_FSM_INITIAL,                // Initial state
+  WII_FSM_DID_REQ_STATUS,         // Status requested
+  WII_FSM_DEV_UNK,                // Device Unknown
+  WII_FSM_EXT_DID_INIT,           // Extension initialized
+  WII_FSM_EXT_DID_NO_ENCRYPTION,  // Extension no encription
+  WII_FSM_EXT_DID_READ_EXT,       // Extension read register
+  WII_FSM_DEV_GUESSED,            // Device type guessed
+  WII_FSM_DEV_ASSIGNED,           // Device type assigned
+};
+
+static void process_req_status(uni_hid_device_t* d, const uint8_t* report,
+                               uint16_t len);
+static void process_req_data(uni_hid_device_t* d, const uint8_t* report,
+                             uint16_t len);
+static void process_req_return(uni_hid_device_t* d, const uint8_t* report,
+                               uint16_t len);
 static void process_drm_kee(uni_gamepad_t* gp, const uint8_t* report,
                             uint16_t len);
 static void process_drm_k(uni_gamepad_t* gp, const uint8_t* report,
@@ -86,46 +91,170 @@ static void process_drm_k(uni_gamepad_t* gp, const uint8_t* report,
 static void process_drm_k_vertical(uni_gamepad_t* gp, const uint8_t* data);
 static void process_drm_k_horizontal(uni_gamepad_t* gp, const uint8_t* data);
 
-static void request_report(uni_hid_device_t* d, const uint8_t* status_report);
+static void wii_process_fsm(uni_hid_device_t* d);
+static void wii_fsm_ext_init(uni_hid_device_t* d);
+static void wii_fsm_ext_encrypt_off(uni_hid_device_t* d);
+static void wii_fsm_ext_read_mem(uni_hid_device_t* d);
+static void wii_fsm_req_status(uni_hid_device_t* d);
+static void wii_fsm_assign_device(uni_hid_device_t* d);
 
-void uni_hid_parser_wii_setup(uni_hid_device_t* d) {
-  // Just in case, we request the status report:
+// wii_fsm_ functions
+
+static void wii_fsm_req_status(uni_hid_device_t* d) {
+  logi("fsm: req_status\n");
+  d->data[0] = WII_FSM_DID_REQ_STATUS;
   const uint8_t status[] = {0xa2, WIIPROTO_REQ_SREQ, 0x00 /* rumble off */};
   uni_hid_device_send_report(d, status, sizeof(status));
 }
 
-void uni_hid_parser_wii_init_report(uni_gamepad_t* gp) {
-  // Reset old state. Each report contains a full-state.
-  gp->updated_states = 0;
-  gp->dpad = 0;
-  gp->buttons = 0;
-  gp->misc_buttons = 0;
+static void wii_fsm_ext_init(uni_hid_device_t* d) {
+  logi("fsm: ext_init\n");
+  d->data[0] = WII_FSM_EXT_DID_INIT;
+  // Init Wii
+  uint8_t report[] = {
+      // clang-format off
+      0xa2, WIIPROTO_REQ_WMEM,
+      0x04,             // Control registers
+      0xa4, 0x00, 0xf0, // register init extension
+      0x01, 0x55,       // # bytes, byte to write
+      // Padding, since at least 16 bytes must be sent
+      0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00,
+      // clang-format on
+  };
+  report[3] = d->data[1];
+  uni_hid_device_send_report(d, report, sizeof(report));
 }
 
-void uni_hid_parser_wii_parse_raw(uni_hid_device_t* d, const uint8_t* report,
-                                  uint16_t len) {
-  if (len == 0) return;
-  switch (report[0]) {
-    case WIIPROTO_REQ_STATUS:
-      logi("Nintendo Wii: Status report: ");
-      printf_hexdump(report, len);
-      if (len < 7) {
-        loge("uni_hid_parser_wii: invalid status report\n");
-        return;
+static void wii_fsm_ext_encrypt_off(uni_hid_device_t* d) {
+  logi("fsm: ext_encrypt_off\n");
+  d->data[0] = WII_FSM_EXT_DID_NO_ENCRYPTION;
+  // Init Wii
+  uint8_t report[] = {
+      // clang-format off
+      0xa2, WIIPROTO_REQ_WMEM,
+      0x04,             // Control registers
+      0xa4, 0x00, 0xfb, // register disable encryption
+      0x01, 0x00,       // # bytes, byte to write
+      // Padding, since at least 16 bytes must be sent
+      0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00,
+      // clang-format on
+  };
+  report[3] = d->data[1];
+  uni_hid_device_send_report(d, report, sizeof(report));
+}
+
+static void wii_fsm_ext_read_mem(uni_hid_device_t* d) {
+  logi("fsm: ext_read_mem\n");
+  d->data[0] = WII_FSM_EXT_DID_READ_EXT;
+  // Read 6 bytes from ext register
+  uint8_t report[] = {
+      // clang-format off
+      0xa2, WIIPROTO_REQ_RMEM,
+      0x04,             // Read from registers
+      0xa4, 0x00, 0xfa, // extension register
+      0x00, 0x06,       // read 6 bytes
+      // clang-format on
+  };
+  report[3] = d->data[1];
+  uni_hid_device_send_report(d, report, sizeof(report));
+}
+
+// process_ functions
+
+static void process_req_status(uni_hid_device_t* d, const uint8_t* report,
+                               uint16_t len) {
+  if (len < 7) {
+    loge("uni_hid_parser_wii: invalid status report\n");
+    return;
+  }
+  if (d->data[0] == WII_FSM_DID_REQ_STATUS) {
+    if (d->product_id == 0x0306) {
+      // We are possitive that this is a Wii Remote 1st gen
+      d->data[0] = WII_FSM_DEV_GUESSED;
+      d->data[2] = WII_DEVTYPE_REMOTE;
+    }
+    if (d->product_id == 0x0330) {
+      // It can be either a Wii Remote 2nd gen or a Wii U Pro Controller
+      uint8_t flags = report[3] & 0x0f;  // LF (leds / flags)
+      if ((flags & 0x02) == 0) {
+        // If there are no extensions, the we are sure it is a Wii Remote MP.
+        d->data[0] = WII_FSM_DEV_GUESSED;
+        d->data[2] = WII_DEVTYPE_REMOTE_MP;
+      } else {
+        // Otherwise, it can be either a Wii Remote MP with a Nunchak or a
+        // Wii U Pro controller.
+        d->data[0] = WII_FSM_DEV_UNK;
       }
-      request_report(d, report);
-      break;
-    case WIIPROTO_REQ_DRM_K:
-      process_drm_k(&d->gamepad, report, len);
-      break;
-    case WIIPROTO_REQ_DRM_KEE:
-      process_drm_kee(&d->gamepad, report, len);
-      break;
-    default:
-      logi("Wii parser: unknown report type: 0x%02x\n", report[0]);
-      printf_hexdump(report, len);
+    }
+    wii_process_fsm(d);
   }
 }
+
+static void process_req_data(uni_hid_device_t* d, const uint8_t* report,
+                             uint16_t len) {
+  if (len < 22) {
+    loge("invalid req_data lenght: got %d, want >= 22\n", len);
+    return;
+  }
+  uint8_t se = report[3];  // SE: size and error
+  uint8_t s = se >> 4;     // size
+  uint8_t e = se & 0x0f;   // error
+  if (e) {
+    loge("Error reading memory: 0x%02x\n.", e);
+    return;
+  }
+  // We are expecting to read 6 bytes from 0xXX00fa
+  if (s == 5 && report[4] == 0x00 && report[5] == 0xfa) {
+    // This contains the read memory from register 0xa?00fa
+    // Data is in report[6]..report[11]
+    if (report[10] == 0x01 && report[11] == 0x20) {
+      d->data[2] = WII_DEVTYPE_PRO_CONTROLLER;
+    } else {
+      logi("Unknown extension. Treating device as Wii Remote MP\n");
+      d->data[2] = WII_DEVTYPE_REMOTE_MP;
+    }
+    d->data[0] = WII_FSM_DEV_GUESSED;
+    wii_process_fsm(d);
+  } else {
+    loge("Unexpected read report\n");
+  }
+}
+
+static void process_req_return(uni_hid_device_t* d, const uint8_t* report,
+                               uint16_t len) {
+  if (len < 5) {
+    loge("Invalid len report for process_req_return: got %d, want >= 5\n", len);
+  }
+  if (report[3] == WIIPROTO_REQ_WMEM) {
+    // Status != 0: Error. Probably invalid register
+    if (report[4] != 0) {
+      if (d->data[1] == 0xa6) {
+        loge("Failed to write registers from 0xa6... mmmm\n");
+        d->data[0] = WII_FSM_INITIAL;
+      } else {
+        // If it failed to write registers with 0xa4, then try with 0xa6
+        // If 0xa6 works Ok, it is safe to assume it is a Wii Remote MP, but
+        // for the sake of finishing the "read extension" (might be useful in
+        // the future), we continue with it.
+        logi(
+            "Probably a Remote MP device. Switching to 0xa60000 address for "
+            "registers.\n");
+        d->data[0] = WII_FSM_DEV_UNK;
+        d->data[1] = 0xa6;  // Register address used for Wii Remote MP.
+      }
+    } else {
+      // Status Ok. Good
+    }
+    wii_process_fsm(d);
+  }
+}
+
 static void process_drm_k(uni_gamepad_t* gp, const uint8_t* report,
                           uint16_t len) {
   /* DRM_K: BB*2 */
@@ -288,42 +417,16 @@ static void process_drm_kee(uni_gamepad_t* gp, const uint8_t* report,
       GAMEPAD_STATE_MISC_BUTTON_SYSTEM | GAMEPAD_STATE_MISC_BUTTON_HOME;
 }
 
-void static request_report(uni_hid_device_t* d, const uint8_t* status_report) {
-  enum { WII_UNK, WII_REMOTE, WII_REMOTE_2ND, WII_U_PRO };
-  int dev_type = WII_UNK;
-
-  // FIXME: Instead of hardcoding the types of reports, I should query flags
-  // and based on that request the correct report.
-  if (d->product_id == 0x306 /* wii remote */) {
-    dev_type = WII_REMOTE;
-  } else if (d->product_id == 0x0330 /* Wii U Pro or Wii Remote 2nd gen */) {
-    // FIXME: A Wii Remote could have an extension attached, like the Nunchk.
-    // This check will fail if that is the case.
-    // Assumes that if an extension is present, then it must be a Wii U Pro
-    // Otherwise a Wii Remote
-    char lf = status_report[3];  // LED + flags
-    /*
-      The lower 4 bits of LF (F) specfiy different things:
-        0x01: Set if battery is nearly empty
-        0x02: Set if an extension is plugged
-        0x04: Set if speaker is enabled
-        0x08: Set if IR is enabled
-     */
-    if (lf & 0x02) {
-      dev_type = WII_U_PRO;
-    } else {
-      dev_type = WII_REMOTE_2ND;
-    }
-  }
-
-  switch (dev_type) {
-    case WII_UNK:
-    case WII_REMOTE_2ND:
-    case WII_REMOTE: {
-      if (dev_type == WII_REMOTE) {
+static void wii_fsm_assign_device(uni_hid_device_t* d) {
+  uint8_t dev = d->data[2];
+  switch (dev) {
+    case WII_DEVTYPE_NONE:
+    case WII_DEVTYPE_REMOTE:
+    case WII_DEVTYPE_REMOTE_MP: {
+      if (dev == WII_DEVTYPE_REMOTE) {
         logi("Wii Remote detected.\n");
-      } else if (dev_type == WII_REMOTE_2ND) {
-        logi("Wii Remote Plus detected.\n");
+      } else if (dev == WII_DEVTYPE_REMOTE_MP) {
+        logi("Wii Remote (2nd gen) Motion Plus detected.\n");
       } else {
         logi("Unknown Wii device detected. Treating it as Wii Remote.\n");
       }
@@ -333,7 +436,7 @@ void static request_report(uni_hid_device_t* d, const uint8_t* status_report) {
       uni_hid_device_send_report(d, reportK, sizeof(reportK));
       break;
     }
-    case WII_U_PRO: {
+    case WII_DEVTYPE_PRO_CONTROLLER: {
       logi("Wii U Pro controller detected.\n");
       // 0x34 WIIPROTO_REQ_DRM_KEE (present in Wii U Pro controller)
       const uint8_t reportKee[] = {0xa2, WIIPROTO_REQ_DRM, 0x00,
@@ -343,6 +446,37 @@ void static request_report(uni_hid_device_t* d, const uint8_t* status_report) {
     }
   }
 }
+
+static void wii_process_fsm(uni_hid_device_t* d) {
+  switch (d->data[0]) {
+    case WII_FSM_INITIAL:
+      wii_fsm_req_status(d);
+      break;
+    case WII_FSM_DID_REQ_STATUS:
+      // Do nothing
+      break;
+    case WII_FSM_DEV_UNK:
+      wii_fsm_ext_init(d);
+      break;
+    case WII_FSM_EXT_DID_INIT:
+      wii_fsm_ext_encrypt_off(d);
+      break;
+    case WII_FSM_EXT_DID_NO_ENCRYPTION:
+      wii_fsm_ext_read_mem(d);
+      break;
+    case WII_FSM_EXT_DID_READ_EXT:
+      // Do nothing
+      break;
+    case WII_FSM_DEV_GUESSED:
+      wii_fsm_assign_device(d);
+      break;
+    case WII_FSM_DEV_ASSIGNED:
+      // good, nothing else to do
+      break;
+  }
+}
+
+// uni_hid_ exported functions
 
 void uni_hid_parser_wii_update_led(uni_hid_device_t* d) {
   if (d == NULL) {
@@ -355,4 +489,50 @@ void uni_hid_parser_wii_update_led(uni_hid_device_t* d) {
   uint8_t led = (d->joystick_port) << 4;
   report[2] = led;
   uni_hid_device_send_report(d, report, sizeof(report));
+}
+
+void uni_hid_parser_wii_setup(uni_hid_device_t* d) {
+  // data[0] used for the FSM: See WII_FSM_
+  // data[1] used for the register's address: 0xa4 or 0xa6
+  // data[2] used for dev type: See WII_DEVTYPE_
+
+  d->data[0] = WII_FSM_INITIAL;
+
+  // Start with 0xa40000 (all Wii devices).
+  // If it fails it will use 0xa60000 (except for the Wii Remote Plus)
+  d->data[1] = 0xa4;
+  wii_process_fsm(d);
+}
+
+void uni_hid_parser_wii_init_report(uni_gamepad_t* gp) {
+  // Reset old state. Each report contains a full-state.
+  gp->updated_states = 0;
+  gp->dpad = 0;
+  gp->buttons = 0;
+  gp->misc_buttons = 0;
+}
+
+void uni_hid_parser_wii_parse_raw(uni_hid_device_t* d, const uint8_t* report,
+                                  uint16_t len) {
+  if (len == 0) return;
+  switch (report[0]) {
+    case WIIPROTO_REQ_STATUS:
+      process_req_status(d, report, len);
+      break;
+    case WIIPROTO_REQ_DRM_K:
+      process_drm_k(&d->gamepad, report, len);
+      break;
+    case WIIPROTO_REQ_DRM_KEE:
+      process_drm_kee(&d->gamepad, report, len);
+      break;
+    case WIIPROTO_REQ_DATA:
+      process_req_data(d, report, len);
+      break;
+    case WIIPROTO_REQ_RETURN:
+      process_req_return(d, report, len);
+      break;
+    default:
+      logi("Wii parser: unknown report type: 0x%02x\n", report[0]);
+      printf_hexdump(report, len);
+  }
 }
