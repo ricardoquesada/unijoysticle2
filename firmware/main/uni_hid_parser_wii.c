@@ -28,6 +28,11 @@ limitations under the License.
 #include "uni_hid_device.h"
 #include "uni_hid_parser.h"
 
+enum wii_flags {
+  WII_FLAGS_NONE = 0,
+  WII_FLAGS_VERTICAL = 1 << 0,
+};
+
 // Taken from Linux kernel: hid-wiimote.h
 enum wiiproto_reqs {
   WIIPROTO_REQ_NULL = 0x0,
@@ -76,6 +81,7 @@ enum wii_fsm {
   WII_FSM_EXT_DID_READ_EXT,       // Extension read register
   WII_FSM_DEV_GUESSED,            // Device type guessed
   WII_FSM_DEV_ASSIGNED,           // Device type assigned
+  WII_FSM_LED_UPDATED,            // After device was assigned, update LEDs.
 };
 
 static void process_req_status(uni_hid_device_t* d, const uint8_t* report,
@@ -84,9 +90,9 @@ static void process_req_data(uni_hid_device_t* d, const uint8_t* report,
                              uint16_t len);
 static void process_req_return(uni_hid_device_t* d, const uint8_t* report,
                                uint16_t len);
-static void process_drm_kee(uni_gamepad_t* gp, const uint8_t* report,
+static void process_drm_kee(uni_hid_device_t* d, const uint8_t* report,
                             uint16_t len);
-static void process_drm_k(uni_gamepad_t* gp, const uint8_t* report,
+static void process_drm_k(uni_hid_device_t* d, const uint8_t* report,
                           uint16_t len);
 static void process_drm_k_vertical(uni_gamepad_t* gp, const uint8_t* data);
 static void process_drm_k_horizontal(uni_gamepad_t* gp, const uint8_t* data);
@@ -97,6 +103,267 @@ static void wii_fsm_ext_encrypt_off(uni_hid_device_t* d);
 static void wii_fsm_ext_read_mem(uni_hid_device_t* d);
 static void wii_fsm_req_status(uni_hid_device_t* d);
 static void wii_fsm_assign_device(uni_hid_device_t* d);
+static void wii_fsm_update_led(uni_hid_device_t* d);
+
+// process_ functions
+
+static void process_req_status(uni_hid_device_t* d, const uint8_t* report,
+                               uint16_t len) {
+  if (len < 7) {
+    loge("uni_hid_parser_wii: invalid status report\n");
+    return;
+  }
+  if (d->data[0] == WII_FSM_DID_REQ_STATUS) {
+    if (d->product_id == 0x0306) {
+      // We are possitive that this is a Wii Remote 1st gen
+      d->data[0] = WII_FSM_DEV_GUESSED;
+      d->data[2] = WII_DEVTYPE_REMOTE;
+    }
+    if (d->product_id == 0x0330) {
+      // It can be either a Wii Remote 2nd gen or a Wii U Pro Controller
+      uint8_t flags = report[3] & 0x0f;  // LF (leds / flags)
+      if ((flags & 0x02) == 0) {
+        // If there are no extensions, the we are sure it is a Wii Remote MP.
+        d->data[0] = WII_FSM_DEV_GUESSED;
+        d->data[2] = WII_DEVTYPE_REMOTE_MP;
+      } else {
+        // Otherwise, it can be either a Wii Remote MP with a Nunchak or a
+        // Wii U Pro controller.
+        d->data[0] = WII_FSM_DEV_UNK;
+      }
+    }
+
+    // In case it is a Wii Remote, it supports both horizontal and vertical
+    // modes. Vertical mode is only enabled if Button A is pressed at setup
+    // time.
+    if (report[2] & 0x08) {
+      d->data[3] |= WII_FLAGS_VERTICAL;
+    }
+    wii_process_fsm(d);
+  }
+}
+
+static void process_req_data(uni_hid_device_t* d, const uint8_t* report,
+                             uint16_t len) {
+  if (len < 22) {
+    loge("invalid req_data lenght: got %d, want >= 22\n", len);
+    return;
+  }
+  uint8_t se = report[3];  // SE: size and error
+  uint8_t s = se >> 4;     // size
+  uint8_t e = se & 0x0f;   // error
+  if (e) {
+    loge("Error reading memory: 0x%02x\n.", e);
+    return;
+  }
+  // We are expecting to read 6 bytes from 0xXX00fa
+  if (s == 5 && report[4] == 0x00 && report[5] == 0xfa) {
+    // This contains the read memory from register 0xa?00fa
+    // Data is in report[6]..report[11]
+    if (report[10] == 0x01 && report[11] == 0x20) {
+      d->data[2] = WII_DEVTYPE_PRO_CONTROLLER;
+    } else {
+      logi("Unknown extension. Treating device as Wii Remote MP\n");
+      d->data[2] = WII_DEVTYPE_REMOTE_MP;
+    }
+    d->data[0] = WII_FSM_DEV_GUESSED;
+    wii_process_fsm(d);
+  } else {
+    loge("Unexpected read report\n");
+  }
+}
+
+static void process_req_return(uni_hid_device_t* d, const uint8_t* report,
+                               uint16_t len) {
+  if (len < 5) {
+    loge("Invalid len report for process_req_return: got %d, want >= 5\n", len);
+  }
+  if (report[3] == WIIPROTO_REQ_WMEM) {
+    // Status != 0: Error. Probably invalid register
+    if (report[4] != 0) {
+      if (d->data[1] == 0xa6) {
+        loge("Failed to write registers from 0xa6... mmmm\n");
+        d->data[0] = WII_FSM_INITIAL;
+      } else {
+        // If it failed to write registers with 0xa4, then try with 0xa6
+        // If 0xa6 works Ok, it is safe to assume it is a Wii Remote MP, but
+        // for the sake of finishing the "read extension" (might be useful in
+        // the future), we continue with it.
+        logi(
+            "Probably a Remote MP device. Switching to 0xa60000 address for "
+            "registers.\n");
+        d->data[0] = WII_FSM_DEV_UNK;
+        d->data[1] = 0xa6;  // Register address used for Wii Remote MP.
+      }
+    } else {
+      // Status Ok. Good
+    }
+    wii_process_fsm(d);
+  }
+}
+
+static void process_drm_k(uni_hid_device_t* d, const uint8_t* report,
+                          uint16_t len) {
+  /* DRM_K: BB*2 */
+  // Expecting something like:
+  // 30 00 08
+  if (len < 3) {
+    loge("wii remote parser: invalid report len %d\n", len);
+    return;
+  }
+
+  uni_gamepad_t* gp = &d->gamepad;
+  const uint8_t* data = &report[1];
+
+  if (d->data[3] & WII_FLAGS_VERTICAL) {
+    process_drm_k_vertical(gp, data);
+  } else {
+    process_drm_k_horizontal(gp, data);
+  }
+  // Process misc buttons
+  gp->misc_buttons |=
+      (data[1] & 0x80) ? MISC_BUTTON_SYSTEM : 0;                // Button "home"
+  gp->misc_buttons |= (data[0] & 0x10) ? MISC_BUTTON_HOME : 0;  // Button "+"
+  gp->updated_states |=
+      GAMEPAD_STATE_MISC_BUTTON_SYSTEM | GAMEPAD_STATE_MISC_BUTTON_HOME;
+}
+
+static void process_drm_k_horizontal(uni_gamepad_t* gp, const uint8_t* data) {
+  // dpad
+  gp->dpad |= (data[0] & 0x01) ? DPAD_DOWN : 0;
+  gp->dpad |= (data[0] & 0x02) ? DPAD_UP : 0;
+  gp->dpad |= (data[0] & 0x04) ? DPAD_RIGHT : 0;
+  gp->dpad |= (data[0] & 0x08) ? DPAD_LEFT : 0;
+  gp->updated_states |= GAMEPAD_STATE_DPAD;
+
+  // buttons
+  gp->buttons |= (data[1] & 0x04) ? BUTTON_Y : 0;  // Shoulder button
+  gp->buttons |= (data[1] & 0x08) ? BUTTON_X : 0;  // Big button "A"
+  gp->buttons |= (data[1] & 0x02) ? BUTTON_A : 0;  // Button "1"
+  gp->buttons |= (data[1] & 0x01) ? BUTTON_B : 0;  // Button "2"
+  gp->updated_states |= GAMEPAD_STATE_BUTTON_A | GAMEPAD_STATE_BUTTON_B |
+                        GAMEPAD_STATE_BUTTON_X | GAMEPAD_STATE_BUTTON_Y;
+}
+
+static void process_drm_k_vertical(uni_gamepad_t* gp, const uint8_t* data) {
+  // dpad
+  gp->dpad |= (data[0] & 0x01) ? DPAD_LEFT : 0;
+  gp->dpad |= (data[0] & 0x02) ? DPAD_RIGHT : 0;
+  gp->dpad |= (data[0] & 0x04) ? DPAD_DOWN : 0;
+  gp->dpad |= (data[0] & 0x08) ? DPAD_UP : 0;
+  gp->updated_states |= GAMEPAD_STATE_DPAD;
+
+  // buttons
+  gp->buttons |= (data[1] & 0x04) ? BUTTON_A : 0;  // Shoulder button
+  gp->buttons |= (data[1] & 0x08) ? BUTTON_B : 0;  // Big button "A"
+  gp->buttons |= (data[1] & 0x02) ? BUTTON_X : 0;  // Button "1"
+  gp->buttons |= (data[1] & 0x01) ? BUTTON_Y : 0;  // Button "2"
+  gp->updated_states |= GAMEPAD_STATE_BUTTON_A | GAMEPAD_STATE_BUTTON_B |
+                        GAMEPAD_STATE_BUTTON_X | GAMEPAD_STATE_BUTTON_Y;
+}
+
+static void process_drm_kee(uni_hid_device_t* d, const uint8_t* report,
+                            uint16_t len) {
+  /* DRM_KEE: BB*2 EE*19 */
+  // Expecting something like:
+  // 34 00 00 19 08 D5 07 20 08 21 08 FF FF CF 00 00 00 00 00 00 00 00
+
+  // Doc taken from hid-wiimote-modules.c from Linux Kernel
+
+  /*   Byte |  8  |  7  |  6  |  5  |  4  |  3  |  2  |  1  |
+   *   -----+-----+-----+-----+-----+-----+-----+-----+-----+
+   *    0   |                   LX <7:0>                    |
+   *   -----+-----------------------+-----------------------+
+   *    1   |  0     0     0     0  |       LX <11:8>       |
+   *   -----+-----------------------+-----------------------+
+   *    2   |                   RX <7:0>                    |
+   *   -----+-----------------------+-----------------------+
+   *    3   |  0     0     0     0  |       RX <11:8>       |
+   *   -----+-----------------------+-----------------------+
+   *    4   |                   LY <7:0>                    |
+   *   -----+-----------------------+-----------------------+
+   *    5   |  0     0     0     0  |       LY <11:8>       |
+   *   -----+-----------------------+-----------------------+
+   *    6   |                   RY <7:0>                    |
+   *   -----+-----------------------+-----------------------+
+   *    7   |  0     0     0     0  |       RY <11:8>       |
+   *   -----+-----+-----+-----+-----+-----+-----+-----+-----+
+   *    8   | BDR | BDD | BLT | B-  | BH  | B+  | BRT |  1  |
+   *   -----+-----+-----+-----+-----+-----+-----+-----+-----+
+   *    9   | BZL | BB  | BY  | BA  | BX  | BZR | BDL | BDU |
+   *   -----+-----+-----+-----+-----+-----+-----+-----+-----+
+   *   10   |  1  |     BATTERY     | USB |CHARG|LTHUM|RTHUM|
+   *   -----+-----+-----------------+-----------+-----+-----+
+   * All buttons are low-active (0 if pressed)
+   * RX and RY are right analog stick
+   * LX and LY are left analog stick
+   * BLT is left trigger, BRT is right trigger.
+   * BDR, BDD, BDL, BDU form the D-Pad with right, down, left, up buttons
+   * BZL is left Z button and BZR is right Z button
+   * B-, BH, B+ are +, HOME and - buttons
+   * BB, BY, BA, BX are A, B, X, Y buttons
+   *
+   * Bits marked as 0/1 are unknown and never changed during tests.
+   *
+   * Not entirely verified:
+   *   CHARG: 1 if uncharging, 0 if charging
+   *   USB: 1 if not connected, 0 if connected
+   *   BATTERY: battery capacity from 000 (empty) to 100 (full)
+   */
+  if (len < 14) {
+    loge("wii u pro parser: invalid report len %d\n", len);
+    return;
+  }
+  uni_gamepad_t* gp = &d->gamepad;
+  const uint8_t* data = &report[3];
+
+  // Process axis
+  const uint16_t axis_base = 0x800;
+  // const uint16_t axis_range = 0x500;
+  int16_t lx = data[0] + ((data[1] & 0x0f) << 8) - axis_base;
+  int16_t rx = data[2] + ((data[3] & 0x0f) << 8) - axis_base;
+  int16_t ly = data[4] + ((data[5] & 0x0f) << 8) - axis_base;
+  int16_t ry = data[6] + ((data[7] & 0x0f) << 8) - axis_base;
+
+  // Y is inverted
+  gp->axis_x = lx;
+  gp->axis_y = -ly;
+  gp->axis_rx = rx;
+  gp->axis_ry = -ry;
+  gp->updated_states |= GAMEPAD_STATE_AXIS_X | GAMEPAD_STATE_AXIS_Y |
+                        GAMEPAD_STATE_AXIS_RX | GAMEPAD_STATE_AXIS_RY;
+
+  // Process Dpad
+  gp->dpad |= !(data[8] & 0x80) ? DPAD_RIGHT : 0;  // BDR
+  gp->dpad |= !(data[8] & 0x40) ? DPAD_DOWN : 0;   // BDD
+  gp->dpad |= !(data[9] & 0x02) ? DPAD_LEFT : 0;   // BDL
+  gp->dpad |= !(data[9] & 0x01) ? DPAD_UP : 0;     // BDU
+  gp->updated_states |= GAMEPAD_STATE_DPAD;
+
+  // Process buttons. A,B -> B,A; X,Y -> Y,X; trigger <--> shoulder
+  gp->buttons |= !(data[9] & 0x10) ? BUTTON_B : 0;           // BA
+  gp->buttons |= !(data[9] & 0x40) ? BUTTON_A : 0;           // BB
+  gp->buttons |= !(data[9] & 0x08) ? BUTTON_Y : 0;           // BX
+  gp->buttons |= !(data[9] & 0x20) ? BUTTON_X : 0;           // BY
+  gp->buttons |= !(data[9] & 0x80) ? BUTTON_TRIGGER_L : 0;   // BZL
+  gp->buttons |= !(data[9] & 0x04) ? BUTTON_TRIGGER_R : 0;   // BZR
+  gp->buttons |= !(data[8] & 0x20) ? BUTTON_SHOULDER_L : 0;  // BLT
+  gp->buttons |= !(data[8] & 0x02) ? BUTTON_SHOULDER_R : 0;  // BRT
+  gp->buttons |= !(data[10] & 0x02) ? BUTTON_THUMB_L : 0;    // LTHUM
+  gp->buttons |= !(data[10] & 0x01) ? BUTTON_THUMB_R : 0;    // RTHUM
+  gp->updated_states |=
+      GAMEPAD_STATE_BUTTON_SHOULDER_L | GAMEPAD_STATE_BUTTON_SHOULDER_R |
+      GAMEPAD_STATE_BUTTON_TRIGGER_L | GAMEPAD_STATE_BUTTON_TRIGGER_R |
+      GAMEPAD_STATE_BUTTON_A | GAMEPAD_STATE_BUTTON_B | GAMEPAD_STATE_BUTTON_X |
+      GAMEPAD_STATE_BUTTON_Y | GAMEPAD_STATE_BUTTON_THUMB_L |
+      GAMEPAD_STATE_BUTTON_THUMB_R;
+
+  // Process misc buttons
+  gp->misc_buttons |= !(data[8] & 0x08) ? MISC_BUTTON_SYSTEM : 0;  // BH
+  gp->misc_buttons |= !(data[8] & 0x04) ? MISC_BUTTON_HOME : 0;    // B+
+  gp->updated_states |=
+      GAMEPAD_STATE_MISC_BUTTON_SYSTEM | GAMEPAD_STATE_MISC_BUTTON_HOME;
+}
 
 // wii_fsm_ functions
 
@@ -165,259 +432,8 @@ static void wii_fsm_ext_read_mem(uni_hid_device_t* d) {
   uni_hid_device_send_report(d, report, sizeof(report));
 }
 
-// process_ functions
-
-static void process_req_status(uni_hid_device_t* d, const uint8_t* report,
-                               uint16_t len) {
-  if (len < 7) {
-    loge("uni_hid_parser_wii: invalid status report\n");
-    return;
-  }
-  if (d->data[0] == WII_FSM_DID_REQ_STATUS) {
-    if (d->product_id == 0x0306) {
-      // We are possitive that this is a Wii Remote 1st gen
-      d->data[0] = WII_FSM_DEV_GUESSED;
-      d->data[2] = WII_DEVTYPE_REMOTE;
-    }
-    if (d->product_id == 0x0330) {
-      // It can be either a Wii Remote 2nd gen or a Wii U Pro Controller
-      uint8_t flags = report[3] & 0x0f;  // LF (leds / flags)
-      if ((flags & 0x02) == 0) {
-        // If there are no extensions, the we are sure it is a Wii Remote MP.
-        d->data[0] = WII_FSM_DEV_GUESSED;
-        d->data[2] = WII_DEVTYPE_REMOTE_MP;
-      } else {
-        // Otherwise, it can be either a Wii Remote MP with a Nunchak or a
-        // Wii U Pro controller.
-        d->data[0] = WII_FSM_DEV_UNK;
-      }
-    }
-    wii_process_fsm(d);
-  }
-}
-
-static void process_req_data(uni_hid_device_t* d, const uint8_t* report,
-                             uint16_t len) {
-  if (len < 22) {
-    loge("invalid req_data lenght: got %d, want >= 22\n", len);
-    return;
-  }
-  uint8_t se = report[3];  // SE: size and error
-  uint8_t s = se >> 4;     // size
-  uint8_t e = se & 0x0f;   // error
-  if (e) {
-    loge("Error reading memory: 0x%02x\n.", e);
-    return;
-  }
-  // We are expecting to read 6 bytes from 0xXX00fa
-  if (s == 5 && report[4] == 0x00 && report[5] == 0xfa) {
-    // This contains the read memory from register 0xa?00fa
-    // Data is in report[6]..report[11]
-    if (report[10] == 0x01 && report[11] == 0x20) {
-      d->data[2] = WII_DEVTYPE_PRO_CONTROLLER;
-    } else {
-      logi("Unknown extension. Treating device as Wii Remote MP\n");
-      d->data[2] = WII_DEVTYPE_REMOTE_MP;
-    }
-    d->data[0] = WII_FSM_DEV_GUESSED;
-    wii_process_fsm(d);
-  } else {
-    loge("Unexpected read report\n");
-  }
-}
-
-static void process_req_return(uni_hid_device_t* d, const uint8_t* report,
-                               uint16_t len) {
-  if (len < 5) {
-    loge("Invalid len report for process_req_return: got %d, want >= 5\n", len);
-  }
-  if (report[3] == WIIPROTO_REQ_WMEM) {
-    // Status != 0: Error. Probably invalid register
-    if (report[4] != 0) {
-      if (d->data[1] == 0xa6) {
-        loge("Failed to write registers from 0xa6... mmmm\n");
-        d->data[0] = WII_FSM_INITIAL;
-      } else {
-        // If it failed to write registers with 0xa4, then try with 0xa6
-        // If 0xa6 works Ok, it is safe to assume it is a Wii Remote MP, but
-        // for the sake of finishing the "read extension" (might be useful in
-        // the future), we continue with it.
-        logi(
-            "Probably a Remote MP device. Switching to 0xa60000 address for "
-            "registers.\n");
-        d->data[0] = WII_FSM_DEV_UNK;
-        d->data[1] = 0xa6;  // Register address used for Wii Remote MP.
-      }
-    } else {
-      // Status Ok. Good
-    }
-    wii_process_fsm(d);
-  }
-}
-
-static void process_drm_k(uni_gamepad_t* gp, const uint8_t* report,
-                          uint16_t len) {
-  /* DRM_K: BB*2 */
-  // Expecting something like:
-  // 30 00 08
-  if (len < 3) {
-    loge("wii remote parser: invalid report len %d\n", len);
-    return;
-  }
-
-  // TODO: Read accelerometer, and based on that treat rotated/vertical modes
-  const uint8_t* data = &report[1];
-  if (true) {
-    process_drm_k_horizontal(gp, data);
-  } else {
-    process_drm_k_vertical(gp, data);
-  }
-  // Process misc buttons
-  gp->misc_buttons |=
-      (data[1] & 0x80) ? MISC_BUTTON_SYSTEM : 0;                // Button "home"
-  gp->misc_buttons |= (data[0] & 0x10) ? MISC_BUTTON_HOME : 0;  // Button "+"
-  gp->updated_states |=
-      GAMEPAD_STATE_MISC_BUTTON_SYSTEM | GAMEPAD_STATE_MISC_BUTTON_HOME;
-}
-
-static void process_drm_k_horizontal(uni_gamepad_t* gp, const uint8_t* data) {
-  // dpad
-  gp->dpad |= (data[0] & 0x01) ? DPAD_DOWN : 0;
-  gp->dpad |= (data[0] & 0x02) ? DPAD_UP : 0;
-  gp->dpad |= (data[0] & 0x04) ? DPAD_RIGHT : 0;
-  gp->dpad |= (data[0] & 0x08) ? DPAD_LEFT : 0;
-  gp->updated_states |= GAMEPAD_STATE_DPAD;
-
-  // buttons
-  gp->buttons |= (data[1] & 0x04) ? BUTTON_Y : 0;  // Shoulder button
-  gp->buttons |= (data[1] & 0x08) ? BUTTON_X : 0;  // Big button "A"
-  gp->buttons |= (data[1] & 0x02) ? BUTTON_A : 0;  // Button "1"
-  gp->buttons |= (data[1] & 0x01) ? BUTTON_B : 0;  // Button "2"
-  gp->updated_states |= GAMEPAD_STATE_BUTTON_A | GAMEPAD_STATE_BUTTON_B |
-                        GAMEPAD_STATE_BUTTON_X | GAMEPAD_STATE_BUTTON_Y;
-}
-
-static void process_drm_k_vertical(uni_gamepad_t* gp, const uint8_t* data) {
-  // dpad
-  gp->dpad |= (data[0] & 0x01) ? DPAD_LEFT : 0;
-  gp->dpad |= (data[0] & 0x02) ? DPAD_RIGHT : 0;
-  gp->dpad |= (data[0] & 0x04) ? DPAD_DOWN : 0;
-  gp->dpad |= (data[0] & 0x08) ? DPAD_UP : 0;
-  gp->updated_states |= GAMEPAD_STATE_DPAD;
-
-  // buttons
-  gp->buttons |= (data[1] & 0x04) ? BUTTON_A : 0;  // Shoulder button
-  gp->buttons |= (data[1] & 0x08) ? BUTTON_B : 0;  // Big button "A"
-  gp->buttons |= (data[1] & 0x02) ? BUTTON_X : 0;  // Button "1"
-  gp->buttons |= (data[1] & 0x01) ? BUTTON_Y : 0;  // Button "2"
-  gp->updated_states |= GAMEPAD_STATE_BUTTON_A | GAMEPAD_STATE_BUTTON_B |
-                        GAMEPAD_STATE_BUTTON_X | GAMEPAD_STATE_BUTTON_Y;
-}
-
-static void process_drm_kee(uni_gamepad_t* gp, const uint8_t* report,
-                            uint16_t len) {
-  /* DRM_KEE: BB*2 EE*19 */
-  // Expecting something like:
-  // 34 00 00 19 08 D5 07 20 08 21 08 FF FF CF 00 00 00 00 00 00 00 00
-
-  // Doc taken from hid-wiimote-modules.c from Linux Kernel
-
-  /*   Byte |  8  |  7  |  6  |  5  |  4  |  3  |  2  |  1  |
-   *   -----+-----+-----+-----+-----+-----+-----+-----+-----+
-   *    0   |                   LX <7:0>                    |
-   *   -----+-----------------------+-----------------------+
-   *    1   |  0     0     0     0  |       LX <11:8>       |
-   *   -----+-----------------------+-----------------------+
-   *    2   |                   RX <7:0>                    |
-   *   -----+-----------------------+-----------------------+
-   *    3   |  0     0     0     0  |       RX <11:8>       |
-   *   -----+-----------------------+-----------------------+
-   *    4   |                   LY <7:0>                    |
-   *   -----+-----------------------+-----------------------+
-   *    5   |  0     0     0     0  |       LY <11:8>       |
-   *   -----+-----------------------+-----------------------+
-   *    6   |                   RY <7:0>                    |
-   *   -----+-----------------------+-----------------------+
-   *    7   |  0     0     0     0  |       RY <11:8>       |
-   *   -----+-----+-----+-----+-----+-----+-----+-----+-----+
-   *    8   | BDR | BDD | BLT | B-  | BH  | B+  | BRT |  1  |
-   *   -----+-----+-----+-----+-----+-----+-----+-----+-----+
-   *    9   | BZL | BB  | BY  | BA  | BX  | BZR | BDL | BDU |
-   *   -----+-----+-----+-----+-----+-----+-----+-----+-----+
-   *   10   |  1  |     BATTERY     | USB |CHARG|LTHUM|RTHUM|
-   *   -----+-----+-----------------+-----------+-----+-----+
-   * All buttons are low-active (0 if pressed)
-   * RX and RY are right analog stick
-   * LX and LY are left analog stick
-   * BLT is left trigger, BRT is right trigger.
-   * BDR, BDD, BDL, BDU form the D-Pad with right, down, left, up buttons
-   * BZL is left Z button and BZR is right Z button
-   * B-, BH, B+ are +, HOME and - buttons
-   * BB, BY, BA, BX are A, B, X, Y buttons
-   *
-   * Bits marked as 0/1 are unknown and never changed during tests.
-   *
-   * Not entirely verified:
-   *   CHARG: 1 if uncharging, 0 if charging
-   *   USB: 1 if not connected, 0 if connected
-   *   BATTERY: battery capacity from 000 (empty) to 100 (full)
-   */
-  if (len < 14) {
-    loge("wii u pro parser: invalid report len %d\n", len);
-    return;
-  }
-
-  const uint8_t* data = &report[3];
-
-  // Process axis
-  const uint16_t axis_base = 0x800;
-  // const uint16_t axis_range = 0x500;
-  int16_t lx = data[0] + ((data[1] & 0x0f) << 8) - axis_base;
-  int16_t rx = data[2] + ((data[3] & 0x0f) << 8) - axis_base;
-  int16_t ly = data[4] + ((data[5] & 0x0f) << 8) - axis_base;
-  int16_t ry = data[6] + ((data[7] & 0x0f) << 8) - axis_base;
-
-  // Y is inverted
-  gp->axis_x = lx;
-  gp->axis_y = -ly;
-  gp->axis_rx = rx;
-  gp->axis_ry = -ry;
-  gp->updated_states |= GAMEPAD_STATE_AXIS_X | GAMEPAD_STATE_AXIS_Y |
-                        GAMEPAD_STATE_AXIS_RX | GAMEPAD_STATE_AXIS_RY;
-
-  // Process Dpad
-  gp->dpad |= !(data[8] & 0x80) ? DPAD_RIGHT : 0;  // BDR
-  gp->dpad |= !(data[8] & 0x40) ? DPAD_DOWN : 0;   // BDD
-  gp->dpad |= !(data[9] & 0x02) ? DPAD_LEFT : 0;   // BDL
-  gp->dpad |= !(data[9] & 0x01) ? DPAD_UP : 0;     // BDU
-  gp->updated_states |= GAMEPAD_STATE_DPAD;
-
-  // Process buttons. A,B -> B,A; X,Y -> Y,X; trigger <--> shoulder
-  gp->buttons |= !(data[9] & 0x10) ? BUTTON_B : 0;           // BA
-  gp->buttons |= !(data[9] & 0x40) ? BUTTON_A : 0;           // BB
-  gp->buttons |= !(data[9] & 0x08) ? BUTTON_Y : 0;           // BX
-  gp->buttons |= !(data[9] & 0x20) ? BUTTON_X : 0;           // BY
-  gp->buttons |= !(data[9] & 0x80) ? BUTTON_TRIGGER_L : 0;   // BZL
-  gp->buttons |= !(data[9] & 0x04) ? BUTTON_TRIGGER_R : 0;   // BZR
-  gp->buttons |= !(data[8] & 0x20) ? BUTTON_SHOULDER_L : 0;  // BLT
-  gp->buttons |= !(data[8] & 0x02) ? BUTTON_SHOULDER_R : 0;  // BRT
-  gp->buttons |= !(data[10] & 0x02) ? BUTTON_THUMB_L : 0;    // LTHUM
-  gp->buttons |= !(data[10] & 0x01) ? BUTTON_THUMB_R : 0;    // RTHUM
-  gp->updated_states |=
-      GAMEPAD_STATE_BUTTON_SHOULDER_L | GAMEPAD_STATE_BUTTON_SHOULDER_R |
-      GAMEPAD_STATE_BUTTON_TRIGGER_L | GAMEPAD_STATE_BUTTON_TRIGGER_R |
-      GAMEPAD_STATE_BUTTON_A | GAMEPAD_STATE_BUTTON_B | GAMEPAD_STATE_BUTTON_X |
-      GAMEPAD_STATE_BUTTON_Y | GAMEPAD_STATE_BUTTON_THUMB_L |
-      GAMEPAD_STATE_BUTTON_THUMB_R;
-
-  // Process misc buttons
-  gp->misc_buttons |= !(data[8] & 0x08) ? MISC_BUTTON_SYSTEM : 0;  // BH
-  gp->misc_buttons |= !(data[8] & 0x04) ? MISC_BUTTON_HOME : 0;    // B+
-  gp->updated_states |=
-      GAMEPAD_STATE_MISC_BUTTON_SYSTEM | GAMEPAD_STATE_MISC_BUTTON_HOME;
-}
-
 static void wii_fsm_assign_device(uni_hid_device_t* d) {
+  logi("fsm: assign_device\n");
   uint8_t dev = d->data[2];
   switch (dev) {
     case WII_DEVTYPE_NONE:
@@ -445,6 +461,15 @@ static void wii_fsm_assign_device(uni_hid_device_t* d) {
       break;
     }
   }
+  d->data[0] = WII_FSM_DEV_ASSIGNED;
+  wii_process_fsm(d);
+}
+
+static void wii_fsm_update_led(uni_hid_device_t* d) {
+  logi("fsm: upload_led\n");
+  uni_hid_parser_wii_update_led(d);
+  d->data[0] = WII_FSM_LED_UPDATED;
+  wii_process_fsm(d);
 }
 
 static void wii_process_fsm(uni_hid_device_t* d) {
@@ -471,30 +496,21 @@ static void wii_process_fsm(uni_hid_device_t* d) {
       wii_fsm_assign_device(d);
       break;
     case WII_FSM_DEV_ASSIGNED:
-      // good, nothing else to do
+      wii_fsm_update_led(d);
+      break;
+    case WII_FSM_LED_UPDATED:
+      // do nothing. FSM finished.
       break;
   }
 }
 
 // uni_hid_ exported functions
 
-void uni_hid_parser_wii_update_led(uni_hid_device_t* d) {
-  if (d == NULL) {
-    loge("ERROR: Invalid device\n");
-  }
-  // Set LED to 1.
-  uint8_t report[] = {
-      0xa2, WIIPROTO_REQ_LED, 0x00 /* LED */
-  };
-  uint8_t led = (d->joystick_port) << 4;
-  report[2] = led;
-  uni_hid_device_send_report(d, report, sizeof(report));
-}
-
 void uni_hid_parser_wii_setup(uni_hid_device_t* d) {
   // data[0] used for the FSM: See WII_FSM_
   // data[1] used for the register's address: 0xa4 or 0xa6
   // data[2] used for dev type: See WII_DEVTYPE_
+  // data[3] flags: if bit 0 is on, treat Wii Remote as vertial
 
   d->data[0] = WII_FSM_INITIAL;
 
@@ -520,10 +536,10 @@ void uni_hid_parser_wii_parse_raw(uni_hid_device_t* d, const uint8_t* report,
       process_req_status(d, report, len);
       break;
     case WIIPROTO_REQ_DRM_K:
-      process_drm_k(&d->gamepad, report, len);
+      process_drm_k(d, report, len);
       break;
     case WIIPROTO_REQ_DRM_KEE:
-      process_drm_kee(&d->gamepad, report, len);
+      process_drm_kee(d, report, len);
       break;
     case WIIPROTO_REQ_DATA:
       process_req_data(d, report, len);
@@ -535,4 +551,22 @@ void uni_hid_parser_wii_parse_raw(uni_hid_device_t* d, const uint8_t* report,
       logi("Wii parser: unknown report type: 0x%02x\n", report[0]);
       printf_hexdump(report, len);
   }
+}
+
+void uni_hid_parser_wii_update_led(uni_hid_device_t* d) {
+  if (d == NULL) {
+    loge("ERROR: Invalid device\n");
+  }
+  // Set LED to 1.
+  uint8_t report[] = {
+      0xa2, WIIPROTO_REQ_LED, 0x00 /* LED */
+  };
+  uint8_t led = (d->joystick_port) << 4;
+
+  // If vertical mode is on, setup LED 4
+  if (d->data[3] & WII_FLAGS_VERTICAL) {
+    led |= 0x80;
+  }
+  report[2] = led;
+  uni_hid_device_send_report(d, report, sizeof(report));
 }
