@@ -67,12 +67,37 @@ Tested gamepads so far.
 
 - Supports both Wii Remote and Wii Remote Motion Plus.
 - Supports 3 modes:
-  - Sideways mode (default): Use Wii Remote in [horiontal position][wii_sideways].
-  - Vertical mode: enter by pressing button "A" while connecting.  LED #4 will be on in this mode.
-  - Accelerometer mode: enter by pressing "+" while connecting. LED #3 will be on in this mode.
+  - Sideways mode (default)
+  - Accelerometer mode
+  - Vertical mode
 - LEDs #1 and #2 indicates what joystick is being controlled. E.g: If LED #1 is lit, it means that the Wii Remote is controlling Joystick #1.
 - Press *Home* button to swap joystick port
 - Known issues: [issue #6][30]
+
+### Sideways mode
+
+- Default mode. No need to press anything special to enter this mode.
+- Use Wii Remote in [horiontal position][wii_sideways].
+- DPAD for regular movements.
+- Button "1" for fire.
+- Button "2" for jump.
+
+### Accel mode
+
+- Enter by pressing "A" (A == accel, easy to remember) while connecting or reconnecting.
+- Tilt up/down for up/down movements
+- Rotate left/right for left/right movements
+- Button "A" for fire.
+- Button "shoulder" to jump.
+- LED #3 will be on in this mode.
+
+### Vertical mode
+
+- Enter by pressing button "+" while connecting or reconnecting.
+- DPAD for regular movements.
+- Button "shoulder" for fire.
+- Button "A" to jump.
+- LED #4 will be on in this mode.
 
 [wii_remote]: https://lh3.googleusercontent.com/HtQgfME-mwm59JFfASHLwHRzvrfesY_FkJTZKfUSAD5XTsPhi-r7Veqvs3n5zr5igm5ug9WmL3rKWuoA7AToeXKIsHpSeMhFRfHfTi53mqu5boTHRtzQSrUex8kHEd8Ny6CS0bpUhEk=w380-no
 [wii_sideways]: https://forums.dolphin-emu.org/Thread-how-to-hold-the-wii-remote

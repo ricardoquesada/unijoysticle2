@@ -137,16 +137,11 @@ static void process_req_status(uni_hid_device_t* d, const uint8_t* report,
     }
 
     if (report[2] & 0x08) {
-      // In case it is a Wii Remote, it supports both horizontal and vertical
-      // modes. Vertical mode is only enabled if Button A is pressed at setup
-      // time.
-      d->data[3] |= WII_FLAGS_VERTICAL;
-    }
-
-    if (report[1] & 0x10) {
-      // If "+" button is pressed, then acceleromer will be enabled instead
-      // of regular keys.
+      // Wii Remote only: Enter "accel mode" if "A" is pressed.
       d->data[3] |= WII_FLAGS_ACCEL;
+    } else if (report[1] & 0x10) {
+      // Wii Remote only: Enter "vertical mode" if "+" is pressed.
+      d->data[3] |= WII_FLAGS_VERTICAL;
     }
     wii_process_fsm(d);
   }
@@ -305,7 +300,9 @@ static void process_drm_ka(uni_hid_device_t* d, const uint8_t* report,
   }
   if (sy < -accel_threshold) {
     gp->dpad |= DPAD_UP;
-  } else if (sy > accel_threshold) {
+  } else if (sy > (accel_threshold / 2)) {
+    // Threshold for down is 50% because it is not as easy to tilt the device
+    // down as it is it to tilt it up.
     gp->dpad |= DPAD_DOWN;
   }
   UNUSED(sz);
