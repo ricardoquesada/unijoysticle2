@@ -70,7 +70,8 @@ Tested gamepads so far.
   - Sideways mode (default)
   - Accelerometer mode
   - Vertical mode
-- LEDs #1 and #2 indicates what joystick is being controlled. E.g: If LED #1 is lit, it means that the Wii Remote is controlling Joystick #1.
+- LEDs #1 and #2 indicates what joystick is being controlled.
+  - E.g: If LED #1 is lit, it means that the Wii Remote is controlling Joystick #1.
 - Press *Home* button to swap joystick port
 - Known issues: [issue #6][30]
 
@@ -82,9 +83,9 @@ Tested gamepads so far.
 - Button "1" for fire.
 - Button "2" for jump.
 
-### Accel mode
+### Accelerometer mode
 
-- Enter by pressing "A" (A == accel, easy to remember) while connecting or reconnecting.
+- Enter this mode by pressing "A" (A == accelerometer, easy to remember) while connecting or reconnecting.
 - Tilt up/down for up/down movements
 - Rotate left/right for left/right movements
 - Button "A" for fire.
@@ -93,7 +94,7 @@ Tested gamepads so far.
 
 ### Vertical mode
 
-- Enter by pressing button "+" while connecting or reconnecting.
+- Enter this mode by pressing button "+" while connecting or reconnecting.
 - DPAD for regular movements.
 - Button "shoulder" for fire.
 - Button "A" to jump.
