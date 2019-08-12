@@ -66,9 +66,10 @@ Tested gamepads so far.
 [![Wii Remote][wii_remote]][29]
 
 - Supports both Wii Remote and Wii Remote Motion Plus.
-- Supports both:
+- Supports 3 modes:
   - Sideways mode (default): Use Wii Remote in [horiontal position][wii_sideways].
-  - Vertical mode. To enter vertical mode, press Wii Remote button `A` while connecting. When in vertical mode, LED #4 will be lit.
+  - Vertical mode: enter by pressing button "A" while connecting.  LED #4 will be on in this mode.
+  - Accelerometer mode: enter by pressing "+" while connecting. LED #3 will be on in this mode.
 - LEDs #1 and #2 indicates what joystick is being controlled. E.g: If LED #1 is lit, it means that the Wii Remote is controlling Joystick #1.
 - Press *Home* button to swap joystick port
 - Known issues: [issue #6][30]

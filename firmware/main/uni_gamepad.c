@@ -148,7 +148,7 @@ void uni_gamepad_to_combo_joy_mouse(const uni_gamepad_t* gp,
 }
 
 void uni_gamepad_dump(const uni_gamepad_t* gp) {
-  logi(
+  logd(
       "(0x%04x) dpad=0x%02x, x=%d, y=%d, rx=%d, ry=%d, brake=%d, accel=%d, "
       "buttons=0x%08x, misc=0x%02x\n",
       gp->updated_states, gp->dpad, gp->axis_x, gp->axis_y, gp->axis_rx,

@@ -31,6 +31,7 @@ limitations under the License.
 enum wii_flags {
   WII_FLAGS_NONE = 0,
   WII_FLAGS_VERTICAL = 1 << 0,
+  WII_FLAGS_ACCEL = 1 << 1,
 };
 
 // Taken from Linux kernel: hid-wiimote.h
@@ -90,12 +91,14 @@ static void process_req_data(uni_hid_device_t* d, const uint8_t* report,
                              uint16_t len);
 static void process_req_return(uni_hid_device_t* d, const uint8_t* report,
                                uint16_t len);
-static void process_drm_kee(uni_hid_device_t* d, const uint8_t* report,
-                            uint16_t len);
 static void process_drm_k(uni_hid_device_t* d, const uint8_t* report,
                           uint16_t len);
 static void process_drm_k_vertical(uni_gamepad_t* gp, const uint8_t* data);
 static void process_drm_k_horizontal(uni_gamepad_t* gp, const uint8_t* data);
+static void process_drm_ka(uni_hid_device_t* d, const uint8_t* report,
+                           uint16_t len);
+static void process_drm_kee(uni_hid_device_t* d, const uint8_t* report,
+                            uint16_t len);
 
 static void wii_process_fsm(uni_hid_device_t* d);
 static void wii_fsm_ext_init(uni_hid_device_t* d);
@@ -133,11 +136,17 @@ static void process_req_status(uni_hid_device_t* d, const uint8_t* report,
       }
     }
 
-    // In case it is a Wii Remote, it supports both horizontal and vertical
-    // modes. Vertical mode is only enabled if Button A is pressed at setup
-    // time.
     if (report[2] & 0x08) {
+      // In case it is a Wii Remote, it supports both horizontal and vertical
+      // modes. Vertical mode is only enabled if Button A is pressed at setup
+      // time.
       d->data[3] |= WII_FLAGS_VERTICAL;
+    }
+
+    if (report[1] & 0x10) {
+      // If "+" button is pressed, then acceleromer will be enabled instead
+      // of regular keys.
+      d->data[3] |= WII_FLAGS_ACCEL;
     }
     wii_process_fsm(d);
   }
@@ -208,7 +217,7 @@ static void process_drm_k(uni_hid_device_t* d, const uint8_t* report,
   // Expecting something like:
   // 30 00 08
   if (len < 3) {
-    loge("wii remote parser: invalid report len %d\n", len);
+    loge("wii remote drm_k: invalid report len %d\n", len);
     return;
   }
 
@@ -262,6 +271,55 @@ static void process_drm_k_vertical(uni_gamepad_t* gp, const uint8_t* data) {
                         GAMEPAD_STATE_BUTTON_X | GAMEPAD_STATE_BUTTON_Y;
 }
 
+static void process_drm_ka(uni_hid_device_t* d, const uint8_t* report,
+                           uint16_t len) {
+  const int16_t accel_threshold = 32;
+  /* DRM_KA: BB*2 AA*3*/
+  // Expecting something like:
+  // 31 20 60 82 7F 99
+  if (len < 6) {
+    loge("wii remote drm_ka: invalid report len %d\n", len);
+    return;
+  }
+
+  uint16_t x = report[3] << 2;
+  uint16_t y = report[4] << 2;
+  uint16_t z = report[5] << 2;
+
+  x |= (report[1] >> 5) & 0x3;
+  y |= (report[2] >> 4) & 0x2;
+  z |= (report[2] >> 5) & 0x2;
+
+  int16_t sx = x - 0x200;
+  int16_t sy = y - 0x200;
+  int16_t sz = z - 0x200;
+
+  // printf_hexdump(report, len);
+  // printf("x=%d, y=%d, z=%d\n", x, y, z);
+
+  uni_gamepad_t* gp = &d->gamepad;
+  if (sx < -accel_threshold) {
+    gp->dpad |= DPAD_LEFT;
+  } else if (sx > accel_threshold) {
+    gp->dpad |= DPAD_RIGHT;
+  }
+  if (sy < -accel_threshold) {
+    gp->dpad |= DPAD_UP;
+  } else if (sy > accel_threshold) {
+    gp->dpad |= DPAD_DOWN;
+  }
+  UNUSED(sz);
+  gp->updated_states |= GAMEPAD_STATE_DPAD;
+
+  gp->buttons |= (report[2] & 0x08) ? BUTTON_A : 0;  // Big button "A"
+  gp->buttons |= (report[2] & 0x04) ? BUTTON_B : 0;  // Button Shoulder
+  gp->updated_states |= GAMEPAD_STATE_BUTTON_A | GAMEPAD_STATE_BUTTON_B;
+
+  gp->misc_buttons |=
+      (report[2] & 0x80) ? MISC_BUTTON_SYSTEM : 0;  // Button "home"
+  gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
+}
+
 static void process_drm_kee(uni_hid_device_t* d, const uint8_t* report,
                             uint16_t len) {
   /* DRM_KEE: BB*2 EE*19 */
@@ -311,7 +369,7 @@ static void process_drm_kee(uni_hid_device_t* d, const uint8_t* report,
    *   BATTERY: battery capacity from 000 (empty) to 100 (full)
    */
   if (len < 14) {
-    loge("wii u pro parser: invalid report len %d\n", len);
+    loge("wii remote drm_kee: invalid report len %d\n", len);
     return;
   }
   uni_gamepad_t* gp = &d->gamepad;
@@ -447,8 +505,12 @@ static void wii_fsm_assign_device(uni_hid_device_t* d) {
         logi("Unknown Wii device detected. Treating it as Wii Remote.\n");
       }
       // 0x30 WIIPROTO_REQ_DRM_K (present in Wii Remote)
-      const uint8_t reportK[] = {0xa2, WIIPROTO_REQ_DRM, 0x00,
-                                 WIIPROTO_REQ_DRM_K};
+      uint8_t reportK[] = {0xa2, WIIPROTO_REQ_DRM, 0x00, WIIPROTO_REQ_DRM_K};
+      if (d->data[3] & WII_FLAGS_ACCEL) {
+        logi("Wii Remote: Accelerometer enabled\n");
+        // Transform DRM_K into DRM_KA
+        reportK[3] = WIIPROTO_REQ_DRM_KA;
+      }
       uni_hid_device_send_report(d, reportK, sizeof(reportK));
       break;
     }
@@ -538,6 +600,9 @@ void uni_hid_parser_wii_parse_raw(uni_hid_device_t* d, const uint8_t* report,
     case WIIPROTO_REQ_DRM_K:
       process_drm_k(d, report, len);
       break;
+    case WIIPROTO_REQ_DRM_KA:
+      process_drm_ka(d, report, len);
+      break;
     case WIIPROTO_REQ_DRM_KEE:
       process_drm_kee(d, report, len);
       break;
@@ -563,9 +628,13 @@ void uni_hid_parser_wii_update_led(uni_hid_device_t* d) {
   };
   uint8_t led = (d->joystick_port) << 4;
 
-  // If vertical mode is on, setup LED 4
+  // If vertical mode is on, enable LED 4.
   if (d->data[3] & WII_FLAGS_VERTICAL) {
     led |= 0x80;
+  }
+  // If accelerometer enabled, enable LED 3.
+  if (d->data[3] & WII_FLAGS_ACCEL) {
+    led |= 0x40;
   }
   report[2] = led;
   uni_hid_device_send_report(d, report, sizeof(report));
