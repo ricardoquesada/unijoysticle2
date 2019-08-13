@@ -540,6 +540,7 @@ static void process_misc_button_system(uni_hid_device_t* d) {
   }
 
   if (d->wait_release_misc_button & MISC_BUTTON_SYSTEM) return;
+  d->wait_release_misc_button |= MISC_BUTTON_SYSTEM;
 
   if (d->joystick_port == JOYSTICK_PORT_NONE) {
     logi(
@@ -576,7 +577,6 @@ static void process_misc_button_system(uni_hid_device_t* d) {
   uni_joystick_port_t p =
       (d->joystick_port == JOYSTICK_PORT_A) ? JOYSTICK_PORT_B : JOYSTICK_PORT_A;
   uni_hid_device_set_joystick_port(d, p);
-  d->wait_release_misc_button |= MISC_BUTTON_SYSTEM;
 }
 
 // process_misc_button_home dumps uni_hid_device debug info in the console.
