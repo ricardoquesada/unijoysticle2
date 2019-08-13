@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.4-rc0] - 2019-08-12
 ### Added
 - Firmware: Support for Nintendo Wii Remote Motion Plus controller.
-- Firmware: Support for "accelerometer mode" in Nitendo Wii Remote.
+- Firmware: Support for "accelerometer mode" in Nintendo Wii Remote.
 - Firmware: Support for "vertical mode" in Nintendo Wii Remote.
 
 ### Changed
@@ -28,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Firmware: Add Nintendo Wii generic support. This includes
   - Wii U Pro controller
   - Wii Remote
-  - Possibly other Nitendo Wii controllers
+  - Possibly other Nintendo Wii controllers
 
 ### Changed
 - Firmware: Nintendo Wii U Pro support: Works Ok on ESP32.
