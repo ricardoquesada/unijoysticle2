@@ -9,7 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Firmware: Support for Nintendo Wii Remote Motion Plus controller.
 - Firmware: Support for "accelerometer mode" in Nitendo Wii Remote.
 - Firmware: Support for "vertical mode" in Nintendo Wii Remote.
-- Docs: Improved "supported device" page.
+
+### Changed
+- Firmware: Fix crash when printing "cannot swap joystick"
+- Docs: Improved "supported devices".
 
 ## [0.3] - 2019-08-05
 ### Added
