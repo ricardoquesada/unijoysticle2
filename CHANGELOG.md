@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Firmware: Fix crash when printing "cannot swap joystick"
+- Firmware: Compile ESP-IDF as Release build.
 - Docs: Improved "supported devices".
 
 ## [0.3] - 2019-08-05
