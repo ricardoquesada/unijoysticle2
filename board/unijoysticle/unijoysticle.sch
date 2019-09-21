@@ -1,13 +1,13 @@
 EESchema Schematic File Version 4
 LIBS:unijoysticle-cache
-EELAYER 29 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "Unijoysticle 2"
-Date "2019-03-28"
-Rev "B"
+Date "2019-09-21"
+Rev "C"
 Comp "Retro Moe"
 Comment1 "Ricardo Quesada"
 Comment2 ""
@@ -61,42 +61,42 @@ GPIO_J1POTX
 Text GLabel 6700 4000 0    50   Input ~ 0
 GPIO_J1POTY
 Wire Wire Line
-	7000 1000 6700 1000
-Wire Wire Line
-	7000 1100 6700 1100
-Wire Wire Line
-	7000 1200 6700 1200
+	7000 1300 6700 1300
 Wire Wire Line
 	7000 1400 6700 1400
 Wire Wire Line
-	7000 1600 6700 1600
+	7000 1500 6700 1500
 Wire Wire Line
 	7000 1700 6700 1700
 Wire Wire Line
-	7000 1800 6700 1800
-Text GLabel 6700 1000 0    50   Input ~ 0
+	7000 1900 6700 1900
+Wire Wire Line
+	7000 2000 6700 2000
+Wire Wire Line
+	7000 2100 6700 2100
+Text GLabel 6700 1300 0    50   Input ~ 0
 J1UP
-Text GLabel 6700 1200 0    50   Input ~ 0
+Text GLabel 6700 1500 0    50   Input ~ 0
 J1DOWN
-Text GLabel 6700 1400 0    50   Input ~ 0
-J1LEFT
-Text GLabel 6700 1100 0    50   Input ~ 0
-J1FIRE
-Text GLabel 6700 1800 0    50   Input ~ 0
-J1POTY
 Text GLabel 6700 1700 0    50   Input ~ 0
+J1LEFT
+Text GLabel 6700 1400 0    50   Input ~ 0
+J1FIRE
+Text GLabel 6700 2100 0    50   Input ~ 0
+J1POTY
+Text GLabel 6700 2000 0    50   Input ~ 0
 J1POTX
-Text GLabel 6700 1600 0    50   Input ~ 0
+Text GLabel 6700 1900 0    50   Input ~ 0
 J1RIGHT
-Text GLabel 8950 1050 2    50   Input ~ 0
+Text GLabel 8950 1350 2    50   Input ~ 0
 J2UP
-Text GLabel 8950 1250 2    50   Input ~ 0
+Text GLabel 8950 1550 2    50   Input ~ 0
 J2DOWN
-Text GLabel 8950 1450 2    50   Input ~ 0
+Text GLabel 8950 1750 2    50   Input ~ 0
 J2LEFT
-Text GLabel 8950 1650 2    50   Input ~ 0
+Text GLabel 8950 1950 2    50   Input ~ 0
 J2RIGHT
-Text GLabel 8950 1150 2    50   Input ~ 0
+Text GLabel 8950 1450 2    50   Input ~ 0
 J2FIRE
 Text GLabel 5150 1350 2    50   Input ~ 0
 J2UP
@@ -178,35 +178,35 @@ Wire Wire Line
 $Comp
 L Connector:DB9_Female J1
 U 1 1 5C705949
-P 7300 1400
-F 0 "J1" H 7479 1446 50  0000 L CNN
-F 1 "DB9_Female" H 7479 1355 50  0000 L CNN
-F 2 "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset9.40mm" H 7300 1400 50  0001 C CNN
-F 3 "" H 7300 1400 50  0001 C CNN
-	1    7300 1400
+P 7300 1700
+F 0 "J1" H 7479 1746 50  0000 L CNN
+F 1 "DB9_Female" H 7479 1655 50  0000 L CNN
+F 2 "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset9.40mm" H 7300 1700 50  0001 C CNN
+F 3 "" H 7300 1700 50  0001 C CNN
+	1    7300 1700
 	1    0    0    -1  
 $EndComp
 $Comp
 L Connector:DB9_Female J2
 U 1 1 5C705C0F
-P 8500 1450
-F 0 "J2" H 8420 2142 50  0000 C CNN
-F 1 "DB9_Female" H 8420 2051 50  0000 C CNN
-F 2 "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset9.40mm" H 8500 1450 50  0001 C CNN
-F 3 "" H 8500 1450 50  0001 C CNN
-	1    8500 1450
+P 8500 1750
+F 0 "J2" H 8420 2442 50  0000 C CNN
+F 1 "DB9_Female" H 8420 2351 50  0000 C CNN
+F 2 "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset9.40mm" H 8500 1750 50  0001 C CNN
+F 3 "" H 8500 1750 50  0001 C CNN
+	1    8500 1750
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	8800 1050 8950 1050
+	8800 1350 8950 1350
 Wire Wire Line
-	8800 1150 8950 1150
+	8800 1450 8950 1450
 Wire Wire Line
-	8800 1250 8950 1250
+	8800 1550 8950 1550
 Wire Wire Line
-	8950 1450 8800 1450
+	8950 1750 8800 1750
 Wire Wire Line
-	8950 1650 8800 1650
+	8950 1950 8800 1950
 Wire Wire Line
 	8150 4200 8550 4200
 Wire Wire Line
@@ -402,17 +402,6 @@ Wire Wire Line
 	1100 4550 1300 4550
 Wire Wire Line
 	1100 5350 1300 5350
-$Comp
-L power:VDD #PWR0105
-U 1 1 5C862F14
-P 2300 4950
-F 0 "#PWR0105" H 2300 4800 50  0001 C CNN
-F 1 "VDD" V 2317 5078 50  0000 L CNN
-F 2 "" H 2300 4950 50  0001 C CNN
-F 3 "" H 2300 4950 50  0001 C CNN
-	1    2300 4950
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	2300 4950 1850 4950
 Wire Wire Line
@@ -434,17 +423,6 @@ Wire Wire Line
 	4400 5050 4400 4950
 Wire Wire Line
 	4400 4950 4950 4950
-$Comp
-L power:VDD #PWR0106
-U 1 1 5C86D74A
-P 4950 4950
-F 0 "#PWR0106" H 4950 4800 50  0001 C CNN
-F 1 "VDD" V 4967 5078 50  0000 L CNN
-F 2 "" H 4950 4950 50  0001 C CNN
-F 3 "" H 4950 4950 50  0001 C CNN
-	1    4950 4950
-	1    0    0    -1  
-$EndComp
 $Comp
 L Device:LED D1
 U 1 1 5C86DF58
@@ -513,33 +491,33 @@ Wire Wire Line
 Wire Wire Line
 	1800 6950 1950 6950
 Wire Wire Line
-	8800 1550 8900 1550
+	8800 1850 8900 1850
 Wire Wire Line
-	8900 1550 8900 2100
+	8900 1850 8900 2400
 Wire Wire Line
-	7000 1500 6900 1500
+	7000 1800 6900 1800
 Wire Wire Line
-	6900 1500 6900 2100
+	6900 1800 6900 2400
 $Comp
 L power:GND #PWR0102
 U 1 1 5C8CE940
-P 6900 2100
-F 0 "#PWR0102" H 6900 1850 50  0001 C CNN
-F 1 "GND" H 6905 1927 50  0000 C CNN
-F 2 "" H 6900 2100 50  0001 C CNN
-F 3 "" H 6900 2100 50  0001 C CNN
-	1    6900 2100
+P 6900 2400
+F 0 "#PWR0102" H 6900 2150 50  0001 C CNN
+F 1 "GND" H 6905 2227 50  0000 C CNN
+F 2 "" H 6900 2400 50  0001 C CNN
+F 3 "" H 6900 2400 50  0001 C CNN
+	1    6900 2400
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0108
 U 1 1 5C8CEFE9
-P 8900 2100
-F 0 "#PWR0108" H 8900 1850 50  0001 C CNN
-F 1 "GND" H 8905 1927 50  0000 C CNN
-F 2 "" H 8900 2100 50  0001 C CNN
-F 3 "" H 8900 2100 50  0001 C CNN
-	1    8900 2100
+P 8900 2400
+F 0 "#PWR0108" H 8900 2150 50  0001 C CNN
+F 1 "GND" H 8905 2227 50  0000 C CNN
+F 2 "" H 8900 2400 50  0001 C CNN
+F 3 "" H 8900 2400 50  0001 C CNN
+	1    8900 2400
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -608,7 +586,7 @@ Wire Notes Line
 	9600 2900 5750 2900
 Wire Notes Line
 	550  700  9600 700 
-Text Notes 7250 2450 0    79   ~ 0
+Text Notes 7250 2750 0    79   ~ 0
 DB9's: Port A, Port B
 Wire Notes Line
 	550  6300 9600 6300
@@ -622,11 +600,7 @@ Wire Notes Line
 	550  700  550  7800
 Text Notes 1200 7700 0    79   ~ 0
 LEDs & Push Button
-Wire Notes Line
-	5750 700  5750 7800
-Wire Notes Line
-	550  7800 5750 7800
-Text Notes 4050 7650 0    79   ~ 0
+Text Notes 3700 7650 0    79   ~ 0
 Barrel Jack
 $Comp
 L Device:R R1
@@ -672,4 +646,142 @@ F 3 "~" H 3650 6960 50  0001 C CNN
 	1    3600 7000
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	8800 1650 8900 1650
+Wire Wire Line
+	8900 1650 8900 1200
+Wire Wire Line
+	7000 1600 6900 1600
+Wire Wire Line
+	6900 1600 6900 1200
+$Comp
+L power:VDDA #PWR?
+U 1 1 5D8CE89E
+P 2300 4950
+F 0 "#PWR?" H 2300 4800 50  0001 C CNN
+F 1 "VDDA" H 2317 5123 50  0000 C CNN
+F 2 "" H 2300 4950 50  0001 C CNN
+F 3 "" H 2300 4950 50  0001 C CNN
+	1    2300 4950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VDDA #PWR?
+U 1 1 5D8CF370
+P 4950 4950
+F 0 "#PWR?" H 4950 4800 50  0001 C CNN
+F 1 "VDDA" H 4967 5123 50  0000 C CNN
+F 2 "" H 4950 4950 50  0001 C CNN
+F 3 "" H 4950 4950 50  0001 C CNN
+	1    4950 4950
+	1    0    0    -1  
+$EndComp
+Text GLabel 6900 1200 1    50   Input ~ 0
+J1POWER
+Text GLabel 8900 1200 1    50   Input ~ 0
+J2POWER
+NoConn ~ 8150 5500
+NoConn ~ 8150 5400
+NoConn ~ 8150 5300
+NoConn ~ 8150 5200
+NoConn ~ 8150 5100
+NoConn ~ 8150 5000
+NoConn ~ 8150 4900
+NoConn ~ 8150 4600
+NoConn ~ 8150 4500
+NoConn ~ 8150 4400
+NoConn ~ 8150 4300
+NoConn ~ 8150 3900
+NoConn ~ 8150 3700
+NoConn ~ 8150 3600
+NoConn ~ 7150 3600
+NoConn ~ 7150 4100
+NoConn ~ 7150 4500
+NoConn ~ 7150 4700
+NoConn ~ 7150 4800
+NoConn ~ 7150 4900
+NoConn ~ 7150 5000
+NoConn ~ 7150 5200
+NoConn ~ 7150 5300
+Text GLabel 5300 7000 0    50   Input ~ 0
+J1POWER
+Text GLabel 5300 7350 0    50   Input ~ 0
+J2POWER
+Wire Wire Line
+	5300 7000 5550 7000
+Wire Wire Line
+	5550 7350 5300 7350
+Wire Wire Line
+	6100 7150 6200 7150
+$Comp
+L power:VDD #PWR?
+U 1 1 5D9B72D2
+P 6450 6550
+F 0 "#PWR?" H 6450 6400 50  0001 C CNN
+F 1 "VDD" H 6467 6723 50  0000 C CNN
+F 2 "" H 6450 6550 50  0001 C CNN
+F 3 "" H 6450 6550 50  0001 C CNN
+	1    6450 6550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_SPST SW?
+U 1 1 5D9BBF38
+P 6000 7150
+F 0 "SW?" H 6000 7385 50  0000 C CNN
+F 1 "SW_SPST" H 6000 7294 50  0000 C CNN
+F 2 "" H 6000 7150 50  0001 C CNN
+F 3 "~" H 6000 7150 50  0001 C CNN
+	1    6000 7150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5550 7000 5550 7150
+Wire Wire Line
+	5550 7150 5700 7150
+Connection ~ 5550 7150
+Wire Wire Line
+	5550 7150 5550 7350
+Wire Wire Line
+	5700 7150 5700 7050
+$Comp
+L power:VDDA #PWR?
+U 1 1 5D9F1571
+P 5700 7050
+F 0 "#PWR?" H 5700 6900 50  0001 C CNN
+F 1 "VDDA" H 5717 7223 50  0000 C CNN
+F 2 "" H 5700 7050 50  0001 C CNN
+F 3 "" H 5700 7050 50  0001 C CNN
+	1    5700 7050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5800 7150 5700 7150
+Connection ~ 5700 7150
+Wire Wire Line
+	6200 7150 6450 7150
+Wire Wire Line
+	6450 7150 6450 6950
+Connection ~ 6200 7150
+$Comp
+L Diode:1N4001 D?
+U 1 1 5DA3B4FA
+P 6450 6800
+F 0 "D?" V 6404 6879 50  0000 L CNN
+F 1 "1N4001" V 6495 6879 50  0000 L CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 6450 6625 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 6450 6800 50  0001 C CNN
+	1    6450 6800
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6450 6650 6450 6550
+Wire Notes Line
+	4800 6300 4800 7800
+Wire Notes Line
+	5750 700  5750 6300
+Text Notes 5700 7650 0    79   ~ 0
+Power from C64
+Wire Notes Line
+	6900 7800 6900 6300
 $EndSCHEMATC
