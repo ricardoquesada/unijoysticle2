@@ -17,8 +17,6 @@ An assembled + soldered kit should look like this:
 
 ![Assembled kit](https://lh3.googleusercontent.com/ajmUdFVA07CQ-HD-Z7w5bQ8Ehf92yn07OGGAG7KtJ-6NTYPcR7L1pfNEfjhBFYwxOR8zb6hFmFuHY9WvX81-PWAtoh0-bU1ez5l87fhbDvOaTmwdqO0MHizSjWBAnSh7Vo59RdISxZM=-no)
 
-
-
 Neded components:
 
 - 1 x Unijoysticle 2 PCB
@@ -37,7 +35,7 @@ You can source the components from here:
 
 - Unijoysticle 2 PCB from: [PCBWay (blue)][3] or [PCBWay (black)][11] or [OSHPark][4]
 - ESP32 devkit from: [ESP32 Mini Kit (blue)][5] or [ESP32 TTGO Mini (black)][12]
-  -  extra [pins might be needed][6]
+  - extra [pins might be needed][6]
 - [Remaining components][7] (you must be logged in into DigiKey)
 
 ## Flashing the firmware
@@ -56,6 +54,10 @@ The Unijoysticle 2 can be powered either with:
 
 It is safe to plug both the USB and Jack Barrel at the same time, but that won't
 give you any additional benefit.
+
+**IMPORTANT**: If the Unijoysticle is plugged-in into the Commodore, but it is not powered on,
+it might generate noise in the Joystick lines. Since the joystick lines are also shared by
+the keyboard, it might be possible that certain keys might not work. See: https://gitlab.com/ricardoquesada/unijoysticle2/issues/8
 
 ## Booting
 
@@ -121,7 +123,7 @@ This could be due to a lot of things. Assuming that you are using a [supported g
 
 - Make sure that the red and green LEDs are off. Meaning that BT is ready.
   Reboot the device and try again.
- 
+
 - Reboot the Unijoysticle. Press the Reset button that is placed in the ESP32 Mini Kit
   And try again.
 
