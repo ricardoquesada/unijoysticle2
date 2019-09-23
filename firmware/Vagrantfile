@@ -28,19 +28,13 @@ Vagrant.configure("2") do |config|
   # config.vm.synced_folder "../data", "/vagrant_data"
 
   # Provider-specific configuration
-  config.vm.provider "virtualbox" do |vb|
-	vb.customize ["modifyvm", :id, "--usb", "on"]
-  #   	vb.customize ["modifyvm", :id, "--usbehci", "on"]
-  # Connect usb serial (ESP) here
-  # sudo vboxmanage list usbhost OR lsusb 
-  # get VendorID and ProductID and fill in here
-	vb.customize ['usbfilter', 'add', '0', 
-	       	'--target', :id, 
-		'--name', 'serial_esp32', 
-		'--vendorid', '0x10c4', 
-		'--productid', '0xea60']
+  config.vm.synced_folder ".", "/vagrant", type: "nfs", nfs_version: "3"
+  config.vm.provider "libvirt" do |libvirt|
+      libvirt.cpus = 2
+      libvirt.memory = 768
+      libvirt.usb :vendor => '0x10c4', :product => '0xea60', :startupPolicy => 'optional'
+      libvirt.usb :vendor => '0x1a86', :product => '0x7523', :startupPolicy => 'optional'
   end
-
   # config.vm.provision "shell", inline: <<-SHELL
   #   apt-get update
   #   apt-get install -y apache2
