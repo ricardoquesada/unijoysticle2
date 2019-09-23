@@ -2,7 +2,7 @@
 
 #install basic tools
 apt-get update
-apt-get install -y build-essential git wget make libncurses-dev flex bison python python-serial pkg-config
+apt-get install -y build-essential git wget make libncurses-dev flex bison python pkg-config python-pip
 apt-get install -y gperf
 
 #config
@@ -10,7 +10,7 @@ TOOLCHAIN_DL="https://dl.espressif.com/dl/"
 TOOLCHAIN="xtensa-esp32-elf-linux64-1.22.0-80-g6c4433a-5.2.0.tar.gz"
 TOOLCHAIN_SHA256="3fe96c151d46c1d4e5edc6ed690851b8e53634041114bad04729bc16b0445156  "$TOOLCHAIN
 SDK_REPO="https://github.com/espressif/esp-idf.git"
-SDK_BRANCH="v3.1.3"
+SDK_BRANCH="v3.2.3"
 TARGET_USER="vagrant"
 TARGET_USER_PROFILE="/home/$TARGET_USER/.profile"
 DOWNLOAD_DIR="/tmp/"
@@ -42,9 +42,11 @@ rm $DOWNLOAD_DIR$TOOLCHAIN
 #get sdk
 cd $INSTALL_DIR
 git clone --depth=1 -b $SDK_BRANCH --recursive $SDK_REPO
-
+cd esp-idf
+sudo pip install -r requirements.txt
+cd ..
 #get btstack
-git clone --depth=1 -b $BTSTACK_BRANCH --recursive $BTSTACK_REPO -b develop
+git clone --depth=1 -b $BTSTACK_BRANCH --recursive $BTSTACK_REPO
 cd btstack/port/esp32
 IDF_PATH=$INSTALL_DIR/esp-idf ./integrate_btstack.py
 
