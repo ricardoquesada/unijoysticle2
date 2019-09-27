@@ -6,8 +6,8 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "Unijoysticle 2"
-Date "2019-09-21"
-Rev "C"
+Date "2019-09-27"
+Rev "D"
 Comp "Retro Moe"
 Comment1 "Ricardo Quesada"
 Comment2 ""
@@ -512,7 +512,7 @@ U 1 1 5D9BBF38
 P 6250 6750
 F 0 "SW2" H 6250 6985 50  0000 C CNN
 F 1 "SW_SPST" H 6250 6894 50  0000 C CNN
-F 2 "Button_Switch_THT:SW_DIP_SPSTx01_Slide_6.7x4.1mm_W7.62mm_P2.54mm_LowProfile" H 6250 6750 50  0001 C CNN
+F 2 "Switches:SWITCH_SPDT_PTH_11.6X4.0MM" H 6250 6750 50  0001 C CNN
 F 3 "~" H 6250 6750 50  0001 C CNN
 	1    6250 6750
 	0    1    1    0   

@@ -21,20 +21,20 @@
       )
     )
     (boundary
-      (path pcb 0  169573 -74948.5  169850 -75003.6  170117 -75094.3  170370 -75219.3
-            170605 -75376.1  170818 -75562.4  171004 -75774.7  171161 -76009.5
-            171286 -76262.8  171376 -76530.2  171432 -76807.2  171450 -77089
-            171450 -118491  171432 -118773  171376 -119050  171286 -119317
-            171161 -119570  171004 -119805  170818 -120018  170605 -120204
-            170370 -120361  170117 -120486  169850 -120576  169573 -120632
-            169291 -120650  115570 -120650  115288 -120632  115011 -120576
-            114744 -120486  114490 -120361  114256 -120204  114043 -120018
-            113857 -119805  113700 -119570  113575 -119317  113485 -119050
-            113429 -118773  113411 -118491  113411 -77089  113429 -76807.2
-            113485 -76530.2  113575 -76262.8  113700 -76009.5  113857 -75774.7
-            114043 -75562.4  114256 -75376.1  114490 -75219.3  114744 -75094.3
-            115011 -75003.6  115288 -74948.5  115570 -74930  169291 -74930
-            169573 -74948.5)
+      (path pcb 0  171122 -74947.5  171399 -75002.6  171667 -75093.4  171920 -75218.4
+            172155 -75375.4  172367 -75561.6  172554 -75774.1  172711 -76009
+            172836 -76262.4  172926 -76530  172982 -76807.1  173000 -77089
+            172999 -118491  172981 -118773  172925 -119050  172835 -119317
+            172710 -119570  172553 -119805  172367 -120018  172154 -120204
+            171920 -120361  171666 -120486  171399 -120576  171122 -120632
+            170840 -120650  114159 -120650  113877 -120632  113600 -120576
+            113333 -120486  113080 -120361  112845 -120204  112632 -120018
+            112446 -119805  112289 -119570  112164 -119317  112074 -119050
+            112018 -118773  112000 -118491  112000 -77089  112018 -76807.2
+            112074 -76530.2  112164 -76262.8  112289 -76009.5  112446 -75774.7
+            112632 -75562.4  112845 -75376.1  113080 -75219.3  113333 -75094.3
+            113600 -75003.6  113877 -74948.5  114159 -74930  170840 -74929
+            171122 -74947.5)
     )
     (via "Via[0-1]_685.8:330.2_um")
     (rule
@@ -45,33 +45,33 @@
     )
   )
   (placement
-    (component Button_Switch_THT:SW_DIP_SPSTx01_Slide_6.7x4.1mm_W7.62mm_P2.54mm_LowProfile
-      (place SW2 168910 -109500 front 90 (PN SW_SPST))
+    (component Switches:SWITCH_SPDT_PTH_11.6X4.0MM
+      (place SW2 170180 -106680 front 180 (PN SW_SPST))
     )
     (component "Package_DIP:DIP-14_W7.62mm_Socket_LongPads"
-      (place IC2 161290 -83439 front 0 (PN 74LS05))
-      (place IC1 115570 -83439 front 0 (PN 74LS05))
+      (place IC2 162600 -83439 front 0 (PN 74LS05))
+      (place IC1 114500 -83439 front 0 (PN 74LS05))
     )
     (component "Diode_THT:D_DO-41_SOD81_P7.62mm_Horizontal"
       (place D4 146050 -83500 front 180 (PN 1N4001))
       (place D3 161000 -102500 front 270 (PN 1N4001))
     )
     (component Unijoysticle:BarrelJack_Horizontal
-      (place J3 162500 -118110 front 180 (PN Barrel_Jack))
+      (place J3 162300 -118110 front 180 (PN Barrel_Jack))
     )
     (component "Unijoysticle:MH-ET_LIVE_MINIKIT_ESP32"
       (place B1 127254 -125730 front 0 (PN "ESP32 MINI KIT"))
     )
     (component Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal
-      (place R2 124460 -118500 front 90 (PN 150))
-      (place R1 121920 -118500 front 90 (PN 150))
+      (place R2 123500 -118500 front 90 (PN 150))
+      (place R1 121000 -118500 front 90 (PN 150))
     )
     (component "digikey-footprints:LED_3mm_Radial"
-      (place D1 116840 -106300 front 270 (PN LED))
-      (place D2 123190 -106300 front 270 (PN LED))
+      (place D1 115300 -106300 front 270 (PN LED))
+      (place D2 122000 -106300 front 270 (PN LED))
     )
     (component "Button_Switch_THT:SW_Tactile_SPST_Angled_PTS645Vx39-2LFS"
-      (place SW1 115000 -117000 front 90 (PN SW_Push))
+      (place SWd 113500 -117000 front 90 (PN SW_Push))
     )
     (component "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset9.40mm"
       (place J1 121412 -79248 front 180 (PN DB9_Female))
@@ -79,58 +79,14 @@
     )
   )
   (library
-    (image Button_Switch_THT:SW_DIP_SPSTx01_Slide_6.7x4.1mm_W7.62mm_P2.54mm_LowProfile
-      (outline (path signal 50  8700 2400  -1100 2400))
-      (outline (path signal 50  8700 -2400  8700 2400))
-      (outline (path signal 50  -1100 -2400  8700 -2400))
-      (outline (path signal 50  -1100 2400  -1100 -2400))
-      (outline (path signal 120  3206.67 635  3206.67 -635))
-      (outline (path signal 120  2000 -565  3206.67 -565))
-      (outline (path signal 120  2000 -445  3206.67 -445))
-      (outline (path signal 120  2000 -325  3206.67 -325))
-      (outline (path signal 120  2000 -205  3206.67 -205))
-      (outline (path signal 120  2000 -85  3206.67 -85))
-      (outline (path signal 120  2000 35  3206.67 35))
-      (outline (path signal 120  2000 155  3206.67 155))
-      (outline (path signal 120  2000 275  3206.67 275))
-      (outline (path signal 120  2000 395  3206.67 395))
-      (outline (path signal 120  2000 515  3206.67 515))
-      (outline (path signal 120  5620 635  2000 635))
-      (outline (path signal 120  5620 -635  5620 635))
-      (outline (path signal 120  2000 -635  5620 -635))
-      (outline (path signal 120  2000 635  2000 -635))
-      (outline (path signal 120  160 2350  160 1040))
-      (outline (path signal 120  160 2350  1543 2350))
-      (outline (path signal 120  7221 -990  7221 -2110))
-      (outline (path signal 120  7221 2110  7221 990))
-      (outline (path signal 120  400 -1040  400 -2110))
-      (outline (path signal 120  400 2110  400 1040))
-      (outline (path signal 120  400 -2110  7221 -2110))
-      (outline (path signal 120  400 2110  7221 2110))
-      (outline (path signal 100  3206.67 635  3206.67 -635))
-      (outline (path signal 100  2000 -565  3206.67 -565))
-      (outline (path signal 100  2000 -465  3206.67 -465))
-      (outline (path signal 100  2000 -365  3206.67 -365))
-      (outline (path signal 100  2000 -265  3206.67 -265))
-      (outline (path signal 100  2000 -165  3206.67 -165))
-      (outline (path signal 100  2000 -65  3206.67 -65))
-      (outline (path signal 100  2000 35  3206.67 35))
-      (outline (path signal 100  2000 135  3206.67 135))
-      (outline (path signal 100  2000 235  3206.67 235))
-      (outline (path signal 100  2000 335  3206.67 335))
-      (outline (path signal 100  2000 435  3206.67 435))
-      (outline (path signal 100  2000 535  3206.67 535))
-      (outline (path signal 100  5620 635  2000 635))
-      (outline (path signal 100  5620 -635  5620 635))
-      (outline (path signal 100  2000 -635  5620 -635))
-      (outline (path signal 100  2000 635  2000 -635))
-      (outline (path signal 100  460 1050  1460 2050))
-      (outline (path signal 100  460 -2050  460 1050))
-      (outline (path signal 100  7160 -2050  460 -2050))
-      (outline (path signal 100  7160 2050  7160 -2050))
-      (outline (path signal 100  1460 2050  7160 2050))
-      (pin Oval[A]Pad_1600x1600_um 2 7620 0)
-      (pin Rect[A]Pad_1600x1600_um 1 0 0)
+    (image Switches:SWITCH_SPDT_PTH_11.6X4.0MM
+      (outline (path signal 203.2  2174.24 -5814.06  2174.24 5814.06))
+      (outline (path signal 203.2  -2174.24 -5814.06  2174.24 -5814.06))
+      (outline (path signal 203.2  -2174.24 5814.06  -2174.24 -5814.06))
+      (outline (path signal 203.2  2174.24 5814.06  -2174.24 5814.06))
+      (pin Round[A]Pad_1879.6_um 3 0 -2540)
+      (pin Round[A]Pad_1879.6_um 2 0 0)
+      (pin Round[A]Pad_1879.6_um 1 0 2540)
     )
     (image "Package_DIP:DIP-14_W7.62mm_Socket_LongPads"
       (outline (path signal 50  9150 1600  -1550 1600))
@@ -478,11 +434,6 @@
       (shape (path B.Cu 1600  -400 0  400 0))
       (attach off)
     )
-    (padstack Oval[A]Pad_1600x1600_um
-      (shape (path F.Cu 1600  0 0  0 0))
-      (shape (path B.Cu 1600  0 0  0 0))
-      (attach off)
-    )
     (padstack Oval[A]Pad_2200x2200_um
       (shape (path F.Cu 2200  0 0  0 0))
       (shape (path B.Cu 2200  0 0  0 0))
@@ -546,7 +497,7 @@
   )
   (network
     (net GND
-      (pins IC2-7 IC1-7 J3-2 B1-1 B1-1@1 B1-1@2 D1-1 SW1-1 J1-8 D2-1 J2-8)
+      (pins IC2-7 IC1-7 J3-2 B1-1 B1-1@1 B1-1@2 D1-1 SWd-1 J1-8 D2-1 J2-8)
     )
     (net GPIO_J1POTX
       (pins IC1-13 B1-33)
@@ -627,7 +578,7 @@
       (pins SW2-1 B1-2 D3-1)
     )
     (net GPIO_SWITCH_JOY
-      (pins B1-10 SW1-2)
+      (pins B1-10 SWd-2)
     )
     (net GPIO_J1LED
       (pins B1-5 R1-1)
