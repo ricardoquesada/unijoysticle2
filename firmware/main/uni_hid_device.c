@@ -607,7 +607,9 @@ void uni_hid_device_on_emu_mode_change(void) {
   int num_devices = 0;
   uni_hid_device_t* d = NULL;
   for (int j = 0; j < MAX_DEVICES; j++) {
-    if (bd_addr_cmp(g_devices[j].address, zero_addr) != 0) {
+    if (bd_addr_cmp(g_devices[j].address, zero_addr) != 0 &&
+    g_devices[j].hid_control_cid != 0 && g_devices[j].hid_interrupt_cid != 0
+    ) {
       num_devices++;
       d = &g_devices[j];
     }

@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4] - 2019-09-28
+### Added
+- Board & Layout: Rev D.
+  - 7405 are powered from C64. Allows to plug in the Unijoysticle unpowered
+    without causing noise in CIAs.
+  - Possibility to power the Unijoysticle from C64, if power supply is big enough.
+  - Not fully tested yet.
+
+### Changed
+- Firmware: Fix: Can enter combo Joy-Joy when there are disconnected devices.
+
 ## [0.4-rc0] - 2019-08-12
 ### Added
 - Firmware: Support for Nintendo Wii Remote Motion Plus controller.
@@ -81,7 +92,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
        - Main XTAL frequency: Autodetect
     - Components Wi-Fi
        - Software controls WiFi/Bluetooth coexistence: disabled
-    - 
+    -
 - Firmware: Using btstack develop-branch. Commit: 4ce43359e6190a70dcb8ef079b902c1583c2abe4
 
 ## [0.1.0] - 2019-04-15
