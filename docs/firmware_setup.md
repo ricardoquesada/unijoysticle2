@@ -28,7 +28,28 @@ Development can be done locally or using Vagrant for convinience. It's recommend
 - For PC/Linux/Mac (optional, and for development only):
   - Download libusb: https://libusb.info/
 
+### ESP-IDF
+
+From the [CHANGELOG.md][changelog], see what is the latest supported ESP-IDF
+version. As of this writing it is `v3.2.2`
+
+```sh
+$ cd esp/esp-idf
+$ git checkout v3.2.2
+$ git submodule update --init
+```
+
 ### Compile BTstack
+
+From the [CHANGELOG.md][changelog], see what is the latest supported BTStack
+version. As of this writing it is `dbb3cbc198393187c63748b8b0ed0a7357c9f190`.
+
+```sh
+$ cd src/btstack
+$ git checkout dbb3cbc198393187c63748b8b0ed0a7357c9f190
+```
+
+[changelog]: https://gitlab.com/ricardoquesada/unijoysticle2/blob/master/CHANGELOG.md
 
 #### For ESP32 development
 
@@ -60,7 +81,8 @@ Put your gamepad in bluetooth discovery mode and you should see it.
 
 ### Compile Unijoysticle
 
-Once you know that BTStack is working as expected, you can try with the Unijoysticle code.
+Once you know that BTStack is working as expected, you can try with the
+Unijoysticle code.
 
 For ESP32 development:
 
