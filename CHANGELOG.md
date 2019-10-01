@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Board & Layout: Rev D fixes
-- ESP-IDF: Using v3.2.3
+- ESP-IDF: Using v3.3
 
 
 ## [0.4] - 2019-09-28
