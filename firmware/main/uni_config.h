@@ -40,6 +40,6 @@ limitations under the License.
 // For exmaple, the Amiga device made by https://arananet.net/
 // These devices have only one port, so they only cannot use JOYSTICK_PORT_A,
 // and have 3 buttons mapped.
-#define UNIJOYSTICLE_SINGLE_PORT 0      // Enabled if 1
+#define UNIJOYSTICLE_SINGLE_PORT 0     // Enabled if 1
 
 #endif  // UNI_CONFIG_H

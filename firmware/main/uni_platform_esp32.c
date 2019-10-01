@@ -99,12 +99,12 @@ enum {
   EVENT_BIT_AUTOFIRE = (1 << 0),
 };
 
-static const gpio_num_t JOY_A_PORTS[] = {GPIO_JOY_A_UP, GPIO_JOY_A_DOWN,
-                                         GPIO_JOY_A_LEFT, GPIO_JOY_A_RIGHT,
-                                         GPIO_JOY_A_FIRE};
-static const gpio_num_t JOY_B_PORTS[] = {GPIO_JOY_B_UP, GPIO_JOY_B_DOWN,
-                                         GPIO_JOY_B_LEFT, GPIO_JOY_B_RIGHT,
-                                         GPIO_JOY_B_FIRE};
+static const gpio_num_t JOY_A_PORTS[] = {
+    GPIO_JOY_A_UP,   GPIO_JOY_A_DOWN,  GPIO_JOY_A_LEFT, GPIO_JOY_A_RIGHT,
+    GPIO_JOY_A_FIRE, GPIO_JOY_A_POT_X, GPIO_JOY_A_POT_Y};
+static const gpio_num_t JOY_B_PORTS[] = {
+    GPIO_JOY_B_UP,   GPIO_JOY_B_DOWN,  GPIO_JOY_B_LEFT, GPIO_JOY_B_RIGHT,
+    GPIO_JOY_B_FIRE, GPIO_JOY_A_POT_X, GPIO_JOY_A_POT_Y};
 
 // --- Globals
 
@@ -307,6 +307,13 @@ static void joy_update_port(uni_joystick_t* joy, const gpio_num_t* gpios) {
   if (!joy->auto_fire) {
     gpio_set_level(gpios[4], !!joy->fire);
   }
+
+#if UNIJOYSTICLE_SINGLE_PORT == 1
+  // Diginal buttons B and C for Amiga/Atari ST (pot X and pot Y on C64) are
+  // enabled only on "unijoysticle single port" mode.
+  gpio_set_level(gpios[5], !!joy->pot_x);
+  gpio_set_level(gpios[6], !!joy->pot_y);
+#endif  // UNIJOYSTICLE_SINGLE_PORT == 0
 }
 
 static void event_loop(void* arg) {
