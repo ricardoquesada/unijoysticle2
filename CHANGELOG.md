@@ -4,9 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Added
+- Firmware: Added support for "single joystick" unijoysticle devices.
+            Edit uni_config.h and change UNIJOYSTICLE_SINGLE_PORT to 1
+
+### Changed
+- Board & Layout: Rev D fixes
+- ESP-IDF: Using v3.2.3
+
+
 ## [0.4] - 2019-09-28
 ### Added
-- Board & Layout: Rev D.
+- Board & Layout: Rev D [WIP]
   - 7405 are powered from C64. Allows to plug in the Unijoysticle unpowered
     without causing noise in CIAs.
   - Possibility to power the Unijoysticle from C64, if power supply is big enough.
