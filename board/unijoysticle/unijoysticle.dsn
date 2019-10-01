@@ -36,6 +36,10 @@
             113600 -75003.6  113877 -74948.5  114159 -74930  170840 -74929
             171122 -74947.5)
     )
+    (plane GND (polygon F.Cu 0  111760 -74930  173990 -74930  173990 -121920  111760 -121920
+            111760 -113030  111760 -74930))
+    (plane GND (polygon B.Cu 0  111760 -74930  173990 -74930  173990 -121920  111760 -121920
+            111760 -74930))
     (via "Via[0-1]_685.8:330.2_um")
     (rule
       (width 152.4)
@@ -45,8 +49,14 @@
     )
   )
   (placement
-    (component Switches:SWITCH_SPDT_PTH_11.6X4.0MM
-      (place SW2 170180 -106680 front 180 (PN SW_SPST))
+    (component "Symbol:OSHW-Logo2_7.3x6mm_SilkScreen"
+      (place REF** 142240 -88900 front 0 (PN "OSHW-Logo2_7.3x6mm_SilkScreen"))
+    )
+    (component Unijoysticle:unijoysticle_logo
+      (place G*** 142240 -93980 back 0 (PN LOGO))
+    )
+    (component Button_Switch_THT:SW_CuK_OS102011MA1QN1_SPDT_Angled
+      (place SW2 170500 -108800 front 90 (PN SW_SPST))
     )
     (component "Package_DIP:DIP-14_W7.62mm_Socket_LongPads"
       (place IC2 162600 -83439 front 0 (PN 74LS05))
@@ -71,7 +81,7 @@
       (place D2 122000 -106300 front 270 (PN LED))
     )
     (component "Button_Switch_THT:SW_Tactile_SPST_Angled_PTS645Vx39-2LFS"
-      (place SWd 113500 -117000 front 90 (PN SW_Push))
+      (place SW1 113500 -117000 front 90 (PN SW_Push))
     )
     (component "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset9.40mm"
       (place J1 121412 -79248 front 180 (PN DB9_Female))
@@ -79,14 +89,35 @@
     )
   )
   (library
-    (image Switches:SWITCH_SPDT_PTH_11.6X4.0MM
-      (outline (path signal 203.2  2174.24 -5814.06  2174.24 5814.06))
-      (outline (path signal 203.2  -2174.24 -5814.06  2174.24 -5814.06))
-      (outline (path signal 203.2  -2174.24 5814.06  -2174.24 -5814.06))
-      (outline (path signal 203.2  2174.24 5814.06  -2174.24 5814.06))
-      (pin Round[A]Pad_1879.6_um 3 0 -2540)
-      (pin Round[A]Pad_1879.6_um 2 0 0)
-      (pin Round[A]Pad_1879.6_um 1 0 2540)
+    (image "Symbol:OSHW-Logo2_7.3x6mm_SilkScreen"
+    )
+    (image Unijoysticle:unijoysticle_logo
+      (outline (path signal 150  -15240 12700  -15240 11430))
+      (outline (path signal 150  15240 12700  -15240 12700))
+      (outline (path signal 150  15240 -11430  15240 12700))
+      (outline (path signal 150  -15240 -11430  15240 -11430))
+      (outline (path signal 150  -15240 11430  -15240 -11430))
+    )
+    (image Button_Switch_THT:SW_CuK_OS102011MA1QN1_SPDT_Angled
+      (outline (path signal 50  -3700 2700  7700 2700))
+      (outline (path signal 50  -3700 -6700  -3700 2700))
+      (outline (path signal 50  7700 -6700  -3700 -6700))
+      (outline (path signal 50  7700 2700  7700 -6700))
+      (outline (path signal 150  4000 -2300  6300 -2300))
+      (outline (path signal 150  -2300 -2300  -100 -2300))
+      (outline (path signal 150  -2300 2300  6300 2300))
+      (outline (path signal 100  0 -6200  0 -2200))
+      (outline (path signal 100  2000 -6200  0 -6200))
+      (outline (path signal 100  2000 -2200  2000 -6200))
+      (outline (path signal 100  6300 -2200  6300 2200))
+      (outline (path signal 100  -2300 -2200  6300 -2200))
+      (outline (path signal 100  -2300 2200  -2300 -2200))
+      (outline (path signal 100  -2300 2200  6300 2200))
+      (pin Oval[A]Pad_2200x3500_um @1 6100 0)
+      (pin Oval[A]Pad_2200x3500_um @2 -2100 0)
+      (pin Oval[A]Pad_1500x2500_um 3 4000 0)
+      (pin Oval[A]Pad_1500x2500_um 2 2000 0)
+      (pin Rect[A]Pad_1500x2500_um 1 0 0)
     )
     (image "Package_DIP:DIP-14_W7.62mm_Socket_LongPads"
       (outline (path signal 50  9150 1600  -1550 1600))
@@ -429,9 +460,19 @@
       (shape (path B.Cu 1400  0 0  0 0))
       (attach off)
     )
+    (padstack Oval[A]Pad_1500x2500_um
+      (shape (path F.Cu 1500  0 -500  0 500))
+      (shape (path B.Cu 1500  0 -500  0 500))
+      (attach off)
+    )
     (padstack Oval[A]Pad_2400x1600_um
       (shape (path F.Cu 1600  -400 0  400 0))
       (shape (path B.Cu 1600  -400 0  400 0))
+      (attach off)
+    )
+    (padstack Oval[A]Pad_2200x3500_um
+      (shape (path F.Cu 2200  0 -650  0 650))
+      (shape (path B.Cu 2200  0 -650  0 650))
       (attach off)
     )
     (padstack Oval[A]Pad_2200x2200_um
@@ -479,6 +520,11 @@
       (shape (rect B.Cu -1200 -800 1200 800))
       (attach off)
     )
+    (padstack Rect[A]Pad_1500x2500_um
+      (shape (rect F.Cu -750 -1250 750 1250))
+      (shape (rect B.Cu -750 -1250 750 1250))
+      (attach off)
+    )
     (padstack Rect[A]Pad_1600x1600_um
       (shape (rect F.Cu -800 -800 800 800))
       (shape (rect B.Cu -800 -800 800 800))
@@ -497,7 +543,7 @@
   )
   (network
     (net GND
-      (pins IC2-7 IC1-7 J3-2 B1-1 B1-1@1 B1-1@2 D1-1 SWd-1 J1-8 D2-1 J2-8)
+      (pins IC2-7 IC1-7 J3-2 B1-1 B1-1@1 B1-1@2 D1-1 SW1-1 J1-8 D2-1 J2-8)
     )
     (net GPIO_J1POTX
       (pins IC1-13 B1-33)
@@ -578,7 +624,7 @@
       (pins SW2-1 B1-2 D3-1)
     )
     (net GPIO_SWITCH_JOY
-      (pins B1-10 SWd-2)
+      (pins B1-10 SW1-2)
     )
     (net GPIO_J1LED
       (pins B1-5 R1-1)
@@ -617,5 +663,95 @@
     )
   )
   (wiring
+    (wire (path B.Cu 152.4  122120 -85979  120691 -85979)(net GPIO_J1POTX)(type protect))
+    (wire (path B.Cu 152.4  128524 -104140  125700 -104140  120384 -98823.3  120384 -86286.6
+            120691 -85979)(net GPIO_J1POTX)(type protect))
+    (wire (path F.Cu 152.4  114500 -88519  121050 -95069  124013 -95069  126734 -97790
+            128923 -97790  129794 -98661  129794 -100330  131064 -101600)(net GPIO_J1DOWN)(type protect))
+    (wire (path F.Cu 152.4  114500 -83439  115929 -83439)(net GPIO_J1UP)(type protect))
+    (wire (path F.Cu 152.4  131064 -99060  129693 -97688.8  129693 -96001.3  129043 -95351.2
+            126030 -95351.2  125443 -94763.8  121411 -94763.8  115929 -89282
+            115929 -83439)(net GPIO_J1UP)(type protect))
+    (wire (path B.Cu 152.4  170220 -85979  168791 -85979)(net GPIO_J1POTY)(type protect))
+    (wire (path B.Cu 152.4  153924 -106680  155295 -105309  155295 -103633  156058 -102870
+            156860 -102870  159469 -100261  159469 -99904.4  161964 -97409
+            163255 -97409  168791 -91872.6  168791 -85979)(net GPIO_J1POTY)(type protect))
+    (wire (path B.Cu 152.4  156464 -101600  159294 -98770.1  159294 -96905.1  162600 -93599)(net GPIO_J2LEFT)(type protect))
+    (wire (path B.Cu 152.4  156464 -104140  160094 -100510  162683 -100510  166785 -96408.4
+            166785 -94494.4  170220 -91059)(net GPIO_J2FIRE)(type protect))
+    (wire (path F.Cu 152.4  170220 -96139  168791 -96139)(net GPIO_J2RIGHT)(type protect))
+    (wire (path F.Cu 152.4  153924 -104140  155215 -102849  156974 -102849  158868 -100955
+            163975 -100955  168791 -96139)(net GPIO_J2RIGHT)(type protect))
+    (wire (path B.Cu 152.4  162600 -88519  161171 -88519)(net GPIO_J2DOWN)(type protect))
+    (wire (path B.Cu 152.4  156464 -99060  161171 -94352.9  161171 -88519)(net GPIO_J2DOWN)(type protect))
+    (wire (path B.Cu 152.4  162600 -83439  164029 -83439)(net GPIO_J2UP)(type protect))
+    (wire (path B.Cu 152.4  156464 -96520  159598 -93386.4  159598 -89634.4  161983 -87249
+            163228 -87249  164029 -86447.6  164029 -83439)(net GPIO_J2UP)(type protect))
+    (wire (path B.Cu 152.4  122120 -91059  123549 -91059)(net GPIO_J1FIRE)(type protect))
+    (wire (path B.Cu 152.4  128524 -109220  129693 -108051  129693 -101081  129043 -100431
+            128157 -100431  123549 -95822.9  123549 -91059)(net GPIO_J1FIRE)(type protect))
+    (wire (path F.Cu 152.4  122120 -96139  123549 -96139)(net GPIO_J1RIGHT)(type protect))
+    (wire (path F.Cu 152.4  131064 -106680  132254 -105490  132254 -103617  131508 -102870
+            130582 -102870  129794 -102082  129794 -101170  128954 -100330
+            127740 -100330  123549 -96139)(net GPIO_J1RIGHT)(type protect))
+    (wire (path F.Cu 152.4  114500 -93599  115929 -93599)(net GPIO_J1LEFT)(type protect))
+    (wire (path F.Cu 152.4  131064 -104140  129794 -102870  124398 -102870  115929 -94401.3
+            115929 -93599)(net GPIO_J1LEFT)(type protect))
+    (wire (path B.Cu 152.4  114500 -85979  115929 -85979)(net J1UP)(type protect))
+    (wire (path B.Cu 152.4  121412 -79248  120383 -79248  120383 -81524.8  115929 -85979)(net J1UP)(type protect))
+    (wire (path B.Cu 152.4  114500 -96139  115929 -96139)(net J1LEFT)(type protect))
+    (wire (path B.Cu 152.4  126952 -79248  126952 -80470  122713 -84709  121486 -84709
+            115929 -90266.6  115929 -96139)(net J1LEFT)(type protect))
+    (wire (path B.Cu 152.4  124182 -79248  116964 -86466.2  116964 -88595.2  114500 -91059)(net J1DOWN)(type protect))
+    (wire (path B.Cu 152.4  122120 -98679  120691 -98679)(net J1RIGHT)(type protect))
+    (wire (path B.Cu 152.4  129722 -79248  129722 -80237.1  122710 -87249  121527 -87249
+            120691 -88084.9  120691 -98679)(net J1RIGHT)(type protect))
+    (wire (path B.Cu 152.4  122120 -88519  123549 -88519)(net J1POTX)(type protect))
+    (wire (path B.Cu 152.4  131107 -76408  131107 -80960.9  123549 -88519)(net J1POTX)(type protect))
+    (wire (path F.Cu 152.4  170220 -88519  168791 -88519)(net J1POTY)(type protect))
+    (wire (path F.Cu 152.4  132492 -79248  136393 -75347  154579 -75347  155551 -76319
+            155551 -76495.5  157122 -78066.4  158604 -78066.4  159706 -79168.3
+            159706 -79445.5  161604 -81343.5  162838 -81343.5  168791 -87296.9
+            168791 -88519)(net J1POTY)(type protect))
+    (wire (path F.Cu 152.4  122120 -93599  120691 -93599)(net J1FIRE)(type protect))
+    (wire (path F.Cu 152.4  122797 -76408  122797 -80398.7  120691 -82504.6  120691 -93599)(net J1FIRE)(type protect))
+    (wire (path B.Cu 152.4  152781 -79248  153810 -79248  160541 -85979  162600 -85979)(net J2UP)(type protect))
+    (wire (path B.Cu 152.4  162600 -96139  164029 -96139)(net J2LEFT)(type protect))
+    (wire (path B.Cu 152.4  158321 -79248  161272 -82199.1  163686 -82199.1  164390 -82902.8
+            164390 -95778.4  164029 -96139)(net J2LEFT)(type protect))
+    (wire (path F.Cu 152.4  162600 -91059  161171 -91059)(net J2DOWN)(type protect))
+    (wire (path F.Cu 152.4  155551 -79248  155551 -85438.9  161171 -91059)(net J2DOWN)(type protect))
+    (wire (path B.Cu 152.4  170220 -98679  171649 -98679)(net J2RIGHT)(type protect))
+    (wire (path B.Cu 152.4  161091 -79248  163323 -81480.1  166245 -81480.1  169474 -84709
+            170833 -84709  171649 -85524.6  171649 -98679)(net J2RIGHT)(type protect))
+    (wire (path F.Cu 152.4  170220 -93599  168791 -93599)(net J2FIRE)(type protect))
+    (wire (path F.Cu 152.4  154166 -76408  154260 -76408  156936 -79083.7  156936 -82173.4
+            162012 -87249  163243 -87249  168791 -92796.7  168791 -93599)(net J2FIRE)(type protect))
+    (wire (path B.Cu 152.4  121000 -110880  120071 -110880)(net "Net-(D1-Pad2)")(type protect))
+    (wire (path B.Cu 152.4  115300 -106300  115491 -106300  120071 -110880)(net "Net-(D1-Pad2)")(type protect))
+    (wire (path B.Cu 152.4  161000 -102500  161000 -103829)(net VDD)(type protect))
+    (wire (path B.Cu 152.4  153924 -111760  155295 -110389  155295 -108713  156058 -107950
+            156879 -107950  161000 -103829)(net VDD)(type protect))
+    (wire (path F.Cu 152.4  161000 -102500  162329 -102500  168629 -108800  170500 -108800)(net VDD)(type protect))
+    (wire (path F.Cu 152.4  131064 -116840  129895 -116840)(net GPIO_SWITCH_JOY)(type protect))
+    (wire (path F.Cu 152.4  113500 -112500  116671 -115671  129019 -115671  129895 -116548
+            129895 -116840)(net GPIO_SWITCH_JOY)(type protect))
+    (wire (path B.Cu 152.4  121000 -118500  121000 -117620  128130 -110490  129794 -110490
+            131064 -109220)(net GPIO_J1LED)(type protect))
+    (wire (path B.Cu 152.4  123500 -118500  126430 -115570  129794 -115570  131064 -114300)(net GPIO_J2LED)(type protect))
+    (wire (path B.Cu 152.4  122000 -106300  123500 -107800  123500 -110880)(net "Net-(D2-Pad2)")(type protect))
+    (wire (path B.Cu 152.4  162300 -118110  161000 -116810  161000 -110120)(net "Net-(D3-Pad2)")(type protect))
+    (wire (path B.Cu 152.4  156936 -76408  158072 -77544.5  163699 -77544.5  168791 -82636.7
+            168791 -83439)(net J1POWER)(type protect))
+    (wire (path B.Cu 152.4  170220 -83439  168791 -83439)(net J1POWER)(type protect))
+    (wire (path B.Cu 152.4  156936 -76408  155278 -78066.4  145192 -78066.4  139759 -83500)(net J1POWER)(type protect))
+    (wire (path B.Cu 152.4  138430 -83500  139759 -83500)(net J1POWER)(type protect))
+    (wire (path F.Cu 152.4  125567 -81812.1  125176 -81812.1  123549 -83439)(net J1POWER)(type protect))
+    (wire (path F.Cu 152.4  138430 -83500  127255 -83500  125567 -81812.1  125567 -76408)(net J1POWER)(type protect))
+    (wire (path F.Cu 152.4  122120 -83439  123549 -83439)(net J1POWER)(type protect))
+    (wire (path F.Cu 152.4  147379 -83500  156272 -92393.1  166862 -92393.1  169337 -94869
+            170862 -94869  172496 -96502.8  172496 -106283  171979 -106800)(net "Net-(D4-Pad1)")(type protect))
+    (wire (path F.Cu 152.4  170500 -106800  171979 -106800)(net "Net-(D4-Pad1)")(type protect))
+    (wire (path F.Cu 152.4  146050 -83500  147379 -83500)(net "Net-(D4-Pad1)")(type protect))
   )
 )
