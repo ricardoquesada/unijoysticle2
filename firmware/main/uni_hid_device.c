@@ -19,6 +19,7 @@ limitations under the License.
 #include "uni_hid_device.h"
 
 #include "uni_circular_buffer.h"
+#include "uni_config.h"
 #include "uni_debug.h"
 #include "uni_hid_device_vendors.h"
 #include "uni_hid_parser_8bitdo.h"
@@ -136,6 +137,10 @@ void uni_hid_device_assign_joystick_port(uni_hid_device_t* d) {
     used_joystick_ports |= g_devices[i].joystick_port;
   }
 
+#if UNIJOYSTICLE_SINGLE_PORT
+  int wanted_port = JOYSTICK_PORT_A;
+  d->emu_mode = EMULATION_MODE_SINGLE_JOY;
+#else // UNIJOYSTICLE_SINGLE_PORT  == 0
   // Try with Port B, assume it is a joystick
   int wanted_port = JOYSTICK_PORT_B;
   d->emu_mode = EMULATION_MODE_SINGLE_JOY;
@@ -155,8 +160,8 @@ void uni_hid_device_assign_joystick_port(uni_hid_device_t* d) {
     logi("Port already assigned, trying another one\n");
     wanted_port = (~wanted_port) & JOYSTICK_PORT_AB_MASK;
   }
+#endif // UNIJOYSTICLE_SINGLE_PORT  == 0
 
-  used_joystick_ports |= wanted_port;
   uni_hid_device_set_joystick_port(d, wanted_port);
 
   if (d->report_parser.setup) d->report_parser.setup(d);
