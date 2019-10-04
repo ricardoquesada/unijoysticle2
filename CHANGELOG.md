@@ -11,7 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Board & Layout: Rev D fixes
-- ESP-IDF: Using v3.3
+- Firmware: ESP-IDF v3.3
+* Firmware: BTStack 138818a33e591e964a727284c192700abe2fee26 (2019-9-9)
 
 
 ## [0.4] - 2019-09-28
