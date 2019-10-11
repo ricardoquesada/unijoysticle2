@@ -136,7 +136,12 @@ This could be due to a lot of things. Assuming that you are using a [supported g
 5. If it fails press "Reboot + Toggle-Mode" buttons at the same time.
    This will reboot the Unijoysticle while also deleting the stored Bluetooth keys.
 
-6. Put the gamepad in Bluetooth discovery mode (grab the manual of your gamepad). Go to step 2.
+6. Put the gamepad in Bluetooth discovery mode (grab the manual of your gamepad). Try again.
+
+7. If it fails, trying connecting the gamepad to a Linux (MacOs or Windows might be the same) machine first.
+   If the gamepad cannot connect to Linux, then most probably it is a gamepad issue. Cannot help here.
+
+8. Repeat. Go to Step 2.
 
 If it keeps failing, file a bug (see below).
 
