@@ -128,7 +128,6 @@ This could be due to a lot of things. Assuming that you are using a [supported g
 2. Reboot the Unijoysticle: Press the "Reboot" button that is placed in the ESP32 Mini Kit.
 
 3. While rebooting, the LEDs should turn on, and after ~half a second, the should turn off.
-
    - If the LEDs don't turn On at all: file a bug (see below).
    - If the LEDs don't turn Off, it means that Bluetooth is not ready. Go to step 2.
 
