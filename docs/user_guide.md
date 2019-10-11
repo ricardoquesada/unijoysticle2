@@ -117,44 +117,80 @@ like [Robotron: 2084][8]
 
 ## Troubleshooting
 
+![Buttons](https://lh3.googleusercontent.com/Ck97IlSA8diFQ0E-SxdAkO6z2yRX-tfSJYtEd-zKqIy9vd8orW7kaOVqlWY5QKqgnBAtzPd3iwqfo2TKRwIwFIwdRS-vnB5pOriiBoccYz4chHoM7UOGV08OjvB95b_2uZIjxyGDJmw=-no)
+
 ### Gamepad cannot connect
 
 This could be due to a lot of things. Assuming that you are using a [supported gamepad][2], try:
 
-- Make sure that the red and green LEDs are off. Meaning that BT is ready.
-  Reboot the device and try again.
+1. Unplug the Unijoysticle from the Commodore (turn off the Commodore first).
 
-- Reboot the Unijoysticle. Press the Reset button that is placed in the ESP32 Mini Kit
-  And try again.
+2. Reboot the Unijoysticle: Press the "Reboot" button that is placed in the ESP32 Mini Kit.
 
-- Press the Reboot + Toggle-Mode buttons at the same time.
-  This will reboot the Unijoysticle while also deleting the stored BT keys.
-  Any try again.
+3. While rebooting, the LEDs should turn on, and after ~half a second, the should turn off.
 
-- Put the gamepad in BT discovery mode. And try again.
+   - If the LEDs don't turn On at all: file a bug (see below).
+   - If the LEDs don't turn Off, it means that Bluetooth is not ready. Go to step 2.
 
-If none of the above works, file a bug (see below).
+4. Once the LEDs are off, trying connecting the Gamepad again.
 
-### Both green and red LEDs are always on after booting
+5. If it fails press "Reboot + Toggle-Mode" buttons at the same time.
+   This will reboot the Unijoysticle while also deleting the stored Bluetooth keys.
 
-This means that the BT stack is not ready yet. It shouldn't take more than one second to be ready.
-Try rebooting the device. If they are still on, file a bug (see below).
+6. Put the gamepad in Bluetooth discovery mode (grab the manual of your gamepad). Go to step 2.
+
+If it keeps failing, file a bug (see below).
 
 ### Gamepad cannot re-connect
 
-Assuming tha the gamepad connects Ok for the first time, but fails to reconnect then:
+Assuming that the gamepad connects Ok for the first time, but fails to reconnect then:
 
 - Press the Reboot + Toggle-Mode buttons at the same time.
   This will reboot the Unijoysticle while also deleting the stored BT keys.
   Any try again.
 
-- Put the gamepad in BT discovery mode. And try again.
+- Put the gamepad in Bluetooth discovery mode. And try again.
 
 If none of the above works, file a bug (see below).
 
 ## Reporting bugs
 
-File bugs in Gitlab project: https://gitlab.com/ricardoquesada/unijoysticle2/issues
+File bug here: https://gitlab.com/ricardoquesada/unijoysticle2/issues
+
+When you file a bug, make sure that you include as much information as possible:
+
+- Gamepad you are using. If possible the firmware version the gamepad is using.
+- Unijoysticle firmware.
+- Computer that you are using: C64, C128, etc.
+- How you are powering the Unijoysticle.
+- Logs (this is the most important thing!)
+
+### Unijoysticle logs
+
+The logs can be fetched by connecting a terminal to the ESP32 module.
+
+1. Connect the ESP32 module to your PC using a micro USB cable.
+2. Launch any serial terminal, like the one that comes from Arduino.
+3. Reboot the Unijoysticle
+4. Try to connect the gamepad again.
+5. Let it try for a few seconds.
+6. Copy & paste the output from the terminal and put it in the bug report.
+
+### Arduino terminal step-by-step
+
+1. Download Arduino from here: https://www.arduino.cc/en/main/software
+2. Launch Arduino -> Tools -> Set Port
+
+![Arduino Set Port](https://lh3.googleusercontent.com/ZFQuAf_6tvYutrRcdcduTdFJSS-dfhDcznTpv5GTkAVdKzsPgHBrpBcuZX5TApMCoc1FXI0wLnKkTKSxONlWGF0Y7RZXJxFmi3a4iZE8AZ_ovOCTl_a3Vd8jOUEbtX0g4m0F_OlHESo=-no)
+
+3. Arduino -> Tools -> Serial Monitor
+
+![Arduino Serial Monitor](https://lh3.googleusercontent.com/0z1QOhcuTcLnv-Ra-JrgEoOYD0-cH4tAumqxECO9jE6KdcItf7zycBx5tG4BWhUyISq_E5e7T9gC4fdAehkQ6WJDYAN3U6B2P5OwSsStEXOs6-kFkW1Kol0-Jf26Bno8dIxf7Jp1l0E=-no)
+
+4. From the Serial Monitor, set Bauds to 115200
+
+![Set Bauds](https://lh3.googleusercontent.com/evBxv1oQ2jv28wk29ofAKiM0CNMK2GVi6tXmrCX8Wml3xZG6MEz4WoAVIbyX2h21fYDGN7SvkYiFFmTxwVarR4Zm0oElPwzL-oHnIuW5FCOSzclQt3rRI_rrqw5LZ1SzceUBMBSDIjY=-no)
+
 
 [1]: firmware_setup.md
 [2]: supported_gamepads.md
