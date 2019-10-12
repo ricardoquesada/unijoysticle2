@@ -9,7 +9,7 @@
 
 ## Soldering the kit
 
-All components are through-hole. The only components that have polarity are the LEDs and the diode.
+All components are through-hole. The only components that have polarity are the LEDs and the diodes.
 See graphic for reference:
 
 ![Solering the kit](https://lh3.googleusercontent.com/OeZOaFWiLGXJBIcYT9sOwVjyqbsDSZoijTJW9cbUNGYfc9TbIJVF53CqkWTVfTdlYQfp77WaFv4bsRyZmPLXDquYdG8hyqrcCCb6tOtwiuIDGkAcJAjTXWARg1gh9Owzy4crkM6BMhQ=-no)
