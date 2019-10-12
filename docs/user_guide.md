@@ -26,12 +26,12 @@ Neded components:
 - 2 x 14p DIP sockets for the 7405s (ref: IC1, IC2)
 - 1 x standard green LED 3mm (ref: D1)
 - 1 x standard red LED 3mm (ref: D2)
-- 2 x 150 ohm resistors (ref: R1, R2)
-- 1 x tactile button (ref: SW1)
-- 2 x db9 female connectors (ref: J1, J2)
 - 2 x 1N4001 diode (ref: D3, D4)
-- 1 x DC Power Barrel Jack (ref: J3)
+- 2 x 150 ohm resistors (ref: R1, R2)
+- 1 x Switch Tacticle SPST (ref: SW1)
 - 1 x Switch Slide SPDT 200mA (ref: SW2)
+- 2 x db9 female connectors (ref: J1, J2)
+- 1 x DC Power Barrel Jack (ref: J3)
 
 You can source the components from here:
 
