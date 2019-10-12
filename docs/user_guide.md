@@ -37,7 +37,7 @@ You can source the components from here:
 
 - Unijoysticle 2 PCB from: [PCBWay][3]
 - ESP32 devkit from: [ESP32 Mini Kit][5]
-- [Remaining components][7]
+- Remaining components: [DigiKey list][7]
 
 ## Flashing the firmware
 
