@@ -23,15 +23,15 @@ Neded components:
 - 1 x Unijoysticle 2 PCB
 - 1 x ESP32 Mini Kit (and its pins)
 - 2 x 74HC05N ICs
-- 2 x 14p DIP sockets for the 7405s
-- 1 x standard green LED 3mm
-- 1 x standard red LED 3mm
-- 2 x 150 ohm resistors
-- 1 x tactile button
-- 2 x db9 female connectors
-- 2 x 1N4001 diode
-- 1 x DC Power Barrel Jack
-- 1 x Switch Slide SPDT 200mA
+- 2 x 14p DIP sockets for the 7405s (ref: IC1, IC2)
+- 1 x standard green LED 3mm (ref: D1)
+- 1 x standard red LED 3mm (ref: D2)
+- 2 x 150 ohm resistors (ref: R1, R2)
+- 1 x tactile button (ref: SW1)
+- 2 x db9 female connectors (ref: J1, J2)
+- 2 x 1N4001 diode (ref: D3, D4)
+- 1 x DC Power Barrel Jack (ref: J3)
+- 1 x Switch Slide SPDT 200mA (ref: SW2)
 
 You can source the components from here:
 
