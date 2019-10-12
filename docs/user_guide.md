@@ -49,17 +49,26 @@ See: [firmware_setup.md][1]
 
 The Unijoysticle 2 can be powered by three different ways:
 
-- Self powered: If you have a [powerful enough power supply][power_supply] for the Commodore
+![self_powered](https://lh3.googleusercontent.com/XVQU7lkllCqc-1k6KX_3CdDIOlx0NCHO8NVDuBOJGdVef3Rq03KJpDHLqG_FNYW2GTeXOAxna9njsclcrlxmhOiBR_KvI-M8CDUOglUX9nCZLBILnkSB32Tews7yhmU38tfaVMxXnWU=-no)
+
+- Self powered: If you have a [power supply with 4Amps or more][power_supply]
   then the Unijoysticle can be self-powered (recommended!).
+
+![usb_powered](https://lh3.googleusercontent.com/lYiISEtede7TkKwvBZyOB57ZUynSDzPuKIqmfp6Cpl75BbGENM6qZkAXWD066YhpY1Xg-k016PrVt3783Q6iuLXFOdZrpXIW_XaEEwRaeUFvPBk1XVtwIvVjmxMGt5bvAPUHwOFScYw=-no)
 
 - USB: Connect a USB-micro cable into the ESP32 mini kit module.
   - If powered from a computer, it is great for debugging since you can see the console.
 
+![jack_barrel_powered](https://lh3.googleusercontent.com/REa_wfIZt5KEQT8ypO6d-OmpHLg8t8BUgz5tqnp-f6_ne7JgagdjGzp9RlPIbSXzIlAokX_ewJudmwD1Ony5OYq1Epd6-DnGMWVtXEafDw9H6DIvXlT3iffDOlmXTLoYWQhbR8TrLH8=-no)
+
 - Power Jack Barrel with a 5V+ / ~250mA
-  - Self-powered in case you connect it to the C64/C128 datasette port.
+  - Can be powered by any +5V power supply (the same as some Arduino boards).
+  - Or self-powered in case you connect it to the C64/C128 datasette port.
   - Polarity: positive polarity (tip=+5v, sleeve=0v)
 
 It is safe to plug the three of them at the same time, but that won't give you any additional benefit.
+
+[power_supply]: https://www.carlsenelectronics.net/
 
 ## Booting
 
