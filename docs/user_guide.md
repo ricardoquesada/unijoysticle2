@@ -1,10 +1,11 @@
 # User Guide
 
-![Unijoysticle 2](https://lh3.googleusercontent.com/5z64MnH33BL75in0eUzcMZeayM6dUNELabYsVOB-fAuXg1LogRnEZN3G132GyiEIxGKzLtu-ZNaZyxh4UwsJbNI9UwP4f19cHUyUsJkge__LU6sLx3pXXtcNG3kAuNhCuoPcRgUDaL4=-no)
+![Unijoysticle 2](https://lh3.googleusercontent.com/cbeL59-n7k_9RIFQCdspwVP8zAm3nssiOad_g7NGF83SjWvAHnhD2opSXFDXh7e1WJnX6LrM31MhGfoeHxgKKDaAJwnOmYoFqY9mrfEv7KCXQWg1RYVepyljDuJCSbkh5gDNzbsNNb8=-no)
 
 - Toggle Mode button: Toggles between "Basic" and "Enhanced" modes
 - Reboot button: Reboots the Unijoysticle 2
 - LEDs: Green/Red LEDs turn on when Joystick 1/Joystick 2 are attached
+- Self-Powered On/Off: When On, the Unijoysticle will be powered by the Commodore.
 
 ## Soldering the kit
 
