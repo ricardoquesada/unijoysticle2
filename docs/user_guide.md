@@ -15,7 +15,7 @@ See graphic for reference:
 
 An assembled + soldered kit should look like this:
 
-![Assembled kit](https://lh3.googleusercontent.com/ajmUdFVA07CQ-HD-Z7w5bQ8Ehf92yn07OGGAG7KtJ-6NTYPcR7L1pfNEfjhBFYwxOR8zb6hFmFuHY9WvX81-PWAtoh0-bU1ez5l87fhbDvOaTmwdqO0MHizSjWBAnSh7Vo59RdISxZM=-no)
+![Assembled kit](https://lh3.googleusercontent.com/f-C7DUbvMRB_aTx0MFTeJAaFxzJ2_EG6xE9aztIERBFYnqPDXcAmC_RI3-B546JMcBqZOAGRAwmOPGcqEdEO3BXl1xXhaQoPP2ANkf5qFqEea-H6qP6pvE_J2gKnZnpTIubd0NDPhZk=-no)
 
 Neded components:
 
@@ -23,20 +23,20 @@ Neded components:
 - 1 x ESP32 Mini Kit (and its pins)
 - 2 x 74HC05N ICs
 - 2 x 14p DIP sockets for the 7405s
-- 1 x standard green LED 3mm ~25mA
-- 1 x standard red LED 3mm ~25mA
+- 1 x standard green LED 3mm
+- 1 x standard red LED 3mm
 - 2 x 150 ohm resistors
 - 1 x tactile button
 - 2 x db9 female connectors
-- 1 x 1N4001 diode
+- 2 x 1N4001 diode
 - 1 x DC Power Barrel Jack
+- 1 x Switch Slide SPDT 200mA
 
 You can source the components from here:
 
-- Unijoysticle 2 PCB from: [PCBWay (blue)][3] or [PCBWay (black)][11] or [OSHPark][4]
-- ESP32 devkit from: [ESP32 Mini Kit (blue)][5] or [ESP32 TTGO Mini (black)][12]
-  - extra [pins might be needed][6]
-- [Remaining components][7] (you must be logged in into DigiKey)
+- Unijoysticle 2 PCB from: [PCBWay][3]
+- ESP32 devkit from: [ESP32 Mini Kit][5]
+- [Remaining components][7]
 
 ## Flashing the firmware
 
@@ -44,20 +44,19 @@ See: [firmware_setup.md][1]
 
 ## Power on
 
-The Unijoysticle 2 can be powered either with:
+The Unijoysticle 2 can be powered by three different ways:
+
+- Self powered: If you have a [powerful enough power supply][power_supply] for the Commodore
+  then the Unijoysticle can be self-powered (recommended!).
 
 - USB: Connect a USB-micro cable into the ESP32 mini kit module.
-  - If powered from a computer, it is great for debugging since you can see the console
+  - If powered from a computer, it is great for debugging since you can see the console.
+
 - Power Jack Barrel with a 5V+ / ~250mA
   - Self-powered in case you connect it to the C64/C128 datasette port.
   - Polarity: positive polarity (tip=+5v, sleeve=0v)
 
-It is safe to plug both the USB and Jack Barrel at the same time, but that won't
-give you any additional benefit.
-
-**IMPORTANT**: If the Unijoysticle is plugged-in into the Commodore, but it is not powered on,
-it might generate noise in the Joystick lines. Since the joystick lines are also shared by
-the keyboard, it might be possible that certain keys might not work. See: https://gitlab.com/ricardoquesada/unijoysticle2/issues/8
+It is safe to plug the three of them at the same time, but that won't give you any additional benefit.
 
 ## Booting
 
@@ -198,16 +197,9 @@ The logs can be fetched by connecting a terminal to the ESP32 module.
 
 [1]: firmware_setup.md
 [2]: supported_gamepads.md
-[3]: https://www.pcbway.com/project/shareproject/Unijoysticle_2.html
-[4]: https://oshpark.com/shared_projects/l32mADi8
+[3]: https://www.pcbway.com/project/shareproject/Unijoysticle_2___Rev__D.html
 [5]: https://www.aliexpress.com/store/product/MH-ET-LIVE-ESP32-MINI-KIT-WiFi-Bluetooth-Internet-of-Things-development-board-based-ESP8266-Fully/2348158_32819107932.html?spm=a2g0x.12010108.1000001.12.56543b1cEQVriV
-[6]: https://www.aliexpress.com/item/10PCS-40Pin-1x40P-2-54mm-Male-Breakable-Single-Row-Pin-Header-Strip-Connector-For-Arduino/32973539561.html?spm=2114.search0104.3.9.158d2b70wty222
-[7]: https://www.digikey.com/short/pprdhv
+[7]: https://www.digikey.com/short/pnq527
 [8]: https://en.wikipedia.org/wiki/Robotron:_2084
 [9]: https://csdb.dk/release/?id=38140
 [10]: https://csdb.dk/release/?id=137173
-[11]: https://www.pcbway.com/project/shareproject/Unijoysticle_2__black_edition_.html
-[12]: https://www.aliexpress.com/item/TTGO-MINI32-V2-0-13-ESP32-rev1-rev-one-WiFi-Bluetooth-Module-For-D1-mini/32845357819.html?spm=a2g0s.9042311.0.0.6dd64c4diLRDMz
-
-
-
