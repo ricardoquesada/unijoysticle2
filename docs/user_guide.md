@@ -12,7 +12,7 @@
 All components are through-hole. The only components that have polarity are the LEDs and the diode.
 See graphic for reference:
 
-![Solering the kit](https://lh3.googleusercontent.com/ZTu0iD57vqErS4Db-EeZyetXIQoKDy9E449kEcDra5ZAmpwThNIXn8jBqcDD87YzG1pip65pEcRpCkp2hKvoVQL1PpANQ766RERK4ecsmgYYdreZuJID4AX9zx7e3el4v3YggfPN4FM=-no)
+![Solering the kit](https://lh3.googleusercontent.com/OeZOaFWiLGXJBIcYT9sOwVjyqbsDSZoijTJW9cbUNGYfc9TbIJVF53CqkWTVfTdlYQfp77WaFv4bsRyZmPLXDquYdG8hyqrcCCb6tOtwiuIDGkAcJAjTXWARg1gh9Owzy4crkM6BMhQ=-no)
 
 An assembled + soldered kit should look like this:
 
@@ -21,7 +21,7 @@ An assembled + soldered kit should look like this:
 Neded components:
 
 - 1 x Unijoysticle 2 PCB
-- 1 x ESP32 Mini Kit (and its pins)
+- 1 x ESP32 Mini Kit (and its pins) (ref: B1)
 - 2 x 74HC05N ICs
 - 2 x 14p DIP sockets for the 7405s (ref: IC1, IC2)
 - 1 x standard green LED 3mm (ref: D1)
@@ -32,6 +32,8 @@ Neded components:
 - 1 x Switch Slide SPDT 200mA (ref: SW2)
 - 2 x db9 female connectors (ref: J1, J2)
 - 1 x DC Power Barrel Jack (ref: J3)
+
+![Reference](https://lh3.googleusercontent.com/BZplH5gzBTbTEPQ1l5KSiLJBKZHsFWQEoTvIFTTcSLrdnKBCY7O1BuwaI28URDwALjSvUshcuRu5MHDktKl-I9ZqmWwRNEOlRW8g4KBjII-ZTMKznyK2nsnc92jYbycMiTUf-GYuUPw=-no)
 
 You can source the components from here:
 
