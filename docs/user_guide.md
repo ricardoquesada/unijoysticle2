@@ -52,8 +52,8 @@ See: [firmware_setup.md][1]
 The Unijoysticle 2 can be powered in three different ways:
 
 - Self-powered.
-- USB powered.
-- +5V barrel jack powered.
+- USB-powered.
+- +5V barrel jack-powered.
 
 Note: It is safe to plug the three of them at the same time, but that won't give you any additional benefit.
 
@@ -62,24 +62,27 @@ Note: It is safe to plug the three of them at the same time, but that won't give
 ![self_powered](https://lh3.googleusercontent.com/XVQU7lkllCqc-1k6KX_3CdDIOlx0NCHO8NVDuBOJGdVef3Rq03KJpDHLqG_FNYW2GTeXOAxna9njsclcrlxmhOiBR_KvI-M8CDUOglUX9nCZLBILnkSB32Tews7yhmU38tfaVMxXnWU=-no)
 
 - Gets current directly from the joystick ports. No extra cables needed.
-- A beefy [power supply with ~4Amps][power_supply] is recommended.
-- Self-powered switch: must be "ON", otherwise the ESP32 won't receive current.
+- "Self-powered" switch must be "ON", otherwise the ESP32 won't receive current.
+- A beefy [power supply with ~4Amps][power_supply] is recommended (depends on the periphericals used).
+- Tested successfully with:
+  - C128 + 1541 Ultimate 2 + Unijoysticle 2 + [beefy power supply][power_supply].
+  - C64 + 1541 Ultimate 2 + Unijoysticle 2 + [beefy power supply][power_supply].
 
-### USB powered
+### USB-powered
 
 ![usb_powered](https://lh3.googleusercontent.com/lYiISEtede7TkKwvBZyOB57ZUynSDzPuKIqmfp6Cpl75BbGENM6qZkAXWD066YhpY1Xg-k016PrVt3783Q6iuLXFOdZrpXIW_XaEEwRaeUFvPBk1XVtwIvVjmxMGt5bvAPUHwOFScYw=-no)
 
 - Connect the ESP32 with a micro-USB cable to your computer (or any other source).
 - Ideal for debugging: you can see the Unijoysticle console by attaching a terminal to it.
-- Self-powered switch: should be in "OFF" (but no harm done if it is "ON").
+- "Self-powered" switch should be in "OFF" (but no harm done if it is "ON").
 
-### Power Jack Barrel powered
+### Jack Barrel-powered
 
 ![jack_barrel_powered](https://lh3.googleusercontent.com/REa_wfIZt5KEQT8ypO6d-OmpHLg8t8BUgz5tqnp-f6_ne7JgagdjGzp9RlPIbSXzIlAokX_ewJudmwD1Ony5OYq1Epd6-DnGMWVtXEafDw9H6DIvXlT3iffDOlmXTLoYWQhbR8TrLH8=-no)
 
 - Connect a 5V+ / ~250mA to the Power Barrel Jack (like some Arduino boards).
-- Polarity: positive polarity (tip=+5v, sleeve=0v)
-- Self-powered switch: should be in "OFF" (but no harm done if it is "ON").
+- Polarity: positive polarity (tip=+5v, sleeve=0v).
+- "Self-powered" switch should be in "OFF" (but no harm done if it is "ON").
 
 [power_supply]: https://www.carlsenelectronics.net/
 
