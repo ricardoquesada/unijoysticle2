@@ -68,7 +68,9 @@ Note: It is safe to plug the three of them at the same time, but that won't give
   - C128 + 1541 Ultimate 2 + Unijoysticle 2 + [beefy power supply][power_supply].
   - C64 + 1541 Ultimate 2 + Unijoysticle 2 + [beefy power supply][power_supply].
 
-This features is only available on Revision D (and newer).
+This features is only available on [Revision D][changelog_board] (and newer).
+
+[changelog_board]: https://gitlab.com/ricardoquesada/unijoysticle2/blob/master/CHANGELOG.board.md
 
 ### USB-powered
 

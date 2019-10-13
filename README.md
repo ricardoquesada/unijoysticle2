@@ -1,8 +1,8 @@
-# Unijoysticle 2
+# Unijoysticle™ 2
 
 Like the original [Unijoysticle][1], but remove WiFi and add Bluetooth.
 
-![unijoysticle 2](https://lh3.googleusercontent.com/jITwEhJs884ROmU75qeqjg6dt3YfNKg8MOkNWTjshucX_tKyrhLoEBcKN9q-AzWyeTsJPhtrIHByVFLpiv4g-sJc9UzKJvyH-7pzBMOWZLQT-JvIn_Losl8xOG6tqxKeFynksWlmFCQ=-no)
+![Unijoysticle 2](https://lh3.googleusercontent.com/DChZhkyEl-qqZ3r9N7_RhzvF4zDkSdgNyZwczBofnp28D6ncXcbGq3CXBc5SeC5zooUbBCRo87stuAx-4Q7FwItz1NfaZ4_EJjX3pIroiiR-fcXPzZWk0OifvtaoA8iUJsQQnhkC9q4=-no)
 
 Unijoysticle 2 allows you to use modern Bluetooth gamepads, e.g Xbox One gamepad,
 in old computers like the Commodore 64 & 128.
@@ -41,6 +41,21 @@ throw grenades / roll by pressing Button B.
 
 Toggle between Basic and Enhanced modes
 
+## Supported gamepads
+
+![supported_gamepads](https://lh3.googleusercontent.com/ak0Fc5ShGvYBQFWMd1P6JBm-3Ei88cGnRdha3eoYDQa5IW4y__E_zPRtNxZW9RIEqPfrqdgSM62J9ESkr5K5W3y6VAWGHkXFNmAJ5B_DyK18Rmxeey-laxHqWDv0pRc62MkUYRu_4SQ=-no)]
+
+- Sony Dualshock 4
+- Xbox One S
+- Nintendo Wii
+- Nintendo Wii U
+- Android gamepads
+- PC/Window gamepads
+- And more.
+
+See: [Supported gamepads][gamepads]
+
+[gamepads]: https://gitlab.com/ricardoquesada/unijoysticle2/blob/master/docs/supported_gamepads.md
 
 ## Documentation
 
