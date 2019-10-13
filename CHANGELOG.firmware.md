@@ -10,19 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
             Edit uni_config.h and change UNIJOYSTICLE_SINGLE_PORT to 1
 
 ### Changed
-- Board & Layout: Rev D fixes
 - Firmware: ESP-IDF v3.3
 * Firmware: BTStack 138818a33e591e964a727284c192700abe2fee26 (2019-9-9)
 
 
 ## [0.4] - 2019-09-28
-### Added
-- Board & Layout: Rev D [WIP]
-  - 7405 are powered from C64. Allows to plug in the Unijoysticle unpowered
-    without causing noise in CIAs.
-  - Possibility to power the Unijoysticle from C64, if power supply is big enough.
-  - Not fully tested yet.
-
 ### Changed
 - Firmware: Fix: Can enter combo Joy-Joy when there are disconnected devices.
 
@@ -70,7 +62,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.2.1] - 2019-06-29
 ### Added
-- Board: moved SparkFun.lib inside unijoysticle project
 - Firmware: more verbose logs when detecting the type of device
 - Firmware: Started Wii U Pro controller support. Not working yet.
 
@@ -111,5 +102,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Firmware: v0.1.0
   - Using esp-idf v3.1.3. Commit: cf5dbadf4f25b395887238a7d4d8251c279afa8c
   - Using btstack develop-branch. Commit: 8b22c04ddc425565c8e4002a6d4d26a53426a31f
-- Schematic: Rev B
-- Board layout: Rev B

@@ -1,4 +1,4 @@
-# User Guide
+# Unijoysticle™ 2 User Guide
 
 ![Unijoysticle 2](https://lh3.googleusercontent.com/cbeL59-n7k_9RIFQCdspwVP8zAm3nssiOad_g7NGF83SjWvAHnhD2opSXFDXh7e1WJnX6LrM31MhGfoeHxgKKDaAJwnOmYoFqY9mrfEv7KCXQWg1RYVepyljDuJCSbkh5gDNzbsNNb8=-no)
 
