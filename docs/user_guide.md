@@ -1,4 +1,4 @@
-# Unijoysticle™ 2 User Guide
+# Unijoysticle 2 User Guide
 
 ![Unijoysticle 2](https://lh3.googleusercontent.com/cbeL59-n7k_9RIFQCdspwVP8zAm3nssiOad_g7NGF83SjWvAHnhD2opSXFDXh7e1WJnX6LrM31MhGfoeHxgKKDaAJwnOmYoFqY9mrfEv7KCXQWg1RYVepyljDuJCSbkh5gDNzbsNNb8=-no)
 
@@ -67,6 +67,7 @@ Note: It is safe to plug the three of them at the same time, but that won't give
 - Tested successfully with:
   - C128 + 1541 Ultimate 2 + Unijoysticle 2 + [beefy power supply][power_supply].
   - C64 + 1541 Ultimate 2 + Unijoysticle 2 + [beefy power supply][power_supply].
+  - SX-64 + Unijoysticle 2
 
 This features is only available on [Revision D][changelog_board] (and newer).
 

@@ -57,7 +57,7 @@ Tested gamepads so far.
 
 - [Must be in PC mode][25]. Clones might not work.
 - Press *Play* button to swap joystick port
-- Known issues: [issue #4][32]
+- Known issues: Only 2nd gen (2016+) gamepads. See [issue #4][32]
 
 [dualshock_4]: https://lh3.googleusercontent.com/_0sAxKXbSkk4g8rWJzTNxAirz2hD632jW4TGjGVOwjoac8sD4AfiN9PA1HdGWhm_ujcVygDlEG-LENPemF7IyFhqVsHgVHfCMVeFVjBbeDl-fUUjdMbRYAE8FiKdyWM_UBNUNmVy9Ro=-no
 
@@ -178,7 +178,7 @@ Press the main/big button in the center (depends on the Android gamepad) to swap
 
 ## Generic HID devices
 
-![Generic][generic_gamepad] 
+![Generic][generic_gamepad]
 
 In general, any Bluetooth Classic (not BLE) device that supports HID is supported, or should be easy to support it.
 

@@ -1,4 +1,4 @@
-# Unijoysticle™ 2
+# Unijoysticle 2
 
 Like the original [Unijoysticle][1], but remove WiFi and add Bluetooth.
 
@@ -39,8 +39,6 @@ The mappings are:
 This mode is ideal for games like [Commando][2] or [1942][3] since it allows you
 throw grenades / roll by pressing Button B.
 
-Toggle between Basic and Enhanced modes
-
 ## Supported gamepads
 
 ![supported_gamepads](https://lh3.googleusercontent.com/ak0Fc5ShGvYBQFWMd1P6JBm-3Ei88cGnRdha3eoYDQa5IW4y__E_zPRtNxZW9RIEqPfrqdgSM62J9ESkr5K5W3y6VAWGHkXFNmAJ5B_DyK18Rmxeey-laxHqWDv0pRc62MkUYRu_4SQ=-no)]
@@ -51,7 +49,8 @@ Toggle between Basic and Enhanced modes
 - Nintendo Wii U
 - Android gamepads
 - PC/Window gamepads
-- And more.
+- iCade
+- And more
 
 See: [Supported gamepads][gamepads]
 
@@ -62,7 +61,6 @@ See: [Supported gamepads][gamepads]
 Additional documentation can be found here:
 
 - [Docs][4]
-
 
 [1]: https://retro.moe/unijoysticle
 [2]: https://csdb.dk/release/?id=137173
