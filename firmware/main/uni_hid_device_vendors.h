@@ -397,6 +397,7 @@ static const uni_controlelr_description_t arrControllers[] = {
 
     // ION iCade
     {MAKE_CONTROLLER_ID(0x15e4, 0x0132), CONTROLLER_TYPE_iCadeController},  // ION iCade (Unijoysticle)
+    {MAKE_CONTROLLER_ID(0x0a5c, 0x8502), CONTROLLER_TYPE_iCadeController},  // iCade 8-bitty (Unijoysticle)
     // {MAKE_CONTROLLER_ID(0x0a5c, 0x4502), CONTROLLER_TYPE_iCadeController},  // White-label mini gamepad received as gift in conference
                                                                                // Device can be put in gamepad or iCade mode. (Unijoysticle)
 
@@ -419,7 +420,7 @@ static const uni_controlelr_description_t arrControllers[] = {
 
     // Nintendo Wii U Pro
     {MAKE_CONTROLLER_ID(0x057e, 0x0330), CONTROLLER_TYPE_WiiController},  // Nintendo Wii U Pro (Unijoysicle)
-    // Nintendo Wii Remote 
+    // Nintendo Wii Remote
     {MAKE_CONTROLLER_ID(0x057e, 0x0306), CONTROLLER_TYPE_WiiController},  // Nintendo Wii Remote (Unijoysicle)
 };
 // clang-format on
