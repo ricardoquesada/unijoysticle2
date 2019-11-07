@@ -161,23 +161,23 @@ Press the main/big button in the center (depends on the Android gamepad) to swap
 
 [![iCade][icade_img]][icade_url]
 
-- The original iCade cabines works great.
+- The original iCade cabinets works great.
 - Press *Top Right button* to swap joystick port
 - Might work with other devices that support the iCade protocol, but the `uni_hid_device_vendors.h` file might need to be updated.
 
 [icade_img]: https://lh3.googleusercontent.com/owslbSElM2BJL5M9h3hqksaCJhjAGf7DyfEwRFxxqjdG3Y73D5V9ScI0zVNokmSJMO6jrHMuX7j437kB-ER7kCAzc8GPX4ir9MPEVdypuxMneoIuzp3yAY8DqvkItbSZY0hlaAUMPn8=-no
-[icade_url]: https://www.ebay.com/sch/i.html?_from=R40&_trksid=m570.l1313&_nkw=icade+8-bitty&_sacat=0&LH_TitleDesc=0&_osacat=0&_odkw=icade+8bitty
+[icade_url]: https://www.ebay.com/sch/i.html?_from=R40&_trksid=m570.l1313&_nkw=icade+cabinet&_sacat=0&LH_TitleDesc=0&_osacat=0&_odkw=icade+cabinet
+
 ## iCade 8-bitty
 
 [![iCade 8bitty][8bitty_img]][8bitty_url]
 
 - The original iCade cabines works great.
 - Press *Top Right button* to swap joystick port
-- Might work with other devices that support the iCade protocol, but the `uni_hid_device_vendors.h` file might need to be updated.
 
 [8bitty_img]: https://lh3.googleusercontent.com/YKfrQOHcJZNJ1e4zYi21FGRBgaYwjGbizfo4cZ2xe7rb5bS6fvTKC_UI3mNGafQXuzHK67XUQuqmuu-CyBf4dR7UMTYjtqn2VaYtkZ0YsrGMbaesWW3WzM49p5QK3Uqx05zKLJQeGuw=-no
-
 [8bitty_url]: https://www.ebay.com/sch/i.html?_from=R40&_trksid=m570.l1313&_nkw=icade+8-bitty&_sacat=0&LH_TitleDesc=0&_osacat=0&_odkw=icade+8bitty
+
 ## Amazon Fire TV Remote
 
 [![Amazon Fire TV Remote 1st gen][fire_tv_remote]][22]
