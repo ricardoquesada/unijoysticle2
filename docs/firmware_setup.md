@@ -9,7 +9,11 @@ If you only want to flash the latest firmware version without downloading the to
 
 And:
 ```sh
+# macOS
 $ export ESPPORT=/dev/cu.SLAB_USBtoUART
+# Linux
+$ export ESPPORT=/dev/ttyUSB0
+
 $ esptool.py --chip esp32 --port ${ESPPORT} --baud 115200 --before "default_reset" --after "hard_reset" write_flash -z --flash_mode "dio" --flash_freq "40m" --flash_size detect 0x1000 bootloader.bin 0x10000 firmware.bin 0x8000 partitions_singleapp.bin
 ```
 

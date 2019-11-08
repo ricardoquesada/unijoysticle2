@@ -175,7 +175,7 @@ Press the main/big button in the center (depends on the Android gamepad) to swap
 - The original iCade cabines works great.
 - Press *Top Right button* to swap joystick port
 
-[8bitty_img]: https://lh3.googleusercontent.com/YKfrQOHcJZNJ1e4zYi21FGRBgaYwjGbizfo4cZ2xe7rb5bS6fvTKC_UI3mNGafQXuzHK67XUQuqmuu-CyBf4dR7UMTYjtqn2VaYtkZ0YsrGMbaesWW3WzM49p5QK3Uqx05zKLJQeGuw=-no
+[8bitty_img]: https://lh3.googleusercontent.com/LKf4C5SDVlE1mx91vyh8S7AhaJgsgiBZlOuLSVlIKMllSzMbWqOj6lXFmYfPn8fFxBblsXmNyEFVreaJFaxKLjBVTTMhJ2k4Z6C-40c8MSSNCCCokPrhWS_rDQoHtVx01Xckqx-62FI=-no
 [8bitty_url]: https://www.ebay.com/sch/i.html?_from=R40&_trksid=m570.l1313&_nkw=icade+8-bitty&_sacat=0&LH_TitleDesc=0&_osacat=0&_odkw=icade+8bitty
 
 ## Amazon Fire TV Remote
