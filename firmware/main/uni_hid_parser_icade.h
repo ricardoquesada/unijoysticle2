@@ -22,12 +22,14 @@ limitations under the License.
 #include <stdint.h>
 
 #include "btstack.h"
-
-#include "uni_gamepad.h"
 #include "uni_hid_parser.h"
 
-// ION iCade parser
-void uni_hid_parser_icade_parse_usage(uni_gamepad_t* gp, hid_globals_t* globals,
+// ION iCade setup.
+void uni_hid_parser_icade_setup(uni_hid_device_t* d);
+
+// ION iCade parser.
+void uni_hid_parser_icade_parse_usage(uni_hid_device_t* d,
+                                      hid_globals_t* globals,
                                       uint16_t usage_page, uint16_t usage,
                                       int32_t value);
 

@@ -20,6 +20,7 @@ limitations under the License.
 
 #include "hid_usage.h"
 #include "uni_debug.h"
+#include "uni_hid_device.h"
 
 /*
  *   ↑      A C Y L
@@ -41,9 +42,30 @@ limitations under the License.
  *  R  ON,OFF  = l,v        : unmapped
  */
 
-void uni_hid_parser_icade_parse_usage(uni_gamepad_t* gp, hid_globals_t* globals,
+// Different types of iCade devices. Mappings are slightly different.
+enum {
+  ICADE_CABINET,
+  ICADE_8BITTY,
+};
+
+void uni_hid_parser_icade_setup(uni_hid_device_t* d) {
+  if (d->vendor_id == 0x15e4 && d->product_id) {
+    logi("Device detected as iCade Cabinet\n");
+    d->data[0] = ICADE_CABINET;
+  } else if (d->vendor_id == 0x0a5c && d->product_id == 0x8502) {
+    logi("Device detected as iCade 8-Bitty\n");
+    d->data[0] = ICADE_8BITTY;
+  } else {
+    logi("Unknown iCade device: v_id=0x%02x, p_id=0x%02x, File a bug.\n",
+         d->vendor_id, d->product_id);
+  }
+}
+
+void uni_hid_parser_icade_parse_usage(uni_hid_device_t* d,
+                                      hid_globals_t* globals,
                                       uint16_t usage_page, uint16_t usage,
                                       int32_t value) {
+  uni_gamepad_t* gp = &d->gamepad;
   UNUSED(globals);
   switch (usage_page) {
     case HID_USAGE_PAGE_KEYBOARD_KEYPAD:

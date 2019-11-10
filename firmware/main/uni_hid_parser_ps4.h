@@ -22,13 +22,11 @@ limitations under the License.
 #include <stdint.h>
 
 #include "btstack.h"
-
-#include "uni_gamepad.h"
 #include "uni_hid_parser.h"
 
 // For PS4 gamepads
-void uni_hid_parser_ps4_init_report(uni_gamepad_t* gp);
-void uni_hid_parser_ps4_parse_usage(uni_gamepad_t* gp, hid_globals_t* globals,
+void uni_hid_parser_ps4_init_report(uni_hid_device_t *d);
+void uni_hid_parser_ps4_parse_usage(uni_hid_device_t *d, hid_globals_t *globals,
                                     uint16_t usage_page, uint16_t usage,
                                     int32_t value);
 

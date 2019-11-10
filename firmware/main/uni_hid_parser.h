@@ -39,8 +39,8 @@ typedef struct {
 } hid_globals_t;
 
 typedef void (*report_setup_fn_t)(uni_hid_device_t* d);
-typedef void (*report_init_report_fn_t)(uni_gamepad_t* gp);
-typedef void (*report_parse_usage_fn_t)(uni_gamepad_t* gp,
+typedef void (*report_init_report_fn_t)(uni_hid_device_t* d);
+typedef void (*report_parse_usage_fn_t)(uni_hid_device_t* d,
                                         hid_globals_t* globals,
                                         uint16_t usage_page, uint16_t usage,
                                         int32_t value);

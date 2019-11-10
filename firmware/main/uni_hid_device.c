@@ -140,7 +140,7 @@ void uni_hid_device_assign_joystick_port(uni_hid_device_t* d) {
 #if UNIJOYSTICLE_SINGLE_PORT
   int wanted_port = JOYSTICK_PORT_A;
   d->emu_mode = EMULATION_MODE_SINGLE_JOY;
-#else // UNIJOYSTICLE_SINGLE_PORT  == 0
+#else   // UNIJOYSTICLE_SINGLE_PORT  == 0
   // Try with Port B, assume it is a joystick
   int wanted_port = JOYSTICK_PORT_B;
   d->emu_mode = EMULATION_MODE_SINGLE_JOY;
@@ -160,7 +160,7 @@ void uni_hid_device_assign_joystick_port(uni_hid_device_t* d) {
     logi("Port already assigned, trying another one\n");
     wanted_port = (~wanted_port) & JOYSTICK_PORT_AB_MASK;
   }
-#endif // UNIJOYSTICLE_SINGLE_PORT  == 0
+#endif  // UNIJOYSTICLE_SINGLE_PORT  == 0
 
   uni_hid_device_set_joystick_port(d, wanted_port);
 
@@ -389,7 +389,7 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
 
   switch (type) {
     case CONTROLLER_TYPE_iCadeController:
-      d->report_parser.setup = NULL;
+      d->report_parser.setup = uni_hid_parser_icade_setup;
       d->report_parser.init_report = NULL;
       d->report_parser.parse_usage = uni_hid_parser_icade_parse_usage;
       d->report_parser.parse_raw = NULL;
@@ -613,8 +613,8 @@ void uni_hid_device_on_emu_mode_change(void) {
   uni_hid_device_t* d = NULL;
   for (int j = 0; j < MAX_DEVICES; j++) {
     if (bd_addr_cmp(g_devices[j].address, zero_addr) != 0 &&
-    g_devices[j].hid_control_cid != 0 && g_devices[j].hid_interrupt_cid != 0
-    ) {
+        g_devices[j].hid_control_cid != 0 &&
+        g_devices[j].hid_interrupt_cid != 0) {
       num_devices++;
       d = &g_devices[j];
     }

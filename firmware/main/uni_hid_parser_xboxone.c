@@ -23,19 +23,21 @@ limitations under the License.
 
 #include "hid_usage.h"
 #include "uni_debug.h"
+#include "uni_hid_device.h"
 #include "uni_hid_parser.h"
 
-void uni_hid_parser_xboxone_init_report(uni_gamepad_t* gp) {
+void uni_hid_parser_xboxone_init_report(uni_hid_device_t* d) {
   // Reset old state. Each report contains a full-state.
-  gp->updated_states = 0;
+  d->gamepad.updated_states = 0;
 }
 
-void uni_hid_parser_xboxone_parse_usage(uni_gamepad_t* gp,
+void uni_hid_parser_xboxone_parse_usage(uni_hid_device_t* d,
                                         hid_globals_t* globals,
                                         uint16_t usage_page, uint16_t usage,
                                         int32_t value) {
   // print_parser_globals(globals);
   uint8_t hat;
+  uni_gamepad_t* gp = &d->gamepad;
   switch (usage_page) {
     case HID_USAGE_PAGE_GENERIC_DESKTOP:
       switch (usage) {

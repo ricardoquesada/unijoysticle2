@@ -579,12 +579,12 @@ void uni_hid_parser_wii_setup(uni_hid_device_t* d) {
   wii_process_fsm(d);
 }
 
-void uni_hid_parser_wii_init_report(uni_gamepad_t* gp) {
+void uni_hid_parser_wii_init_report(uni_hid_device_t* d) {
   // Reset old state. Each report contains a full-state.
-  gp->updated_states = 0;
-  gp->dpad = 0;
-  gp->buttons = 0;
-  gp->misc_buttons = 0;
+  d->gamepad.updated_states = 0;
+  d->gamepad.dpad = 0;
+  d->gamepad.buttons = 0;
+  d->gamepad.misc_buttons = 0;
 }
 
 void uni_hid_parser_wii_parse_raw(uni_hid_device_t* d, const uint8_t* report,
