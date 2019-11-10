@@ -23,6 +23,8 @@ limitations under the License.
 #include "uni_hid_device.h"
 
 /*
+ * iCade cabinet:
+ *
  *   ↑      A C Y L
  *  ← →
  *   ↓      B X Z R
@@ -36,10 +38,34 @@ limitations under the License.
  *  B  ON,OFF  = h,r        : Mapped to Button B
  *  C  ON,OFF  = u,f        : Mapped to Button X
  *  X  ON,OFF  = j,n        : Mapped to Button Y
- *  Y  ON,OFF  = i,m        : unmapped
- *  Z  ON,OFF  = k,p        : unmapped
- *  L  ON,OFF  = o,g        : Mapped to "Menu" button
- *  R  ON,OFF  = l,v        : unmapped
+ *  Y  ON,OFF  = i,m        : Mapped to "Home" button (debug)
+ *  Z  ON,OFF  = k,p        : Mapped to Shoulder L
+ *  L  ON,OFF  = o,g        : Mapped to "System" button (swap)
+ *  R  ON,OFF  = l,v        : Mapped to Shoulder R
+ */
+
+/*
+ * iCade 8-bitty (Thanks Paul Rickards)
+ *
+ * D-pap (same as Cabinet):
+ *  UP ON,OFF  = w,e
+ *  RT ON,OFF  = d,c
+ *  DN ON,OFF  = x,z
+ *  LT ON,OFF  = a,q
+ *
+ * Shoulder:
+ *  Left  ON,OFF  = h,r         : Mapped to Shoulder Left
+ *  Right ON,OFF  = j,n         : Mapped to Shoulder Right
+ *
+ * Face Buttons
+ *  Upper Left  ON,OFF  = i,m   : Mapped to Button X
+ *  Upper Right ON,OFF  = o,g   : Mapped to Button Y
+ *  Lower Left  ON,OFF  = k,p   : Mapped to button A
+ *  Lower Right ON,OFF  = l,v   : Mapped to button B
+ *
+ * Center "select/start" buttons
+ *  Select ON,OFF  = y,t        : Mapped to "System" button (swap)
+ *  Start  ON,OFF  = u,f        : Mapped to "Home" button (debug)
  */
 
 // Different types of iCade devices. Mappings are slightly different.
@@ -112,57 +138,189 @@ void uni_hid_parser_icade_parse_usage(uni_hid_device_t* d,
           gp->dpad &= ~DPAD_LEFT;
           gp->updated_states |= GAMEPAD_STATE_DPAD;
           break;
-        case 0x1c:  // y (button A: on)
-          gp->buttons |= BUTTON_A;
-          gp->updated_states |= GAMEPAD_STATE_BUTTON_A;
+
+        case 0x1c:  // y (button A / "select": on)
+          if (d->data[0] == ICADE_CABINET) {
+            // Cabinet.
+            gp->buttons |= BUTTON_A;
+            gp->updated_states |= GAMEPAD_STATE_BUTTON_A;
+          } else {
+            // 8-Bitty.
+            gp->misc_buttons |= MISC_BUTTON_SYSTEM;
+            gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
+          }
           break;
-        case 0x17:  // t (button A: off)
-          gp->buttons &= ~BUTTON_A;
-          gp->updated_states |= GAMEPAD_STATE_BUTTON_A;
+        case 0x17:  // t (button A / "select": off)
+          if (d->data[0] == ICADE_CABINET) {
+            // Cabinet.
+            gp->buttons &= ~BUTTON_A;
+            gp->updated_states &= ~GAMEPAD_STATE_BUTTON_A;
+          } else {
+            // 8-Bitty.
+            gp->misc_buttons &= ~MISC_BUTTON_SYSTEM;
+            gp->updated_states &= ~GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
+          }
           break;
-        case 0x0b:  // h (button B: on)
-          gp->buttons |= BUTTON_B;
-          gp->updated_states |= GAMEPAD_STATE_BUTTON_B;
+
+        case 0x0b:  // h (button B / "start": on)
+          if (d->data[0] == ICADE_CABINET) {
+            // Cabinet.
+            gp->buttons |= BUTTON_B;
+            gp->updated_states |= GAMEPAD_STATE_BUTTON_B;
+          } else {
+            // 8-bitty.
+            gp->misc_buttons |= MISC_BUTTON_HOME;
+            gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_HOME;
+          }
           break;
-        case 0x15:  // r (button B: off)
-          gp->buttons &= ~BUTTON_B;
-          gp->updated_states |= GAMEPAD_STATE_BUTTON_B;
+        case 0x15:  // r (button B, "start": off)
+          if (d->data[0] == ICADE_CABINET) {
+            // Cabinet.
+            gp->buttons &= ~BUTTON_B;
+            gp->updated_states &= ~GAMEPAD_STATE_BUTTON_B;
+          } else {
+            // 8-bitty.
+            gp->misc_buttons &= ~MISC_BUTTON_HOME;
+            gp->updated_states &= ~GAMEPAD_STATE_MISC_BUTTON_HOME;
+          }
           break;
-        case 0x18:  // u (button C: on)
-          gp->buttons |= BUTTON_X;
-          gp->updated_states |= GAMEPAD_STATE_BUTTON_X;
+
+        case 0x18:  // u (button C / shoulder left: on)
+          if (d->data[0] == ICADE_CABINET) {
+            // Cabinet.
+            gp->buttons |= BUTTON_X;
+            gp->updated_states |= GAMEPAD_STATE_BUTTON_X;
+          } else {
+            gp->buttons |= BUTTON_SHOULDER_L;
+            gp->updated_states |= GAMEPAD_STATE_BUTTON_SHOULDER_L;
+          }
           break;
-        case 0x09:  // f (button C: off)
-          gp->buttons &= ~BUTTON_X;
-          gp->updated_states |= GAMEPAD_STATE_BUTTON_X;
+        case 0x09:  // f (button C / shoulder left: off)
+          if (d->data[0] == ICADE_CABINET) {
+            // Cabinet.
+            gp->buttons &= ~BUTTON_X;
+            gp->updated_states &= ~GAMEPAD_STATE_BUTTON_X;
+          } else {
+            // 8-bitty.
+            gp->buttons &= ~BUTTON_SHOULDER_L;
+            gp->updated_states &= ~GAMEPAD_STATE_BUTTON_SHOULDER_L;
+          }
           break;
-        case 0x0d:  // j (button X: on)
-          gp->buttons |= BUTTON_Y;
-          gp->updated_states |= GAMEPAD_STATE_BUTTON_Y;
+
+        case 0x0d:  // j (button X / shoulder right: on)
+          if (d->data[0] == ICADE_CABINET) {
+            // Cabinet.
+            gp->buttons |= BUTTON_Y;
+            gp->updated_states |= GAMEPAD_STATE_BUTTON_Y;
+          } else {
+            // 8-bitty.
+            gp->buttons |= BUTTON_SHOULDER_R;
+            gp->updated_states |= GAMEPAD_STATE_BUTTON_SHOULDER_R;
+          }
           break;
-        case 0x11:  // n (button X: off)
-          gp->buttons &= ~BUTTON_Y;
-          gp->updated_states |= GAMEPAD_STATE_BUTTON_Y;
+        case 0x11:  // n (button X / shoulder right: off)
+          if (d->data[0] == ICADE_CABINET) {
+            // Cabinet.
+            gp->buttons &= ~BUTTON_Y;
+            gp->updated_states &= ~GAMEPAD_STATE_BUTTON_Y;
+          } else {
+            // 8-bitty.
+            gp->buttons &= ~BUTTON_SHOULDER_R;
+            gp->updated_states &= ~GAMEPAD_STATE_BUTTON_SHOULDER_R;
+          }
           break;
-        case 0x12:  // o (button L: on)
-          gp->misc_buttons |= MISC_BUTTON_SYSTEM;
-          gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
+
+        case 0x12:  // o (button L / Y on)
+          if (d->data[0] == ICADE_CABINET) {
+            // Cabinet.
+            gp->misc_buttons |= MISC_BUTTON_SYSTEM;
+            gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
+          } else {
+            // 8-bitty.
+            gp->buttons |= BUTTON_Y;
+            gp->updated_states |= GAMEPAD_STATE_BUTTON_Y;
+          }
           break;
-        case 0x0a:  // g (button L: off)
-          gp->misc_buttons &= ~MISC_BUTTON_SYSTEM;
-          gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
+        case 0x0a:  // g (button L / Y: off)
+          if (d->data[0] == ICADE_CABINET) {
+            // Cabinet.
+            gp->misc_buttons &= ~MISC_BUTTON_SYSTEM;
+            gp->updated_states &= ~GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
+          } else {
+            // 8-bitty.
+            gp->buttons &= ~BUTTON_Y;
+            gp->updated_states &= ~GAMEPAD_STATE_BUTTON_Y;
+          }
+
+        case 0x0c:  // i (button Y / X: on)
+          if (d->data[0] == ICADE_CABINET) {
+            // Cabinet.
+            gp->misc_buttons |= MISC_BUTTON_HOME;
+            gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_HOME;
+          } else {
+            // 8-bitty.
+            gp->buttons |= BUTTON_X;
+            gp->updated_states |= GAMEPAD_STATE_BUTTON_X;
+          }
+        case 0x10:  // m (button Y / X: off)
+          if (d->data[0] == ICADE_CABINET) {
+            // Cabinet.
+            gp->misc_buttons &= ~MISC_BUTTON_HOME;
+            gp->updated_states &= ~GAMEPAD_STATE_MISC_BUTTON_HOME;
+          } else {
+            // 8-bitty.
+            gp->buttons &= ~BUTTON_X;
+            gp->updated_states &= ~GAMEPAD_STATE_BUTTON_X;
+          }
+
+        case 0x0e:  // k (button  Z / A: on)
+          if (d->data[0] == ICADE_CABINET) {
+            // Cabinet.
+            gp->buttons |= BUTTON_SHOULDER_L;
+            gp->updated_states |= GAMEPAD_STATE_BUTTON_SHOULDER_L;
+          } else {
+            // 8-bitty.
+            gp->buttons |= BUTTON_A;
+            gp->updated_states |= GAMEPAD_STATE_BUTTON_A;
+          }
+        case 0x13:  // p (button Z / A: off)
+          if (d->data[0] == ICADE_CABINET) {
+            // Cabinet.
+            gp->buttons &= ~BUTTON_SHOULDER_L;
+            gp->updated_states &= ~GAMEPAD_STATE_BUTTON_SHOULDER_L;
+          } else {
+            // 8-bitty.
+            gp->buttons &= ~BUTTON_A;
+            gp->updated_states &= ~GAMEPAD_STATE_BUTTON_A;
+          }
+
+        case 0x0f:  // l (button R / B: on)
+          if (d->data[0] == ICADE_CABINET) {
+            // Cabinet.
+            gp->buttons |= BUTTON_SHOULDER_R;
+            gp->updated_states |= GAMEPAD_STATE_BUTTON_SHOULDER_R;
+          } else {
+            // 8-bitty.
+            gp->buttons |= BUTTON_B;
+            gp->updated_states |= GAMEPAD_STATE_BUTTON_B;
+          }
+        case 0x19:  // v (button R / B: off)
+          if (d->data[0] == ICADE_CABINET) {
+            // Cabinet.
+            gp->buttons &= ~BUTTON_SHOULDER_R;
+            gp->updated_states &= ~GAMEPAD_STATE_BUTTON_SHOULDER_R;
+          } else {
+            // 8-bitty.
+            gp->buttons &= ~BUTTON_B;
+            gp->updated_states &= ~GAMEPAD_STATE_BUTTON_B;
+          }
           break;
-        case 0x0c:  // i,m,k,p,l,v. Buttons Y,Z,R
-        case 0x10:  // m
-        case 0x0e:  // k
-        case 0x13:  // p
-        case 0x0f:  // l
-        case 0x19:  // v
-          // unmapped buttons
-          break;
+
         default:
-          logi("iCade: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
-               usage_page, usage, value);
+          logi(
+              "iCade: Unsupported page: 0x%04x, usage: 0x%04x, "
+              "value=0x%x\n",
+              usage_page, usage, value);
           break;
       }
   }
