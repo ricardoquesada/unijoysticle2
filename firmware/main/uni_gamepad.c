@@ -80,15 +80,14 @@ void uni_gamepad_to_single_joy(const uni_gamepad_t* gp,
   if (gp->updated_states & GAMEPAD_STATE_BUTTON_B) {
     out_joy->up |= ((gp->buttons & BUTTON_B) == BUTTON_B);
   }
-#else // UNIJOYSTICLE_SINGLE_PORT == 1
+#else   // UNIJOYSTICLE_SINGLE_PORT == 1
   if (gp->updated_states & GAMEPAD_STATE_BUTTON_B) {
     out_joy->pot_y |= ((gp->buttons & BUTTON_B) == BUTTON_B);
   }
   if (gp->updated_states & GAMEPAD_STATE_BUTTON_X) {
     out_joy->pot_x |= ((gp->buttons & BUTTON_X) == BUTTON_X);
   }
-#endif // UNIJOYSTICLE_SINGLE_PORT == 1
- //
+#endif  // UNIJOYSTICLE_SINGLE_PORT == 1
 }
 
 void uni_gamepad_to_combo_joy_joy(const uni_gamepad_t* gp,
