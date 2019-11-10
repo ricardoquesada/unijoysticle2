@@ -43,10 +43,15 @@ Devices known to be non-Bluetooth:
 Tested gamepads so far.
 
 ## Xbox One S
+
 [![Xbox One S][xbox_one_s]][13]
 
 - Must be the *Xbox One S* and not the *Xbox One* gamepad. The *Xbox One S* supports Bluetooth, while the regular *Xbox One* doesn't.
-- Press *Xbox* button to swap joystick port
+- Press:
+  - *A* for Fire
+  - *B* for Jump
+  - *Right shoulder* for Auto-fire
+  - *Xbox* button to swap joystick port
 - Known Issues: [issue #1][23]
 
 [xbox_one_s]: https://lh3.googleusercontent.com/YmONc-MhVZhnE8HVRgzH7FKSpT_29MLeIF70U5AfrcBuCtuNJ2Ln5xkmSpNqO0myrFpnDLbFvR2TRTRu0xcqvP3cLNaq1BBpruEAn-Z7vBbwzNtaXx7eQaLLF7aa8tt2Wa0IcYxeD08=-no
@@ -56,7 +61,11 @@ Tested gamepads so far.
 [![ps4_gamepad][dualshock_4]][14]
 
 - [Must be in PC mode][25]. Clones might not work.
-- Press *Play* button to swap joystick port
+- Press:
+  - *X* for Fire
+  - *O* for Jump
+  - *Right shoulder* for Auto-fire
+  - *Play* button to swap joystick port
 - Known issues: Only 2nd gen (2016+) gamepads. See [issue #4][32]
 
 [dualshock_4]: https://lh3.googleusercontent.com/_0sAxKXbSkk4g8rWJzTNxAirz2hD632jW4TGjGVOwjoac8sD4AfiN9PA1HdGWhm_ujcVygDlEG-LENPemF7IyFhqVsHgVHfCMVeFVjBbeDl-fUUjdMbRYAE8FiKdyWM_UBNUNmVy9Ro=-no
@@ -104,10 +113,15 @@ Tested gamepads so far.
 [wii_sideways]: https://forums.dolphin-emu.org/Thread-how-to-hold-the-wii-remote
 
 ## Wii U Pro controller
+
 [![Wii U Pro][wii_u_pro]][27]
 
 - LEDs #1 and #2 indicates what joystick is being controlled. E.g: If LED #1 is lit, it means that the Wii Remote is controlling Joystick #1.
-- Press *Home* button to swap joystick port
+- Press:
+  - *B* for Fire
+  - *A* for Jump
+  - *Right shoulder* for Auto-fire
+  - *Home* button to swap joystick port
 - Known issues: [issue #6][30]
 
 [wii_u_pro]: https://lh3.googleusercontent.com/kfKAySKzV-lLG7VmQGfCES1KuhtjBcTIfMzo59FgABcL7Ir9Tp7fQqrTP2iFqf8UVIhce1JhIXyBN_EH9eXpjlf5Q4b9NhhyxrFX9H0yVVRF0_pghjjz3pVqmY4uxS-FMgr7FC7egNo=w360-no
@@ -122,7 +136,11 @@ Tested with different Android gamepads:
 - [Moga Pro 2][16]
 - [Amazon Fire TV gamepads][17]
 
-Press the main/big button in the center (depends on the Android gamepad) to swap joystick port.
+- Press:
+  - *A* for Fire
+  - *B* for Jump
+  - *Right shoulder* for Auto-fire
+  - the main/big button in the center (depends on the Android gamepad) to swap joystick port.
 
 [android_gamepad]: https://lh3.googleusercontent.com/S3H1pEGYGT5aVTwF3ySWHF7vqbonDYR0UxOLJBxFe5At6Q4AP_4TQUCaNOiEXD22U4H3C0lVP1E3m26H3QM4rIbgp1wysbQoSt1NpD61snlWES5N5zGUgx20c2sfFCKZL4w_Gl66Y1s=-no
 
@@ -131,7 +149,11 @@ Press the main/big button in the center (depends on the Android gamepad) to swap
 [![Nimbus SteelSeries for iOS][nimbus_steelseries]][18]
 
 - Tested with Nimbus SteelSeries for iOS.
-- Press *Menu button* to swap joystick port
+- Press:
+  - *A* for Fire
+  - *B* for Jump
+  - *Right shoulder* for Auto-fire
+  - *Menu button* to swap joystick port
 
 [nimbus_steelseries]: https://lh3.googleusercontent.com/QeK4QebBIw4O-vWuyc-oxTGT_eST6BZ_2y6R9X5cuXPsQVQgZRdm5JEYs982dDKkYDs7AqCIGZyCQBRPJgLJ3ZxNqt_7KYMl9uKkWtmR0P89VbYgC4cMtkEFob2ihA8J6UxGHQ_4Tw0=-no
 
@@ -139,9 +161,12 @@ Press the main/big button in the center (depends on the Android gamepad) to swap
 
 [![OUYA 1st gen][ouya_1gen]][19]
 
-- Mappings: Buttons: O,U,Y,A -> A,X,Y,B.
 - Only 1st gen is supported. It is unknown the status on newer version. They might or might not work.
-- Press *OUYA button* to swap joystick port
+- Press:
+  - *O* for Fire
+  - *A* for JUmp
+  - *Right shoulder* for Auto-fire
+  - *OUYA button* to swap joystick port
 - Known issues: [issue #7][31]
 
 [ouya_1gen]: https://lh3.googleusercontent.com/FtbQLbt1QrzU59TTPQHIEarGZItlPik0bGWo40iDu0rnMwddCEwKMcy8LAe_fqzklaSKfMbt3-EvFJI4Vcoz3gSPTgC9MnTog3MyGfNWMc0Wq2Idq1kzjPOpRIS5OXeSqSSmIfGa5-w=-no
@@ -152,7 +177,11 @@ Press the main/big button in the center (depends on the Android gamepad) to swap
 
 - Only tested with 8Bitdo NES30. It is probable that other 8Bitdo are supported as well.
 - Mappings: Buttons: B,Y,X,A -> A,X,Y,B.
-- Press *Start button* to swap joystick port
+- Press:
+  - *B* for Fire
+  - *A* for Jump
+  - *Right shoulder* for Auto-fire
+  - *Start* to swap joystick port
 - Known issues: [issue #3][24]
 
 [8bitdo_nes30]: https://lh3.googleusercontent.com/2JN1IhyPhxFRTm-dUazcOq-iXm7p_F6xDZIP5hn5EEj5QZxxW4h1u7smPhRT-4uEu6DVf8sbRlsr8Io2cMbU6HGLMk7amKMCT6Q0k8wZwXL8sl86WuWVUoBundZH78k9wHTE3qOX4bQ=-no
@@ -162,7 +191,11 @@ Press the main/big button in the center (depends on the Android gamepad) to swap
 [![iCade][icade_img]][icade_url]
 
 - The original iCade cabinets works great.
-- Press *Top Right* button to swap joystick port
+- Press:
+  - *Top Left* for Fire
+  - *Bottom Left* for Jump
+  - *Bottom Right* for Auto-fire
+  - *Top Right* button to swap joystick port
 - Might work with other devices that support the iCade protocol, but the `uni_hid_device_vendors.h` file might need to be updated.
 
 [icade_img]: https://lh3.googleusercontent.com/owslbSElM2BJL5M9h3hqksaCJhjAGf7DyfEwRFxxqjdG3Y73D5V9ScI0zVNokmSJMO6jrHMuX7j437kB-ER7kCAzc8GPX4ir9MPEVdypuxMneoIuzp3yAY8DqvkItbSZY0hlaAUMPn8=-no
@@ -172,8 +205,11 @@ Press the main/big button in the center (depends on the Android gamepad) to swap
 
 [![iCade 8bitty][8bitty_img]][8bitty_url]
 
-- The original iCade cabines works great.
-- Press *Select* button to swap joystick port
+- Press:
+  - *Bottom Left* for Fire
+  - *Bottom Right* for Jump
+  - *Right shoulder* for Auto-fire
+  - *Select* button to swap joystick port
 
 [8bitty_img]: https://lh3.googleusercontent.com/LKf4C5SDVlE1mx91vyh8S7AhaJgsgiBZlOuLSVlIKMllSzMbWqOj6lXFmYfPn8fFxBblsXmNyEFVreaJFaxKLjBVTTMhJ2k4Z6C-40c8MSSNCCCokPrhWS_rDQoHtVx01Xckqx-62FI=-no
 [8bitty_url]: https://www.ebay.com/sch/i.html?_from=R40&_trksid=m570.l1313&_nkw=icade+8-bitty&_sacat=0&LH_TitleDesc=0&_osacat=0&_odkw=icade+8bitty
@@ -183,7 +219,8 @@ Press the main/big button in the center (depends on the Android gamepad) to swap
 [![Amazon Fire TV Remote 1st gen][fire_tv_remote]][22]
 
 - Only *1st gen* is supported. Apparently *2nd gen* uses BLE intead of BT Classic.
-- Press *Home button* to swap joystick port
+- Press:
+  - *Home button* to swap joystick port
 
 [fire_tv_remote]: https://lh3.googleusercontent.com/qnSdv7NM5et0vDhMQsRp7oMniqcjYxGKN9QJY0_gRWT6NXFrdWBf94JKNvP77abBZoykaSQOJBtXUnGW-Z1yF-MWn3q3t2Nt_TUVVV7a2HsPFjRc_DIuLh8tPiQNsEZSWDsb0z6Ys3k=-no
 
@@ -246,8 +283,6 @@ Many of the virtual buttons/pads are left unmapped, but could be mapped in the f
 - M1: Button System
 - M2: Button Home
 - M3: Button Back
-
-
 
 [1]: https://lh3.googleusercontent.com/sfRd1qSHaxe4he4lt63Xjsr_ejmrthB00bPpIj4CwuUOyzKy3otIrdsPqhy_Y0U78Ibcw5bssuUOgKxNsvhvq6AQGlmigtj2tWA67HQHEaDU4tEmq850Z47rwRW9EzAhFGi6XrgUhUI=-no
 [13]: https://www.xbox.com/en-US/xbox-one/accessories/controllers/xbox-wireless-controller
