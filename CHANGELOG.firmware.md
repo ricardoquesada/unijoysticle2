@@ -4,10 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.5-beta1] - 2019-11-10
 ### Added
 - Firmware: Added support for "single joystick" unijoysticle devices.
             Edit uni_config.h and change UNIJOYSTICLE_SINGLE_PORT to 1
+- Firmware: Added support  for iCade 8-bitty gamepad.
 
 ### Changed
 - Firmware: ESP-IDF v3.3

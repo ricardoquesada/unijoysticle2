@@ -154,11 +154,11 @@ void uni_hid_parser_icade_parse_usage(uni_hid_device_t* d,
           if (d->data[0] == ICADE_CABINET) {
             // Cabinet.
             gp->buttons &= ~BUTTON_A;
-            gp->updated_states &= ~GAMEPAD_STATE_BUTTON_A;
+            gp->updated_states |= GAMEPAD_STATE_BUTTON_A;
           } else {
             // 8-Bitty.
             gp->misc_buttons &= ~MISC_BUTTON_SYSTEM;
-            gp->updated_states &= ~GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
+            gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
           }
           break;
 
@@ -177,11 +177,11 @@ void uni_hid_parser_icade_parse_usage(uni_hid_device_t* d,
           if (d->data[0] == ICADE_CABINET) {
             // Cabinet.
             gp->buttons &= ~BUTTON_B;
-            gp->updated_states &= ~GAMEPAD_STATE_BUTTON_B;
+            gp->updated_states |= GAMEPAD_STATE_BUTTON_B;
           } else {
             // 8-bitty.
             gp->misc_buttons &= ~MISC_BUTTON_HOME;
-            gp->updated_states &= ~GAMEPAD_STATE_MISC_BUTTON_HOME;
+            gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_HOME;
           }
           break;
 
@@ -199,11 +199,11 @@ void uni_hid_parser_icade_parse_usage(uni_hid_device_t* d,
           if (d->data[0] == ICADE_CABINET) {
             // Cabinet.
             gp->buttons &= ~BUTTON_X;
-            gp->updated_states &= ~GAMEPAD_STATE_BUTTON_X;
+            gp->updated_states |= GAMEPAD_STATE_BUTTON_X;
           } else {
             // 8-bitty.
             gp->buttons &= ~BUTTON_SHOULDER_L;
-            gp->updated_states &= ~GAMEPAD_STATE_BUTTON_SHOULDER_L;
+            gp->updated_states |= GAMEPAD_STATE_BUTTON_SHOULDER_L;
           }
           break;
 
@@ -222,11 +222,11 @@ void uni_hid_parser_icade_parse_usage(uni_hid_device_t* d,
           if (d->data[0] == ICADE_CABINET) {
             // Cabinet.
             gp->buttons &= ~BUTTON_Y;
-            gp->updated_states &= ~GAMEPAD_STATE_BUTTON_Y;
+            gp->updated_states |= GAMEPAD_STATE_BUTTON_Y;
           } else {
             // 8-bitty.
             gp->buttons &= ~BUTTON_SHOULDER_R;
-            gp->updated_states &= ~GAMEPAD_STATE_BUTTON_SHOULDER_R;
+            gp->updated_states |= GAMEPAD_STATE_BUTTON_SHOULDER_R;
           }
           break;
 
@@ -245,11 +245,11 @@ void uni_hid_parser_icade_parse_usage(uni_hid_device_t* d,
           if (d->data[0] == ICADE_CABINET) {
             // Cabinet.
             gp->misc_buttons &= ~MISC_BUTTON_SYSTEM;
-            gp->updated_states &= ~GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
+            gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
           } else {
             // 8-bitty.
             gp->buttons &= ~BUTTON_Y;
-            gp->updated_states &= ~GAMEPAD_STATE_BUTTON_Y;
+            gp->updated_states |= GAMEPAD_STATE_BUTTON_Y;
           }
           break;
 
@@ -268,11 +268,11 @@ void uni_hid_parser_icade_parse_usage(uni_hid_device_t* d,
           if (d->data[0] == ICADE_CABINET) {
             // Cabinet.
             gp->misc_buttons &= ~MISC_BUTTON_HOME;
-            gp->updated_states &= ~GAMEPAD_STATE_MISC_BUTTON_HOME;
+            gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_HOME;
           } else {
             // 8-bitty.
             gp->buttons &= ~BUTTON_X;
-            gp->updated_states &= ~GAMEPAD_STATE_BUTTON_X;
+            gp->updated_states |= GAMEPAD_STATE_BUTTON_X;
           }
           break;
 
@@ -291,11 +291,11 @@ void uni_hid_parser_icade_parse_usage(uni_hid_device_t* d,
           if (d->data[0] == ICADE_CABINET) {
             // Cabinet.
             gp->buttons &= ~BUTTON_SHOULDER_L;
-            gp->updated_states &= ~GAMEPAD_STATE_BUTTON_SHOULDER_L;
+            gp->updated_states |= GAMEPAD_STATE_BUTTON_SHOULDER_L;
           } else {
             // 8-bitty.
             gp->buttons &= ~BUTTON_A;
-            gp->updated_states &= ~GAMEPAD_STATE_BUTTON_A;
+            gp->updated_states |= GAMEPAD_STATE_BUTTON_A;
           }
           break;
 
@@ -314,11 +314,11 @@ void uni_hid_parser_icade_parse_usage(uni_hid_device_t* d,
           if (d->data[0] == ICADE_CABINET) {
             // Cabinet.
             gp->buttons &= ~BUTTON_SHOULDER_R;
-            gp->updated_states &= ~GAMEPAD_STATE_BUTTON_SHOULDER_R;
+            gp->updated_states |= GAMEPAD_STATE_BUTTON_SHOULDER_R;
           } else {
             // 8-bitty.
             gp->buttons &= ~BUTTON_B;
-            gp->updated_states &= ~GAMEPAD_STATE_BUTTON_B;
+            gp->updated_states |= GAMEPAD_STATE_BUTTON_B;
           }
           break;
 

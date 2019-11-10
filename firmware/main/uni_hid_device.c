@@ -486,10 +486,6 @@ void uni_hid_device_set_connection_handle(uni_hid_device_t* d,
 }
 
 void uni_hid_device_process_gamepad(uni_hid_device_t* d) {
-  // FIXME: each backend should decide what to do with misc buttons
-  process_misc_button_system(d);
-  process_misc_button_home(d);
-
   if (d->joystick_port == JOYSTICK_PORT_NONE) return;
 
   // FIXME: Add support for EMULATION_MODE_COMBO_JOY_MOUSE
@@ -525,6 +521,10 @@ void uni_hid_device_process_gamepad(uni_hid_device_t* d) {
       loge("Unsupported emulation mode: %d\n", d->emu_mode);
       break;
   }
+
+  // FIXME: each backend should decide what to do with misc buttons
+  process_misc_button_system(d);
+  process_misc_button_home(d);
 }
 
 // Helpers
