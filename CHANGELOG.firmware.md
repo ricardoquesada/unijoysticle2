@@ -7,14 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.5-beta1] - 2019-11-10
 ### Added
 - Firmware: Added support for "single joystick" unijoysticle devices.
-            Edit uni_config.h and change UNIJOYSTICLE_SINGLE_PORT to 1
+            Edit `uni_config.h` and change `UNIJOYSTICLE_SINGLE_PORT` to 1
 - Firmware: Added support for iCade 8-bitty gamepad.
 
 ### Changed
+- Firmware: Improved iCade Cabinet support:  autofire, debug and shoulder buttons supported.
 - Firmware: ESP-IDF v3.3
 - Firmware: BTStack 138818a33e591e964a727284c192700abe2fee26 (2019-9-9)
-- Firmware: Improved iCade Cabinet support:
-            autofire, debug and shoulder buttons supported.
 
 ## [0.4] - 2019-09-28
 ### Changed
