@@ -30,7 +30,7 @@ The good news is that all popular Bluetooth gamepads are Classic (not BLE).
 
 ## Non-Bluetooth: Not supported
 
-Not every wireless device is Bluetooth. If the device doesn't explicity say
+Not every wireless device is Bluetooth. If the device doesn't explicitly say
 it is a Bluetooth, most probably it is not a Bluetooth device, hence not supported by Unijoysticle.
 
 Devices known to be non-Bluetooth:
@@ -218,7 +218,7 @@ Tested with different Android gamepads:
 
 [![Amazon Fire TV Remote 1st gen][fire_tv_remote]][22]
 
-- Only *1st gen* is supported. Apparently *2nd gen* uses BLE intead of BT Classic.
+- Only *1st gen* is supported. Apparently *2nd gen* uses BLE instead of BT Classic.
 - Press:
   - *Home button* to swap joystick port
 
