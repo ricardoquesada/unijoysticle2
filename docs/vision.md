@@ -29,14 +29,14 @@ Or any bluetooth powered device for the matter. And attach it to your unicycle a
 -  Commodore VIC 20
 -  Commodore Amiga
 -  Atari ST
--  Atari 8-bit faimily
+-  Atari 8-bit family
 -  FPGAs like [ZX-UNO](http://zxuno.speccy.org/index_e.shtml)
 
 These are all computers that have compatible DB9, meaning that POWER & GROUND lines are the same.
 Initially, I don't want to support computers where POWER/GROUND use different lines, like the Mastersystems.
 That could be very dangerous.
 
-See here [list of compmabile systems](http://zxuno.speccy.org/index_e.shtml).
+See here [list of compatible systems](http://zxuno.speccy.org/index_e.shtml).
 
 In the future, we could do a PC release to support PCjr, Tandy 1000 and other PCs.
 
@@ -67,7 +67,6 @@ Note: No additional hardware is needed to support for Amiga/Atari ST mice.
 
 Schematics + PCB in [KiCad](http://kicad-pcb.org/). Unijoysticle v1 was done in [Eagle](https://www.autodesk.com/products/eagle/overview). Since we want to learn new things, we are switching to KiCad now.
 
-
 ### Firmware
 
 What's already done:
@@ -75,7 +74,7 @@ What's already done:
 -  Basic generic mapping for gamepad
 -  Bluetooth connect / reconnect working ok
 -  Fetch product id + vendor id from SDP record
--  Gamepad: mappings based on product id + vendor id. Take DB from libSDL and addap the mappings to our own needs.
+-  Gamepad: mappings based on product id + vendor id. Take DB from libSDL and adapt the mappings to our own needs.
 -  *Gamepad System button* swaps joystick ports
 -  Mouse kind of working... movement is not smooth yet.
 -  Mouse: button are not mapped.
@@ -86,7 +85,7 @@ Missing:
 
 -  Mouse: smooth movement.
 -  Add support for Bluetooth LE devices (eg: Some smart TV remote controllers are BLE).
--  Report back to client mode being used in the gamepads LEDS (in case avaiable).
+-  Report back to client mode being used in the gamepads LEDS (in case available).
    The LEDs could be used for whatever purpose we want.
 
 ### Smartphone client
@@ -98,7 +97,7 @@ Create Android (iOS lower priority) client that allows us to:
 -  Implement virtual gamepad
 -  Implement Gyruss mode
 -  Add way to see logs
--  Add way to swtich between different modes (Combo Joy+Joy, Combo Mouse+Joy, Single) (?)
+-  Add way to switch between different modes (Combo Joy+Joy, Combo Mouse+Joy, Single) (?)
 -  Add way to swap ports (?)
 
 Since we want to learn new stuff, instead of coding the client in Java (like in Unijoysticle v1), we should do it in Kotlin.

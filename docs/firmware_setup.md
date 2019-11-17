@@ -19,7 +19,7 @@ $ esptool.py --chip esp32 --port ${ESPPORT} --baud 115200 --before "default_rese
 
 ## Compiling + flashing firmware
 
-Development can be done locally or using Vagrant for convinience. It's recommended to read the local instructions once (or the bootstrap.sh script) before using Vagrant.
+Development can be done locally or using Vagrant for convenience. It's recommended to read the local instructions once (or the bootstrap.sh script) before using Vagrant.
 
 ### Local development
 

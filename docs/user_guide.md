@@ -18,7 +18,7 @@ An assembled + soldered kit should look like this:
 
 ![Assembled kit](https://lh3.googleusercontent.com/f-C7DUbvMRB_aTx0MFTeJAaFxzJ2_EG6xE9aztIERBFYnqPDXcAmC_RI3-B546JMcBqZOAGRAwmOPGcqEdEO3BXl1xXhaQoPP2ANkf5qFqEea-H6qP6pvE_J2gKnZnpTIubd0NDPhZk=-no)
 
-Neded components:
+Needed components:
 
 - 1 x Unijoysticle 2 PCB
 - 1 x ESP32 Mini Kit (and its pins) (ref: B1)
@@ -63,7 +63,7 @@ Note: It is safe to plug the three of them at the same time, but that won't give
 
 - Gets current directly from the joystick ports. No extra cables needed.
 - "Self-powered" switch must be "ON", otherwise the ESP32 won't receive current.
-- A beefy [power supply with ~4Amps][power_supply] is recommended (depends on the periphericals used).
+- A beefy [power supply with ~4Amps][power_supply] is recommended (depends on the peripherals used).
 - Tested successfully with:
   - C128 + 1541 Ultimate 2 + Unijoysticle 2 + [beefy power supply][power_supply].
   - C64 + 1541 Ultimate 2 + Unijoysticle 2 + [beefy power supply][power_supply].
@@ -113,8 +113,8 @@ If two gamepads are connected, then the swap button is disabled.
 
 The gamepad could be in two possible modes:
 
-- Basic mode: one gamepad controlls one joystick.
-- Enhanced mode: one gamepad controlls the two joysticks.
+- Basic mode: one gamepad controls one joystick.
+- Enhanced mode: one gamepad controls the two joysticks.
 
 ### Basic mode
 
