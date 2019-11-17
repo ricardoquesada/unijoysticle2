@@ -40,8 +40,8 @@ Tested on:
 
 * Amiga 500 with default power supply: Unijoysticle *cannot* be self-powered (not enough current).
 * Connect DB9-extension cable
-  * to Unijoysticle port #1.
-  * to the Amiga port #2 (games usually expect joystick on port #2)
+  * to Unijoysticle port 1.
+  * to the Amiga port 2 (games usually expect joystick on port 2)
 
 ### Atari ST family
 
@@ -53,8 +53,8 @@ Tested on:
 * Atari ST doesn't have a 3rd-button joystick, but it does a 2nd one.
   Use the "3-button firmware" to play games that use the 2nd button.
 * Connect DB9-extension cable
-  * to Unijoysticle port #1.
-  * to the Atari ST port #2 (games usually expect joystick on port #2)
+  * to Unijoysticle port 1.
+  * to the Atari ST port 2 (games usually expect joystick on port 2)
 
 ## Benefits / Limitation
 
