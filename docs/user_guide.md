@@ -7,6 +7,24 @@
 - LEDs: Green/Red LEDs turn on when Joystick 1/Joystick 2 are attached
 - Self-Powered On/Off: When On, the Unijoysticle will be powered by the Commodore.
 
+## Supported computers
+
+![supported computers](https://lh3.googleusercontent.com/j9KjfEW5KXse1Caf0xV8WfD8c7HRFO1UCHx5WOnPMAneoKOPsDs8UNXAFS84D9pXzcu5ZdHoPxJDdqNvzUB_0q7hk7tQcqxYXQIa7NsLZ3j-KLlG-qyFI6TknNgiYNpwcIdXxEROOhI=-no)
+
+The Unijoysticle 2 was designed to fit in the Commodore 64 / 128 ports. No additional
+cables are needed for these computers.
+
+However, the Unijoysticle 2 can be used in any computer that is compatible with the Atari DB9 joystick ports.
+
+That includes, but not limtied to:
+
+- Commodore 64 / 128.
+- Atari 8-bit line (both computers and consoles).
+- Amiga line.
+- Atari ST line.
+
+For Amiga / Atari ST 3-button joystick support, read [Amiga / Atari ST support](amiga_atarist.md).
+
 ## Soldering the kit
 
 All components are through-hole. The only components that have polarity are the LEDs and the diodes.
@@ -68,6 +86,7 @@ Note: It is safe to plug the three of them at the same time, but that won't give
   - C128 + 1541 Ultimate 2 + Unijoysticle 2 + [beefy power supply][power_supply].
   - C64 + 1541 Ultimate 2 + Unijoysticle 2 + [beefy power supply][power_supply].
   - SX-64 + Unijoysticle 2
+  - Atari ST 1040F
 
 This features is only available on [Revision D][changelog_board] (and newer).
 
