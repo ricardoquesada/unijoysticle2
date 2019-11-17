@@ -19,9 +19,9 @@ However, the Unijoysticle 2 can be used in any computer that is compatible with 
 That includes, but not limtied to:
 
 - Commodore 64 / SX-64 / 128 / 128-D.
-- Atari 8-bit line, both computers and consoles (requires [extension cable][cable]).
-- Amiga line (requires [extension cable][cable]).
-- Atari ST line (requires [extension cable][cable]).
+- Atari 8-bit line, both computers and consoles (requires [DB9 extension cable][cable]).
+- Amiga line (requires [DB9 extension cable][cable]).
+- Atari ST line (requires [DB9 extension cable][cable]).
 
 For Amiga / Atari ST 3-button joystick support, read [Amiga / Atari ST support](amiga_atarist.md).
 
