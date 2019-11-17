@@ -32,7 +32,7 @@ Amiga/Atari ST) games.
 
 [firmware]: https://github.com/ricardoquesada/unijoysticle2/releases
 
-## Amiga family
+### Amiga family
 
 ![Amiga](https://lh3.googleusercontent.com/lsG9gSNVQxaz8YUH3pqvO3SJ5bC_KX_t5G5ELI2jOsepYODRma7IoazxTutNzX-ChzpyysxyXTaWImN30KlCfQY0BiwCb6ogWADzXNHZKD5IcnvG-i_wIANtQdj0_y9CNRPmcVPay28=-no)
 
@@ -43,13 +43,15 @@ Tested on:
   * to Unijoysticle port #1.
   * to the Amiga port #2 (games usually expect joystick on port #2)
 
-## Atari ST family
+### Atari ST family
 
 ![AtariST](https://lh3.googleusercontent.com/HxxVCTN8gu6_5pXb_-dOB03FHvW7EcrazyEUyamJZzMliLzYk8RO82HYK8qtF9C5LQ1qz72myjmpceX8-OAvg2W_CrR0xp8GzzVGmsROG6su5RE19rlv2wdwLUGc2Y_dkCSxHFDfVPQ=-no)
 
 Tested on:
 
 * Atari ST 1040F: Unijoysticle can be self-powered.
+* Atari ST doesn't have a 3rd-button joystick, but it does a 2nd one.
+  Use the "3-button firmware" to play games that use the 2nd button.
 * Connect DB9-extension cable
   * to Unijoysticle port #1.
   * to the Atari ST port #2 (games usually expect joystick on port #2)
