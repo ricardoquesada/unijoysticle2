@@ -38,7 +38,7 @@ Amiga/Atari ST) games.
 
 Tested on:
 
-* Amiga 500 with default power supply: Unijoysticle *cannot* be self-powered (not enough current).
+* Amiga 500 with default power supply: Unijoysticle **cannot** be self-powered (not enough current).
 * Connect DB9-extension cable
   * to Unijoysticle port 1.
   * to the Amiga port 2 (games usually expect joystick on port 2)
