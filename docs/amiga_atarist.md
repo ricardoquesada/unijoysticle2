@@ -7,8 +7,6 @@ Amiga and Atari ST (among others).
 The Unijoysticle 2 was designed to fit in the Commodore 64 / 128 computers. If you
 want to use in any other computer will one (or two) DB9 extension cables[cable].
 
-## Amiga / Atari ST
-
 The difference between the C64/C128/Atari-8bit family vs. the Atari ST and Amiga
 is that the latter supports up to 3 buttons in the joystick, while the former only
 supports 1 button.
@@ -32,7 +30,7 @@ Use this firmware if you plan to play games that require 2 or more buttons:
 
 ## Amiga line
 
-![Amiga][https://lh3.googleusercontent.com/lsG9gSNVQxaz8YUH3pqvO3SJ5bC_KX_t5G5ELI2jOsepYODRma7IoazxTutNzX-ChzpyysxyXTaWImN30KlCfQY0BiwCb6ogWADzXNHZKD5IcnvG-i_wIANtQdj0_y9CNRPmcVPay28=-no]
+![Amiga](https://lh3.googleusercontent.com/lsG9gSNVQxaz8YUH3pqvO3SJ5bC_KX_t5G5ELI2jOsepYODRma7IoazxTutNzX-ChzpyysxyXTaWImN30KlCfQY0BiwCb6ogWADzXNHZKD5IcnvG-i_wIANtQdj0_y9CNRPmcVPay28=-no)
 
 Tested on:
 
@@ -43,7 +41,7 @@ Tested on:
 
 ## Atari ST line
 
-![AtariST][https://lh3.googleusercontent.com/HxxVCTN8gu6_5pXb_-dOB03FHvW7EcrazyEUyamJZzMliLzYk8RO82HYK8qtF9C5LQ1qz72myjmpceX8-OAvg2W_CrR0xp8GzzVGmsROG6su5RE19rlv2wdwLUGc2Y_dkCSxHFDfVPQ=-no]
+![AtariST](https://lh3.googleusercontent.com/HxxVCTN8gu6_5pXb_-dOB03FHvW7EcrazyEUyamJZzMliLzYk8RO82HYK8qtF9C5LQ1qz72myjmpceX8-OAvg2W_CrR0xp8GzzVGmsROG6su5RE19rlv2wdwLUGc2Y_dkCSxHFDfVPQ=-no)
 
 Tested on:
 
@@ -56,9 +54,9 @@ Tested on:
 
 The `amiga` firmware has the following benefits / limitations:
 
-* Supports the 3 buttons (yay!)
+* Supports the 3 joystick buttons (yay!)
 * But only one gamepad at the same time can be connected. That means:
-   * `Enhanced mode` cannot be activated.
-   * Cannot use just one Unijoysticle to play two player games (it requires two Unijoysticles).
+  * `Enhanced mode` cannot be activated.
+  * Cannot use just one Unijoysticle to play two player games (it requires two Unijoysticles).
 
 [firmware]: https://github.com/ricardoquesada/unijoysticle2/releases
