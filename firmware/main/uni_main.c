@@ -17,6 +17,7 @@ limitations under the License.
 ****************************************************************************/
 
 #include "uni_bluetooth.h"
+#include "uni_config.h"
 #include "uni_hid_device.h"
 #include "uni_platform.h"
 
@@ -30,7 +31,12 @@ int btstack_main(int argc, const char** argv) {
   // Honoring with BT copyright + adding own message to avoid confusion
   printf("Unijoysticle 2 (C) 2016-2019 Ricardo Quesada and contributors.\n");
   printf("Bluetooth stack: Copyright (C) 2017 BlueKitchen GmbH.\n");
-  printf("Firmware version: v0.5-beta1\n");
+  printf("Firmware version: v0.5-beta2\n");
+#if UNIJOYSTICLE_SINGLE_PORT
+  printf("Single port / 3-button mode enabled\n");
+#else
+  printf("Dual port / 1-button mode enabled\n");
+#endif
 
   uni_platform_init();
   uni_hid_device_init();

@@ -162,48 +162,49 @@ void uni_hid_parser_icade_parse_usage(uni_hid_device_t* d,
           }
           break;
 
-        case 0x0b:  // h (button B / "start": on)
+        case 0x0b:  // h (button B / shoulder-left: on)
           if (d->data[0] == ICADE_CABINET) {
             // Cabinet.
             gp->buttons |= BUTTON_B;
             gp->updated_states |= GAMEPAD_STATE_BUTTON_B;
           } else {
             // 8-bitty.
-            gp->misc_buttons |= MISC_BUTTON_HOME;
-            gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_HOME;
+            gp->buttons |= BUTTON_SHOULDER_L;
+            gp->updated_states |= GAMEPAD_STATE_BUTTON_SHOULDER_L;
           }
           break;
-        case 0x15:  // r (button B, "start": off)
+        case 0x15:  // r (button B, shoulder-left: off)
           if (d->data[0] == ICADE_CABINET) {
             // Cabinet.
             gp->buttons &= ~BUTTON_B;
             gp->updated_states |= GAMEPAD_STATE_BUTTON_B;
           } else {
             // 8-bitty.
-            gp->misc_buttons &= ~MISC_BUTTON_HOME;
-            gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_HOME;
+            gp->buttons &= ~BUTTON_SHOULDER_L;
+            gp->updated_states |= GAMEPAD_STATE_BUTTON_SHOULDER_L;
           }
           break;
 
-        case 0x18:  // u (button C / shoulder left: on)
+        case 0x18:  // u (button C / "start": on)
           if (d->data[0] == ICADE_CABINET) {
             // Cabinet.
             gp->buttons |= BUTTON_X;
             gp->updated_states |= GAMEPAD_STATE_BUTTON_X;
           } else {
-            gp->buttons |= BUTTON_SHOULDER_L;
-            gp->updated_states |= GAMEPAD_STATE_BUTTON_SHOULDER_L;
+            // 8-bitty.
+            gp->misc_buttons |= MISC_BUTTON_HOME;
+            gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_HOME;
           }
           break;
-        case 0x09:  // f (button C / shoulder left: off)
+        case 0x09:  // f (button C / "start": off)
           if (d->data[0] == ICADE_CABINET) {
             // Cabinet.
             gp->buttons &= ~BUTTON_X;
             gp->updated_states |= GAMEPAD_STATE_BUTTON_X;
           } else {
             // 8-bitty.
-            gp->buttons &= ~BUTTON_SHOULDER_L;
-            gp->updated_states |= GAMEPAD_STATE_BUTTON_SHOULDER_L;
+            gp->misc_buttons &= ~MISC_BUTTON_HOME;
+            gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_HOME;
           }
           break;
 
