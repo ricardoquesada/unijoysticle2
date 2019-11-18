@@ -4,10 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.5-beta2] - 2019-11-17
 ### Changed
-- Firmware: iCade fixed shoulder-left / start button mappings.
-- Firmware: print to console whether single-port / 3-button mode is enabled.
+- Firmware: iCade 8-bitty fixed shoulder-left / start button mappings.
+- Firmware: Print to console whether single-port / 3-button mode is enabled.
 
 ## [0.5-beta1] - 2019-11-10
 ### Added
