@@ -23,6 +23,8 @@ limitations under the License.
 #include "uni_hid_device.h"
 #include "uni_hid_parser.h"
 
+// Support for Nintendo Switch Pro gamepad.
+
 void uni_hid_parser_switch_init_report(uni_hid_device_t* d) {
   // Reset old state. Each report contains a full-state.
   d->gamepad.updated_states = 0;
