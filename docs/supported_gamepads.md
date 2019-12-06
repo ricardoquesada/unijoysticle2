@@ -11,7 +11,9 @@ Example of Bluetooth Classic HID devices are:
 
 - Xbox One S gamepad
 - Sony Dualshock 4 (in PC mode)
-- Nitendo Wii / Wii u controllers
+- Nintendo Wii / Wii U controllers
+- Nintendo Switch Pro controller
+- 8Bitdo controllers
 - Android gamepads
 - PC/Windows gamepads
 - iCade joystick
@@ -70,7 +72,7 @@ Tested gamepads so far.
 
 [dualshock_4]: https://lh3.googleusercontent.com/_0sAxKXbSkk4g8rWJzTNxAirz2hD632jW4TGjGVOwjoac8sD4AfiN9PA1HdGWhm_ujcVygDlEG-LENPemF7IyFhqVsHgVHfCMVeFVjBbeDl-fUUjdMbRYAE8FiKdyWM_UBNUNmVy9Ro=-no
 
-## Wii Remote
+## Nintendo Wii Remote
 
 [![Wii Remote][wii_remote]][29]
 
@@ -112,7 +114,7 @@ Tested gamepads so far.
 [wii_remote]: https://lh3.googleusercontent.com/HtQgfME-mwm59JFfASHLwHRzvrfesY_FkJTZKfUSAD5XTsPhi-r7Veqvs3n5zr5igm5ug9WmL3rKWuoA7AToeXKIsHpSeMhFRfHfTi53mqu5boTHRtzQSrUex8kHEd8Ny6CS0bpUhEk=w380-no
 [wii_sideways]: https://forums.dolphin-emu.org/Thread-how-to-hold-the-wii-remote
 
-## Wii U Pro controller
+## Nintendo Wii U Pro controller
 
 [![Wii U Pro][wii_u_pro]][27]
 
@@ -125,6 +127,19 @@ Tested gamepads so far.
 - Known issues: [issue #6][30]
 
 [wii_u_pro]: https://lh3.googleusercontent.com/kfKAySKzV-lLG7VmQGfCES1KuhtjBcTIfMzo59FgABcL7Ir9Tp7fQqrTP2iFqf8UVIhce1JhIXyBN_EH9eXpjlf5Q4b9NhhyxrFX9H0yVVRF0_pghjjz3pVqmY4uxS-FMgr7FC7egNo=w360-no
+
+## Nintendo Switch Pro
+
+[![Switch Pro][switch_pro_img]][switch_pro]
+
+- Press:
+  - *B* for Fire
+  - *A* for Jump
+  - *Right shoulder* for Auto-fire
+  - *Home* button to swap joystick port
+
+[switch_pro]: https://en.wikipedia.org/wiki/Nintendo_Switch_Pro_Controller
+[switch_pro_img]: https://lh3.googleusercontent.com/33hrGYM117T9pPrW0L-wr7bl0trLXooqmp4I78XV9vWkumHE8mK8Z_5KJZFzWKNpJg31gvrxHC0agF5BUgVr2f6awNYb98R-xPIWaawG6b0XwxHzm8hzz39Wnnv6qLmeEXsRaeoybsA=-no
 
 ## Android
 
@@ -171,11 +186,12 @@ Tested with different Android gamepads:
 
 [ouya_1gen]: https://lh3.googleusercontent.com/FtbQLbt1QrzU59TTPQHIEarGZItlPik0bGWo40iDu0rnMwddCEwKMcy8LAe_fqzklaSKfMbt3-EvFJI4Vcoz3gSPTgC9MnTog3MyGfNWMc0Wq2Idq1kzjPOpRIS5OXeSqSSmIfGa5-w=-no
 
-## 8Bitdo NES30
+## 8Bitdo Family
 
 [![8bitdo NES30][8bitdo_nes30]][20]
 
-- Only tested with 8Bitdo NES30. It is probable that other 8Bitdo are supported as well.
+- Tested with: 8Bitdo NES30, 8Bitdo SN30 Pro, 8Bitdo Lite.
+- All 8Bitdo modes supported: *Switch*, *Android*, *Windows* and *macOS*.
 - Mappings: Buttons: B,Y,X,A -> A,X,Y,B.
 - Press:
   - *B* for Fire

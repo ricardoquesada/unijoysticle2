@@ -159,14 +159,14 @@ void uni_hid_parser_switch_parse_usage(uni_hid_device_t* d,
             gp->buttons &= ~BUTTON_TRIGGER_R;
           gp->updated_states |= GAMEPAD_STATE_BUTTON_TRIGGER_R;
           break;
-        case 0x09:  // Select
+        case 0x09:  // "-" or "Select" on some clones
           if (value)
             gp->misc_buttons |= MISC_BUTTON_SYSTEM;
           else
             gp->misc_buttons &= ~MISC_BUTTON_SYSTEM;
           gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
           break;
-        case 0x0a:  // Start
+        case 0x0a:  // "+" or "Start" on some clones
           if (value)
             gp->misc_buttons |= MISC_BUTTON_HOME;
           else
