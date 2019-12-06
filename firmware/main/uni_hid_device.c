@@ -30,6 +30,7 @@ limitations under the License.
 #include "uni_hid_parser_ouya.h"
 #include "uni_hid_parser_ps4.h"
 #include "uni_hid_parser_smarttvremote.h"
+#include "uni_hid_parser_switch.h"
 #include "uni_hid_parser_wii.h"
 #include "uni_hid_parser_xboxone.h"
 #include "uni_platform.h"
@@ -458,6 +459,13 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
       d->report_parser.parse_usage = NULL;
       d->report_parser.parse_raw = uni_hid_parser_wii_parse_raw;
       logi("Device detected as Wii controller: 0x%02x\n", type);
+      break;
+    case CONTROLLER_TYPE_SwitchProController:
+      d->report_parser.setup = NULL;
+      d->report_parser.init_report = uni_hid_parser_switch_init_report;
+      d->report_parser.parse_usage = uni_hid_parser_switch_parse_usage;
+      d->report_parser.parse_raw = NULL;
+      logi("Device detected as Nintendo Switch Pro controller: 0x%02x\n", type);
       break;
     default:
       d->report_parser.setup = NULL;

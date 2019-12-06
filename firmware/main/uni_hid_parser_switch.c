@@ -16,19 +16,19 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ****************************************************************************/
 
-#include "uni_hid_parser_8bitdo.h"
+#include "uni_hid_parser_switch.h"
 
 #include "hid_usage.h"
 #include "uni_debug.h"
 #include "uni_hid_device.h"
 #include "uni_hid_parser.h"
 
-void uni_hid_parser_8bitdo_init_report(uni_hid_device_t* d) {
+void uni_hid_parser_switch_init_report(uni_hid_device_t* d) {
   // Reset old state. Each report contains a full-state.
   d->gamepad.updated_states = 0;
 }
 
-void uni_hid_parser_8bitdo_parse_usage(uni_hid_device_t* d,
+void uni_hid_parser_switch_parse_usage(uni_hid_device_t* d,
                                        hid_globals_t* globals,
                                        uint16_t usage_page, uint16_t usage,
                                        int32_t value) {
@@ -46,11 +46,11 @@ void uni_hid_parser_8bitdo_parse_usage(uni_hid_device_t* d,
           gp->axis_y = uni_hid_parser_process_axis(globals, value);
           gp->updated_states |= GAMEPAD_STATE_AXIS_Y;
           break;
-        case HID_USAGE_AXIS_Z:
+        case HID_USAGE_AXIS_RX:
           gp->axis_rx = uni_hid_parser_process_axis(globals, value);
           gp->updated_states |= GAMEPAD_STATE_AXIS_RX;
           break;
-        case HID_USAGE_AXIS_RZ:
+        case HID_USAGE_AXIS_RY:
           gp->axis_ry = uni_hid_parser_process_axis(globals, value);
           gp->updated_states |= GAMEPAD_STATE_AXIS_RY;
           break;
@@ -67,7 +67,7 @@ void uni_hid_parser_8bitdo_parse_usage(uni_hid_device_t* d,
           gp->updated_states |= GAMEPAD_STATE_DPAD;
           break;
         default:
-          logi("8Bitdo: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+          logi("Switch: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
                usage_page, usage, value);
           break;
       }
@@ -83,29 +83,44 @@ void uni_hid_parser_8bitdo_parse_usage(uni_hid_device_t* d,
           gp->updated_states |= GAMEPAD_STATE_BRAKE;
           break;
         default:
-          logi("Android: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+          logi("Switch: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
                usage_page, usage, value);
           break;
       };
       break;
+    case HID_USAGE_PAGE_GENERIC_DEVICE_CONTROLS:
+      switch (usage) {
+        case HID_USAGE_BATTERY_STRENGHT:
+          gp->battery = value;
+          break;
+        default:
+          logi("Switch: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+               usage_page, usage, value);
+          break;
+      }
+      break;
     case HID_USAGE_PAGE_BUTTON: {
       switch (usage) {
-        case 0x01:  // Button A
-          if (value)
-            gp->buttons |= BUTTON_B;
-          else
-            gp->buttons &= ~BUTTON_B;
-          gp->updated_states |= GAMEPAD_STATE_BUTTON_B;
-          break;
-        case 0x02:  // Button B
+        case 0x01:  // Button B
           if (value)
             gp->buttons |= BUTTON_A;
           else
             gp->buttons &= ~BUTTON_A;
           gp->updated_states |= GAMEPAD_STATE_BUTTON_A;
           break;
-        case 0x03:  // Not mapped
-          // SN30 Pro: Home button
+        case 0x02:  // Button A
+          if (value)
+            gp->buttons |= BUTTON_B;
+          else
+            gp->buttons &= ~BUTTON_B;
+          gp->updated_states |= GAMEPAD_STATE_BUTTON_B;
+          break;
+        case 0x03:  // Button Y
+          if (value)
+            gp->buttons |= BUTTON_X;
+          else
+            gp->buttons &= ~BUTTON_X;
+          gp->updated_states |= GAMEPAD_STATE_BUTTON_X;
           break;
         case 0x04:  // Button X
           if (value)
@@ -114,89 +129,108 @@ void uni_hid_parser_8bitdo_parse_usage(uni_hid_device_t* d,
             gp->buttons &= ~BUTTON_Y;
           gp->updated_states |= GAMEPAD_STATE_BUTTON_Y;
           break;
-        case 0x05:  // Button Y
-          if (value)
-            gp->buttons |= BUTTON_X;
-          else
-            gp->buttons &= ~BUTTON_X;
-          gp->updated_states |= GAMEPAD_STATE_BUTTON_X;
-          break;
-        case 0x06:  // No used
-          break;
-        case 0x07:
+        case 0x05:  // Shoulder left
           if (value)
             gp->buttons |= BUTTON_SHOULDER_L;
           else
             gp->buttons &= ~BUTTON_SHOULDER_L;
           gp->updated_states |= GAMEPAD_STATE_BUTTON_SHOULDER_L;
           break;
-        case 0x08:
+        case 0x06:  // Shoulder right
           if (value)
             gp->buttons |= BUTTON_SHOULDER_R;
           else
             gp->buttons &= ~BUTTON_SHOULDER_R;
           gp->updated_states |= GAMEPAD_STATE_BUTTON_SHOULDER_R;
           break;
-        case 0x09:
-          // SN30 Pro and gamepads with "trigger" buttons.
+        case 0x07:  // Trigger left
           if (value)
             gp->buttons |= BUTTON_TRIGGER_L;
           else
             gp->buttons &= ~BUTTON_TRIGGER_L;
           gp->updated_states |= GAMEPAD_STATE_BUTTON_TRIGGER_L;
           break;
-        case 0x0a:
-          // SN30 Pro and gamepads with "trigger" buttons.
+        case 0x08:  // Trigger right
           if (value)
             gp->buttons |= BUTTON_TRIGGER_R;
           else
             gp->buttons &= ~BUTTON_TRIGGER_R;
           gp->updated_states |= GAMEPAD_STATE_BUTTON_TRIGGER_R;
           break;
-        case 0x0b:  // "Select" button
-          if (value)
-            gp->misc_buttons |= MISC_BUTTON_HOME;
-          else
-            gp->misc_buttons &= ~MISC_BUTTON_HOME;
-          gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_HOME;
-          break;
-        case 0x0c:  // "Start" button
+        case 0x09:  // Select
           if (value)
             gp->misc_buttons |= MISC_BUTTON_SYSTEM;
           else
             gp->misc_buttons &= ~MISC_BUTTON_SYSTEM;
           gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
           break;
-        case 0x0d:  // Unsupported
+        case 0x0a:  // Start
+          if (value)
+            gp->misc_buttons |= MISC_BUTTON_HOME;
+          else
+            gp->misc_buttons &= ~MISC_BUTTON_HOME;
+          gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_HOME;
           break;
-        case 0x0e:
-          // SN30 Pro and gamepads with "thumb" buttons.
+        case 0x0b:  // Thumb left
           if (value)
             gp->buttons |= BUTTON_THUMB_L;
           else
             gp->buttons &= ~BUTTON_THUMB_L;
           gp->updated_states |= GAMEPAD_STATE_BUTTON_THUMB_L;
           break;
-        case 0x0f:
-          // SN30 Pro and gamepads with "thumb" buttons.
+        case 0x0c:  // Thumb right
           if (value)
             gp->buttons |= BUTTON_THUMB_R;
           else
             gp->buttons &= ~BUTTON_THUMB_R;
           gp->updated_states |= GAMEPAD_STATE_BUTTON_THUMB_R;
           break;
-        case 0x10:  // Not mapped
+        case 0x0e:  // Star, ignore
+        case 0x0d:  // Home, ignore
+        case 0x0f:  // Unknown
+        case 0x10:  // Unknown
           break;
         default:
-          logi("8Bitdo: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+          logi("Switch: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
                usage_page, usage, value);
           break;
       }
       break;
     }
+    case HID_USAGE_PAGE_CONSUMER:
+      switch (usage) {
+        case HID_USAGE_FAST_FORWARD:
+          break;
+        case HID_USAGE_REWIND:
+          break;
+        case HID_USAGE_PLAY_PAUSE:
+          break;
+        case HID_USAGE_AC_SEARCH:
+          break;
+        case HID_USAGE_AC_HOME:
+          if (value)
+            gp->misc_buttons |= MISC_BUTTON_HOME;
+          else
+            gp->misc_buttons &= ~MISC_BUTTON_HOME;
+          gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_HOME;
+          break;
+        case HID_USAGE_AC_BACK:
+          if (value)
+            gp->misc_buttons |= MISC_BUTTON_BACK;
+          else
+            gp->misc_buttons &= ~MISC_BUTTON_BACK;
+          gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_BACK;
+          break;
+        default:
+          logi("Switch: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+               usage_page, usage, value);
+          break;
+      }
+      break;
+
     // unknown usage page
     default:
-      logi("8Bitdo: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+      logi("Switch: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
            usage_page, usage, value);
       break;
   }

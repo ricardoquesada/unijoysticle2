@@ -411,6 +411,7 @@ static const uni_controlelr_description_t arrControllers[] = {
 
     // 8-Bitdo controllers
     {MAKE_CONTROLLER_ID(0x2820, 0x0009), CONTROLLER_TYPE_8BitdoController},  // 8Bitdo NES30 Gamepro (Unijoysticle)
+    {MAKE_CONTROLLER_ID(0x2dc8, 0x6101), CONTROLLER_TYPE_8BitdoController},  // 8Bitdo SN30 pro (Unijoysticle)
 
     // Generic gamepad
     {MAKE_CONTROLLER_ID(0x0a5c, 0x4502), CONTROLLER_TYPE_GenericController},  // White-label mini gamepad received as gift in conference (Unijoysticle)
