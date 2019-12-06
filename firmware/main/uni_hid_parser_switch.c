@@ -159,12 +159,7 @@ void uni_hid_parser_switch_parse_usage(uni_hid_device_t* d,
             gp->buttons &= ~BUTTON_TRIGGER_R;
           gp->updated_states |= GAMEPAD_STATE_BUTTON_TRIGGER_R;
           break;
-        case 0x09:  // "-" or "Select" on some clones
-          if (value)
-            gp->misc_buttons |= MISC_BUTTON_SYSTEM;
-          else
-            gp->misc_buttons &= ~MISC_BUTTON_SYSTEM;
-          gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
+        case 0x09:  // "-" or "Select" on some clones, ignore
           break;
         case 0x0a:  // "+" or "Start" on some clones
           if (value)
@@ -187,8 +182,15 @@ void uni_hid_parser_switch_parse_usage(uni_hid_device_t* d,
             gp->buttons &= ~BUTTON_THUMB_R;
           gp->updated_states |= GAMEPAD_STATE_BUTTON_THUMB_R;
           break;
-        case 0x0e:  // Star, ignore
-        case 0x0d:  // Home, ignore
+        case 0x0e:  // "Capture" or "Star" on some clones, ignore
+          break;
+        case 0x0d:  // Home
+          if (value)
+            gp->misc_buttons |= MISC_BUTTON_SYSTEM;
+          else
+            gp->misc_buttons &= ~MISC_BUTTON_SYSTEM;
+          gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
+          break;
         case 0x0f:  // Unknown
         case 0x10:  // Unknown
           break;

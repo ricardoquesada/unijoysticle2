@@ -7,7 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.5-rc0] - 2019-12-06
 ### Added
 - Firmware: Added support for Nintendo Switch Pro controller.
-- Firmware: Improved 8bitdo gamepad support (SN30 Pro & Lite).
+- Firmware: Improved 8Bitdo gamepad support (SN30 Pro & Lite).
+- Firmware: BTStack f07720a033c9fcfa856511634253b9889fa94cd8 (2019-12-6)
 
 ## [0.5-beta2] - 2019-11-17
 ### Changed
