@@ -145,12 +145,7 @@ Tested gamepads so far.
 
 ![Android][android_gamepad]
 
-Tested with different Android gamepads:
-
-- [ASUS][15]
-- [Moga Pro 2][16]
-- [Amazon Fire TV gamepads][17]
-
+- Tested with: [ASUS][15], [Moga Pro 2][16], [Amazon Fire TV gamepads][17]
 - Press:
   - *A* for Fire
   - *B* for Jump
