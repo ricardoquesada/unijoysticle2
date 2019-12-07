@@ -1,13 +1,13 @@
-# Supported devices
+# Supported controllers
 
 ![Supported gamepads][Supported gamepads]
 
-[Supported gamepads]: https://lh3.googleusercontent.com/nMFlbXHBq_bhSpL7EhAN4Xb8CZEm73u41DxDI2HrACay-RAWuCVfRCWgRyM5XL3qGqQksOmkMdxiYA2HUW1GuGp17b6DTvmGEDQRgzgKxGBbEVOIkvYcGGNHV_HTsz8f43wTwAly9yE=-no
+[Supported gamepads]: https://lh3.googleusercontent.com/DTnc3bmlhfZxkHo4JsOH0E1XX5avnETxlwmII6V9_M03XIuRwSrzYNYVo6SgdMQ7IofgJxvdMhnDIx6qSusn-rAJqWtVCIjjeiZ5UhELpDGWMTOIk4V7mnGSjhh4VVQ-TTKLKzB0EGE=-no
 
 ## Bluetooth Classic: Supported
 
-All Bluetooth Classic HID devices are supported, or should be easy to support them.
-Example of Bluetooth Classic HID devices are:
+All Bluetooth Classic HID controllers are supported, or should be easy to support them.
+Example of Bluetooth Classic HID controllers are:
 
 - Xbox One S gamepad
 - Sony Dualshock 4 (in PC mode)
@@ -22,8 +22,8 @@ Example of Bluetooth Classic HID devices are:
 
 ## Bluetooth BLE: Not supported ATM
 
-Not every Bluetooth HID device is "Classic". Some of them are "BLE" (low energy).
-And "BLE" devices are **not supported** at the moment, like:
+Not every Bluetooth HID controller is "Classic". Some of them are "BLE" (low energy).
+And "BLE" controllers are **not supported** at the moment, like:
 
 - Apple TV remote control (1st gen)
 - Nexus Android TV remote control
@@ -32,10 +32,10 @@ The good news is that all popular Bluetooth gamepads are Classic (not BLE).
 
 ## Non-Bluetooth: Not supported
 
-Not every wireless device is Bluetooth. If the device doesn't explicitly say
-it is a Bluetooth, most probably it is not a Bluetooth device, hence not supported by Unijoysticle.
+Not every wireless controller is Bluetooth. If the controller doesn't explicitly say
+it is a Bluetooth, most probably it is not a Bluetooth controller, hence not supported by Unijoysticle.
 
-Devices known to be non-Bluetooth:
+Controllers known to be non-Bluetooth:
 
 - mice / keyboards that come with their own wireless dongle.
 - NVIDIA Shield gamepad
@@ -188,19 +188,21 @@ Tested with different Android gamepads:
 
 ## 8Bitdo Family
 
-[![8bitdo NES30][8bitdo_nes30]][20]
+[![8bitdo SN30 Pro][8bitdo_sn30_pro_img]][8bitdo_sn30_pro]
 
-- Tested with: 8Bitdo NES30, 8Bitdo SN30 Pro, 8Bitdo Lite.
-- All 8Bitdo modes supported: *Switch*, *Android*, *Windows* and *macOS*.
-- Mappings: Buttons: B,Y,X,A -> A,X,Y,B.
+- Tested with: [8Bitdo SN30 Pro][8bitdo_sn30_pro], [8Bitdo Lite][8bitdo_lite], [8Bitdo NES30][8bitdo_nes30]
+- All 8Bitdo modes are supported: *Switch*, *Android*, *Windows* and *macOS*.
 - Press:
   - *B* for Fire
   - *A* for Jump
   - *Right shoulder* for Auto-fire
-  - *Start* to swap joystick port
+  - *Start* (or *Home*) to swap joystick port (depends on the 8Bitdo controller)
 - Known issues: [issue #3][24]
 
-[8bitdo_nes30]: https://lh3.googleusercontent.com/2JN1IhyPhxFRTm-dUazcOq-iXm7p_F6xDZIP5hn5EEj5QZxxW4h1u7smPhRT-4uEu6DVf8sbRlsr8Io2cMbU6HGLMk7amKMCT6Q0k8wZwXL8sl86WuWVUoBundZH78k9wHTE3qOX4bQ=-no
+[8bitdo_sn30_pro_img]: https://lh3.googleusercontent.com/KX3q2kT7UZcEDGN8953RB7msPV343Gworbgaq-eLeKtqSzjTlOIUkoCf0QAf2GrnroQm0ADOCDgj3rK8EWpl2tfqScqExsiSorWZFf7lzA8-m1EoYYkVyjYaeFsSxzcC17kw9CkMNWQ=-no
+[8bitdo_nes30]: https://www.google.com/search?q=8bitdo+nes30
+[8bitdo_lite]: https://www.8bitdo.com/lite/
+[8bitdo_sn30_pro]: https://www.8bitdo.com/sn30-pro-g-classic-or-sn30-pro-sn/
 
 ## iCade
 
@@ -212,7 +214,7 @@ Tested with different Android gamepads:
   - *Bottom Left* for Jump
   - *Bottom Right* for Auto-fire
   - *Top Right* button to swap joystick port
-- Might work with other devices that support the iCade protocol, but the `uni_hid_device_vendors.h` file might need to be updated.
+- Might work with other controllers that support the iCade protocol, but the `uni_hid_device_vendors.h` file might need to be updated.
 
 [icade_img]: https://lh3.googleusercontent.com/owslbSElM2BJL5M9h3hqksaCJhjAGf7DyfEwRFxxqjdG3Y73D5V9ScI0zVNokmSJMO6jrHMuX7j437kB-ER7kCAzc8GPX4ir9MPEVdypuxMneoIuzp3yAY8DqvkItbSZY0hlaAUMPn8=-no
 [icade_url]: https://www.ebay.com/sch/i.html?_from=R40&_trksid=m570.l1313&_nkw=icade+cabinet&_sacat=0&LH_TitleDesc=0&_osacat=0&_odkw=icade+cabinet
@@ -240,13 +242,13 @@ Tested with different Android gamepads:
 
 [fire_tv_remote]: https://lh3.googleusercontent.com/qnSdv7NM5et0vDhMQsRp7oMniqcjYxGKN9QJY0_gRWT6NXFrdWBf94JKNvP77abBZoykaSQOJBtXUnGW-Z1yF-MWn3q3t2Nt_TUVVV7a2HsPFjRc_DIuLh8tPiQNsEZSWDsb0z6Ys3k=-no
 
-## Generic HID devices
+## Generic HID controllers
 
 ![Generic][generic_gamepad]
 
-In general, any Bluetooth Classic (not BLE) device that supports HID is supported, or should be easy to support it.
+In general, any Bluetooth Classic (not BLE) controller that supports HID is supported, or should be easy to support it.
 
-There many *generic* Bluetooth devices that sometimes are offered as gifts in conferences. Usually these *generic* Bluetooth devices have different connection modes. Use the HID one.
+There many *generic* Bluetooth controllers that sometimes are offered as gifts in conferences. Usually these *generic* Bluetooth controllers have different connection modes. Use the HID one.
 
 - Select Button + X + Right trigger to enter into Gamepad mode
 - Select Button + X + Left trigger to enter in iCade mode.
@@ -255,7 +257,7 @@ There many *generic* Bluetooth devices that sometimes are offered as gifts in co
 
 # Technical notes: Virtual gamepad
 
-Internally, all devices are converted to a virtual gamepad which is very similar
+Internally, all controllers are converted to a virtual gamepad which is very similar
 to the Android/Xbox One gamepads layout. The different parsers convert the physical
 gamepads to the virtual gamepad.
 
@@ -308,7 +310,6 @@ Many of the virtual buttons/pads are left unmapped, but could be mapped in the f
 [17]: http://www.gamingonfire.com/2014-amazon-fire-gaming-controller-1st-gen/
 [18]: https://steelseries.com/gaming-controllers/nimbus
 [19]: https://www.amazon.com/OUYA-Wireless-Controller/dp/B002I0GX38?th=1
-[20]: https://www.ebay.com/itm/8Bitdo-NES30-Classic-Edition-Controller-set-for-Nintendo-Switch-Android-PC-Mac/192855559380
 [22]: https://www.amazon.com/Alexa-Voice-Remote-Amazon-Stick/dp/B071D41YC3
 [23]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/1
 [24]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/3
