@@ -24,7 +24,7 @@ limitations under the License.
 #include "btstack.h"
 #include "uni_hid_parser.h"
 
-// Android devices
+// 8Bitdo controllers
 void uni_hid_parser_8bitdo_init_report(uni_hid_device_t* d);
 void uni_hid_parser_8bitdo_parse_usage(uni_hid_device_t* d,
                                        hid_globals_t* globals,

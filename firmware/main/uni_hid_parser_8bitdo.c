@@ -23,6 +23,18 @@ limitations under the License.
 #include "uni_hid_device.h"
 #include "uni_hid_parser.h"
 
+// 8Bitdo controllers support different "modes":
+// - Nintendo Switch: it impersonates the Nintendo Switch controller
+// - Windows: it impersonates the Xbox One S controller
+// - macOS: it impersonates the PS4 DualShock 4 controller
+// - Android: mappings are almost identical to Android controllers.
+//
+// This file handles the "Android" mode. The mappings with Android is almost
+// identical to Android except that the layout of the A,B,X,Y buttons are
+// swapped and other minor changes.
+//
+// The other modes are handled in the Switch, Xbox One S and PS4 files.
+
 void uni_hid_parser_8bitdo_init_report(uni_hid_device_t* d) {
   // Reset old state. Each report contains a full-state.
   d->gamepad.updated_states = 0;
@@ -83,7 +95,7 @@ void uni_hid_parser_8bitdo_parse_usage(uni_hid_device_t* d,
           gp->updated_states |= GAMEPAD_STATE_BRAKE;
           break;
         default:
-          logi("Android: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
+          logi("8Bitdo: Unsupported page: 0x%04x, usage: 0x%04x, value=0x%x\n",
                usage_page, usage, value);
           break;
       };
