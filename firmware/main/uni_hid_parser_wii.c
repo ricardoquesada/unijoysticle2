@@ -75,7 +75,7 @@ enum wii_devtype {
 enum wii_exttype {
   WII_EXT_NONE,            // No extensions detected
   WII_EXT_UNK,             // Unknown extension
-  WII_EXT_NUNCHAK,         // Nunchak detected
+  WII_EXT_NUNCHUK,         // Nunchuk detected
   WII_EXT_PRO_CONTROLLER,  // Wii U Pro detected
 };
 
@@ -93,6 +93,16 @@ enum wii_fsm {
   WII_FSM_LED_UPDATED,            // After device was assigned, update LEDs.
 };
 
+typedef struct nunchuk_s {
+  int sx;   // Analog stick X
+  int sy;   // Analog stick Y
+  int ax;   // Accelerometer X
+  int ay;   // Accelerometer Y
+  int az;   // Accelerometer Z
+  bool bc;  // Button C
+  bool bz;  // Button Z
+} nunchuk_t;
+
 static void process_req_status(uni_hid_device_t* d, const uint8_t* report,
                                uint16_t len);
 static void process_req_data(uni_hid_device_t* d, const uint8_t* report,
@@ -105,8 +115,13 @@ static void process_drm_k_vertical(uni_gamepad_t* gp, const uint8_t* data);
 static void process_drm_k_horizontal(uni_gamepad_t* gp, const uint8_t* data);
 static void process_drm_ka(uni_hid_device_t* d, const uint8_t* report,
                            uint16_t len);
+static void process_drm_ke(uni_hid_device_t* d, const uint8_t* report,
+                           uint16_t len);
+static void process_drm_kae(uni_hid_device_t* d, const uint8_t* report,
+                            uint16_t len);
 static void process_drm_kee(uni_hid_device_t* d, const uint8_t* report,
                             uint16_t len);
+static nunchuk_t process_nunchuk(const uint8_t* e, uint16_t len);
 
 static void wii_process_fsm(uni_hid_device_t* d);
 static void wii_fsm_ext_init(uni_hid_device_t* d);
@@ -138,14 +153,14 @@ static void process_req_status(uni_hid_device_t* d, const uint8_t* report,
         d->data[0] = WII_FSM_DEV_GUESSED;
         d->data[2] = WII_DEVTYPE_REMOTE_MP;
       } else {
-        // Otherwise, it can be either a Wii Remote MP with a Nunchak or a
+        // Otherwise, it can be either a Wii Remote MP with a Nunchuk or a
         // Wii U Pro controller.
         d->data[0] = WII_FSM_DEV_UNK;
       }
     }
 
     if ((flags & 0x02) != 0) {
-      // Extension detected: Nunchak?
+      // Extension detected: Nunchuk?
       // Regardless of the previous FSM state, we overwrite it with "query
       // extension".
       d->data[0] = WII_FSM_EXT_UNK;
@@ -190,9 +205,9 @@ static void process_req_data(uni_hid_device_t* d, const uint8_t* report,
       d->data[4] = WII_EXT_PRO_CONTROLLER;
       logi("Wii: Pro Controller extension found\n");
     } else if (report[10] == 0x00 && report[11] == 0x00) {
-      // Nunchack: 00 00 a4 20 00 00
-      d->data[4] = WII_EXT_NUNCHAK;
-      logi("Wii: Nunchak extension found\n");
+      // Nunchuck: 00 00 a4 20 00 00
+      d->data[4] = WII_EXT_NUNCHUK;
+      logi("Wii: Nunchuk extension found\n");
       if (d->data[2] == WII_DEVTYPE_UNK) {
         if (d->product_id == 0x0330) {
           d->data[2] = WII_DEVTYPE_REMOTE_MP;
@@ -355,6 +370,97 @@ static void process_drm_ka(uni_hid_device_t* d, const uint8_t* report,
   gp->misc_buttons |=
       (report[2] & 0x80) ? MISC_BUTTON_SYSTEM : 0;  // Button "home"
   gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
+}
+
+// Defined here:
+// http://wiibrew.org/wiki/Wiimote#0x32:_Core_Buttons_with_8_Extension_bytes
+static void process_drm_ke(uni_hid_device_t* d, const uint8_t* report,
+                           uint16_t len) {
+  // Expecting something like:
+  // 32 BB BB EE EE EE EE EE EE EE EE
+  if (len < 11) {
+    loge("Wii: unexpected len; got %d, want >= 11\n", len);
+    return;
+  }
+
+  //
+  // Process Nunchuk
+  //
+  nunchuk_t n = process_nunchuk(&report[3], len - 3);
+  uni_gamepad_t* gp = &d->gamepad;
+  const int factor = 512 / 128;
+  // When VERTICAL mode is enabled, Nunchuk behaves as "right" joystick,
+  // and the Wiimote remote behaves as the "left" joystick.
+  if (d->data[3] == WII_FLAGS_VERTICAL) {
+    // Treat Nunchuk as "right" joystick.
+    gp->axis_rx = n.sx * factor;
+    gp->axis_ry = n.sy * factor;
+    gp->updated_states |= GAMEPAD_STATE_AXIS_RX | GAMEPAD_STATE_AXIS_RY;
+    gp->buttons |= n.bc ? BUTTON_B : 0;
+  } else {
+    // Treat Nunchuk as "left" joystick.
+    gp->axis_x = n.sx * factor;
+    gp->axis_y = n.sy * factor;
+    gp->updated_states |= GAMEPAD_STATE_AXIS_X | GAMEPAD_STATE_AXIS_Y;
+    gp->buttons |= n.bc ? BUTTON_A : 0;
+    gp->buttons |= n.bz ? BUTTON_B : 0;
+  }
+
+  //
+  // Process Wiimote remote
+  //
+
+  // dpad
+  gp->dpad |= (report[1] & 0x01) ? DPAD_LEFT : 0;
+  gp->dpad |= (report[1] & 0x02) ? DPAD_RIGHT : 0;
+  gp->dpad |= (report[1] & 0x04) ? DPAD_DOWN : 0;
+  gp->dpad |= (report[1] & 0x08) ? DPAD_UP : 0;
+  gp->updated_states |= GAMEPAD_STATE_DPAD;
+
+  gp->buttons |= (report[2] & 0x04) ? BUTTON_A : 0;  // Shoulder button
+  if (d->data[3] != WII_FLAGS_VERTICAL) {
+    // If "vertical" not enabled, update Button B as well
+    gp->buttons |= (report[2] & 0x08) ? BUTTON_B : 0;  // Big button "A"
+  }
+  gp->updated_states |= GAMEPAD_STATE_BUTTON_A | GAMEPAD_STATE_BUTTON_B;
+
+  gp->misc_buttons |=
+      (report[2] & 0x80) ? MISC_BUTTON_SYSTEM : 0;  // Button "home"
+  gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
+}
+
+// Defined here:
+// http://wiibrew.org/wiki/Wiimote#0x35:_Core_Buttons_and_Accelerometer_with_16_Extension_Bytes
+static void process_drm_kae(uni_hid_device_t* d, const uint8_t* report,
+                            uint16_t len) {
+  // Expecting something like:
+  // (a1) 35 BB BB AA AA AA EE EE EE EE EE EE EE EE EE EE EE EE EE EE EE EE
+  UNUSED(d);
+  UNUSED(report);
+  UNUSED(len);
+  loge("Wii: drm_kae not supported yet");
+}
+
+static nunchuk_t process_nunchuk(const uint8_t* e, uint16_t len) {
+  // Nunchuk format here:
+  // http://wiibrew.org/wiki/Wiimote/Extension_Controllers/Nunchuck
+  nunchuk_t n = {0};
+  if (len < 6) {
+    loge("Wii: unexpected len; got %d, want >= 6", len);
+    return n;
+  }
+  n.sx = e[0] - 0x80;
+  // Invert polarity to match Unijoysticle virtual gamepad.
+  n.sy = -(e[1] - 0x80);
+  n.ax = (e[2] << 2) | ((e[5] & 0b00001100) >> 2);
+  n.ay = (e[3] << 2) | ((e[5] & 0b00110000) >> 4);
+  n.az = (e[4] << 2) | ((e[5] & 0b11000000) >> 6);
+  n.ax -= 512;
+  n.ay -= 512;
+  n.az -= 512;
+  n.bc = !(e[5] & 0b00000010);
+  n.bz = !(e[5] & 0b00000001);
+  return n;
 }
 
 // Defined here:
@@ -543,14 +649,30 @@ static void wii_fsm_assign_device(uni_hid_device_t* d) {
       } else {
         logi("Unknown Wii device detected. Treating it as Wii Remote.\n");
       }
-      // 0x30 WIIPROTO_REQ_DRM_K (present in Wii Remote)
-      uint8_t reportK[] = {0xa2, WIIPROTO_REQ_DRM, 0x00, WIIPROTO_REQ_DRM_K};
-      if (d->data[3] & WII_FLAGS_ACCEL) {
-        logi("Wii Remote: Accelerometer enabled\n");
-        // Transform DRM_K into DRM_KA
-        reportK[3] = WIIPROTO_REQ_DRM_KA;
+      uint8_t reportType = 0xff;
+      if (d->data[4] == WII_EXT_NUNCHUK) {
+        // Request Nunchuk data
+        if (d->data[3] & WII_FLAGS_ACCEL) {
+          // Request Core buttons + Accel + extension (nunchuk)
+          reportType = WIIPROTO_REQ_DRM_KAE;
+          logi("Wii: requesting Core buttons + Accelerometer + Nunchuk");
+        } else {
+          // Request Core buttons + extension (nunchuk)
+          reportType = WIIPROTO_REQ_DRM_KE;
+          logi("Wii: requesting Core buttons + Nunchuk");
+        }
+      } else {
+        if (d->data[3] & WII_FLAGS_ACCEL) {
+          // Request Core buttons + accel
+          reportType = WIIPROTO_REQ_DRM_KA;
+          logi("Wii: requesting Core buttons + Accelerometer");
+        } else {
+          reportType = WIIPROTO_REQ_DRM_K;
+          logi("Wii: requesting Core buttons");
+        }
       }
-      uni_hid_device_send_report(d, reportK, sizeof(reportK));
+      uint8_t report[] = {0xa2, WIIPROTO_REQ_DRM, 0x00, reportType};
+      uni_hid_device_send_report(d, report, sizeof(report));
       break;
     }
     case WII_DEVTYPE_PRO_CONTROLLER: {
@@ -645,6 +767,12 @@ void uni_hid_parser_wii_parse_raw(uni_hid_device_t* d, const uint8_t* report,
       break;
     case WIIPROTO_REQ_DRM_KA:
       process_drm_ka(d, report, len);
+      break;
+    case WIIPROTO_REQ_DRM_KE:
+      process_drm_ke(d, report, len);
+      break;
+    case WIIPROTO_REQ_DRM_KAE:
+      process_drm_kae(d, report, len);
       break;
     case WIIPROTO_REQ_DRM_KEE:
       process_drm_kee(d, report, len);
