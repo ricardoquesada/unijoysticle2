@@ -23,20 +23,24 @@ limitations under the License.
 #include <stdio.h>
 #include <string.h>
 
-static void print_joystick(uni_joystick_t* joy) {
+static void print_joystick(char joy_port, uni_joystick_t* joy) {
   static uni_joystick_t prev_joy = {.auto_fire = 255};
   if (memcmp(joy, &prev_joy, sizeof(*joy)) != 0) {
     printf(
-        "up=%d, down=%d, left=%d, right=%d, fire=%d, potx=%d, poty=%d, "
+        "Joy %c: up=%d, down=%d, left=%d, right=%d, fire=%d, potx=%d, poty=%d, "
         "autofire=%d\n",
-        joy->up, joy->down, joy->left, joy->right, joy->fire, joy->pot_x,
-        joy->pot_y, joy->auto_fire);
+        joy_port, joy->up, joy->down, joy->left, joy->right, joy->fire,
+        joy->pot_x, joy->pot_y, joy->auto_fire);
     memcpy(&prev_joy, joy, sizeof(prev_joy));
   }
 }
 void uni_platform_init(void) {}
-void uni_platform_on_joy_a_data(uni_joystick_t* joy) { print_joystick(joy); }
-void uni_platform_on_joy_b_data(uni_joystick_t* joy) { print_joystick(joy); }
+void uni_platform_on_joy_a_data(uni_joystick_t* joy) {
+  print_joystick('A', joy);
+}
+void uni_platform_on_joy_b_data(uni_joystick_t* joy) {
+  print_joystick('B', joy);
+}
 void uni_platform_on_mouse_data(int32_t delta_x, int32_t delta_y,
                                 uint16_t buttons) {
   printf("mouse: x=%d, y=%d, buttons=0x%4x\n", delta_x, delta_y, buttons);

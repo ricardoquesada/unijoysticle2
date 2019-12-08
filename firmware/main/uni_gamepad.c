@@ -31,17 +31,16 @@ static void to_single_joy(const uni_gamepad_t* gp, uni_joystick_t* out_joy);
 static void to_single_joy(const uni_gamepad_t* gp, uni_joystick_t* out_joy) {
   // Button A is "fire"
   if (gp->updated_states & GAMEPAD_STATE_BUTTON_A) {
-    out_joy->fire |= ((gp->buttons & BUTTON_A) == BUTTON_A);
+    out_joy->fire |= ((gp->buttons & BUTTON_A) != 0);
   }
   // Thumb left is "fire"
   if (gp->updated_states & GAMEPAD_STATE_BUTTON_THUMB_L) {
-    out_joy->fire |= ((gp->buttons & BUTTON_THUMB_L) == BUTTON_THUMB_L);
+    out_joy->fire |= ((gp->buttons & BUTTON_THUMB_L) != 0);
   }
 
   // Shoulder right is "auto fire"
   if (gp->updated_states & GAMEPAD_STATE_BUTTON_SHOULDER_R) {
-    out_joy->auto_fire |=
-        ((gp->buttons & BUTTON_SHOULDER_R) == BUTTON_SHOULDER_R);
+    out_joy->auto_fire |= ((gp->buttons & BUTTON_SHOULDER_R) != 0);
   }
 
   // Dpad
@@ -78,14 +77,14 @@ void uni_gamepad_to_single_joy(const uni_gamepad_t* gp,
 #if UNIJOYSTICLE_SINGLE_PORT == 0
   // Buttom B is "jump"
   if (gp->updated_states & GAMEPAD_STATE_BUTTON_B) {
-    out_joy->up |= ((gp->buttons & BUTTON_B) == BUTTON_B);
+    out_joy->up |= ((gp->buttons & BUTTON_B) != 0);
   }
 #else   // UNIJOYSTICLE_SINGLE_PORT == 1
   if (gp->updated_states & GAMEPAD_STATE_BUTTON_B) {
-    out_joy->pot_y |= ((gp->buttons & BUTTON_B) == BUTTON_B);
+    out_joy->pot_y |= ((gp->buttons & BUTTON_B) != 0);
   }
   if (gp->updated_states & GAMEPAD_STATE_BUTTON_X) {
-    out_joy->pot_x |= ((gp->buttons & BUTTON_X) == BUTTON_X);
+    out_joy->pot_x |= ((gp->buttons & BUTTON_X) != 0);
   }
 #endif  // UNIJOYSTICLE_SINGLE_PORT == 1
 }
@@ -97,17 +96,20 @@ void uni_gamepad_to_combo_joy_joy(const uni_gamepad_t* gp,
 
   // Buttom B is "fire"
   if (gp->updated_states & GAMEPAD_STATE_BUTTON_B) {
-    out_joy2->fire |= ((gp->buttons & BUTTON_B) == BUTTON_B);
+    out_joy2->fire |= ((gp->buttons & BUTTON_B) != 0);
   }
   // Thumb right is "fire"
   if (gp->updated_states & GAMEPAD_STATE_BUTTON_THUMB_R) {
-    out_joy2->fire |= ((gp->buttons & BUTTON_THUMB_R) == BUTTON_THUMB_R);
+    out_joy2->fire |= ((gp->buttons & BUTTON_THUMB_R) != 0);
   }
 
-  // Shoulder left is "auto fire"
+  // Swap "auto fire" in Combo Joy Joy.
+  // "left" belongs to joy1 while "right" to joy2.
   if (gp->updated_states & GAMEPAD_STATE_BUTTON_SHOULDER_L) {
-    out_joy2->auto_fire |=
-        ((gp->buttons & BUTTON_SHOULDER_L) == BUTTON_SHOULDER_L);
+    out_joy1->auto_fire = ((gp->buttons & BUTTON_SHOULDER_L) != 0);
+  }
+  if (gp->updated_states & GAMEPAD_STATE_BUTTON_SHOULDER_R) {
+    out_joy2->auto_fire = ((gp->buttons & BUTTON_SHOULDER_R) != 0);
   }
 
   // Axis: RX and RY
@@ -143,17 +145,17 @@ void uni_gamepad_to_combo_joy_mouse(const uni_gamepad_t* gp,
 
   // Buttom B is "mouse left button"
   if (gp->updated_states & GAMEPAD_STATE_BUTTON_B) {
-    out_mouse->fire |= ((gp->buttons & BUTTON_B) == BUTTON_B);
+    out_mouse->fire |= ((gp->buttons & BUTTON_B) != 0);
   }
 
   // Buttom X is "mouse middle button"
   if (gp->updated_states & GAMEPAD_STATE_BUTTON_X) {
-    out_mouse->pot_x |= ((gp->buttons & BUTTON_X) == BUTTON_X);
+    out_mouse->pot_x |= ((gp->buttons & BUTTON_X) != 0);
   }
 
   // Buttom Y is "mouse right button"
   if (gp->updated_states & GAMEPAD_STATE_BUTTON_Y) {
-    out_mouse->pot_y |= ((gp->buttons & BUTTON_Y) == BUTTON_Y);
+    out_mouse->pot_y |= ((gp->buttons & BUTTON_Y) != 0);
   }
 }
 

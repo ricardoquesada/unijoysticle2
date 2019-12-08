@@ -390,15 +390,16 @@ static void process_drm_ke(uni_hid_device_t* d, const uint8_t* report,
   uni_gamepad_t* gp = &d->gamepad;
   const int factor = 512 / 128;
   // When VERTICAL mode is enabled, Nunchuk behaves as "right" joystick,
-  // and the Wiimote remote behaves as the "left" joystick.
+  // and the Wii remote behaves as the "left" joystick.
   if (d->data[3] == WII_FLAGS_VERTICAL) {
-    // Treat Nunchuk as "right" joystick.
+    // Treat Nunchuk as "right" joyspad.
     gp->axis_rx = n.sx * factor;
     gp->axis_ry = n.sy * factor;
     gp->updated_states |= GAMEPAD_STATE_AXIS_RX | GAMEPAD_STATE_AXIS_RY;
     gp->buttons |= n.bc ? BUTTON_B : 0;
+    gp->buttons |= n.bz ? BUTTON_SHOULDER_R : 0;  // Autofire
   } else {
-    // Treat Nunchuk as "left" joystick.
+    // Treat Nunchuk as "left" joypad.
     gp->axis_x = n.sx * factor;
     gp->axis_y = n.sy * factor;
     gp->updated_states |= GAMEPAD_STATE_AXIS_X | GAMEPAD_STATE_AXIS_Y;
@@ -407,7 +408,7 @@ static void process_drm_ke(uni_hid_device_t* d, const uint8_t* report,
   }
 
   //
-  // Process Wiimote remote
+  // Process Wii remote
   //
 
   // dpad
@@ -418,11 +419,16 @@ static void process_drm_ke(uni_hid_device_t* d, const uint8_t* report,
   gp->updated_states |= GAMEPAD_STATE_DPAD;
 
   gp->buttons |= (report[2] & 0x04) ? BUTTON_A : 0;  // Shoulder button
-  if (d->data[3] != WII_FLAGS_VERTICAL) {
+  if (d->data[3] == WII_FLAGS_VERTICAL) {
+    gp->buttons |=
+        (report[2] & 0x08) ? BUTTON_SHOULDER_L : 0;  // Big button "A"
+  } else {
     // If "vertical" not enabled, update Button B as well
     gp->buttons |= (report[2] & 0x08) ? BUTTON_B : 0;  // Big button "A"
   }
-  gp->updated_states |= GAMEPAD_STATE_BUTTON_A | GAMEPAD_STATE_BUTTON_B;
+  gp->updated_states |= GAMEPAD_STATE_BUTTON_A | GAMEPAD_STATE_BUTTON_B |
+                        GAMEPAD_STATE_BUTTON_SHOULDER_L |
+                        GAMEPAD_STATE_BUTTON_SHOULDER_R;
 
   gp->misc_buttons |=
       (report[2] & 0x80) ? MISC_BUTTON_SYSTEM : 0;  // Button "home"

@@ -9,14 +9,14 @@
 All Bluetooth Classic HID controllers are supported, or should be easy to support them.
 Example of Bluetooth Classic HID controllers are:
 
-- Xbox One S gamepad
-- Sony Dualshock 4 (in PC mode)
-- Nintendo Wii / Wii U controllers
+- Xbox One S controller
+- Sony Dualshock 4 controller
+- Nintendo Wii / Wii U controllers, including Nunchuk
 - Nintendo Switch Pro controller
 - 8Bitdo controllers
-- Android gamepads
-- PC/Windows gamepads
-- iCade joystick
+- Android controllers
+- PC/Windows controllers
+- iCade controllers
 - Some TV remote controls, like the Amazon Fire TV
 - Some mice
 
