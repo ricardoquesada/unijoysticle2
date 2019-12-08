@@ -114,6 +114,35 @@ Tested gamepads so far.
 [wii_remote]: https://lh3.googleusercontent.com/HtQgfME-mwm59JFfASHLwHRzvrfesY_FkJTZKfUSAD5XTsPhi-r7Veqvs3n5zr5igm5ug9WmL3rKWuoA7AToeXKIsHpSeMhFRfHfTi53mqu5boTHRtzQSrUex8kHEd8Ny6CS0bpUhEk=w380-no
 [wii_sideways]: https://forums.dolphin-emu.org/Thread-how-to-hold-the-wii-remote
 
+## Nintendo Wii Remote + Nunchuk
+
+[![Wii Remote Nunchuk][wii_nunchuk_img]][wii_nunchuk]
+
+When Nunchuk is attached to the Wii Remote, the Nunchuk can be used.
+
+### Nunchuk as regular joystick
+
+- Default mode. No need to press anything special to enter this mode.
+- Use Nunchuk joystick for regular movement.
+- Nunchuck button C for fire.
+- Nunchuck button Z for jump.
+
+Wii Remote can also be used, but both of them control the same joystick.
+
+### Nunchuk as second joystick
+
+To control both Commodore joysticks (useful when in *Unijoysticle Enhanced mode*), you
+have to press the "+" button in the Wii Remote while connecting or reconnecting.
+
+- Enter this mode by pressing button "+" while connecting or reconnecting.
+- Use Nunchuk joystick for "right" movement.
+- Nunchuck button C for "right" fire.
+- Use Wii Remote DPAD for "left" movement.
+- Use Wii Remote shoulder button for "left" fire.
+
+[wii_nunchuk_img]: https://lh3.googleusercontent.com/DtCjBt0zrNEDBSgTmaP4BhPlDFfJePFtyBbLvqhEnxG5wjlIjbL1j3akOqbb4_tsSEuVGq1VaBZ_2T94TYNG8tjzxthE-Theo-gphrnG7AW8GEzd7vrmNqjVtGJjDcdhTnkJbsdCCFk=-no
+[wii_nunchuk]: https://en.wikipedia.org/wiki/Wii_Remote#Nunchuk
+
 ## Nintendo Wii U Pro controller
 
 [![Wii U Pro][wii_u_pro]][27]
@@ -199,7 +228,9 @@ Tested gamepads so far.
 [8bitdo_lite]: https://www.8bitdo.com/lite/
 [8bitdo_sn30_pro]: https://www.8bitdo.com/sn30-pro-g-classic-or-sn30-pro-sn/
 
-## iCade
+## iCade Family
+
+### iCade Cabinet
 
 [![iCade][icade_img]][icade_url]
 
@@ -214,7 +245,7 @@ Tested gamepads so far.
 [icade_img]: https://lh3.googleusercontent.com/owslbSElM2BJL5M9h3hqksaCJhjAGf7DyfEwRFxxqjdG3Y73D5V9ScI0zVNokmSJMO6jrHMuX7j437kB-ER7kCAzc8GPX4ir9MPEVdypuxMneoIuzp3yAY8DqvkItbSZY0hlaAUMPn8=-no
 [icade_url]: https://www.ebay.com/sch/i.html?_from=R40&_trksid=m570.l1313&_nkw=icade+cabinet&_sacat=0&LH_TitleDesc=0&_osacat=0&_odkw=icade+cabinet
 
-## iCade 8-bitty
+### iCade 8-bitty
 
 [![iCade 8bitty][8bitty_img]][8bitty_url]
 

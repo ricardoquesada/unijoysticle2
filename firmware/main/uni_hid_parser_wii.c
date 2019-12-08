@@ -185,7 +185,7 @@ static void process_req_status(uni_hid_device_t* d, const uint8_t* report,
 static void process_req_data(uni_hid_device_t* d, const uint8_t* report,
                              uint16_t len) {
   if (len < 22) {
-    loge("invalid req_data lenght: got %d, want >= 22\n", len);
+    loge("Wii: invalid req_data lenght: got %d, want >= 22\n", len);
     return;
   }
   uint8_t se = report[3];  // SE: size and error
@@ -216,7 +216,7 @@ static void process_req_data(uni_hid_device_t* d, const uint8_t* report,
           d->data[2] = WII_DEVTYPE_REMOTE;
           logi("Wii Remote detected\n");
         } else {
-          loge("Wii: Unknown product id: 0x%04x", d->product_id);
+          loge("Wii: Unknown product id: 0x%04x\n", d->product_id);
         }
       }
     }
@@ -438,7 +438,7 @@ static void process_drm_kae(uni_hid_device_t* d, const uint8_t* report,
   UNUSED(d);
   UNUSED(report);
   UNUSED(len);
-  loge("Wii: drm_kae not supported yet");
+  loge("Wii: drm_kae not supported yet\n");
 }
 
 static nunchuk_t process_nunchuk(const uint8_t* e, uint16_t len) {
@@ -446,7 +446,7 @@ static nunchuk_t process_nunchuk(const uint8_t* e, uint16_t len) {
   // http://wiibrew.org/wiki/Wiimote/Extension_Controllers/Nunchuck
   nunchuk_t n = {0};
   if (len < 6) {
-    loge("Wii: unexpected len; got %d, want >= 6", len);
+    loge("Wii: unexpected len; got %d, want >= 6\n", len);
     return n;
   }
   n.sx = e[0] - 0x80;
@@ -655,20 +655,20 @@ static void wii_fsm_assign_device(uni_hid_device_t* d) {
         if (d->data[3] & WII_FLAGS_ACCEL) {
           // Request Core buttons + Accel + extension (nunchuk)
           reportType = WIIPROTO_REQ_DRM_KAE;
-          logi("Wii: requesting Core buttons + Accelerometer + Nunchuk");
+          logi("Wii: requesting Core buttons + Accelerometer + Nunchuk\n");
         } else {
           // Request Core buttons + extension (nunchuk)
           reportType = WIIPROTO_REQ_DRM_KE;
-          logi("Wii: requesting Core buttons + Nunchuk");
+          logi("Wii: requesting Core buttons + Nunchuk\n");
         }
       } else {
         if (d->data[3] & WII_FLAGS_ACCEL) {
           // Request Core buttons + accel
           reportType = WIIPROTO_REQ_DRM_KA;
-          logi("Wii: requesting Core buttons + Accelerometer");
+          logi("Wii: requesting Core buttons + Accelerometer\n");
         } else {
           reportType = WIIPROTO_REQ_DRM_K;
-          logi("Wii: requesting Core buttons");
+          logi("Wii: requesting Core buttons\n");
         }
       }
       uint8_t report[] = {0xa2, WIIPROTO_REQ_DRM, 0x00, reportType};
@@ -791,7 +791,7 @@ void uni_hid_parser_wii_parse_raw(uni_hid_device_t* d, const uint8_t* report,
 
 void uni_hid_parser_wii_update_led(uni_hid_device_t* d) {
   if (d == NULL) {
-    loge("ERROR: Invalid device\n");
+    loge("Wii: ERROR: Invalid device\n");
   }
   // Set LED to 1.
   uint8_t report[] = {
