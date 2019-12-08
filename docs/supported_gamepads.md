@@ -2,7 +2,7 @@
 
 ![Supported gamepads][Supported gamepads]
 
-[Supported gamepads]: https://lh3.googleusercontent.com/DTnc3bmlhfZxkHo4JsOH0E1XX5avnETxlwmII6V9_M03XIuRwSrzYNYVo6SgdMQ7IofgJxvdMhnDIx6qSusn-rAJqWtVCIjjeiZ5UhELpDGWMTOIk4V7mnGSjhh4VVQ-TTKLKzB0EGE=-no
+[Supported gamepads]: https://lh3.googleusercontent.com/3g8wour3W0RxAshavBwxnbJjpALxHeFw0V4T8et7HhrIculT26HqUans5IqTaUzYZk6lCmKvZ0Gx9IsHgfdZ9G_KMYK4ybzf0iKWgLjbxR36YcVSB8XIRES8v6ZKN4JCKnhbQ6_4lNA=-no
 
 ## Bluetooth Classic: Supported
 
