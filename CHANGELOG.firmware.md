@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
             Button "Shoulder Right" triggers auto-fire in Joy B.
 - Firmware: Improved debug logging in "PC platform".
 - Firmware: Code is more readable in uni_gamepad.c.
+- Firmware: When two controllers are connected, the two LEDs are turned on.
 
 ## [0.5-rc0] - 2019-12-06
 ### Added

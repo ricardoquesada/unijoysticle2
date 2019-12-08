@@ -666,7 +666,16 @@ void uni_hid_device_set_joystick_port(uni_hid_device_t* d,
   }
   d->joystick_port = p;
   logi("device %s has new joystick port: %d\n", bd_addr_to_str(d->address), p);
-  uni_platform_on_port_assign_changed(p);
+
+  // Fetch all enabled ports
+  uni_joystick_port_t all_ports = JOYSTICK_PORT_NONE;
+  for (int j = 0; j < MAX_DEVICES; j++) {
+    if (bd_addr_cmp(g_devices[j].address, zero_addr) != 0) {
+      all_ports |= g_devices[j].joystick_port;
+    }
+  }
+  uni_platform_on_port_assign_changed(all_ports);
+
   if (d->report_parser.update_led != NULL) {
     d->report_parser.update_led(d);
   }

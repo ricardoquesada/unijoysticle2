@@ -244,8 +244,8 @@ void uni_platform_on_init_complete() {
 }
 
 void uni_platform_on_port_assign_changed(uni_joystick_port_t port) {
-  bool port_status_a = ((port & JOYSTICK_PORT_A) == JOYSTICK_PORT_A);
-  bool port_status_b = ((port & JOYSTICK_PORT_B) == JOYSTICK_PORT_B);
+  bool port_status_a = ((port & JOYSTICK_PORT_A) != 0);
+  bool port_status_b = ((port & JOYSTICK_PORT_B) != 0);
   gpio_set_level(GPIO_LED_J1, port_status_a);
   gpio_set_level(GPIO_LED_J2, port_status_b);
 }

@@ -66,8 +66,8 @@ uint8_t uni_platform_is_button_pressed() { return g_delete_keys; }
 // Events.
 void uni_platform_on_init_complete(void) {}
 void uni_platform_on_port_assign_changed(uni_joystick_port_t port) {
-  uint8_t port_status_a = ((port & JOYSTICK_PORT_A) == JOYSTICK_PORT_A);
-  uint8_t port_status_b = ((port & JOYSTICK_PORT_B) == JOYSTICK_PORT_B);
+  uint8_t port_status_a = ((port & JOYSTICK_PORT_A) != 0);
+  uint8_t port_status_b = ((port & JOYSTICK_PORT_B) != 0);
   printf("LED A = %d, LED B = %d\n", port_status_a, port_status_b);
 
   // Enable enhanced mode
