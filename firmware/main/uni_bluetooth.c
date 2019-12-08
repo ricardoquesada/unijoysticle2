@@ -811,7 +811,7 @@ static void list_link_keys(void) {
     loge("Link key iterator not implemented\n");
     return;
   }
-  uint8_t delete_keys = uni_platform_is_button_pressed() || true;
+  uint8_t delete_keys = uni_platform_is_button_pressed();
   if (delete_keys)
     printf("Deleting stored link keys:\n");
   else

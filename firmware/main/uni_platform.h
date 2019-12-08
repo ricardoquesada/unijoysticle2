@@ -23,7 +23,7 @@ limitations under the License.
 
 #include "uni_joystick.h"
 
-void uni_platform_init(void);
+void uni_platform_init(int argc, const char** argv);
 
 // events
 void uni_platform_on_init_complete(void);

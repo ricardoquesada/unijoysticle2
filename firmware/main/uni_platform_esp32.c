@@ -162,7 +162,9 @@ static void auto_fire_loop(void* arg);
     _a < _b ? _a : _b;      \
   })
 
-void uni_platform_init(void) {
+void uni_platform_init(int argc, const char** argv) {
+  UNUSED(argc);
+  UNUSED(argv);
   gpio_config_t io_conf;
   io_conf.intr_type = GPIO_INTR_DISABLE;
   io_conf.mode = GPIO_MODE_OUTPUT;

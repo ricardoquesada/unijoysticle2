@@ -38,7 +38,7 @@ int btstack_main(int argc, const char** argv) {
   printf("Dual port / 1-button mode enabled\n");
 #endif
 
-  uni_platform_init();
+  uni_platform_init(argc, argv);
   uni_hid_device_init();
 
   // Continue with bluetooth setup.
