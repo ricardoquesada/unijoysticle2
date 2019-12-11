@@ -542,7 +542,7 @@ void uni_hid_device_process_gamepad(uni_hid_device_t* d) {
 static void process_misc_button_system(uni_hid_device_t* d) {
   if ((d->gamepad.updated_states & GAMEPAD_STATE_MISC_BUTTON_SYSTEM) == 0) {
     // System button released (or never have been pressed). Return, and clean
-    // wait_release button
+    // wait_release button.
     return;
   }
 
@@ -570,7 +570,7 @@ static void process_misc_button_system(uni_hid_device_t* d) {
     return;
   }
 
-  // swap joysticks if only one device is attached
+  // Swap joysticks if only one device is attached.
   int num_devices = 0;
   for (int j = 0; j < MAX_DEVICES; j++) {
     if ((bd_addr_cmp(g_devices[j].address, zero_addr) != 0) &&
@@ -590,6 +590,12 @@ static void process_misc_button_system(uni_hid_device_t* d) {
   uni_joystick_port_t p =
       (d->joystick_port == JOYSTICK_PORT_A) ? JOYSTICK_PORT_B : JOYSTICK_PORT_A;
   uni_hid_device_set_joystick_port(d, p);
+
+  // Clear joystick after switch to avoid having a line "On".
+  uni_joystick_t joy;
+  memset(&joy, 0, sizeof(joy));
+  uni_platform_on_joy_a_data(&joy);
+  uni_platform_on_joy_b_data(&joy);
 }
 
 // process_misc_button_home dumps uni_hid_device debug info in the console.

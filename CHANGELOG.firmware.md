@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.5-rc1] - 2019-12-07
+## Unreleased
+### Changed
+- Firmware: After swapping the joysticks ports, the joysticks lines are "Off".
+
+## [0.5-rc1] - 2019-12-09
 ### Added
 - Firmware: Added support for Nintendo Wii Nunchuk
 - Firmware: PC platform: added support for "delete keys" and "enable enhanced mode"
