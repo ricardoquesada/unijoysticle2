@@ -143,6 +143,10 @@ have to press the "+" button in the Wii Remote while connecting or reconnecting.
 [wii_nunchuk_img]: https://lh3.googleusercontent.com/DtCjBt0zrNEDBSgTmaP4BhPlDFfJePFtyBbLvqhEnxG5wjlIjbL1j3akOqbb4_tsSEuVGq1VaBZ_2T94TYNG8tjzxthE-Theo-gphrnG7AW8GEzd7vrmNqjVtGJjDcdhTnkJbsdCCFk=-no
 [wii_nunchuk]: https://en.wikipedia.org/wiki/Wii_Remote#Nunchuk
 
+### Nintendo Classic Controller / Classic Controller Pro
+
+TODO
+
 ## Nintendo Wii U Pro controller
 
 [![Wii U Pro][wii_u_pro]][27]

@@ -73,10 +73,11 @@ enum wii_devtype {
 };
 
 enum wii_exttype {
-  WII_EXT_NONE,            // No extensions detected
-  WII_EXT_UNK,             // Unknown extension
-  WII_EXT_NUNCHUK,         // Nunchuk detected
-  WII_EXT_PRO_CONTROLLER,  // Wii U Pro detected
+  WII_EXT_NONE,                // No extensions detected
+  WII_EXT_UNK,                 // Unknown extension
+  WII_EXT_NUNCHUK,             // Nunchuk
+  WII_EXT_CLASSIC_CONTROLLER,  // Classic Controller or Classic Controller Pro
+  WII_EXT_U_PRO_CONTROLLER,    // Wii U Pro
 };
 
 // Required steps to determine what kind of extensions are supported.
@@ -121,6 +122,8 @@ static void process_drm_kae(uni_hid_device_t* d, const uint8_t* report,
                             uint16_t len);
 static void process_drm_kee(uni_hid_device_t* d, const uint8_t* report,
                             uint16_t len);
+static void process_drm_e(uni_hid_device_t* d, const uint8_t* report,
+                          uint16_t len);
 static nunchuk_t process_nunchuk(const uint8_t* e, uint16_t len);
 
 static void wii_process_fsm(uni_hid_device_t* d);
@@ -186,6 +189,7 @@ static void process_req_data(uni_hid_device_t* d, const uint8_t* report,
                              uint16_t len) {
   if (len < 22) {
     loge("Wii: invalid req_data lenght: got %d, want >= 22\n", len);
+    printf_hexdump(report, len);
     return;
   }
   uint8_t se = report[3];  // SE: size and error
@@ -195,6 +199,7 @@ static void process_req_data(uni_hid_device_t* d, const uint8_t* report,
     loge("Wii: error reading memory: 0x%02x\n.", e);
     return;
   }
+
   // We are expecting to read 6 bytes from 0xXX00fa
   if (s == 5 && report[4] == 0x00 && report[5] == 0xfa) {
     // This contains the read memory from register 0xa?00fa
@@ -202,28 +207,38 @@ static void process_req_data(uni_hid_device_t* d, const uint8_t* report,
     if (report[10] == 0x01 && report[11] == 0x20) {
       // Pro Controller: 00 00 a4 20 01 20
       d->data[2] = WII_DEVTYPE_PRO_CONTROLLER;
-      d->data[4] = WII_EXT_PRO_CONTROLLER;
+      d->data[4] = WII_EXT_U_PRO_CONTROLLER;
       logi("Wii: Pro Controller extension found\n");
-    } else if (report[10] == 0x00 && report[11] == 0x00) {
-      // Nunchuck: 00 00 a4 20 00 00
-      d->data[4] = WII_EXT_NUNCHUK;
-      logi("Wii: Nunchuk extension found\n");
-      if (d->data[2] == WII_DEVTYPE_UNK) {
-        if (d->product_id == 0x0330) {
-          d->data[2] = WII_DEVTYPE_REMOTE_MP;
-          logi("Wii Remote MP detected\n");
-        } else if (d->product_id == 0x0306) {
-          d->data[2] = WII_DEVTYPE_REMOTE;
-          logi("Wii Remote detected\n");
-        } else {
-          loge("Wii: Unknown product id: 0x%04x\n", d->product_id);
-        }
+    } else if (d->data[2] == WII_DEVTYPE_UNK) {
+      if (d->product_id == 0x0330) {
+        d->data[2] = WII_DEVTYPE_REMOTE_MP;
+        logi("Wii Remote MP detected\n");
+      } else if (d->product_id == 0x0306) {
+        d->data[2] = WII_DEVTYPE_REMOTE;
+        logi("Wii Remote detected\n");
+      } else {
+        loge("Wii: Unknown product id: 0x%04x\n", d->product_id);
+      }
+      if (report[10] == 0x00 && report[11] == 0x00) {
+        // Nunchuck: 00 00 a4 20 00 00
+        d->data[4] = WII_EXT_NUNCHUK;
+        logi("Wii: Nunchuk extension found\n");
+      } else if (report[10] == 0x01 && report[11] == 0x01) {
+        // Classic / Classic Pro: 0? 00 a4 20 01 01
+        d->data[4] = WII_EXT_CLASSIC_CONTROLLER;
+        logi(
+            "Wii: Classic Controller / Classic Controller Pro extension "
+            "found\n");
+      } else {
+        loge("Wii: Unknown extension\n");
+        printf_hexdump(report, len);
       }
     }
     d->data[0] = WII_FSM_DEV_GUESSED;
     wii_process_fsm(d);
   } else {
-    loge("Wii: Unexpected read report\n");
+    loge("Wii: invalid response");
+    printf_hexdump(report, len);
   }
 }
 
@@ -243,10 +258,11 @@ static void process_req_return(uni_hid_device_t* d, const uint8_t* report,
       } else {
         // If it failed to write registers with 0xa4, then try with 0xa6
         // If 0xa6 works Ok, it is safe to assume it is a Wii Remote MP, but
-        // for the sake of finishing the "read extension" (might be useful in
-        // the future), we continue with it.
+        // for the sake of finishing the "read extension" (might be useful
+        // in the future), we continue with it.
         logi(
-            "Probably a Remote MP device. Switching to 0xa60000 address for "
+            "Probably a Remote MP device. Switching to 0xa60000 address "
+            "for "
             "registers.\n");
         d->data[0] = WII_FSM_DEV_UNK;
         d->data[1] = 0xa6;  // Register address used for Wii Remote MP.
@@ -356,8 +372,8 @@ static void process_drm_ka(uni_hid_device_t* d, const uint8_t* report,
   if (sy < -accel_threshold) {
     gp->dpad |= DPAD_UP;
   } else if (sy > (accel_threshold / 2)) {
-    // Threshold for down is 50% because it is not as easy to tilt the device
-    // down as it is it to tilt it up.
+    // Threshold for down is 50% because it is not as easy to tilt the
+    // device down as it is it to tilt it up.
     gp->dpad |= DPAD_DOWN;
   }
   UNUSED(sz);
@@ -380,6 +396,12 @@ static void process_drm_ke(uni_hid_device_t* d, const uint8_t* report,
   // 32 BB BB EE EE EE EE EE EE EE EE
   if (len < 11) {
     loge("Wii: unexpected len; got %d, want >= 11\n", len);
+    return;
+  }
+
+  if (d->data[4] != WII_EXT_NUNCHUK) {
+    loge("Wii: unexpected Wii extension: got %d, want: %d", d->data[4],
+         WII_EXT_NUNCHUK);
     return;
   }
 
@@ -473,6 +495,11 @@ static nunchuk_t process_nunchuk(const uint8_t* e, uint16_t len) {
 // http://wiibrew.org/wiki/Wiimote#0x34:_Core_Buttons_with_19_Extension_bytes
 static void process_drm_kee(uni_hid_device_t* d, const uint8_t* report,
                             uint16_t len) {
+  if (d->data[4] != WII_EXT_U_PRO_CONTROLLER) {
+    loge("Wii: unexpected Wii extension: got %d, want: %d", d->data[4],
+         WII_EXT_U_PRO_CONTROLLER);
+    return;
+  }
   /* DRM_KEE: BB*2 EE*19 */
   // Expecting something like:
   // 34 00 00 19 08 D5 07 20 08 21 08 FF FF CF 00 00 00 00 00 00 00 00
@@ -574,6 +601,86 @@ static void process_drm_kee(uni_hid_device_t* d, const uint8_t* report,
       GAMEPAD_STATE_MISC_BUTTON_SYSTEM | GAMEPAD_STATE_MISC_BUTTON_HOME;
 }
 
+// Defined here:
+// http://wiibrew.org/wiki/Wiimote#0x3d:_21_Extension_Bytes
+static void process_drm_e(uni_hid_device_t* d, const uint8_t* report,
+                          uint16_t len) {
+  // Assumes Classic Controller detected
+  if (d->data[4] != WII_EXT_CLASSIC_CONTROLLER) {
+    loge("Wii: unexpected Wii extension: got %d, want: %d", d->data[4],
+         WII_EXT_CLASSIC_CONTROLLER);
+    return;
+  }
+  // Classic Controller format taken from here:
+  // http://wiibrew.org/wiki/Wiimote/Extension_Controllers/Classic_Controller
+
+  const uint8_t* data = &report[1];
+  uni_gamepad_t* gp = &d->gamepad;
+
+  // Axis
+  int lx = data[0] & 0b00111111;
+  int ly = data[1] & 0b00111111;
+  int rx = (data[0] & 0b11000000) >> 3 | (data[1] & 0b11000000) >> 5 |
+           (data[0] & 0b10000000) >> 7;
+  int ry = data[2] & 0b00011111;
+  // Left axis has 6 bit of resolution. While right axis has only 5 bits.
+  lx -= 32;
+  ly -= 32;
+  rx -= 16;
+  ry -= 16;
+  lx *= (512 / 32);
+  ly *= (512 / 32);
+  rx *= (512 / 16);
+  ry *= (512 / 16);
+  gp->axis_x = lx;
+  gp->axis_y = -ly;
+  gp->axis_rx = rx;
+  gp->axis_ry = -ry;
+  gp->updated_states |= GAMEPAD_STATE_AXIS_X | GAMEPAD_STATE_AXIS_Y |
+                        GAMEPAD_STATE_AXIS_RX | GAMEPAD_STATE_AXIS_RY;
+
+  // Accel / Brake
+  int lt = (data[2] & 0b01100000) >> 2 | (data[3] & 0b11100000) >> 5;
+  int rt = data[3] & 0b00011111;
+  gp->brake = lt * (1024 / 32);
+  gp->accelerator = rt * (1024 / 32);
+  gp->updated_states |= GAMEPAD_STATE_BRAKE | GAMEPAD_STATE_ACCELERATOR;
+
+  // dpad
+  gp->dpad |= (data[4] & 0b10000000) ? 0 : DPAD_RIGHT;
+  gp->dpad |= (data[4] & 0b01000000) ? 0 : DPAD_DOWN;
+  gp->dpad |= (data[5] & 0b00000001) ? 0 : DPAD_UP;
+  gp->dpad |= (data[5] & 0b00000010) ? 0 : DPAD_LEFT;
+  gp->updated_states |= GAMEPAD_STATE_DPAD;
+
+  // Buttons A,B,X,Y
+  gp->buttons |= (data[5] & 0b01000000) ? 0 : BUTTON_A;
+  gp->buttons |= (data[5] & 0b00010000) ? 0 : BUTTON_B;
+  gp->buttons |= (data[5] & 0b00100000) ? 0 : BUTTON_X;
+  gp->buttons |= (data[5] & 0b00001000) ? 0 : BUTTON_Y;
+  gp->updated_states |= GAMEPAD_STATE_BUTTON_A | GAMEPAD_STATE_BUTTON_B |
+                        GAMEPAD_STATE_BUTTON_X | GAMEPAD_STATE_BUTTON_Y;
+
+  // Shoulder / Trigger
+  gp->buttons |= (data[4] & 0b00100000) ? 0 : BUTTON_SHOULDER_L;  // BLT
+  gp->buttons |= (data[4] & 0b00000010) ? 0 : BUTTON_SHOULDER_R;  // BRT
+  gp->buttons |= (data[5] & 0b10000000) ? 0 : BUTTON_TRIGGER_L;   // BZL
+  gp->buttons |= (data[5] & 0b00000100) ? 0 : BUTTON_TRIGGER_R;   // BZR
+  gp->updated_states |=
+      GAMEPAD_STATE_BUTTON_SHOULDER_L | GAMEPAD_STATE_BUTTON_SHOULDER_R |
+      GAMEPAD_STATE_BUTTON_TRIGGER_L | GAMEPAD_STATE_BUTTON_TRIGGER_R;
+
+  // Buttons Misc
+  gp->misc_buttons |= (data[4] & 0b00001000) ? 0 : MISC_BUTTON_SYSTEM;  // Home
+  gp->misc_buttons |= (data[4] & 0b00000100) ? 0 : MISC_BUTTON_HOME;    // +
+  gp->updated_states |=
+      GAMEPAD_STATE_MISC_BUTTON_SYSTEM | GAMEPAD_STATE_MISC_BUTTON_HOME;
+
+  // printf("lx=%d, ly=%d, rx=%d, ry=%d, lt=%d, rt=%d\n", lx, ly, rx, ry, lt,
+  // rt);
+  // printf_hexdump(report, len);
+}
+
 // wii_fsm_ functions
 
 static void wii_fsm_req_status(uni_hid_device_t* d) {
@@ -661,12 +768,15 @@ static void wii_fsm_assign_device(uni_hid_device_t* d) {
         if (d->data[3] & WII_FLAGS_ACCEL) {
           // Request Core buttons + Accel + extension (nunchuk)
           reportType = WIIPROTO_REQ_DRM_KAE;
-          logi("Wii: requesting Core buttons + Accelerometer + Nunchuk\n");
+          logi("Wii: requesting Core buttons + Accelerometer + E (Nunchuk)\n");
         } else {
           // Request Core buttons + extension (nunchuk)
           reportType = WIIPROTO_REQ_DRM_KE;
-          logi("Wii: requesting Core buttons + Nunchuk\n");
+          logi("Wii: requesting Core buttons + E (Nunchuk)\n");
         }
+      } else if (d->data[4] == WII_EXT_CLASSIC_CONTROLLER) {
+        logi("Wii: requesting E (Classic Controller)\n");
+        reportType = WIIPROTO_REQ_DRM_E;
       } else {
         if (d->data[3] & WII_FLAGS_ACCEL) {
           // Request Core buttons + accel
@@ -782,6 +892,9 @@ void uni_hid_parser_wii_parse_raw(uni_hid_device_t* d, const uint8_t* report,
       break;
     case WIIPROTO_REQ_DRM_KEE:
       process_drm_kee(d, report, len);
+      break;
+    case WIIPROTO_REQ_DRM_E:
+      process_drm_e(d, report, len);
       break;
     case WIIPROTO_REQ_DATA:
       process_req_data(d, report, len);
