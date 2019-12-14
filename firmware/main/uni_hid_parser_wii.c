@@ -140,7 +140,7 @@ static void wii_fsm_update_led(uni_hid_device_t* d);
 static void process_req_status(uni_hid_device_t* d, const uint8_t* report,
                                uint16_t len) {
   if (len < 7) {
-    loge("uni_hid_parser_wii: invalid status report\n");
+    loge("Wii: Unexpected report lenght; got %d, want >= 7\n", len);
     return;
   }
   uint8_t flags = report[3] & 0x0f;  // LF (leds / flags)
@@ -339,6 +339,7 @@ static void process_drm_k_vertical(uni_gamepad_t* gp, const uint8_t* data) {
 // http://wiibrew.org/wiki/Wiimote#0x31:_Core_Buttons_and_Accelerometer
 static void process_drm_ka(uni_hid_device_t* d, const uint8_t* report,
                            uint16_t len) {
+  // Process Wiimote in "accelerator mode".
   const int16_t accel_threshold = 32;
   /* DRM_KA: BB*2 AA*3*/
   // Expecting something like:
@@ -350,15 +351,15 @@ static void process_drm_ka(uni_hid_device_t* d, const uint8_t* report,
 
   uint16_t x = report[3] << 2;
   uint16_t y = report[4] << 2;
-  uint16_t z = report[5] << 2;
+  // uint16_t z = report[5] << 2;
 
   x |= (report[1] >> 5) & 0x3;
   y |= (report[2] >> 4) & 0x2;
-  z |= (report[2] >> 5) & 0x2;
+  // z |= (report[2] >> 5) & 0x2;
 
   int16_t sx = x - 0x200;
   int16_t sy = y - 0x200;
-  int16_t sz = z - 0x200;
+  // int16_t sz = z - 0x200;
 
   // printf_hexdump(report, len);
   // printf("x=%d, y=%d, z=%d\n", x, y, z);
@@ -376,7 +377,6 @@ static void process_drm_ka(uni_hid_device_t* d, const uint8_t* report,
     // device down as it is it to tilt it up.
     gp->dpad |= DPAD_DOWN;
   }
-  UNUSED(sz);
   gp->updated_states |= GAMEPAD_STATE_DPAD;
 
   gp->buttons |= (report[2] & 0x08) ? BUTTON_A : 0;  // Big button "A"
@@ -605,6 +605,10 @@ static void process_drm_kee(uni_hid_device_t* d, const uint8_t* report,
 // http://wiibrew.org/wiki/Wiimote#0x3d:_21_Extension_Bytes
 static void process_drm_e(uni_hid_device_t* d, const uint8_t* report,
                           uint16_t len) {
+  if (len < 22) {
+    loge("Wii: unexpected report lenght: got %d, want >= 22", len);
+    return;
+  }
   // Assumes Classic Controller detected
   if (d->data[4] != WII_EXT_CLASSIC_CONTROLLER) {
     loge("Wii: unexpected Wii extension: got %d, want: %d", d->data[4],
