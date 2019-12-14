@@ -2,7 +2,7 @@
 
 ![Supported gamepads][Supported gamepads]
 
-[Supported gamepads]: https://lh3.googleusercontent.com/3g8wour3W0RxAshavBwxnbJjpALxHeFw0V4T8et7HhrIculT26HqUans5IqTaUzYZk6lCmKvZ0Gx9IsHgfdZ9G_KMYK4ybzf0iKWgLjbxR36YcVSB8XIRES8v6ZKN4JCKnhbQ6_4lNA=-no
+[Supported gamepads]: https://lh3.googleusercontent.com/c75GplkxZYaX8_uuPK8OnLaJMC6a0QMdKkQbRXvVx9_WT_mV-U_Hb_Wx3i8JbENQLlmx018WYmO1VWPkzSW4vByw0YthMwf7L934n0XM8vqKXmceKG-LThC8vuwmipRjctytBtyF65I=-no
 
 ## Bluetooth Classic: Supported
 
@@ -143,9 +143,24 @@ have to press the "+" button in the Wii Remote while connecting or reconnecting.
 [wii_nunchuk_img]: https://lh3.googleusercontent.com/DtCjBt0zrNEDBSgTmaP4BhPlDFfJePFtyBbLvqhEnxG5wjlIjbL1j3akOqbb4_tsSEuVGq1VaBZ_2T94TYNG8tjzxthE-Theo-gphrnG7AW8GEzd7vrmNqjVtGJjDcdhTnkJbsdCCFk=-no
 [wii_nunchuk]: https://en.wikipedia.org/wiki/Wii_Remote#Nunchuk
 
-### Nintendo Classic Controller / Classic Controller Pro
+## Nintendo Classic Controller / Classic Controller Pro
 
-TODO
+![wii_classic_controller][wii_classic_controller_img]
+
+A Classic Controller or Classic Controller Pro can be used when it is attached
+to the Wii Remote. When attached, the Wii Remote will be "disabled" and only the
+Classic Controller can be used.
+
+- LEDs #1 and #2 from the Wii Remote indicates what joystick is being controlled.
+  E.g: If LED #1 is lit, it means that the Classic Controller is controlling
+  Joystick #1.
+- Press:
+  - *B* for Fire
+  - *A* for Jump
+  - *Right shoulder* for Auto-fire
+  - *Home* button to swap joystick port
+
+[wii_classic_controller_img]: https://lh3.googleusercontent.com/nX-CyjcmorkW90mP8RybO_pJ7ezM4EJk1tsqkz8HAuLkHBAasccZzq5h-A74Ez-h7Zmv5hpsuBu5n66EeThwRUnLTIu8ffk2MstEMBjHiGrcNoyq-XAC9zeh97Kz8GDBDLqmujmm2J0=-no
 
 ## Nintendo Wii U Pro controller
 
