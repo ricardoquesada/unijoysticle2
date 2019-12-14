@@ -39,9 +39,9 @@ The mappings are:
 This mode is ideal for games like [Commando][2] or [1942][3] since it allows you
 throw grenades / roll by pressing Button B.
 
-## Supported gamepads
+## Supported controllers
 
-![supported_gamepads](https://lh3.googleusercontent.com/ak0Fc5ShGvYBQFWMd1P6JBm-3Ei88cGnRdha3eoYDQa5IW4y__E_zPRtNxZW9RIEqPfrqdgSM62J9ESkr5K5W3y6VAWGHkXFNmAJ5B_DyK18Rmxeey-laxHqWDv0pRc62MkUYRu_4SQ=-no)]
+![Supported_gamepads](https://lh3.googleusercontent.com/c75GplkxZYaX8_uuPK8OnLaJMC6a0QMdKkQbRXvVx9_WT_mV-U_Hb_Wx3i8JbENQLlmx018WYmO1VWPkzSW4vByw0YthMwf7L934n0XM8vqKXmceKG-LThC8vuwmipRjctytBtyF65I=-no)
 
 - Sony Dualshock 4
 - Xbox One S
@@ -49,6 +49,7 @@ throw grenades / roll by pressing Button B.
 - Nintendo Wii U
 - Android gamepads
 - PC/Window gamepads
+- 8BitDo
 - iCade
 - And more
 
@@ -56,13 +57,14 @@ See: [Supported gamepads][gamepads]
 
 [gamepads]: https://gitlab.com/ricardoquesada/unijoysticle2/blob/master/docs/supported_gamepads.md
 
-## Documentation
+## More Info
 
-Additional documentation can be found here:
+- [Users guide][users_guide]
+- [Forum][forum]
 
-- [Docs][4]
+[users_guide]: https://gitlab.com/ricardoquesada/unijoysticle2/blob/master/docs/user_guide.md
+[forum]: https://groups.google.com/forum/#!forum/unijoysticle
 
 [1]: https://retro.moe/unijoysticle
 [2]: https://csdb.dk/release/?id=137173
 [3]: https://csdb.dk/release/?id=38140
-[4]: https://gitlab.com/ricardoquesada/unijoysticle2/tree/master/docs
