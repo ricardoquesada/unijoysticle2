@@ -4,13 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [0.5-rc2] - 2019-12-14
 ### Added
 - Firmware: Support for Nintendo Wii Classic Controller / Classic Controller Pro
 
 ### Changed
 - Firmware: After swapping the joysticks ports, the joysticks lines are "Off".
-- Firmware: Wii driver: clean up code. Added "instance" concept.
+            Prevents leaving unexpected lines as "On".
+- Firmware: Wii driver: clean up code. Added "instance" concept, easier to mantain.
 
 ## [0.5-rc1] - 2019-12-09
 ### Added
