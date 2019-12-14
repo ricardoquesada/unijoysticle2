@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Firmware: After swapping the joysticks ports, the joysticks lines are "Off".
+- Firmware: Wii driver: clean up code. Added "instance" concept.
 
 ## [0.5-rc1] - 2019-12-09
 ### Added
