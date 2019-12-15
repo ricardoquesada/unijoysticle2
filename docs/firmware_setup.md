@@ -38,7 +38,7 @@ $ esptool.py --chip esp32 --port ${ESPPORT} --baud 115200 --before default_reset
 
 ![flash_tool](https://lh3.googleusercontent.com/eO0uXc9kZHw2W1_UGiP9mw5QuzgD9gc0dIotrSUhIZW1cTVcfNIyi6grTNnSX5OryS0Bjs8hQ5PQtdg-fnxykzby5elywNT1rZ8ddtlRcTPdeJ9fS11eqrHP3TRecCHqHl9TdecncTE=-no)
 
-If you are not familiar with command-line tools, you can try with the ESP32 Flash Tool.
+If you are not familiar with command-line tools, you can try with the ESP32 Flash Tool (Windows only):
 
 - Download: https://www.espressif.com/en/products/hardware/esp32/resources
 
