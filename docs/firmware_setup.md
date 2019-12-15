@@ -10,7 +10,9 @@ Download latest precompiled firmware from here:
 
 And then...
 
-### Command Line
+### Command Line (esptool)
+
+![esptool](https://lh3.googleusercontent.com/UfYRw0D2m6DUy337fskfNYP6FA3oj_AgATe6QU3y5OvGe14DaI5amCb-rhmGliSepoFYmhvX-u5uzq5N0wChP0lr0eSOrY4YMLB__UBZ8tY8ASbw5DgI6dUX-oEt2ZpWHPLpnBdxryA=-no)
 
 For Command Line tool, download `esptool.py`:
 
@@ -32,12 +34,17 @@ $ export ESPPORT=COM??  #??? Try different ones
 $ esptool.py --chip esp32 --port ${ESPPORT} --baud 115200 --before default_reset --after hard_reset write_flash -z --flash_mode dio --flash_freq 40m --flash_size detect 0x1000 bootloader.bin 0x10000 firmware.bin 0x8000 partitions_singleapp.bin
 ```
 
-### Flash tool
+### GUI (ESP32 Flash Tool)
+
+![flash_tool](https://lh3.googleusercontent.com/eO0uXc9kZHw2W1_UGiP9mw5QuzgD9gc0dIotrSUhIZW1cTVcfNIyi6grTNnSX5OryS0Bjs8hQ5PQtdg-fnxykzby5elywNT1rZ8ddtlRcTPdeJ9fS11eqrHP3TRecCHqHl9TdecncTE=-no)
 
 If you are not familiar with command-line tools, you can try with the ESP32 Flash Tool.
+
+- Download: https://www.espressif.com/en/products/hardware/esp32/resources
+
 A tutorial that explains how to use and from where to download is here:
 
-- [Esp32 flash download tool tutorial](http://iot-bits.com/esp32/esp32-flash-download-tool-tutorial/)
+- Tutorial: [ESP32 Flash Tool tutorial](http://iot-bits.com/esp32/esp32-flash-download-tool-tutorial/)
 
 ## Compiling + flashing firmware
 
