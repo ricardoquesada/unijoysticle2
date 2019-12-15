@@ -4,18 +4,40 @@
 
 If you only want to flash the latest firmware version without downloading the toolchain + sources you should do:
 
-- Download [esptool.py](https://github.com/espressif/esptool) (`brew install esptool` in macOS)
-- Download latest precompiled firmware from here: https://github.com/ricardoquesada/unijoysticle2/releases
+Download latest precompiled firmware from here:
+
+- https://github.com/ricardoquesada/unijoysticle2/releases
+
+And then...
+
+### Command Line
+
+For Command Line tool, download `esptool.py`:
+
+- Source Code: https://github.com/espressif/esptool
+- macOS: `brew install esptool`
+- Debian: `sudo apt install esptool`
+- Windows and other OSs: `pip install esptool`
 
 And:
+
 ```sh
 # macOS
 $ export ESPPORT=/dev/cu.SLAB_USBtoUART
 # Linux
 $ export ESPPORT=/dev/ttyUSB0
+# Windows
+$ export ESPPORT=COM??  #??? Try different ones
 
-$ esptool.py --chip esp32 --port ${ESPPORT} --baud 115200 --before "default_reset" --after "hard_reset" write_flash -z --flash_mode "dio" --flash_freq "40m" --flash_size detect 0x1000 bootloader.bin 0x10000 firmware.bin 0x8000 partitions_singleapp.bin
+$ esptool.py --chip esp32 --port ${ESPPORT} --baud 115200 --before default_reset --after hard_reset write_flash -z --flash_mode dio --flash_freq 40m --flash_size detect 0x1000 bootloader.bin 0x10000 firmware.bin 0x8000 partitions_singleapp.bin
 ```
+
+### Flash tool
+
+If you are not familiar with command-line tools, you can try with the ESP32 Flash Tool.
+A tutorial that explains how to use and from where to download is here:
+
+- [Esp32 flash download tool tutorial](http://iot-bits.com/esp32/esp32-flash-download-tool-tutorial/)
 
 ## Compiling + flashing firmware
 
