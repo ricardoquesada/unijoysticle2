@@ -179,9 +179,11 @@ static void process_req_status(uni_hid_device_t* d, const uint8_t* report,
       // Extension detected: Nunchuk?
       // Regardless of the previous FSM state, we overwrite it with "query
       // extension".
+      logi("Wii: extension found.\n");
       ins->state = WII_FSM_EXT_UNK;
       ins->ext_type = WII_EXT_UNK;
     } else {
+      logi("Wii: No extensions found.\n");
       ins->ext_type = WII_EXT_NONE;
     }
 
@@ -219,6 +221,8 @@ static void process_req_data(uni_hid_device_t* d, const uint8_t* report,
   if (s == 5 && report[4] == 0x00 && report[5] == 0xfa) {
     // This contains the read memory from register 0xa?00fa
     // Data is in report[6]..report[11]
+
+    // Try to guess device type.
     if (report[10] == 0x01 && report[11] == 0x20) {
       // Pro Controller: 00 00 a4 20 01 20
       ins->dev_type = WII_DEVTYPE_PRO_CONTROLLER;
@@ -234,6 +238,10 @@ static void process_req_data(uni_hid_device_t* d, const uint8_t* report,
       } else {
         loge("Wii: Unknown product id: 0x%04x\n", d->product_id);
       }
+    }
+
+    // Try to guess extension type.
+    if (ins->ext_type == WII_EXT_UNK) {
       if (report[10] == 0x00 && report[11] == 0x00) {
         // Nunchuck: 00 00 a4 20 00 00
         ins->ext_type = WII_EXT_NUNCHUK;
@@ -249,6 +257,7 @@ static void process_req_data(uni_hid_device_t* d, const uint8_t* report,
         printf_hexdump(report, len);
       }
     }
+
     ins->state = WII_FSM_DEV_GUESSED;
     wii_process_fsm(d);
   } else {
