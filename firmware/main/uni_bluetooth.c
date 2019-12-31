@@ -70,7 +70,7 @@
 
 #define INQUIRY_INTERVAL 5
 #define MAX_ATTRIBUTE_VALUE_SIZE 512  // Apparently PS4 has a 470-bytes report
-#define MTU 100
+#define MTU 128
 
 // globals
 // SDP
@@ -391,7 +391,7 @@ static void packet_handler(uint8_t packet_type, uint16_t channel,
           if (device == NULL) {
             loge("--->>> CANNOT FIND DEVICE");
           } else {
-            uni_hid_device_send_queued_report(device);
+            uni_hid_device_send_queued_reports(device);
           }
           break;
         case L2CAP_EVENT_INCOMING_CONNECTION:
@@ -465,7 +465,7 @@ static void on_hci_connection_complete(uint16_t channel, uint8_t* packet,
   hci_event_connection_complete_get_bd_addr(packet, event_addr);
   status = hci_event_connection_complete_get_status(packet);
   if (status) {
-    logi("on_hci_connection_complete failed (%d) for %s\n", status,
+    logi("on_hci_connection_complete failed (0x%02x) for %s\n", status,
          bd_addr_to_str(event_addr));
     return;
   }
@@ -723,6 +723,8 @@ static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet,
 
   int report_len = size;
   uint8_t* report = packet;
+
+  // printf_hexdump(packet, size);
 
   // check if HID Input Report
   if (report_len < 1) return;

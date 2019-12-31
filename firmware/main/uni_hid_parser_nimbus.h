@@ -30,5 +30,6 @@ void uni_hid_parser_nimbus_parse_usage(uni_hid_device_t* d,
                                        hid_globals_t* globals,
                                        uint16_t usage_page, uint16_t usage,
                                        int32_t value);
+void uni_hid_parser_nimbus_update_led(uni_hid_device_t* d);
 
 #endif  // UNI_HID_PARSER_NIMBUS_H

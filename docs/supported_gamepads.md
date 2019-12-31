@@ -13,7 +13,7 @@ Example of Bluetooth Classic HID controllers are:
 - Sony Dualshock 4 controller
 - Nintendo Wii / Wii U controllers, including Nunchuk
 - Nintendo Switch Pro controller
-- 8Bitdo controllers
+- 8BitDo controllers
 - Android controllers
 - PC/Windows controllers
 - iCade controllers
@@ -54,9 +54,11 @@ Tested gamepads so far.
   - *B* for Jump
   - *Right shoulder* for Auto-fire
   - *Xbox* button to swap joystick port
-- Known Issues: [issue #1][23]
+- Supports Force Feedback: it rumbles when it connects to the Unijoysticle device or changes joystick port.
+- Known Issues: [issue #1][issue_1]
 
 [xbox_one_s]: https://lh3.googleusercontent.com/YmONc-MhVZhnE8HVRgzH7FKSpT_29MLeIF70U5AfrcBuCtuNJ2Ln5xkmSpNqO0myrFpnDLbFvR2TRTRu0xcqvP3cLNaq1BBpruEAn-Z7vBbwzNtaXx7eQaLLF7aa8tt2Wa0IcYxeD08=-no
+[issue_1]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/1
 
 ## Sony DualShock 4
 
@@ -68,9 +70,10 @@ Tested gamepads so far.
   - *O* for Jump
   - *Right shoulder* for Auto-fire
   - *Play* button to swap joystick port
-- Known issues: Only 2nd gen (2016+) gamepads. See [issue #4][32]
+- Known issues: Only 2nd gen (2016+) gamepads. See [issue #4][issue_4]
 
 [dualshock_4]: https://lh3.googleusercontent.com/_0sAxKXbSkk4g8rWJzTNxAirz2hD632jW4TGjGVOwjoac8sD4AfiN9PA1HdGWhm_ujcVygDlEG-LENPemF7IyFhqVsHgVHfCMVeFVjBbeDl-fUUjdMbRYAE8FiKdyWM_UBNUNmVy9Ro=-no
+[issue_4]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/4
 
 ## Nintendo Wii Remote
 
@@ -84,7 +87,9 @@ Tested gamepads so far.
 - LEDs #1 and #2 indicates what joystick is being controlled.
   - E.g: If LED #1 is lit, it means that the Wii Remote is controlling Joystick #1.
 - Press *Home* button to swap joystick port
-- Known issues: [issue #6][30]
+- Known issues: [issue #6][issue_6]
+
+[issue_6]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/6
 
 ### Sideways mode
 
@@ -172,7 +177,7 @@ Classic Controller can be used.
   - *A* for Jump
   - *Right shoulder* for Auto-fire
   - *Home* button to swap joystick port
-- Known issues: [issue #6][30]
+- Known issues: [issue #6][issue_6]
 
 [wii_u_pro]: https://lh3.googleusercontent.com/kfKAySKzV-lLG7VmQGfCES1KuhtjBcTIfMzo59FgABcL7Ir9Tp7fQqrTP2iFqf8UVIhce1JhIXyBN_EH9eXpjlf5Q4b9NhhyxrFX9H0yVVRF0_pghjjz3pVqmY4uxS-FMgr7FC7egNo=w360-no
 
@@ -225,27 +230,30 @@ Classic Controller can be used.
   - *A* for JUmp
   - *Right shoulder* for Auto-fire
   - *OUYA button* to swap joystick port
-- Known issues: [issue #7][31]
+- Known issues: [issue #7][issue_7]
 
 [ouya_1gen]: https://lh3.googleusercontent.com/FtbQLbt1QrzU59TTPQHIEarGZItlPik0bGWo40iDu0rnMwddCEwKMcy8LAe_fqzklaSKfMbt3-EvFJI4Vcoz3gSPTgC9MnTog3MyGfNWMc0Wq2Idq1kzjPOpRIS5OXeSqSSmIfGa5-w=-no
+[issue_7]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/7
 
-## 8Bitdo Family
+## 8BitDo Family
 
 [![8bitdo SN30 Pro][8bitdo_sn30_pro_img]][8bitdo_sn30_pro]
 
-- Tested with: [8Bitdo SN30 Pro][8bitdo_sn30_pro], [8Bitdo Lite][8bitdo_lite], [8Bitdo NES30][8bitdo_nes30]
-- All 8Bitdo modes are supported: *Switch*, *Android*, *Windows* and *macOS*.
+- Tested with: [8BitDo SN30 Pro][8bitdo_sn30_pro], [8BitDo Lite][8bitdo_lite], [8BitDo NES30][8bitdo_nes30]
+- All 8BitDo modes are supported: *Switch*, *Android*, *Windows* and *macOS*.
 - Press:
   - *B* for Fire
   - *A* for Jump
   - *Right shoulder* for Auto-fire
   - *Start* (or *Home*) to swap joystick port (depends on the 8Bitdo controller)
-- Known issues: [issue #3][24]
+- Known issues: [issue #3][issue_3], [issue #10][issue_10]
 
 [8bitdo_sn30_pro_img]: https://lh3.googleusercontent.com/KX3q2kT7UZcEDGN8953RB7msPV343Gworbgaq-eLeKtqSzjTlOIUkoCf0QAf2GrnroQm0ADOCDgj3rK8EWpl2tfqScqExsiSorWZFf7lzA8-m1EoYYkVyjYaeFsSxzcC17kw9CkMNWQ=-no
 [8bitdo_nes30]: https://www.google.com/search?q=8bitdo+nes30
 [8bitdo_lite]: https://www.8bitdo.com/lite/
 [8bitdo_sn30_pro]: https://www.8bitdo.com/sn30-pro-g-classic-or-sn30-pro-sn/
+[issue_3]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/3
+[issue_10]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/10
 
 ## iCade Family
 
@@ -356,11 +364,6 @@ Many of the virtual buttons/pads are left unmapped, but could be mapped in the f
 [18]: https://steelseries.com/gaming-controllers/nimbus
 [19]: https://www.amazon.com/OUYA-Wireless-Controller/dp/B002I0GX38?th=1
 [22]: https://www.amazon.com/Alexa-Voice-Remote-Amazon-Stick/dp/B071D41YC3
-[23]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/1
-[24]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/3
 [25]: https://www.techradar.com/how-to/gaming/how-to-use-the-ps4-dualshock-4-controller-on-a-pc-1309014
 [27]: https://en.wikipedia.org/wiki/Wii_U_Pro_Controller
 [29]: https://en.wikipedia.org/wiki/Wii_Remote
-[30]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/6
-[31]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/7
-[32]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/4

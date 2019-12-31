@@ -211,3 +211,47 @@ void uni_hid_parser_ps4_parse_usage(uni_hid_device_t* d, hid_globals_t* globals,
       break;
   }
 }
+
+void uni_hid_parser_ps4_update_led(uni_hid_device_t* d) {
+  // Info taken from here:
+  // https://github.com/torvalds/linux/blob/master/drivers/hid/hid-sony.c
+  // https://github.com/chrippa/ds4drv/blob/master/ds4drv/device.py
+#if 0
+  // Force feedback info taken from:
+  //
+  struct ff_report {
+    // Report related
+    uint8_t output_id;  // type of transaction
+    uint8_t report_id;  // report Id
+    // Data related
+    uint8_t unk0[5];
+    uint8_t rumble_lo;
+    uint8_t rumble_hi;
+    uint8_t led_red;
+    uint8_t led_green;
+    uint8_t led_blue;
+    uint8_t flash_led1;  // time to flash bright (255 = 2.5 seconds)
+    uint8_t flash_led2;  // time to flash dark (255 = 2.5 seconds)
+    uint8_t unk1[65];
+  } __attribute__((__packed__));
+
+  struct ff_report ff = {
+      .output_id = 0x52,  // SET_REPORT | TYPE_OUTPUT
+      .report_id = 0x11,  // taken from HID descriptor
+      .unk0[0] = 128,
+      .unk0[2] = 255,
+      .rumble_lo = 255,
+      .rumble_hi = 0,
+      .led_red = 255,
+      .led_green = 0,
+      .led_blue = 0,
+      .flash_led1 = 50,
+      .flash_led2 = 50,
+
+  };
+
+  uni_hid_device_queue_report(d, (uint8_t*)&ff, sizeof(ff));
+#else
+  UNUSED(d);
+#endif
+}

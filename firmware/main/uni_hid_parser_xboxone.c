@@ -26,6 +26,8 @@ limitations under the License.
 #include "uni_hid_device.h"
 #include "uni_hid_parser.h"
 
+static void rumble(uni_hid_device_t* d);
+
 void uni_hid_parser_xboxone_init_report(uni_hid_device_t* d) {
   // Reset old state. Each report contains a full-state.
   d->gamepad.updated_states = 0;
@@ -190,4 +192,54 @@ void uni_hid_parser_xboxone_parse_usage(uni_hid_device_t* d,
            usage_page, usage, value);
       break;
   }
+}
+
+void uni_hid_parser_xboxone_update_led(uni_hid_device_t* d) {
+  if (d == NULL) {
+    loge("Xbox One: Invalid device\n");
+    return;
+  }
+  rumble(d);
+}
+
+static void rumble(uni_hid_device_t* d) {
+  // Actuators for the force feedback (FF).
+  enum {
+    FF_RIGHT = 1 << 0,
+    FF_LEFT = 1 << 1,
+    FF_TRIGGER_RIGHT = 1 << 2,
+    FF_TRIGGER_LEFT = 1 << 2,
+  };
+
+  // Force feedback info taken from:
+  // https://github.com/atar-axis/xpadneo/blob/master/hid-xpadneo/src/hid-xpadneo.c
+  struct ff_report {
+    // Report related
+    uint8_t output_id;  // type of output report
+    uint8_t report_id;  // report id
+    // Force-feedback related
+    uint8_t enable_actuators;    // LSB 0-3 for each actuator
+    uint8_t force_left_trigger;  // HID descriptor says that it goes from 0-100
+    uint8_t force_right_trigger;
+    uint8_t force_left;
+    uint8_t force_right;
+    uint8_t duration;  // unknown unit, 255 is ~second
+    uint8_t start_delay;
+    uint8_t loop_count;  // how many times "duration" is repeated
+  } __attribute__((__packed__));
+
+  struct ff_report ff = {
+      .output_id = 0xa2,  // TRANS_DATA | OUTPUT_TYPE
+      .report_id = 0x03,  // taken from HID descriptor
+      .enable_actuators = FF_TRIGGER_LEFT | FF_TRIGGER_RIGHT,
+      .force_left_trigger = 50,
+      .force_right_trigger = 50,
+      .force_left = 50,
+      .force_right = 50,
+      .duration = 25,
+      .start_delay = 0,
+      .loop_count = 0,
+  };
+
+  uni_hid_device_queue_report(d, (uint8_t*)&ff, sizeof(ff));
 }

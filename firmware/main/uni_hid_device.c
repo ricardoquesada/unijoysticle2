@@ -401,6 +401,7 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
       d->report_parser.init_report = uni_hid_parser_ouya_init_report;
       d->report_parser.parse_usage = uni_hid_parser_ouya_parse_usage;
       d->report_parser.parse_raw = NULL;
+      d->report_parser.update_led = uni_hid_parser_ouya_update_led;
       logi("Device detected as OUYA: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_XBoxOneController:
@@ -408,6 +409,7 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
       d->report_parser.init_report = uni_hid_parser_xboxone_init_report;
       d->report_parser.parse_usage = uni_hid_parser_xboxone_parse_usage;
       d->report_parser.parse_raw = NULL;
+      d->report_parser.update_led = uni_hid_parser_xboxone_update_led;
       logi("Device detected as Xbox One: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_AndroidController:
@@ -415,6 +417,7 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
       d->report_parser.init_report = uni_hid_parser_android_init_report;
       d->report_parser.parse_usage = uni_hid_parser_android_parse_usage;
       d->report_parser.parse_raw = NULL;
+      d->report_parser.update_led = uni_hid_parser_android_update_led;
       logi("Device detected as Android: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_NimbusController:
@@ -422,6 +425,7 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
       d->report_parser.init_report = uni_hid_parser_nimbus_init_report;
       d->report_parser.parse_usage = uni_hid_parser_nimbus_parse_usage;
       d->report_parser.parse_raw = NULL;
+      d->report_parser.update_led = uni_hid_parser_nimbus_update_led;
       logi("Device detected as Nimbus: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_SmartTVRemoteController:
@@ -436,6 +440,7 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
       d->report_parser.init_report = uni_hid_parser_ps4_init_report;
       d->report_parser.parse_usage = uni_hid_parser_ps4_parse_usage;
       d->report_parser.parse_raw = NULL;
+      d->report_parser.update_led = uni_hid_parser_ps4_update_led;
       logi("Device detected as PS4: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_8BitdoController:
@@ -455,9 +460,9 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
     case CONTROLLER_TYPE_WiiController:
       d->report_parser.setup = uni_hid_parser_wii_setup;
       d->report_parser.init_report = uni_hid_parser_wii_init_report;
-      d->report_parser.update_led = uni_hid_parser_wii_update_led;
       d->report_parser.parse_usage = NULL;
       d->report_parser.parse_raw = uni_hid_parser_wii_parse_raw;
+      d->report_parser.update_led = uni_hid_parser_wii_update_led;
       logi("Device detected as Wii controller: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_SwitchProController:
@@ -687,7 +692,8 @@ void uni_hid_device_set_joystick_port(uni_hid_device_t* d,
   }
 }
 
-// Only call if it is known that you can "send now".
+// Try to send the report now. If it can't, queue it and send it in the next
+// event loop.
 void uni_hid_device_send_report(void* d, const uint8_t* report, uint16_t len) {
   uni_hid_device_t* self = (uni_hid_device_t*)d;
   if (self == NULL) {
@@ -711,11 +717,39 @@ void uni_hid_device_send_report(void* d, const uint8_t* report, uint16_t len) {
       loge("ERROR: ciruclar buffer full. Cannot queue report\n");
     }
   }
-  // request user can send now if pending
-  l2cap_request_can_send_now_event((self->hid_interrupt_cid));
+  // Even, if it can send the report, trigger a "can send now event" in case
+  // a report was queued.
+  // TODO: Is this really needed?
+  l2cap_request_can_send_now_event(self->hid_interrupt_cid);
 }
 
-void uni_hid_device_send_queued_report(uni_hid_device_t* d) {
+// Queue the report and send it the report in the next event loop.
+void uni_hid_device_queue_report(void* d, const uint8_t* report, uint16_t len) {
+  uni_hid_device_t* self = (uni_hid_device_t*)d;
+  if (self == NULL) {
+    loge("Invalid device\n");
+    return;
+  }
+  if (self->hid_interrupt_cid <= 0) {
+    loge("Invalid hid_interrupt_cid: %d\n", self->hid_interrupt_cid);
+    return;
+  }
+
+  if (!report || len <= 0) {
+    loge("Invalid report\n");
+    return;
+  }
+
+  int err = uni_circular_buffer_put(&self->outgoing_buffer, report, len);
+  if (err != 0) {
+    loge("ERROR: Cannot queue report, error: %d\n", err);
+    return;
+  }
+  // request user can send now if pending
+  l2cap_request_can_send_now_event(self->hid_interrupt_cid);
+}
+
+void uni_hid_device_send_queued_reports(uni_hid_device_t* d) {
   if (d == NULL) {
     loge("Invalid device\n");
     return;

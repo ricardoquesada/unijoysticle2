@@ -30,5 +30,5 @@ void uni_hid_parser_xboxone_parse_usage(uni_hid_device_t* d,
                                         hid_globals_t* globals,
                                         uint16_t usage_page, uint16_t usage,
                                         int32_t value);
-
+void uni_hid_parser_xboxone_update_led(uni_hid_device_t* d);
 #endif  // UNI_HID_PARSER_XBOXONE_H

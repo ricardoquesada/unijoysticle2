@@ -200,3 +200,12 @@ void uni_hid_parser_nimbus_parse_usage(uni_hid_device_t* d,
       break;
   }
 }
+
+void uni_hid_parser_nimbus_update_led(uni_hid_device_t* d) {
+#if 0
+  const uint8_t report[] = {0xa2, 0x00, 0x03};
+  uni_hid_device_queue_report(d, report, sizeof(report));
+#else
+  UNUSED(d);
+#endif
+}

@@ -22,9 +22,9 @@ limitations under the License.
 #include <stdint.h>
 
 // UNI_CIRCULAR_BUFFER_SIZE represents how many packets can be queued
-#define UNI_CIRCULAR_BUFFER_SIZE 5
+#define UNI_CIRCULAR_BUFFER_SIZE 6
 // UNI_CIRCULAR_BUFFER_DATA_SIZE represents the max size of each packet
-#define UNI_CIRCULAR_BUFFER_DATA_SIZE 100
+#define UNI_CIRCULAR_BUFFER_DATA_SIZE 128
 
 enum {
   UNI_CIRCULAR_BUFFER_ERROR_OK = 0,
