@@ -208,7 +208,7 @@ static void rumble(uni_hid_device_t* d) {
     FF_RIGHT = 1 << 0,
     FF_LEFT = 1 << 1,
     FF_TRIGGER_RIGHT = 1 << 2,
-    FF_TRIGGER_LEFT = 1 << 2,
+    FF_TRIGGER_LEFT = 1 << 3,
   };
 
   // Force feedback info taken from:
