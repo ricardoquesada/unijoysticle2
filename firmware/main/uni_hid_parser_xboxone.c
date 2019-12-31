@@ -229,7 +229,7 @@ static void rumble(uni_hid_device_t* d) {
   } __attribute__((__packed__));
 
   struct ff_report ff = {
-      .output_id = 0xa2,  // TRANS_DATA | OUTPUT_TYPE
+      .output_id = 0xa2,  // HIDP_TRANS_DATA | HIDP_DATA_RTYPE_OUPUT
       .report_id = 0x03,  // taken from HID descriptor
       .enable_actuators = FF_TRIGGER_LEFT | FF_TRIGGER_RIGHT,
       .force_left_trigger = 50,
