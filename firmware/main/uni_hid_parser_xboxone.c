@@ -232,11 +232,11 @@ static void rumble(uni_hid_device_t* d) {
       .output_id = 0xa2,  // HIDP_TRANS_DATA | HIDP_DATA_RTYPE_OUPUT
       .report_id = 0x03,  // taken from HID descriptor
       .enable_actuators = FF_TRIGGER_LEFT | FF_TRIGGER_RIGHT,
-      .force_left_trigger = 50,
-      .force_right_trigger = 50,
-      .force_left = 50,
-      .force_right = 50,
-      .duration = 25,
+      .force_left_trigger = 40,
+      .force_right_trigger = 40,
+      .force_left = 40,
+      .force_right = 40,
+      .duration = 20,
       .start_delay = 0,
       .loop_count = 0,
   };

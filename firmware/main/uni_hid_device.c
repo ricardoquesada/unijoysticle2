@@ -18,6 +18,8 @@ limitations under the License.
 
 #include "uni_hid_device.h"
 
+#include <sys/time.h>
+
 #include "uni_circular_buffer.h"
 #include "uni_config.h"
 #include "uni_debug.h"
@@ -50,7 +52,8 @@ enum {
 };
 
 static uni_hid_device_t g_devices[MAX_DEVICES];
-static uni_hid_device_t* g_current_device = NULL;
+static uni_hid_device_t* g_sdp_device = NULL;
+static struct timeval g_sdp_start_time;
 static const bd_addr_t zero_addr = {0, 0, 0, 0, 0, 0};
 
 static void process_misc_button_system(uni_hid_device_t* d);
@@ -109,12 +112,20 @@ uni_hid_device_t* uni_hid_device_get_first_device_with_state(
   return NULL;
 }
 
-void uni_hid_device_set_current_device(uni_hid_device_t* d) {
-  g_current_device = d;
+void uni_hid_device_set_sdp_device(uni_hid_device_t* d) {
+  g_sdp_device = d;
+  gettimeofday(&g_sdp_start_time, NULL);
 }
 
-uni_hid_device_t* uni_hid_device_get_current_device(void) {
-  return g_current_device;
+uni_hid_device_t* uni_hid_device_get_sdp_device(uint64_t* elapsed /*out*/) {
+  if (elapsed != NULL) {
+    struct timeval now;
+    gettimeofday(&now, NULL);
+    // Seconds
+    *elapsed = (now.tv_sec - g_sdp_start_time.tv_sec) * 1000000;
+    *elapsed += (now.tv_usec - g_sdp_start_time.tv_usec);
+  }
+  return g_sdp_device;
 }
 
 void uni_hid_device_assign_joystick_port(uni_hid_device_t* d) {
@@ -669,6 +680,14 @@ void uni_hid_device_set_state(uni_hid_device_t* d, enum DEVICE_STATE s) {
   d->state = s;
 }
 
+enum DEVICE_STATE uni_hid_device_get_state(uni_hid_device_t* d) {
+  if (d == NULL) {
+    loge("ERROR: Invalid device\n");
+    return 0;
+  }
+  return d->state;
+}
+
 void uni_hid_device_set_joystick_port(uni_hid_device_t* d,
                                       uni_joystick_port_t p) {
   if (d == NULL) {
@@ -693,7 +712,7 @@ void uni_hid_device_set_joystick_port(uni_hid_device_t* d,
 }
 
 // Try to send the report now. If it can't, queue it and send it in the next
-// event loop.
+// event loop. It uses the "intr" channel.
 void uni_hid_device_send_report(void* d, const uint8_t* report, uint16_t len) {
   uni_hid_device_t* self = (uni_hid_device_t*)d;
   if (self == NULL) {
@@ -724,6 +743,7 @@ void uni_hid_device_send_report(void* d, const uint8_t* report, uint16_t len) {
 }
 
 // Queue the report and send it the report in the next event loop.
+// It uses the "intr" channel.
 void uni_hid_device_queue_report(void* d, const uint8_t* report, uint16_t len) {
   uni_hid_device_t* self = (uni_hid_device_t*)d;
   if (self == NULL) {
@@ -749,6 +769,7 @@ void uni_hid_device_queue_report(void* d, const uint8_t* report, uint16_t len) {
   l2cap_request_can_send_now_event(self->hid_interrupt_cid);
 }
 
+// Send the reports that are already queued. Uses the "intr" channel.
 void uni_hid_device_send_queued_reports(uni_hid_device_t* d) {
   if (d == NULL) {
     loge("Invalid device\n");

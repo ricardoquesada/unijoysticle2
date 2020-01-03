@@ -23,7 +23,6 @@ limitations under the License.
 #include <stdint.h>
 
 #include "btstack.h"
-
 #include "uni_circular_buffer.h"
 #include "uni_gamepad.h"
 #include "uni_hid_parser.h"
@@ -114,8 +113,10 @@ uni_hid_device_t* uni_hid_device_get_instance_for_connection_handle(
 uni_hid_device_t* uni_hid_device_get_first_device_with_state(
     enum DEVICE_STATE state);
 
-void uni_hid_device_set_current_device(uni_hid_device_t* d);
-uni_hid_device_t* uni_hid_device_get_current_device(void);
+// Which device is currently doing a SDP query.
+void uni_hid_device_set_sdp_device(uni_hid_device_t* d);
+// Returns the elapsed time since the last SDP query in microseconds.
+uni_hid_device_t* uni_hid_device_get_sdp_device(uint64_t* elapsed /*out*/);
 
 void uni_hid_device_assign_joystick_port(uni_hid_device_t* d);
 
@@ -159,6 +160,7 @@ void uni_hid_device_set_connection_handle(uni_hid_device_t* d,
                                           hci_con_handle_t handle);
 
 void uni_hid_device_set_state(uni_hid_device_t* d, enum DEVICE_STATE s);
+enum DEVICE_STATE uni_hid_device_get_state(uni_hid_device_t* d);
 
 void uni_hid_device_send_report(void* d /* uni_hid_device_t */,
                                 const uint8_t* report, uint16_t len);

@@ -138,9 +138,9 @@ static void handle_sdp_hid_query_result(uint8_t packet_type, uint16_t channel,
   uint8_t* element;
   uni_hid_device_t* device;
 
-  device = uni_hid_device_get_current_device();
+  device = uni_hid_device_get_sdp_device(NULL /*elapsed time*/);
   if (device == NULL) {
-    loge("ERROR: handle_sdp_client_query_result. current device = NULL\n");
+    loge("ERROR: handle_sdp_client_query_result. SDP device = NULL\n");
     return;
   }
 
@@ -207,9 +207,9 @@ static void handle_sdp_pid_query_result(uint8_t packet_type, uint16_t channel,
   uni_hid_device_t* device;
   uint16_t id16;
 
-  device = uni_hid_device_get_current_device();
+  device = uni_hid_device_get_sdp_device(NULL /*elapsed time*/);
   if (device == NULL) {
-    loge("ERROR: handle_sdp_client_query_result. current device = NULL\n");
+    loge("ERROR: handle_sdp_client_query_result. SDP device = NULL\n");
     return;
   }
 
@@ -253,7 +253,7 @@ static void handle_sdp_pid_query_result(uint8_t packet_type, uint16_t channel,
            uni_hid_device_get_vendor_id(device),
            uni_hid_device_get_product_id(device));
       uni_hid_device_guess_controller_type(device);
-      uni_hid_device_set_current_device(NULL);
+      uni_hid_device_set_sdp_device(NULL);
       uni_hid_device_set_state(device, STATE_SDP_VENDOR_FETCHED);
       fsm_process(device);
       break;
@@ -528,7 +528,8 @@ static void on_gap_inquiry_result(uint16_t channel, uint8_t* packet,
   if (uni_hid_device_is_cod_supported(cod)) {
     device = uni_hid_device_get_instance_for_address(addr);
     if (device != NULL && !uni_hid_device_is_orphan(device)) {
-      logi("... device already added\n");
+      logi("... device already added (state=%d)\n",
+           uni_hid_device_get_state(device));
       uni_hid_device_dump_device(device);
       return;
     }
@@ -762,34 +763,41 @@ static void start_scan(void) {
 static void sdp_query_hid_descriptor(uni_hid_device_t* device) {
   logi("Starting SDP query for HID descriptor for: %s\n",
        bd_addr_to_str(device->address));
-  // Needed for the SDP query since it only supports oe SDP query at the time.
-  uni_hid_device_t* current = uni_hid_device_get_current_device();
-  if (current != NULL) {
-    loge(
-        "Error: Ouch, another SDP query is in progress (%s) Try again "
-        "later.\n",
-        bd_addr_to_str(current->address));
-    return;
+  // Needed for the SDP query since it only supports one SDP query at the time.
+  uint64_t elapsed;
+  uni_hid_device_t* sdp_dev = uni_hid_device_get_sdp_device(&elapsed);
+  if (sdp_dev != NULL) {
+    // If an SDP query didn't finish in 3 seconds, we can override it.
+    if (elapsed < (3 * 1000000)) {
+      loge(
+          "Error: Another SDP query is in progress (%s). Elapsed time: "
+          "%" PRId64 "\n",
+          bd_addr_to_str(sdp_dev->address), elapsed);
+      return;
+    } else {
+      logi("Overriding old SDP query (%s). Elapsed time: %" PRId64 "\n",
+           bd_addr_to_str(sdp_dev->address), elapsed);
+    }
   }
 
   uni_hid_device_set_state(device, STATE_SDP_HID_DESCRIPTOR_REQUESTED);
-  uni_hid_device_set_current_device(device);
+  uni_hid_device_set_sdp_device(device);
   uint8_t status = sdp_client_query_uuid16(
       &handle_sdp_hid_query_result, device->address,
       BLUETOOTH_SERVICE_CLASS_HUMAN_INTERFACE_DEVICE_SERVICE);
   if (status != 0) {
-    uni_hid_device_set_current_device(NULL);
+    uni_hid_device_set_sdp_device(NULL);
     loge("Failed to perform sdp query\n");
   }
 }
 
 static void sdp_query_product_id(uni_hid_device_t* device) {
   logi("Starting SDP query for product/vendor ID\n");
-  uni_hid_device_t* current = uni_hid_device_get_current_device();
+  uni_hid_device_t* sdp_dev = uni_hid_device_get_sdp_device(NULL);
   // This query runs after sdp_query_hid_descriptor() so
-  // uni_hid_device_get_current_device() must not be NULL
-  if (current == NULL) {
-    loge("Error: current device is NULL. Should not happen\n");
+  // uni_hid_device_get_sdp_device() must not be NULL
+  if (sdp_dev == NULL) {
+    loge("Error: SDP device is NULL. Should not happen\n");
     return;
   }
   uni_hid_device_set_state(device, STATE_SDP_VENDOR_REQUESTED);
@@ -797,7 +805,7 @@ static void sdp_query_product_id(uni_hid_device_t* device) {
       sdp_client_query_uuid16(&handle_sdp_pid_query_result, device->address,
                               BLUETOOTH_SERVICE_CLASS_PNP_INFORMATION);
   if (status != 0) {
-    uni_hid_device_set_current_device(NULL);
+    uni_hid_device_set_sdp_device(NULL);
     loge("Failed to perform SDP DeviceID query\n");
   }
 }
