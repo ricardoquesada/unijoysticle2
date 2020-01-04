@@ -70,7 +70,6 @@ Tested gamepads so far.
   - *O* for Jump
   - *Right shoulder* for Auto-fire
   - *Play* button to swap joystick port
-- Known issues: Only 2nd gen (2016+) gamepads. See [issue #4][issue_4]
 
 [dualshock_4]: https://lh3.googleusercontent.com/_0sAxKXbSkk4g8rWJzTNxAirz2hD632jW4TGjGVOwjoac8sD4AfiN9PA1HdGWhm_ujcVygDlEG-LENPemF7IyFhqVsHgVHfCMVeFVjBbeDl-fUUjdMbRYAE8FiKdyWM_UBNUNmVy9Ro=-no
 [issue_4]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/4
