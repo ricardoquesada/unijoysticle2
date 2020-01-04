@@ -29,11 +29,11 @@ int btstack_main(int argc, const char** argv) {
   UNUSED(argv);
 
   // Honoring with BT copyright + adding own message to avoid confusion
-  printf("Unijoysticle 2 (C) 2016-2019 Ricardo Quesada and contributors.\n");
+  printf("Unijoysticle 2 (C) 2016-2020 Ricardo Quesada and contributors.\n");
   printf("Bluetooth stack: Copyright (C) 2017 BlueKitchen GmbH.\n");
-  printf("Firmware version: v0.5.1-unreleased\n");
+  printf("Firmware version: v0.5.1\n");
 #if UNIJOYSTICLE_SINGLE_PORT
-  printf("Single port / 3-button mode enabled\n");
+  printf("Single port / 3-button mode enabled (Amiga/Atari ST compatible)\n");
 #else
   printf("Dual port / 1-button mode enabled\n");
 #endif
