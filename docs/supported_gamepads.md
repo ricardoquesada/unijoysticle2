@@ -49,6 +49,7 @@ Tested gamepads so far.
 [![Xbox One S][xbox_one_s]][13]
 
 - Must be the *Xbox One S* and not the *Xbox One* gamepad. The *Xbox One S* supports Bluetooth, while the regular *Xbox One* doesn't.
+- Supports both "old" and "new" Xbox One mappings:  supports firmware v3.1 as well as firmware v4.8.
 - Press:
   - *A* for Fire
   - *B* for Jump
@@ -65,6 +66,7 @@ Tested gamepads so far.
 [![ps4_gamepad][dualshock_4]][14]
 
 - [Must be in PC mode][25]. Clones might not work.
+- Supports both the 2013 and 2016 editions
 - Press:
   - *X* for Fire
   - *O* for Jump
