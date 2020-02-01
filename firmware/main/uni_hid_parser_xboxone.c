@@ -56,8 +56,16 @@ static void parse_usage_firmware_v4_8(uni_hid_device_t* d,
 
 void uni_hid_parser_xboxone_setup(uni_hid_device_t* d) {
   xboxone_instance_t* ins = get_xboxone_instance(d);
-  // Assume it is v3.1. Will be overriden if not.
-  ins->version = XBOXONE_FIRMWARE_V3_1;
+  // FIXME: Parse HID descriptor and see if it supports 0xf buttons. Checking
+  // for the len is a horrible hack.
+  if (d->hid_descriptor_len > 330) {
+    logi("Xbox one: Assuming it is firmware 4.8\n");
+    ins->version = XBOXONE_FIRMWARE_V4_8;
+  } else {
+    // It is really firmware 4.8, it will be set later
+    logi("Xbox one: Assuming it is firmware 3.1\n");
+    ins->version = XBOXONE_FIRMWARE_V3_1;
+  }
 }
 
 void uni_hid_parser_xboxone_init_report(uni_hid_device_t* d) {
@@ -229,6 +237,7 @@ static void parse_usage_firmware_v3_1(uni_hid_device_t* d,
           // Only available in firmware v4.8.
           xboxone_instance_t* ins = get_xboxone_instance(d);
           ins->version = XBOXONE_FIRMWARE_V4_8;
+          logi("Xbox one: Firmware 4.8 detected\n");
           break;
         }
         default:
