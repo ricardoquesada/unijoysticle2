@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Adheres to the "standard" way to version boards/layouts. E.g: letters instead of numbers.
 
+## [Revision E] - 2020-02-06
+
+* Revision E is a contribution by Kopsec C64
+* It is en Eagle format.
+* They layout is slightly different
+* Uses Skotchy diodes
+
 ## [Revision D] - 2019-09-28
 - Board: a bit wider than Rev C. Easier to solder.
 - Replaces DIP switch with Swith Slide SPDT.
