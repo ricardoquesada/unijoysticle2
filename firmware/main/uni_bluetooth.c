@@ -62,7 +62,6 @@
 
 #include "btstack.h"
 #include "btstack_config.h"
-
 #include "uni_debug.h"
 #include "uni_hid_device.h"
 #include "uni_hid_parser.h"
@@ -882,18 +881,24 @@ static void fsm_process(uni_hid_device_t* d) {
     }
   } else {
     if (d->state == STATE_DEVICE_DISCOVERED) {
+      logd("STATE_DEVICE_DISCOVERED\n");
       // FIXME: Temporary skip name discovery
       // uni_hid_device_set_state(d, STATE_REMOTE_NAME_REQUEST);
-      sdp_query_hid_descriptor(d);
+      l2cap_create_control_connection(d);
     } else if (d->state == STATE_REMOTE_NAME_FETCHED) {
-      sdp_query_hid_descriptor(d);
-    } else if (d->state == STATE_SDP_HID_DESCRIPTOR_FETCHED) {
-      sdp_query_product_id(d);
-    } else if (d->state == STATE_SDP_VENDOR_FETCHED) {
+      logd("STATE_REMOTE_NAME_FETCHED\n");
       l2cap_create_control_connection(d);
     } else if (d->state == STATE_L2CAP_CONTROL_CONNECTED) {
+      logd("STATE_L2CAP_CONTROL_CONNECTED\n");
       l2cap_create_interrupt_connection(d);
     } else if (d->state == STATE_L2CAP_INTERRUPT_CONNECTED) {
+      logd("STATE_L2CAP_INTERRUPT_CONNECTED\n");
+      sdp_query_hid_descriptor(d);
+    } else if (d->state == STATE_SDP_HID_DESCRIPTOR_FETCHED) {
+      logd("STATE_SDP_HID_DESCRIPTOR_FETCHED\n");
+      sdp_query_product_id(d);
+    } else if (d->state == STATE_SDP_VENDOR_FETCHED) {
+      logd("STATE_SDP_HID_VENDOR_FETCHED\n");
       /* done */
       uni_hid_device_assign_joystick_port(d);
     }
