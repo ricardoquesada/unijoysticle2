@@ -29,6 +29,8 @@ void uni_hid_parser_ps4_init_report(uni_hid_device_t *d);
 void uni_hid_parser_ps4_parse_usage(uni_hid_device_t *d, hid_globals_t *globals,
                                     uint16_t usage_page, uint16_t usage,
                                     int32_t value);
+void uni_hid_parser_ps4_parse_raw(uni_hid_device_t *d, const uint8_t *report,
+                                  uint16_t len);
 void uni_hid_parser_ps4_update_led(uni_hid_device_t *d);
 
 #endif  // UNI_HID_PARSER_PS4_H

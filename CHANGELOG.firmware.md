@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.5.3] - 2020-02-01
 ### Added
 - Firmware: Nintendo Switch: Original Nintendo Switch Pro works
+- Firmware: DualShock 4: LEDs are being set. Uses HID report type 0x11 by default.
 
 ## [0.5.2] - 2020-02-01
 ### Added

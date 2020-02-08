@@ -69,7 +69,7 @@
 
 #define INQUIRY_INTERVAL 5
 #define MAX_ATTRIBUTE_VALUE_SIZE 512  // Apparently PS4 has a 470-bytes report
-#define MTU 128
+#define L2CAP_CHANNEL_MTU 128         // PS4 requires a 79-byte packet
 
 // globals
 // SDP
@@ -117,8 +117,10 @@ static void hid_host_setup(void) {
   hci_event_callback_registration.callback = &packet_handler;
   hci_add_event_handler(&hci_event_callback_registration);
 
-  l2cap_register_service(packet_handler, PSM_HID_INTERRUPT, MTU, LEVEL_2);
-  l2cap_register_service(packet_handler, PSM_HID_CONTROL, MTU, LEVEL_2);
+  l2cap_register_service(packet_handler, PSM_HID_INTERRUPT, L2CAP_CHANNEL_MTU,
+                         LEVEL_2);
+  l2cap_register_service(packet_handler, PSM_HID_CONTROL, L2CAP_CHANNEL_MTU,
+                         LEVEL_2);
 
   // Disable stdout buffering
   setbuf(stdout, NULL);
@@ -557,8 +559,8 @@ static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet,
                                     uint16_t size) {
   uint16_t psm;
   uint8_t status;
-  uint16_t local_cid;
-  uint16_t remote_cid;
+  uint16_t local_cid, remote_cid;
+  uint16_t local_mtu, remote_mtu;
   hci_con_handle_t handle;
   bd_addr_t address;
   uni_hid_device_t* device;
@@ -592,10 +594,13 @@ static void on_l2cap_channel_opened(uint16_t channel, uint8_t* packet,
   remote_cid = l2cap_event_channel_opened_get_remote_cid(packet);
   handle = l2cap_event_channel_opened_get_handle(packet);
   incoming = l2cap_event_channel_opened_get_incoming(packet);
+  local_mtu = l2cap_event_channel_opened_get_local_mtu(packet);
+  remote_mtu = l2cap_event_channel_opened_get_remote_mtu(packet);
+
   logi(
-      "PSM: 0x%04x, Local CID=0x%04x, Remote CID=0x%04x, handle=0x%04x, "
-      "incoming=%d\n",
-      psm, local_cid, remote_cid, handle, incoming);
+      "PSM: 0x%04x, local CID=0x%04x, remote CID=0x%04x, handle=0x%04x, "
+      "incoming=%d, local MTU=%d, remote MTU=%d\n",
+      psm, local_cid, remote_cid, handle, incoming, local_mtu, remote_mtu);
 
   device = uni_hid_device_get_instance_for_address(address);
   if (device == NULL) {
@@ -649,8 +654,7 @@ static void on_l2cap_incoming_connection(uint16_t channel, uint8_t* packet,
                                          uint16_t size) {
   bd_addr_t event_addr;
   uni_hid_device_t* device;
-  uint16_t local_cid;
-  uint16_t remote_cid;
+  uint16_t local_cid, remote_cid;
   uint16_t psm;
   hci_con_handle_t handle;
 
@@ -837,8 +841,9 @@ static void list_link_keys(void) {
 }
 
 static void l2cap_create_control_connection(uni_hid_device_t* d) {
-  uint8_t status = l2cap_create_channel(
-      packet_handler, d->address, PSM_HID_CONTROL, 48, &d->hid_control_cid);
+  uint8_t status =
+      l2cap_create_channel(packet_handler, d->address, PSM_HID_CONTROL,
+                           L2CAP_CHANNEL_MTU, &d->hid_control_cid);
   if (status) {
     loge("\nConnecting or Auth to HID Control failed: 0x%02x", status);
   } else {
@@ -847,8 +852,9 @@ static void l2cap_create_control_connection(uni_hid_device_t* d) {
 }
 
 static void l2cap_create_interrupt_connection(uni_hid_device_t* d) {
-  uint8_t status = l2cap_create_channel(
-      packet_handler, d->address, PSM_HID_INTERRUPT, 48, &d->hid_interrupt_cid);
+  uint8_t status =
+      l2cap_create_channel(packet_handler, d->address, PSM_HID_INTERRUPT,
+                           L2CAP_CHANNEL_MTU, &d->hid_interrupt_cid);
   if (status) {
     loge("\nConnecting or Auth to HID Interrupt failed: 0x%02x", status);
   } else {

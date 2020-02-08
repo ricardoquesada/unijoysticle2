@@ -22,13 +22,123 @@ limitations under the License.
 #include "uni_hid_parser_ps4.h"
 
 #include "hid_usage.h"
+#include "uni_config.h"
 #include "uni_debug.h"
 #include "uni_hid_device.h"
 #include "uni_hid_parser.h"
 
 void uni_hid_parser_ps4_init_report(uni_hid_device_t* d) {
   // Reset old state. Each report contains a full-state.
-  d->gamepad.updated_states = 0;
+  memset(&d->gamepad, 0, sizeof(d->gamepad));
+}
+
+void uni_hid_parser_ps4_parse_raw(uni_hid_device_t* d, const uint8_t* report,
+                                  uint16_t len) {
+  // printf_hexdump(report, len);
+  if (report[0] != 0x11) {
+    loge("PS4: Unexpected report type: got 0x%02x, want: 0x11\n", report[0]);
+    return;
+  }
+  if (len != 78) {
+    loge("PS4: Unexpected report len: got %d, want: 78\n", len);
+    return;
+  }
+  uni_gamepad_t* gp = &d->gamepad;
+  const uint8_t* data = &report[3];
+
+  // Axis
+  gp->axis_x = (data[0] - 127) * 4;
+  gp->axis_y = (data[1] - 127) * 4;
+  gp->axis_rx = (data[2] - 127) * 4;
+  gp->axis_ry = (data[3] - 127) * 4;
+  gp->updated_states |= (GAMEPAD_STATE_AXIS_X | GAMEPAD_STATE_AXIS_Y |
+                         GAMEPAD_STATE_AXIS_RX | GAMEPAD_STATE_AXIS_RY);
+
+  // Hat
+  uint8_t value = data[4] & 0xf;
+  if (value > 7) value = 0xff; /* Center 0, 0 */
+  gp->dpad = uni_hid_parser_hat_to_dpad(value);
+  gp->updated_states |= GAMEPAD_STATE_DPAD;
+
+  // Buttons
+  if (data[4] & 0x10)  // West
+    gp->buttons |= BUTTON_X;
+  else
+    gp->buttons &= ~BUTTON_X;
+
+  if (data[4] & 0x20)  // South
+    gp->buttons |= BUTTON_A;
+  else
+    gp->buttons &= ~BUTTON_A;
+
+  if (data[4] & 0x40)  // East
+    gp->buttons |= BUTTON_B;
+  else
+    gp->buttons &= ~BUTTON_B;
+
+  if (data[4] & 0x80)  // North
+    gp->buttons |= BUTTON_Y;
+  else
+    gp->buttons &= ~BUTTON_Y;
+  gp->updated_states |= GAMEPAD_STATE_BUTTON_X | GAMEPAD_STATE_BUTTON_Y |
+                        GAMEPAD_STATE_BUTTON_A | GAMEPAD_STATE_BUTTON_B;
+
+  if (data[5] & 0x01)  // Shoulder L
+    gp->buttons |= BUTTON_SHOULDER_L;
+  else
+    gp->buttons &= ~BUTTON_SHOULDER_L;
+
+  if (data[5] & 0x02)  // Shoulder R
+    gp->buttons |= BUTTON_SHOULDER_R;
+  else
+    gp->buttons &= ~BUTTON_SHOULDER_R;
+
+  if (data[5] & 0x04)  // Trigger L
+    gp->buttons |= BUTTON_TRIGGER_L;
+  else
+    gp->buttons &= ~BUTTON_TRIGGER_L;
+
+  if (data[5] & 0x08)  // Trigger R
+    gp->buttons |= BUTTON_TRIGGER_R;
+  else
+    gp->buttons &= ~BUTTON_TRIGGER_R;
+  gp->updated_states |=
+      GAMEPAD_STATE_BUTTON_TRIGGER_L | GAMEPAD_STATE_BUTTON_TRIGGER_R |
+      GAMEPAD_STATE_BUTTON_SHOULDER_L | GAMEPAD_STATE_BUTTON_SHOULDER_R;
+
+  if (data[5] & 0x10)  // Share
+    gp->misc_buttons |= MISC_BUTTON_BACK;
+  else
+    gp->misc_buttons &= ~MISC_BUTTON_BACK;
+
+  if (data[5] & 0x20)  // Options
+    gp->misc_buttons |= MISC_BUTTON_HOME;
+  else
+    gp->misc_buttons &= ~MISC_BUTTON_HOME;
+  gp->updated_states |=
+      GAMEPAD_STATE_MISC_BUTTON_BACK | GAMEPAD_STATE_MISC_BUTTON_HOME;
+
+  if (data[5] & 0x40)  // Thumb L
+    gp->buttons |= BUTTON_THUMB_L;
+  else
+    gp->buttons &= ~BUTTON_THUMB_L;
+
+  if (data[5] & 0x80)  // Thumb R
+    gp->buttons |= BUTTON_THUMB_R;
+  else
+    gp->buttons &= ~BUTTON_THUMB_R;
+  gp->updated_states |=
+      GAMEPAD_STATE_BUTTON_THUMB_L | GAMEPAD_STATE_BUTTON_THUMB_R;
+
+  if (data[6] & 0x01)  // PS button
+    gp->misc_buttons |= MISC_BUTTON_SYSTEM;
+  else
+    gp->misc_buttons &= ~MISC_BUTTON_SYSTEM;
+  gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
+
+  gp->brake = data[7] * 4;
+  gp->accelerator = data[8] * 4;
+  gp->updated_states |= GAMEPAD_STATE_BRAKE | GAMEPAD_STATE_ACCELERATOR;
 }
 
 void uni_hid_parser_ps4_parse_usage(uni_hid_device_t* d, hid_globals_t* globals,
@@ -212,11 +322,29 @@ void uni_hid_parser_ps4_parse_usage(uni_hid_device_t* d, hid_globals_t* globals,
   }
 }
 
+#define CRCPOLY 0xedb88320
+static uint32_t crc32_le(uint32_t seed, const void* data, size_t len) {
+  uint32_t crc = seed;
+  const uint8_t* src = data;
+  uint32_t mult;
+  int i;
+
+  while (len--) {
+    crc ^= *src++;
+    for (i = 0; i < 8; i++) {
+      mult = (crc & 1) ? CRCPOLY : 0;
+      crc = (crc >> 1) ^ mult;
+    }
+  }
+
+  return crc;
+}
+
 void uni_hid_parser_ps4_update_led(uni_hid_device_t* d) {
   // Info taken from here:
   // https://github.com/torvalds/linux/blob/master/drivers/hid/hid-sony.c
   // https://github.com/chrippa/ds4drv/blob/master/ds4drv/device.py
-#if 0
+#if UNI_USE_DUALSHOCK4_REPORT_0x11
   // Force feedback info taken from:
   //
   struct ff_report {
@@ -225,30 +353,40 @@ void uni_hid_parser_ps4_update_led(uni_hid_device_t* d) {
     uint8_t report_id;  // report Id
     // Data related
     uint8_t unk0[5];
-    uint8_t rumble_lo;
-    uint8_t rumble_hi;
+    uint8_t rumble_left;
+    uint8_t rumble_right;
     uint8_t led_red;
     uint8_t led_green;
     uint8_t led_blue;
     uint8_t flash_led1;  // time to flash bright (255 = 2.5 seconds)
     uint8_t flash_led2;  // time to flash dark (255 = 2.5 seconds)
-    uint8_t unk1[65];
+    uint8_t unk1[61];
+    uint32_t crc;
   } __attribute__((__packed__));
 
-  struct ff_report ff = {
-      .output_id = 0x52,  // SET_REPORT | TYPE_OUTPUT
-      .report_id = 0x11,  // taken from HID descriptor
-      .unk0[0] = 128,
-      .unk0[2] = 255,
-      .rumble_lo = 255,
-      .rumble_hi = 0,
-      .led_red = 255,
-      .led_green = 0,
-      .led_blue = 0,
-      .flash_led1 = 50,
-      .flash_led2 = 50,
+  struct ff_report ff;
+  memset(&ff, 0, sizeof(ff));
+  ff.output_id = 0xa2;  // DATA | TYPE_OUTPUT
+  ff.report_id = 0x11;  // taken from HID descriptor
+  ff.unk0[0] = 0xc4;    // HID alone + poll interval
+  ff.unk0[2] = 0x7;     // blink + LED + motor
+  ff.rumble_left = 0x00;
+  ff.rumble_right = 0x00;
+  ff.led_red = (d->joystick_port & JOYSTICK_PORT_B) ? 0x30 : 0x00;
+  ff.led_green = (d->joystick_port & JOYSTICK_PORT_A) ? 0x30 : 0x00;
+  ff.led_blue = 0x00;
+  ff.flash_led1 = 0x0;
+  ff.flash_led2 = 0x0;
 
-  };
+  /* CRC generation */
+  uint8_t bthdr = 0xA2;
+  uint32_t crc;
+
+  crc = crc32_le(0xFFFFFFFF, &bthdr, 1);
+  crc = ~crc32_le(crc, (uint8_t*)&ff.report_id, sizeof(ff) - 5);
+  ff.crc = crc;
+
+  logi("crc = 0x%08x == 0x2cd59f33\n", crc);
 
   uni_hid_device_queue_report(d, (uint8_t*)&ff, sizeof(ff));
 #else

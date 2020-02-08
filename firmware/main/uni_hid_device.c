@@ -449,9 +449,13 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
     case CONTROLLER_TYPE_PS4Controller:
       d->report_parser.setup = NULL;
       d->report_parser.init_report = uni_hid_parser_ps4_init_report;
-      d->report_parser.parse_usage = uni_hid_parser_ps4_parse_usage;
-      d->report_parser.parse_raw = NULL;
+#if UNI_USE_DUALSHOCK4_REPORT_0x11
+      d->report_parser.parse_raw = uni_hid_parser_ps4_parse_raw;
       d->report_parser.update_led = uni_hid_parser_ps4_update_led;
+#else
+      d->report_parser.parse_usage = uni_hid_parser_ps4_parse_usage;
+      d->report_parser.update_led = NULL;
+#endif  //
       logi("Device detected as PS4: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_8BitdoController:
