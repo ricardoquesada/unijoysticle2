@@ -196,6 +196,7 @@ void uni_hid_parser_generic_parse_usage(uni_hid_device_t* d,
           else
             gp->misc_buttons &= ~MISC_BUTTON_BACK;
           gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_BACK;
+          break;
         case 0x0c:  // start button ?
           if (value)
             gp->misc_buttons |= MISC_BUTTON_HOME;

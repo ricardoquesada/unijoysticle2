@@ -159,12 +159,14 @@ void uni_hid_parser_ouya_parse_usage(uni_hid_device_t* d,
           else
             gp->buttons &= ~BUTTON_TRIGGER_L;
           gp->updated_states |= GAMEPAD_STATE_BUTTON_TRIGGER_L;
+          break;
         case 0x0e:  // Triggered by Accelerator pedal
           if (value)
             gp->buttons |= BUTTON_TRIGGER_R;
           else
             gp->buttons &= ~BUTTON_TRIGGER_R;
           gp->updated_states |= GAMEPAD_STATE_BUTTON_TRIGGER_R;
+          break;
         case 0x0f:
           if (value)
             gp->misc_buttons |= MISC_BUTTON_SYSTEM;

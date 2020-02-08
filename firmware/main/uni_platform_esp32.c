@@ -18,18 +18,16 @@ limitations under the License.
 
 // ESP32 version
 
-#include "uni_platform.h"
-
 #include "driver/gpio.h"
 #include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/event_groups.h"
 #include "freertos/queue.h"
 #include "math.h"
-
 #include "uni_config.h"
 #include "uni_debug.h"
 #include "uni_hid_device.h"
+#include "uni_platform.h"
 
 // --- Consts
 
@@ -38,7 +36,7 @@ limitations under the License.
 static const int AUTOFIRE_FREQ_MS = 20 * 4;  // change every ~4 frames
 
 static const int MOUSE_DELAY_BETWEEN_EVENT_US = 1200;  // microseconds
-static const int MOUSE_MAX_DELTA = 32;
+// static const int MOUSE_MAX_DELTA = 32;
 
 // GPIO map for MH-ET Live mini-kit board.
 static const int GPIO_LED_J1 = GPIO_NUM_5;
