@@ -890,23 +890,42 @@ static void fsm_process(uni_hid_device_t* d) {
       logd("STATE_DEVICE_DISCOVERED\n");
       // FIXME: Temporary skip name discovery
       // uni_hid_device_set_state(d, STATE_REMOTE_NAME_REQUEST);
+
+      // No name? No problem, we do the SDP query after connect.
       l2cap_create_control_connection(d);
     } else if (d->state == STATE_REMOTE_NAME_FETCHED) {
       logd("STATE_REMOTE_NAME_FETCHED\n");
-      l2cap_create_control_connection(d);
+      if (strncmp(d->name, "Wireless Controller", strlen(d->name)) == 0) {
+        logi("Detected DualShock 4. Doing SDP query before connect.\n");
+        d->sdp_query_before_connect = 1;
+      }
+      if (d->sdp_query_before_connect) {
+        sdp_query_hid_descriptor(d);
+      } else {
+        l2cap_create_control_connection(d);
+      }
     } else if (d->state == STATE_L2CAP_CONTROL_CONNECTED) {
       logd("STATE_L2CAP_CONTROL_CONNECTED\n");
       l2cap_create_interrupt_connection(d);
     } else if (d->state == STATE_L2CAP_INTERRUPT_CONNECTED) {
       logd("STATE_L2CAP_INTERRUPT_CONNECTED\n");
-      sdp_query_hid_descriptor(d);
+      if (d->sdp_query_before_connect) {
+        /* done */
+        uni_hid_device_assign_joystick_port(d);
+      } else {
+        sdp_query_hid_descriptor(d);
+      }
     } else if (d->state == STATE_SDP_HID_DESCRIPTOR_FETCHED) {
       logd("STATE_SDP_HID_DESCRIPTOR_FETCHED\n");
       sdp_query_product_id(d);
     } else if (d->state == STATE_SDP_VENDOR_FETCHED) {
       logd("STATE_SDP_HID_VENDOR_FETCHED\n");
-      /* done */
-      uni_hid_device_assign_joystick_port(d);
+      if (d->sdp_query_before_connect) {
+        l2cap_create_control_connection(d);
+      } else {
+        /* done */
+        uni_hid_device_assign_joystick_port(d);
+      }
     }
   }
 }

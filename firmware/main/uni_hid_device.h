@@ -73,6 +73,15 @@ struct uni_hid_device_s {
   // SDP
   uint8_t hid_descriptor[MAX_DESCRIPTOR_LEN];
   uint16_t hid_descriptor_len;
+  // DualShock4 1st gen requires to do the SDP query before l2cap connect,
+  // otherwise it won't work.
+  // And Nintendo Switch Pro gamepad requires to do the SDP query after l2cap
+  // connect, so we use this variable to determine when to do the SDP query.
+  // TODO: Actually this is not entirely true since it works Ok when using
+  // Unijoysticle + btstack + libusb in Linux. The correct thing to do is to
+  // debug the linux connection and see what packets are sent before the
+  // connection.
+  uint8_t sdp_query_before_connect;
 
   // Channels
   uint16_t hid_control_cid;
