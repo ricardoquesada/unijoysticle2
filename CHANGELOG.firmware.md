@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Firmware: Nintendo Switch: Original Nintendo Switch Pro works
 - Firmware: DualShock 4: LEDs are being set. Uses HID report type 0x11 by default.
 
+### Changed
+- Firmware: MTU changed from 48 to 128 bytes. Needed report 0x11 in DualShock4.
+
 ## [0.5.2] - 2020-02-01
 ### Added
 - Firmware: Xbox One: added support for firmware v4.8.

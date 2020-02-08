@@ -386,8 +386,6 @@ void uni_hid_parser_ps4_update_led(uni_hid_device_t* d) {
   crc = ~crc32_le(crc, (uint8_t*)&ff.report_id, sizeof(ff) - 5);
   ff.crc = crc;
 
-  logi("crc = 0x%08x == 0x2cd59f33\n", crc);
-
   uni_hid_device_queue_report(d, (uint8_t*)&ff, sizeof(ff));
 #else
   UNUSED(d);
