@@ -249,10 +249,15 @@ enum {
 struct switch_subcmd_request {
   // Report related
   uint8_t transaction_type;  // type of transaction
-  uint8_t report_id;  //  must be 0x01 for subcommand, 0x10 for rumble only
+  uint8_t report_id;  // must be 0x01 for subcommand, 0x10 for rumble only
+
   // Data related
-  uint8_t packet_num;  // incremented every send, from 0x00 to 0x0f
-  uint8_t rumble_data[8];
+  uint8_t packet_num;  // increment by 1 for each packet sent. It loops in 0x0 -
+                       // 0xF range.
+  // Rumble not supported at the moment. For further info see:
+  // https://github.com/dekuNukem/Nintendo_Switch_Reverse_Engineering/blob/master/rumble_data_table.md
+  uint8_t rumble_left[4];
+  uint8_t rumble_right[4];
   uint8_t subcmd_id;
   uint8_t data[0];  // length depends on the subcommand
 } __attribute__((__packed__));
@@ -265,7 +270,7 @@ void uni_hid_parser_switch_update_led(uni_hid_device_t* d) {
 
   struct switch_subcmd_request* req = (struct switch_subcmd_request*)&report[0];
   req->transaction_type = 0xa2;  // DATA | TYPE_OUTPUT
-  req->report_id = 0x01;
+  req->report_id = 0x01;         // 0x01 for sub commands
   req->packet_num = packet_num++;
   req->subcmd_id = SUBCMD_SET_LEDS;
   req->data[0] = d->joystick_port;

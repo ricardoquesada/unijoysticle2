@@ -382,7 +382,7 @@ void uni_hid_parser_ps4_update_led(uni_hid_device_t* d) {
   uint8_t bthdr = 0xA2;
   uint32_t crc;
 
-  crc = crc32_le(0xFFFFFFFF, &bthdr, 1);
+  crc = crc32_le(0xffffffff, &bthdr, 1);
   crc = ~crc32_le(crc, (uint8_t*)&ff.report_id, sizeof(ff) - 5);
   ff.crc = crc;
 
