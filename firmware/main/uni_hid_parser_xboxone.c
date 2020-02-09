@@ -496,8 +496,8 @@ static void rumble(uni_hid_device_t* d) {
   // https://github.com/atar-axis/xpadneo/blob/master/hid-xpadneo/src/hid-xpadneo.c
   struct ff_report {
     // Report related
-    uint8_t output_id;  // type of output report
-    uint8_t report_id;  // report id
+    uint8_t transaction_type;  // type of transaction
+    uint8_t report_id;         // report id
     // Force-feedback related
     uint8_t enable_actuators;    // LSB 0-3 for each actuator
     uint8_t force_left_trigger;  // HID descriptor says that it goes from 0-100
@@ -510,8 +510,8 @@ static void rumble(uni_hid_device_t* d) {
   } __attribute__((__packed__));
 
   struct ff_report ff = {
-      .output_id = 0xa2,  // HIDP_TRANS_DATA | HIDP_DATA_RTYPE_OUPUT
-      .report_id = 0x03,  // taken from HID descriptor
+      .transaction_type = 0xa2,  // HIDP_TRANS_DATA | HIDP_DATA_RTYPE_OUPUT
+      .report_id = 0x03,         // taken from HID descriptor
       .enable_actuators = FF_TRIGGER_LEFT | FF_TRIGGER_RIGHT,
       .force_left_trigger = 25,
       .force_right_trigger = 25,
