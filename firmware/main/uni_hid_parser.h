@@ -28,14 +28,15 @@ struct uni_hid_device_s;
 
 // btstack bug:
 // see: https://github.com/bluekitchen/btstack/issues/187
-typedef struct {
+struct hid_globals_s {
   int32_t logical_minimum;
   int32_t logical_maximum;
   uint16_t usage_page;
   uint8_t report_size;
   uint8_t report_count;
   uint8_t report_id;
-} hid_globals_t;
+};
+typedef struct hid_globals_s hid_globals_t;
 
 typedef void (*report_setup_fn_t)(struct uni_hid_device_s* d);
 typedef void (*report_init_report_fn_t)(struct uni_hid_device_s* d);
