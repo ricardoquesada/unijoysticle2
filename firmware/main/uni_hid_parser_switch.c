@@ -239,3 +239,38 @@ void uni_hid_parser_switch_parse_usage(uni_hid_device_t* d,
       break;
   }
 }
+
+// Nintendo Switch output-report info taken from:
+// https://github.com/DanielOgorchock/linux/blob/ogorchock/drivers/hid/hid-nintendo.c
+enum {
+  SUBCMD_SET_LEDS = 0x30,
+};
+
+struct switch_subcmd_request {
+  // Report related
+  uint8_t transaction_type;  // type of transaction
+  uint8_t report_id;  //  must be 0x01 for subcommand, 0x10 for rumble only
+  // Data related
+  uint8_t packet_num;  // incremented every send, from 0x00 to 0x0f
+  uint8_t rumble_data[8];
+  uint8_t subcmd_id;
+  uint8_t data[0];  // length depends on the subcommand
+} __attribute__((__packed__));
+
+void uni_hid_parser_switch_update_led(uni_hid_device_t* d) {
+  static uint8_t packet_num = 0;
+
+  // 1 == SET_LEDS subcmd len
+  uint8_t report[sizeof(struct switch_subcmd_request) + 1] = {0};
+
+  struct switch_subcmd_request* req = (struct switch_subcmd_request*)&report[0];
+  req->transaction_type = 0xa2;  // DATA | TYPE_OUTPUT
+  req->report_id = 0x01;
+  req->packet_num = packet_num++;
+  req->subcmd_id = SUBCMD_SET_LEDS;
+  req->data[0] = d->joystick_port;
+
+  if (packet_num > 0x0f) packet_num = 0;
+
+  uni_hid_device_queue_report(d, report, sizeof(report));
+}

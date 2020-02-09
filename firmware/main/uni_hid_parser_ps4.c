@@ -349,8 +349,8 @@ void uni_hid_parser_ps4_update_led(uni_hid_device_t* d) {
   //
   struct ff_report {
     // Report related
-    uint8_t output_id;  // type of transaction
-    uint8_t report_id;  // report Id
+    uint8_t transaction_type;  // type of transaction
+    uint8_t report_id;         // report Id
     // Data related
     uint8_t unk0[5];
     uint8_t rumble_left;
@@ -366,10 +366,10 @@ void uni_hid_parser_ps4_update_led(uni_hid_device_t* d) {
 
   struct ff_report ff;
   memset(&ff, 0, sizeof(ff));
-  ff.output_id = 0xa2;  // DATA | TYPE_OUTPUT
-  ff.report_id = 0x11;  // taken from HID descriptor
-  ff.unk0[0] = 0xc4;    // HID alone + poll interval
-  ff.unk0[2] = 0x7;     // blink + LED + motor
+  ff.transaction_type = 0xa2;  // DATA | TYPE_OUTPUT
+  ff.report_id = 0x11;         // taken from HID descriptor
+  ff.unk0[0] = 0xc4;           // HID alone + poll interval
+  ff.unk0[2] = 0x7;            // blink + LED + motor
   ff.rumble_left = 0x00;
   ff.rumble_right = 0x00;
   ff.led_red = (d->joystick_port & JOYSTICK_PORT_B) ? 0x30 : 0x00;

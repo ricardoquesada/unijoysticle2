@@ -226,7 +226,13 @@ void uni_hid_parser_android_parse_usage(uni_hid_device_t* d,
 
 void uni_hid_parser_android_update_led(uni_hid_device_t* d) {
 #if 0
-  const uint8_t report[] = {0xa2, 0x02, 0x0f};
+  static uint8_t report_id = 0;
+  logi("using report id = 0x%02x\n", report_id);
+  uint8_t report[] = {0xa2, 0, 0x00 /* LED */};
+  report[2] = 0x02; /* d->joystick_port; */
+  report[1] = report_id++;
+  uni_hid_device_queue_report(d, report, sizeof(report));
+  report[0] = 0x52;
   uni_hid_device_queue_report(d, report, sizeof(report));
 #else
   UNUSED(d);
