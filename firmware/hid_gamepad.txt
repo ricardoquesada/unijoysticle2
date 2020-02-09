@@ -91,7 +91,7 @@ HID Descriptor:
 
 // 98 bytes
 
-Ouya dump:
+OUYA dump:
 HID Interrupt: A1 07 44 7E 00 80 00 80 50 84 00 00 00 00 00 00
 HID Control PSM: 0x0011
 HID Interrupt PSM: 0x0013
@@ -321,7 +321,7 @@ HID Descriptor:
 // 169 bytes
 
 
-Asus dump:
+ASUS dump:
 HID Interrupt: A1 01 00 80 80 80 79 80 00 00
 HID Control PSM: 0x0011
 HID Interrupt PSM: 0x0013
