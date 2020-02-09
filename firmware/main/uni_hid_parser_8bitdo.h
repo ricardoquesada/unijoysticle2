@@ -25,8 +25,8 @@ limitations under the License.
 #include "uni_hid_parser.h"
 
 // 8Bitdo controllers
-void uni_hid_parser_8bitdo_init_report(uni_hid_device_t* d);
-void uni_hid_parser_8bitdo_parse_usage(uni_hid_device_t* d,
+void uni_hid_parser_8bitdo_init_report(struct uni_hid_device_s* d);
+void uni_hid_parser_8bitdo_parse_usage(struct uni_hid_device_s* d,
                                        hid_globals_t* globals,
                                        uint16_t usage_page, uint16_t usage,
                                        int32_t value);

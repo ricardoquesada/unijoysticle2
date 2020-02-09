@@ -26,11 +26,11 @@ limitations under the License.
 #include "uni_hid_parser.h"
 
 // OUYA devices
-void uni_hid_parser_ouya_init_report(uni_hid_device_t* d);
-void uni_hid_parser_ouya_parse_usage(uni_hid_device_t* d,
+void uni_hid_parser_ouya_init_report(struct uni_hid_device_s* d);
+void uni_hid_parser_ouya_parse_usage(struct uni_hid_device_s* d,
                                      hid_globals_t* globals,
                                      uint16_t usage_page, uint16_t usage,
                                      int32_t value);
-void uni_hid_parser_ouya_update_led(uni_hid_device_t* d);
+void uni_hid_parser_ouya_update_led(struct uni_hid_device_s* d);
 
 #endif  // UNI_HID_PARSER_OUYA_H

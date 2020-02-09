@@ -66,7 +66,4 @@ unijoysticle: ${CORE_OBJ} ${COMMON_OBJ} ${CLASSIC_OBJ} ${SDP_CLIENT} btstack_rin
 	uni_platform_pc.o
 	${CC} $^ ${CFLAGS} ${LDFLAGS} -o $@
 
-gap_inquiry: ${CORE_OBJ} ${COMMON_OBJ} ${CLASSIC_OBJ} gap_inquiry.c
-	${CC} $^ ${CFLAGS} ${LDFLAGS} -o $@
-
-all: unijoysticle gap_inquiry
+all: unijoysticle

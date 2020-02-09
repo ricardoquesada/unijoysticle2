@@ -25,11 +25,11 @@ limitations under the License.
 #include "uni_hid_parser.h"
 
 // For Xbox One gamepads
-void uni_hid_parser_xboxone_setup(uni_hid_device_t* d);
-void uni_hid_parser_xboxone_init_report(uni_hid_device_t* d);
-void uni_hid_parser_xboxone_parse_usage(uni_hid_device_t* d,
+void uni_hid_parser_xboxone_setup(struct uni_hid_device_s* d);
+void uni_hid_parser_xboxone_init_report(struct uni_hid_device_s* d);
+void uni_hid_parser_xboxone_parse_usage(struct uni_hid_device_s* d,
                                         hid_globals_t* globals,
                                         uint16_t usage_page, uint16_t usage,
                                         int32_t value);
-void uni_hid_parser_xboxone_update_led(uni_hid_device_t* d);
+void uni_hid_parser_xboxone_update_led(struct uni_hid_device_s* d);
 #endif  // UNI_HID_PARSER_XBOXONE_H

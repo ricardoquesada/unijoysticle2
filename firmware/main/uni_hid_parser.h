@@ -25,7 +25,6 @@ limitations under the License.
 
 // Forward declarations
 struct uni_hid_device_s;
-typedef struct uni_hid_device_s uni_hid_device_t;
 
 // btstack bug:
 // see: https://github.com/bluekitchen/btstack/issues/187
@@ -38,19 +37,19 @@ typedef struct {
   uint8_t report_id;
 } hid_globals_t;
 
-typedef void (*report_setup_fn_t)(uni_hid_device_t* d);
-typedef void (*report_init_report_fn_t)(uni_hid_device_t* d);
-typedef void (*report_parse_usage_fn_t)(uni_hid_device_t* d,
+typedef void (*report_setup_fn_t)(struct uni_hid_device_s* d);
+typedef void (*report_init_report_fn_t)(struct uni_hid_device_s* d);
+typedef void (*report_parse_usage_fn_t)(struct uni_hid_device_s* d,
                                         hid_globals_t* globals,
                                         uint16_t usage_page, uint16_t usage,
                                         int32_t value);
-// "parse_raw" receives uni_hid_device_t instead of gamepad since it is needed
+// "parse_raw" receives uni_hid_device_s instead of gamepad since it is needed
 // for devices like Nintendo. If needed, the same thing should be done for
 // "parse_usage".
-typedef void (*report_parse_raw_fn_t)(uni_hid_device_t* d,
+typedef void (*report_parse_raw_fn_t)(struct uni_hid_device_s* d,
                                       const uint8_t* report,
                                       uint16_t report_len);
-typedef void (*report_update_led_t)(uni_hid_device_t* d);
+typedef void (*report_update_led_t)(struct uni_hid_device_s* d);
 
 // Parsers should implement these optional functions:
 typedef struct {
@@ -66,7 +65,7 @@ typedef struct {
   report_update_led_t update_led;
 } uni_report_parser_t;
 
-void uni_hid_parser(uni_hid_device_t* d, const uint8_t* report,
+void uni_hid_parser(struct uni_hid_device_s* d, const uint8_t* report,
                     uint16_t report_len);
 int32_t uni_hid_parser_process_axis(hid_globals_t* globals, uint32_t value);
 int32_t uni_hid_parser_process_pedal(hid_globals_t* globals, uint32_t value);
