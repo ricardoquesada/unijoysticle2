@@ -72,6 +72,7 @@ Tested gamepads so far.
   - *O* for Jump
   - *Right shoulder* for Auto-fire
   - *Play* button to swap joystick port
+- LED sets color according to assigned port number. Green: port #1, red: port #2, yellow: enhanced mode.
 
 [dualshock_4]: https://lh3.googleusercontent.com/_0sAxKXbSkk4g8rWJzTNxAirz2hD632jW4TGjGVOwjoac8sD4AfiN9PA1HdGWhm_ujcVygDlEG-LENPemF7IyFhqVsHgVHfCMVeFVjBbeDl-fUUjdMbRYAE8FiKdyWM_UBNUNmVy9Ro=-no
 [issue_4]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/4
@@ -149,11 +150,11 @@ have to press the "+" button in the Wii Remote while connecting or reconnecting.
 [wii_nunchuk_img]: https://lh3.googleusercontent.com/DtCjBt0zrNEDBSgTmaP4BhPlDFfJePFtyBbLvqhEnxG5wjlIjbL1j3akOqbb4_tsSEuVGq1VaBZ_2T94TYNG8tjzxthE-Theo-gphrnG7AW8GEzd7vrmNqjVtGJjDcdhTnkJbsdCCFk=-no
 [wii_nunchuk]: https://en.wikipedia.org/wiki/Wii_Remote#Nunchuk
 
-## Nintendo Classic Controller / Classic Controller Pro
+## Nintendo Wii Remote + Classic Controller / Classic Controller Pro
 
 ![wii_classic_controller][wii_classic_controller_img]
 
-A Classic Controller or Classic Controller Pro can be used when it is attached
+A Nintendo Classic Controller or Classic Controller Pro can be used when it is attached
 to the Wii Remote. When attached, the Wii Remote will be "disabled" and only the
 Classic Controller can be used.
 
@@ -191,6 +192,7 @@ Classic Controller can be used.
   - *A* for Jump
   - *Right shoulder* for Auto-fire
   - *Home* button to swap joystick port
+- LEDs #1 and #2 indicates what joystick is being controlled.
 
 [switch_pro]: https://en.wikipedia.org/wiki/Nintendo_Switch_Pro_Controller
 [switch_pro_img]: https://lh3.googleusercontent.com/33hrGYM117T9pPrW0L-wr7bl0trLXooqmp4I78XV9vWkumHE8mK8Z_5KJZFzWKNpJg31gvrxHC0agF5BUgVr2f6awNYb98R-xPIWaawG6b0XwxHzm8hzz39Wnnv6qLmeEXsRaeoybsA=-no
