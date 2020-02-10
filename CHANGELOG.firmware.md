@@ -11,7 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Firmware: DualShock 4: LEDs are being set. Uses HID report type 0x11 by default.
 
 ### Changed
-- Firmware: MTU changed from 48 to 128 bytes. Needed report 0x11 in DualShock4.
+- Firmware: MTU changed from 48 to 128 bytes. Needed for report 0x11 in DualShock4.
+- Firmware: Linux version compiles with clang by default.
+- Firmware: Added missing 'break' in OUYA and Generic drivers, making them more reliable.
 
 ## [0.5.2] - 2020-02-01
 ### Added
