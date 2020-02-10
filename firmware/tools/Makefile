@@ -31,11 +31,6 @@ VPATH += ${BTSTACK_ROOT}/chipset/csr
 CFLAGS  += $(shell pkg-config libusb-1.0 --cflags) -I../main
 LDFLAGS += $(shell pkg-config libusb-1.0 --libs)
 
-EXAMPLES += csr_set_bd_addr
-
-csr_set_bd_addr: ${CORE_OBJ} ${COMMON_OBJ} btstack_chipset_csr.o csr_set_bd_addr.o
-	${CC} $^ ${CFLAGS} ${LDFLAGS} -o $@
-
 
 # use pkg-config for portaudio
 # CFLAGS  += $(shell pkg-config portaudio-2.0 --cflags) -DHAVE_PORTAUDIO
@@ -53,8 +48,6 @@ clean_src:
 
 clean:
 	rm -rf ../main/*.o
-
-#all: ${EXAMPLES}
 
 unijoysticle: ${CORE_OBJ} ${COMMON_OBJ} ${CLASSIC_OBJ} ${SDP_CLIENT} btstack_ring_buffer.o btstack_hid_parser.o \
 	../main/uni_main.o ../main/uni_bluetooth.o ../main/uni_hid_device.o  ../main/uni_hid_parser.o ../main/uni_gamepad.o \
