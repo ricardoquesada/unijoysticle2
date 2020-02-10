@@ -8,6 +8,7 @@ COMMON += btstack_audio_portaudio.c
 
 include ${BTSTACK_ROOT}/example/Makefile.inc
 
+CC=clang
 CFLAGS  += -g -std=c99 -Wall -Wmissing-prototypes -Wstrict-prototypes -Wshadow -Wunused-parameter -Wredundant-decls -Wsign-compare
 # CFLAGS += -Werror
 # CFLAGS += -pedantic
@@ -62,7 +63,6 @@ unijoysticle: ${CORE_OBJ} ${COMMON_OBJ} ${CLASSIC_OBJ} ${SDP_CLIENT} btstack_rin
 	../main/uni_hid_parser_ps4.o ../main/uni_hid_parser_8bitdo.o ../main/uni_hid_parser_generic.o \
 	../main/uni_hid_parser_wii.o ../main/uni_hid_parser_switch.o \
 	../main/uni_circular_buffer.o \
-	../main/uni_hid_device_vendors.h ../main/uni_config.h \
 	uni_platform_pc.o
 	${CC} $^ ${CFLAGS} ${LDFLAGS} -o $@
 
