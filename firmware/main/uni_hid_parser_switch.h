@@ -31,5 +31,7 @@ void uni_hid_parser_switch_parse_usage(struct uni_hid_device_s* d,
                                        uint16_t usage_page, uint16_t usage,
                                        int32_t value);
 void uni_hid_parser_switch_update_led(struct uni_hid_device_s* d);
+uint8_t uni_hid_parser_switch_does_packet_match(struct uni_hid_device_s* d,
+                                                const uint8_t* packet, int len);
 
 #endif  // UNI_HID_PARSER_SWITCH_H

@@ -160,7 +160,10 @@ void uni_hid_device_dump_all(void);
 
 bool uni_hid_device_is_orphan(uni_hid_device_t* d);
 
-void uni_hid_device_guess_controller_type(uni_hid_device_t* d);
+uint8_t uni_hid_device_guess_controller_type_from_packet(uni_hid_device_t* d,
+                                                         const uint8_t* packet,
+                                                         int len);
+void uni_hid_device_guess_controller_type_from_pid_vid(uni_hid_device_t* d);
 bool uni_hid_device_has_controller_type(uni_hid_device_t* d);
 
 void uni_hid_device_process_gamepad(uni_hid_device_t* d);

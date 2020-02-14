@@ -373,7 +373,13 @@ bool uni_hid_device_is_orphan(uni_hid_device_t* d) {
   return (d->flags == FLAGS_HAS_COD);
 }
 
-void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
+uint8_t uni_hid_device_guess_controller_type_from_packet(uni_hid_device_t* d,
+                                                         const uint8_t* packet,
+                                                         int len) {
+  return uni_hid_parser_switch_does_packet_match(d, packet, len);
+}
+
+void uni_hid_device_guess_controller_type_from_pid_vid(uni_hid_device_t* d) {
   if (uni_hid_device_has_controller_type(d)) {
     logi("device already has a controller type");
     return;
@@ -384,7 +390,7 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
 
   // If it fails, try to guess it from COD
   if (type == CONTROLLER_TYPE_Unknown) {
-    logi("Device (vendor_id=0x%04x, product_id=0x%04x) not found in DB.",
+    logi("Device (vendor_id=0x%04x, product_id=0x%04x) not found in DB.\n",
          d->vendor_id, d->product_id);
     uint32_t mouse_cod =
         MASK_COD_MAJOR_PERIPHERAL | MASK_COD_MINOR_POINT_DEVICE;
@@ -394,7 +400,10 @@ void uni_hid_device_guess_controller_type(uni_hid_device_t* d) {
     } else if ((d->cod & keyboard_cod) == keyboard_cod) {
       type = CONTROLLER_TYPE_GenericKeyboard;
     } else {
-      // FIXME: Default should be the most popular bluetooth device.
+      // FIXME: Default should be the most popular gamepad device.
+      loge(
+          "Failed to find gamepad profile for device. Fallback: using Android "
+          "profile.\n");
       type = CONTROLLER_TYPE_AndroidController;
     }
   }
@@ -586,8 +595,8 @@ static void process_misc_button_system(uni_hid_device_t* d) {
   // This could happen if device is any Combo emu mode.
   if (d->joystick_port == (JOYSTICK_PORT_A | JOYSTICK_PORT_B)) {
     logi(
-        "cannot swap port since has more than one port associated with. Leave "
-        "emu mode and try again.\n");
+        "cannot swap port since has more than one port associated with. "
+        "Leave emu mode and try again.\n");
     return;
   }
 

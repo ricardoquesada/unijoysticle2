@@ -253,7 +253,7 @@ static void handle_sdp_pid_query_result(uint8_t packet_type, uint16_t channel,
       logi("Vendor ID: 0x%04x - Product ID: 0x%04x\n",
            uni_hid_device_get_vendor_id(device),
            uni_hid_device_get_product_id(device));
-      uni_hid_device_guess_controller_type(device);
+      uni_hid_device_guess_controller_type_from_pid_vid(device);
       uni_hid_device_set_sdp_device(NULL);
       uni_hid_device_set_state(device, STATE_SDP_VENDOR_FETCHED);
       fsm_process(device);
@@ -705,24 +705,45 @@ static void on_l2cap_incoming_connection(uint16_t channel, uint8_t* packet,
 
 static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet,
                                  uint16_t size) {
-  uni_hid_device_t* device;
+  uni_hid_device_t *d, *sdp_d;
+  uint64_t elapsed;
 
-  device = uni_hid_device_get_instance_for_cid(channel);
-  if (device == NULL) {
+  d = uni_hid_device_get_instance_for_cid(channel);
+  if (d == NULL) {
     loge("Invalid cid: 0x%04x\n", channel);
     return;
   }
 
-  if (channel != device->hid_interrupt_cid) return;
+  if (channel != d->hid_interrupt_cid) return;
 
-  if (!uni_hid_device_has_hid_descriptor(device)) {
-    logi("Device without HID descriptor yet. Ignoring report\n");
-    return;
-  }
-
-  if (!uni_hid_device_has_controller_type(device)) {
-    logi("Device without a controller type yet. Ignoring report\n");
-    return;
+  if (!uni_hid_device_has_hid_descriptor(d) ||
+      !uni_hid_device_has_controller_type(d)) {
+    sdp_d = uni_hid_device_get_sdp_device(&elapsed);
+    if (sdp_d == d) {
+      logi("Device without HID descriptor or Product/Vendor ID yet.\n");
+      // 1 second
+      if (elapsed < (1 * 1000000)) {
+        logi("Waiting for SDP answer. Ignoring report.\n");
+        return;
+      } else {
+        logi("SDP answer taking too long. Trying heuristics.\n");
+        if (!uni_hid_device_guess_controller_type_from_packet(d, packet,
+                                                              size)) {
+          logi("Heuristics failed. Ignoring report.\n");
+          return;
+        } else {
+          logi("Device was detected using heuristics.\n");
+          fsm_process(d);
+          return;
+        }
+      }
+    } else {
+      logi(
+          "Another SDP query in progress. Disconnect gamepad and try "
+          "again.\n");
+      uni_hid_device_dump_device(d);
+      return;
+    }
   }
 
   int report_len = size;
@@ -736,12 +757,12 @@ static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet,
   report++;
   report_len--;
 
-  uni_hid_parser(device, report, report_len);
+  uni_hid_parser(d, report, report_len);
 
   // Debug info
-  uni_gamepad_dump(&device->gamepad);
+  uni_gamepad_dump(&d->gamepad);
 
-  uni_hid_device_process_gamepad(device);
+  uni_hid_device_process_gamepad(d);
 }
 
 static void continue_remote_names(void) {
