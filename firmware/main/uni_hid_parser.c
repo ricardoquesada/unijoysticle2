@@ -171,6 +171,7 @@ uint8_t uni_hid_parser_hat_to_dpad(uint8_t hat) {
   uint8_t dpad = 0;
   switch (hat) {
     case 0xff:
+    case 0x08:
       // joy.up = joy.down = joy.left = joy.right = 0;
       break;
     case 0:

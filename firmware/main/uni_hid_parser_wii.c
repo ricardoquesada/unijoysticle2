@@ -25,6 +25,7 @@ limitations under the License.
 
 #include "hid_usage.h"
 #include "uni_debug.h"
+#include "uni_gamepad.h"
 #include "uni_hid_device.h"
 #include "uni_hid_parser.h"
 
@@ -438,7 +439,7 @@ static void process_drm_ke(uni_hid_device_t* d, const uint8_t* report,
   //
   nunchuk_t n = process_nunchuk(&report[3], len - 3);
   uni_gamepad_t* gp = &d->gamepad;
-  const int factor = 512 / 128;
+  const int factor = (AXIS_NORMALIZE_RANGE / 2) / 128;
   // When VERTICAL mode is enabled, Nunchuk behaves as "right" joystick,
   // and the Wii remote behaves as the "left" joystick.
   if (ins->flags == WII_FLAGS_VERTICAL) {
@@ -511,9 +512,9 @@ static nunchuk_t process_nunchuk(const uint8_t* e, uint16_t len) {
   n.ax = (e[2] << 2) | ((e[5] & 0b00001100) >> 2);
   n.ay = (e[3] << 2) | ((e[5] & 0b00110000) >> 4);
   n.az = (e[4] << 2) | ((e[5] & 0b11000000) >> 6);
-  n.ax -= 512;
-  n.ay -= 512;
-  n.az -= 512;
+  n.ax -= AXIS_NORMALIZE_RANGE / 2;
+  n.ay -= AXIS_NORMALIZE_RANGE / 2;
+  n.az -= AXIS_NORMALIZE_RANGE / 2;
   n.bc = !(e[5] & 0b00000010);
   n.bz = !(e[5] & 0b00000001);
   return n;
@@ -673,8 +674,8 @@ static void process_drm_e(uni_hid_device_t* d, const uint8_t* report,
   // Accel / Brake
   int lt = (data[2] & 0b01100000) >> 2 | (data[3] & 0b11100000) >> 5;
   int rt = data[3] & 0b00011111;
-  gp->brake = lt * (1024 / 32);
-  gp->accelerator = rt * (1024 / 32);
+  gp->brake = lt * (AXIS_NORMALIZE_RANGE / 32);
+  gp->accelerator = rt * (AXIS_NORMALIZE_RANGE / 32);
   gp->updated_states |= GAMEPAD_STATE_BRAKE | GAMEPAD_STATE_ACCELERATOR;
 
   // dpad
@@ -969,6 +970,6 @@ void uni_hid_parser_wii_update_led(uni_hid_device_t* d) {
 //
 // Helpers
 //
-wii_instance_t* get_wii_instance(uni_hid_device_t* d) {
+static wii_instance_t* get_wii_instance(uni_hid_device_t* d) {
   return (wii_instance_t*)&d->data[0];
 }
