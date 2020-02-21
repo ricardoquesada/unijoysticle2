@@ -46,13 +46,44 @@ static const uint8_t SWITCH_HID_DESCRIPTOR[] = {
     0x02, 0xC0,
 };
 
+enum switch_flags {
+  SWITCH_MODE_NONE = 0,    // Mode not set yet
+  SWITCH_MODE_NORMAL = 1,  // Gamepad using regular buttons
+  SWITCH_MODE_ACCEL = 2,   // Gamepad using gyro+accel
+};
+
 // Taken from Linux kernel: hid-nintendo.c
 enum switchproto_reqs {
   /* Input Reports */
+  SWITCH_INPUT_SUBCMD_REPLY = 0x21,
   SWITCH_INPUT_IMU_DATA = 0x30,
   SWITCH_INPUT_MCU_DATA = 0x31,
   SWITCH_INPUT_BUTTON_EVENT = 0x3F,
 };
+
+// Nintendo Switch output-report info taken from:
+// https://github.com/DanielOgorchock/linux/blob/ogorchock/drivers/hid/hid-nintendo.c
+enum switch_subcmd {
+  SUBCMD_SET_REPORT_MODE = 0x03,
+  SUBCMD_SET_LEDS = 0x30,
+  SUBCMD_ENABLE_IMU = 0x40,
+};
+
+struct switch_subcmd_request {
+  // Report related
+  uint8_t transaction_type;  // type of transaction
+  uint8_t report_id;  // must be 0x01 for subcommand, 0x10 for rumble only
+
+  // Data related
+  uint8_t packet_num;  // increment by 1 for each packet sent. It loops in 0x0 -
+                       // 0xF range.
+  // Rumble not supported at the moment. For further info see:
+  // https://github.com/dekuNukem/Nintendo_Switch_Reverse_Engineering/blob/master/rumble_data_table.md
+  uint8_t rumble_left[4];
+  uint8_t rumble_right[4];
+  uint8_t subcmd_id;
+  uint8_t data[0];  // length depends on the subcommand
+} __attribute__((__packed__));
 
 // switch_instance_t represents data used by the Switch driver instance.
 typedef struct switch_instance_s {
@@ -74,11 +105,15 @@ struct switch_report_3f_s {
   uint8_t ry_msb;
 } __attribute__((packed));
 
-static void process_input_button_event(struct uni_hid_device_s* d,
+static void process_input_subcmd_reply(struct uni_hid_device_s* d,
                                        const uint8_t* report, int len);
 static void process_input_imu_data(struct uni_hid_device_s* d,
                                    const uint8_t* report, int len);
+static void process_input_button_event(struct uni_hid_device_s* d,
+                                       const uint8_t* report, int len);
 static switch_instance_t* get_switch_instance(uni_hid_device_t* d);
+static void send_subcmd(uni_hid_device_t* d, struct switch_subcmd_request* r,
+                        int len);
 
 void uni_hid_parser_switch_init_report(uni_hid_device_t* d) {
   // Reset old state. Each report contains a full-state.
@@ -95,11 +130,14 @@ void uni_hid_parser_switch_parse_raw(struct uni_hid_device_s* d,
     return;
   }
   switch (report[0]) {
-    case SWITCH_INPUT_BUTTON_EVENT:
-      process_input_button_event(d, report, len);
+    case SWITCH_INPUT_SUBCMD_REPLY:
+      process_input_subcmd_reply(d, report, len);
       break;
     case SWITCH_INPUT_IMU_DATA:
       process_input_imu_data(d, report, len);
+      break;
+    case SWITCH_INPUT_BUTTON_EVENT:
+      process_input_button_event(d, report, len);
       break;
     default:
       loge("Nintendo Switch: unsupported report id: 0x%02x\n", report[0]);
@@ -107,13 +145,11 @@ void uni_hid_parser_switch_parse_raw(struct uni_hid_device_s* d,
   }
 }
 
+// Process 0x3f input report: SWITCH_INPUT_BUTTON_EVENT
 static void process_input_button_event(struct uni_hid_device_s* d,
                                        const uint8_t* report, int len) {
   // Expecting something like:
   // (a1) 3F 00 00 08 D0 81 0F 88 F0 81 6F 8E
-  // printf_hexdump(report, len);
-  // switch_instance_t* ins = get_switch_instance(d);
-  // UNUSED(ins);
   UNUSED(len);
   uni_gamepad_t* gp = &d->gamepad;
   const struct switch_report_3f_s* r =
@@ -165,6 +201,47 @@ static void process_input_button_event(struct uni_hid_device_s* d,
   gp->updated_states |= GAMEPAD_STATE_AXIS_X | GAMEPAD_STATE_AXIS_Y |
                         GAMEPAD_STATE_AXIS_RX | GAMEPAD_STATE_AXIS_RY;
 }
+
+// Process 0x21 input report: SWITCH_INPUT_SUBCMD_REPLY
+static void process_input_subcmd_reply(struct uni_hid_device_s* d,
+                                       const uint8_t* report, int len) {
+  UNUSED(len);
+  // Report has this format:
+  // 21 D9 80 08 10 00 18 A8 78 F2 C7 70 0C 80 30 00 00 00 00 00 00 00 00 00 00
+  // 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  printf_hexdump(report, len);
+  switch_instance_t* ins = get_switch_instance(d);
+  if (ins->mode == SWITCH_MODE_NONE) {
+    // Mode not set yet, set it. 4th byte contains the "main" buttons.
+    // Override it if "A" button is pressed.
+    if (report[3] & 0x08) {
+      logi("Switch: setting Accelerometer mode\n");
+      ins->mode = SWITCH_MODE_ACCEL;
+      // Update LED when Accel mode is enabled.
+      uint8_t out[sizeof(struct switch_subcmd_request) + 1] = {0};
+
+      struct switch_subcmd_request* req =
+          (struct switch_subcmd_request*)&out[0];
+      req->transaction_type = 0xa2;  // DATA | TYPE_OUTPUT
+      req->report_id = 0x01;         // 0x01 for sub commands
+      // req->subcmd_id = SUBCMD_SET_LEDS;
+      req->subcmd_id = SUBCMD_SET_REPORT_MODE;
+      // req->data[0] = d->joystick_port | 0x04;
+      req->data[0] = 0x30; /* type of report: standard, full */
+      send_subcmd(d, req, sizeof(out));
+
+      // Enable IMU
+      req->subcmd_id = SUBCMD_ENABLE_IMU;
+      req->data[0] = 1; /* enable */
+      send_subcmd(d, req, sizeof(out));
+    } else {
+      logi("Switch: setting Normal mode\n");
+      ins->mode = SWITCH_MODE_NORMAL;
+    }
+  }
+}
+
+// Process 0x30 input report: SWITCH_INPUT_IMU_DATA
 static void process_input_imu_data(struct uni_hid_device_s* d,
                                    const uint8_t* report, int len) {
   UNUSED(d);
@@ -173,44 +250,16 @@ static void process_input_imu_data(struct uni_hid_device_s* d,
   printf_hexdump(report, len);
 }
 
-// Nintendo Switch output-report info taken from:
-// https://github.com/DanielOgorchock/linux/blob/ogorchock/drivers/hid/hid-nintendo.c
-enum {
-  SUBCMD_SET_LEDS = 0x30,
-};
-
-struct switch_subcmd_request {
-  // Report related
-  uint8_t transaction_type;  // type of transaction
-  uint8_t report_id;  // must be 0x01 for subcommand, 0x10 for rumble only
-
-  // Data related
-  uint8_t packet_num;  // increment by 1 for each packet sent. It loops in 0x0 -
-                       // 0xF range.
-  // Rumble not supported at the moment. For further info see:
-  // https://github.com/dekuNukem/Nintendo_Switch_Reverse_Engineering/blob/master/rumble_data_table.md
-  uint8_t rumble_left[4];
-  uint8_t rumble_right[4];
-  uint8_t subcmd_id;
-  uint8_t data[0];  // length depends on the subcommand
-} __attribute__((__packed__));
-
 void uni_hid_parser_switch_update_led(uni_hid_device_t* d) {
-  static uint8_t packet_num = 0;
-
   // 1 == SET_LEDS subcmd len
   uint8_t report[sizeof(struct switch_subcmd_request) + 1] = {0};
 
   struct switch_subcmd_request* req = (struct switch_subcmd_request*)&report[0];
   req->transaction_type = 0xa2;  // DATA | TYPE_OUTPUT
   req->report_id = 0x01;         // 0x01 for sub commands
-  req->packet_num = packet_num++;
   req->subcmd_id = SUBCMD_SET_LEDS;
   req->data[0] = d->joystick_port;
-
-  if (packet_num > 0x0f) packet_num = 0;
-
-  uni_hid_device_queue_report(d, report, sizeof(report));
+  send_subcmd(d, req, sizeof(report));
 }
 
 uint8_t uni_hid_parser_switch_does_packet_match(struct uni_hid_device_s* d,
@@ -221,8 +270,8 @@ uint8_t uni_hid_parser_switch_does_packet_match(struct uni_hid_device_s* d,
   if (len != 13 || packet[0] != 0xa1 || packet[1] != 0x3f) {
     return 0;
   }
-  // TODO: don't set the HID descriptor. It is faster to parse the raw packet.
-  // It seems that Nintendo Switch has a stable packet format.
+  // TODO: don't set the HID descriptor. It is faster to parse the raw
+  // packet. It seems that Nintendo Switch has a stable packet format.
   uni_hid_device_set_hid_descriptor(d, SWITCH_HID_DESCRIPTOR,
                                     sizeof(SWITCH_HID_DESCRIPTOR));
   uni_hid_device_set_vendor_id(d, SWITCH_VID);
@@ -241,4 +290,12 @@ uint8_t uni_hid_parser_switch_does_packet_match(struct uni_hid_device_s* d,
 //
 static switch_instance_t* get_switch_instance(uni_hid_device_t* d) {
   return (switch_instance_t*)&d->data[0];
+}
+
+static void send_subcmd(uni_hid_device_t* d, struct switch_subcmd_request* r,
+                        int len) {
+  static uint8_t packet_num = 0;
+  r->packet_num = packet_num++;
+  if (packet_num > 0x0f) packet_num = 0;
+  uni_hid_device_queue_report(d, (const uint8_t*)r, len);
 }
