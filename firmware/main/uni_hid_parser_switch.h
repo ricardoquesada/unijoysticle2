@@ -25,6 +25,7 @@ limitations under the License.
 #include "uni_hid_parser.h"
 
 // Nintendo Switch devices
+void uni_hid_parser_switch_setup(struct uni_hid_device_s* d);
 void uni_hid_parser_switch_init_report(struct uni_hid_device_s* d);
 void uni_hid_parser_switch_parse_raw(struct uni_hid_device_s* d,
                                      const uint8_t* report, uint16_t len);

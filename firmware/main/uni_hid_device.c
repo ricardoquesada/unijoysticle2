@@ -490,7 +490,7 @@ void uni_hid_device_guess_controller_type_from_pid_vid(uni_hid_device_t* d) {
       logi("Device detected as Wii controller: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_SwitchProController:
-      d->report_parser.setup = NULL;
+      d->report_parser.setup = uni_hid_parser_switch_setup;
       d->report_parser.init_report = uni_hid_parser_switch_init_report;
       d->report_parser.parse_usage = NULL;
       d->report_parser.parse_raw = uni_hid_parser_switch_parse_raw;

@@ -46,10 +46,18 @@ static const uint8_t SWITCH_HID_DESCRIPTOR[] = {
     0x02, 0xC0,
 };
 
+enum switch_state {
+  STATE_UNINIT,
+  STATE_SETUP,
+  STATE_SET_FULL_REPORT,
+  STATE_ENABLE_IMU,
+  STATE_READY,
+};
+
 enum switch_flags {
-  SWITCH_MODE_NONE = 0,    // Mode not set yet
-  SWITCH_MODE_NORMAL = 1,  // Gamepad using regular buttons
-  SWITCH_MODE_ACCEL = 2,   // Gamepad using gyro+accel
+  SWITCH_MODE_NONE,    // Mode not set yet
+  SWITCH_MODE_NORMAL,  // Gamepad using regular buttons
+  SWITCH_MODE_ACCEL,   // Gamepad using gyro+accel
 };
 
 // Taken from Linux kernel: hid-nintendo.c
@@ -87,14 +95,28 @@ struct switch_subcmd_request {
 
 // switch_instance_t represents data used by the Switch driver instance.
 typedef struct switch_instance_s {
-  uint8_t version;
+  uint8_t state;
   uint8_t mode;
 } switch_instance_t;
 
 struct switch_report_3f_s {
-  uint8_t button_main;
-  uint8_t button_aux;
+  uint8_t buttons_main;
+  uint8_t buttons_aux;
   uint8_t hat;
+  uint8_t x_lsb;
+  uint8_t x_msb;
+  uint8_t y_lsb;
+  uint8_t y_msb;
+  uint8_t rx_lsb;
+  uint8_t rx_msb;
+  uint8_t ry_lsb;
+  uint8_t ry_msb;
+} __attribute__((packed));
+
+struct switch_report_30_s {
+  uint8_t buttons_right;
+  uint8_t buttons_misc;
+  uint8_t buttons_left;
   uint8_t x_lsb;
   uint8_t x_msb;
   uint8_t y_lsb;
@@ -114,6 +136,19 @@ static void process_input_button_event(struct uni_hid_device_s* d,
 static switch_instance_t* get_switch_instance(uni_hid_device_t* d);
 static void send_subcmd(uni_hid_device_t* d, struct switch_subcmd_request* r,
                         int len);
+static void process_fsm(struct uni_hid_device_s* d);
+static void fsm_set_full_report(struct uni_hid_device_s* d);
+static void fsm_enable_imu(struct uni_hid_device_s* d);
+static void fsm_update_led(struct uni_hid_device_s* d);
+
+void uni_hid_parser_switch_setup(struct uni_hid_device_s* d) {
+  logi("---setup---\n");
+  switch_instance_t* ins = get_switch_instance(d);
+
+  ins->state = STATE_SETUP;
+  ins->mode = SWITCH_MODE_NONE;
+  process_fsm(d);
+}
 
 void uni_hid_parser_switch_init_report(uni_hid_device_t* d) {
   // Reset old state. Each report contains a full-state.
@@ -145,6 +180,118 @@ void uni_hid_parser_switch_parse_raw(struct uni_hid_device_s* d,
   }
 }
 
+static void process_fsm(struct uni_hid_device_s* d) {
+  switch_instance_t* ins = get_switch_instance(d);
+  switch (ins->state) {
+    case STATE_SETUP:
+      logi("FSM: STATE_SETUP\n");
+      fsm_set_full_report(d);
+      break;
+    case STATE_SET_FULL_REPORT:
+      logi("FSM: STATE_SET_FULL_REPORT\n");
+      fsm_enable_imu(d);
+      break;
+    case STATE_ENABLE_IMU:
+      logi("FSM: STATE_ENABLE_IMU\n");
+      fsm_update_led(d);
+      break;
+    case STATE_READY:
+      logi("FSM: STATE_READY\n");
+      logi("Switch: gamepad is ready!\n");
+      break;
+    default:
+      loge("Switch: unexpected state: 0x%02x\n", ins->mode);
+  }
+}
+
+// Process 0x21 input report: SWITCH_INPUT_SUBCMD_REPLY
+static void process_input_subcmd_reply(struct uni_hid_device_s* d,
+                                       const uint8_t* report, int len) {
+  UNUSED(len);
+  // Report has this format:
+  // 21 D9 80 08 10 00 18 A8 78 F2 C7 70 0C 80 30 00 00 00 00 00 00 00 00 00 00
+  // 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  printf_hexdump(report, len);
+  switch_instance_t* ins = get_switch_instance(d);
+  if (ins->state > STATE_SETUP && ins->mode == SWITCH_MODE_NONE) {
+    // Button "A" must be pressed in orther to enable IMU.
+    uint8_t enable_imu = !!(report[3] & 0x08);
+    if (enable_imu) {
+      ins->mode = SWITCH_MODE_ACCEL;
+    } else {
+      ins->mode = SWITCH_MODE_NORMAL;
+    }
+  }
+  process_fsm(d);
+}
+
+// Process 0x30 input report: SWITCH_INPUT_IMU_DATA
+static void process_input_imu_data(struct uni_hid_device_s* d,
+                                   const uint8_t* report, int len) {
+  // Expecting something like:
+  // (a1) 30 44 60 00 00 00 FD 87 7B 0E B8 70 00 6C FD FC FF 78 10 35 00 C1 FF
+  // 9D FF 72 FD 01 00 72 10 35 00 C1 FF 9B FF 75 FD FF FF 6C 10 34 00 C2 FF 9A
+  // FF
+
+  UNUSED(len);
+  // printf_hexdump(report, len);
+  // return;
+  uni_gamepad_t* gp = &d->gamepad;
+  const struct switch_report_30_s* r =
+      (const struct switch_report_30_s*)&report[3];
+
+  // Buttons "right"
+  gp->buttons |= (r->buttons_right & 0b00000001) ? BUTTON_X : 0;           // Y
+  gp->buttons |= (r->buttons_right & 0b00000010) ? BUTTON_Y : 0;           // X
+  gp->buttons |= (r->buttons_right & 0b00000100) ? BUTTON_A : 0;           // B
+  gp->buttons |= (r->buttons_right & 0b00001000) ? BUTTON_B : 0;           // A
+  gp->buttons |= (r->buttons_right & 0b01000000) ? BUTTON_SHOULDER_R : 0;  // R
+  gp->buttons |= (r->buttons_right & 0b10000000) ? BUTTON_TRIGGER_R : 0;   // ZR
+  gp->updated_states |= GAMEPAD_STATE_BUTTON_A | GAMEPAD_STATE_BUTTON_B |
+                        GAMEPAD_STATE_BUTTON_X | GAMEPAD_STATE_BUTTON_Y |
+                        GAMEPAD_STATE_BUTTON_SHOULDER_R |
+                        GAMEPAD_STATE_BUTTON_TRIGGER_R;
+
+  // Buttons "misc" + thumbs
+  gp->misc_buttons |=
+      (r->buttons_misc & 0b00000001) ? MISC_BUTTON_BACK : 0;   // -
+  gp->misc_buttons |= (r->buttons_misc & 0b00000010) ? 0 : 0;  // + (unused)
+  gp->misc_buttons |=
+      (r->buttons_misc & 0b00010000) ? MISC_BUTTON_SYSTEM : 0;  // Home
+  gp->misc_buttons |=
+      (r->buttons_misc & 0b00100000) ? MISC_BUTTON_HOME : 0;  // Circle
+  gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_HOME |
+                        GAMEPAD_STATE_MISC_BUTTON_SYSTEM |
+                        GAMEPAD_STATE_MISC_BUTTON_BACK;
+  gp->buttons |=
+      (r->buttons_misc & 0b00000100) ? BUTTON_THUMB_R : 0;  // Thumb R
+  gp->buttons |=
+      (r->buttons_misc & 0b00001000) ? BUTTON_THUMB_L : 0;  // Thumb L
+  gp->updated_states |=
+      GAMEPAD_STATE_BUTTON_THUMB_L | GAMEPAD_STATE_BUTTON_THUMB_R;
+
+  // Buttons "left"
+  gp->dpad |= (r->buttons_left & 0b00000001) ? DPAD_DOWN : 0;
+  gp->dpad |= (r->buttons_left & 0b00000010) ? DPAD_UP : 0;
+  gp->dpad |= (r->buttons_left & 0b00000100) ? DPAD_RIGHT : 0;
+  gp->dpad |= (r->buttons_left & 0b00001000) ? DPAD_LEFT : 0;
+  gp->buttons |= (r->buttons_left & 0b01000000) ? BUTTON_SHOULDER_L : 0;  // L
+  gp->buttons |= (r->buttons_left & 0b10000000) ? BUTTON_TRIGGER_L : 0;   // ZL
+  gp->updated_states |= GAMEPAD_STATE_DPAD;
+
+  // Axis
+  gp->axis_x = ((r->x_msb << 8) | r->x_lsb) * AXIS_NORMALIZE_RANGE / 65536 -
+               AXIS_NORMALIZE_RANGE / 2;
+  gp->axis_y = ((r->y_msb << 8) | r->y_lsb) * AXIS_NORMALIZE_RANGE / 65536 -
+               AXIS_NORMALIZE_RANGE / 2;
+  gp->axis_rx = ((r->rx_msb << 8) | r->rx_lsb) * AXIS_NORMALIZE_RANGE / 65536 -
+                AXIS_NORMALIZE_RANGE / 2;
+  gp->axis_ry = ((r->ry_msb << 8) | r->ry_lsb) * AXIS_NORMALIZE_RANGE / 65536 -
+                AXIS_NORMALIZE_RANGE / 2;
+  gp->updated_states |= GAMEPAD_STATE_AXIS_X | GAMEPAD_STATE_AXIS_Y |
+                        GAMEPAD_STATE_AXIS_RX | GAMEPAD_STATE_AXIS_RY;
+}
+
 // Process 0x3f input report: SWITCH_INPUT_BUTTON_EVENT
 static void process_input_button_event(struct uni_hid_device_s* d,
                                        const uint8_t* report, int len) {
@@ -156,14 +303,14 @@ static void process_input_button_event(struct uni_hid_device_s* d,
       (const struct switch_report_3f_s*)&report[1];
 
   // Button main
-  gp->buttons |= (r->button_main & 0b00000001) ? BUTTON_A : 0;           // B
-  gp->buttons |= (r->button_main & 0b00000010) ? BUTTON_B : 0;           // A
-  gp->buttons |= (r->button_main & 0b00000100) ? BUTTON_X : 0;           // Y
-  gp->buttons |= (r->button_main & 0b00001000) ? BUTTON_Y : 0;           // X
-  gp->buttons |= (r->button_main & 0b00010000) ? BUTTON_SHOULDER_L : 0;  // L
-  gp->buttons |= (r->button_main & 0b00100000) ? BUTTON_SHOULDER_R : 0;  // R
-  gp->buttons |= (r->button_main & 0b01000000) ? BUTTON_TRIGGER_L : 0;   // ZL
-  gp->buttons |= (r->button_main & 0b10000000) ? BUTTON_TRIGGER_R : 0;   // ZR
+  gp->buttons |= (r->buttons_main & 0b00000001) ? BUTTON_A : 0;           // B
+  gp->buttons |= (r->buttons_main & 0b00000010) ? BUTTON_B : 0;           // A
+  gp->buttons |= (r->buttons_main & 0b00000100) ? BUTTON_X : 0;           // Y
+  gp->buttons |= (r->buttons_main & 0b00001000) ? BUTTON_Y : 0;           // X
+  gp->buttons |= (r->buttons_main & 0b00010000) ? BUTTON_SHOULDER_L : 0;  // L
+  gp->buttons |= (r->buttons_main & 0b00100000) ? BUTTON_SHOULDER_R : 0;  // R
+  gp->buttons |= (r->buttons_main & 0b01000000) ? BUTTON_TRIGGER_L : 0;   // ZL
+  gp->buttons |= (r->buttons_main & 0b10000000) ? BUTTON_TRIGGER_R : 0;   // ZR
   gp->updated_states |=
       GAMEPAD_STATE_BUTTON_A | GAMEPAD_STATE_BUTTON_B | GAMEPAD_STATE_BUTTON_X |
       GAMEPAD_STATE_BUTTON_Y | GAMEPAD_STATE_BUTTON_SHOULDER_L |
@@ -171,14 +318,15 @@ static void process_input_button_event(struct uni_hid_device_s* d,
       GAMEPAD_STATE_BUTTON_TRIGGER_R;
 
   // Button aux
-  gp->misc_buttons |= (r->button_aux & 0b00000001) ? MISC_BUTTON_BACK : 0;  // -
-  gp->buttons |= (r->button_aux & 0b00000010) ? 0 : 0;  // + (unmapped)
-  gp->buttons |= (r->button_aux & 0b00000100) ? BUTTON_THUMB_L : 0;  // Thumb L
-  gp->buttons |= (r->button_aux & 0b00001000) ? BUTTON_THUMB_R : 0;  // Thumb R
   gp->misc_buttons |=
-      (r->button_aux & 0b00010000) ? MISC_BUTTON_SYSTEM : 0;  // Home
+      (r->buttons_aux & 0b00000001) ? MISC_BUTTON_BACK : 0;  // -
+  gp->buttons |= (r->buttons_aux & 0b00000010) ? 0 : 0;      // + (unmapped)
+  gp->buttons |= (r->buttons_aux & 0b00000100) ? BUTTON_THUMB_L : 0;  // Thumb L
+  gp->buttons |= (r->buttons_aux & 0b00001000) ? BUTTON_THUMB_R : 0;  // Thumb R
   gp->misc_buttons |=
-      (r->button_aux & 0b00100000) ? MISC_BUTTON_HOME : 0;  // Circle
+      (r->buttons_aux & 0b00010000) ? MISC_BUTTON_SYSTEM : 0;  // Home
+  gp->misc_buttons |=
+      (r->buttons_aux & 0b00100000) ? MISC_BUTTON_HOME : 0;  // Circle
   gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_HOME |
                         GAMEPAD_STATE_MISC_BUTTON_SYSTEM |
                         GAMEPAD_STATE_MISC_BUTTON_BACK;
@@ -202,55 +350,51 @@ static void process_input_button_event(struct uni_hid_device_s* d,
                         GAMEPAD_STATE_AXIS_RX | GAMEPAD_STATE_AXIS_RY;
 }
 
-// Process 0x21 input report: SWITCH_INPUT_SUBCMD_REPLY
-static void process_input_subcmd_reply(struct uni_hid_device_s* d,
-                                       const uint8_t* report, int len) {
-  UNUSED(len);
-  // Report has this format:
-  // 21 D9 80 08 10 00 18 A8 78 F2 C7 70 0C 80 30 00 00 00 00 00 00 00 00 00 00
-  // 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  printf_hexdump(report, len);
+static void fsm_set_full_report(struct uni_hid_device_s* d) {
   switch_instance_t* ins = get_switch_instance(d);
-  if (ins->mode == SWITCH_MODE_NONE) {
-    // Mode not set yet, set it. 4th byte contains the "main" buttons.
-    // Override it if "A" button is pressed.
-    if (report[3] & 0x08) {
-      logi("Switch: setting Accelerometer mode\n");
-      ins->mode = SWITCH_MODE_ACCEL;
-      // Update LED when Accel mode is enabled.
-      uint8_t out[sizeof(struct switch_subcmd_request) + 1] = {0};
+  ins->state = STATE_SET_FULL_REPORT;
 
-      struct switch_subcmd_request* req =
-          (struct switch_subcmd_request*)&out[0];
-      req->transaction_type = 0xa2;  // DATA | TYPE_OUTPUT
-      req->report_id = 0x01;         // 0x01 for sub commands
-      // req->subcmd_id = SUBCMD_SET_LEDS;
-      req->subcmd_id = SUBCMD_SET_REPORT_MODE;
-      // req->data[0] = d->joystick_port | 0x04;
-      req->data[0] = 0x30; /* type of report: standard, full */
-      send_subcmd(d, req, sizeof(out));
-
-      // Enable IMU
-      req->subcmd_id = SUBCMD_ENABLE_IMU;
-      req->data[0] = 1; /* enable */
-      send_subcmd(d, req, sizeof(out));
-    } else {
-      logi("Switch: setting Normal mode\n");
-      ins->mode = SWITCH_MODE_NORMAL;
-    }
-  }
+  uint8_t out[sizeof(struct switch_subcmd_request) + 1] = {0};
+  struct switch_subcmd_request* req = (struct switch_subcmd_request*)&out[0];
+  req->transaction_type = 0xa2;  // DATA | TYPE_OUTPUT
+  req->report_id = 0x01;         // 0x01 for sub commands
+  req->subcmd_id = SUBCMD_SET_REPORT_MODE;
+  req->data[0] = 0x30; /* type of report: standard, full */
+  send_subcmd(d, req, sizeof(out));
 }
 
-// Process 0x30 input report: SWITCH_INPUT_IMU_DATA
-static void process_input_imu_data(struct uni_hid_device_s* d,
-                                   const uint8_t* report, int len) {
-  UNUSED(d);
-  // Expecting something like:
-  // (a1) 31 ...
-  printf_hexdump(report, len);
+static void fsm_enable_imu(struct uni_hid_device_s* d) {
+  switch_instance_t* ins = get_switch_instance(d);
+  ins->state = STATE_ENABLE_IMU;
+
+  uint8_t out[sizeof(struct switch_subcmd_request) + 1] = {0};
+  struct switch_subcmd_request* req = (struct switch_subcmd_request*)&out[0];
+  req->transaction_type = 0xa2;  // DATA | TYPE_OUTPUT
+  req->report_id = 0x01;         // 0x01 for sub commands
+  req->subcmd_id = SUBCMD_ENABLE_IMU;
+  req->data[0] = (ins->mode == SWITCH_MODE_ACCEL);
+  send_subcmd(d, req, sizeof(out));
+}
+
+static void fsm_update_led(struct uni_hid_device_s* d) {
+  switch_instance_t* ins = get_switch_instance(d);
+  ins->state = STATE_READY;
+
+  uint8_t out[sizeof(struct switch_subcmd_request) + 1] = {0};
+  struct switch_subcmd_request* req = (struct switch_subcmd_request*)&out[0];
+  req->transaction_type = 0xa2;  // DATA | TYPE_OUTPUT
+  req->report_id = 0x01;         // 0x01 for sub commands
+  req->subcmd_id = SUBCMD_SET_LEDS;
+  req->data[0] = d->joystick_port;
+  send_subcmd(d, req, sizeof(out));
 }
 
 void uni_hid_parser_switch_update_led(uni_hid_device_t* d) {
+  switch_instance_t* ins = get_switch_instance(d);
+  if (ins->state == STATE_UNINIT) {
+    return;
+  }
+
   // 1 == SET_LEDS subcmd len
   uint8_t report[sizeof(struct switch_subcmd_request) + 1] = {0};
 
