@@ -24,7 +24,7 @@ limitations under the License.
 
 // extern
 const int AXIS_NORMALIZE_RANGE = 1024;  // 10-bit resolution (1024)
-const int AXIS_THRESHOLD = (1024 / 8);
+const int AXIS_THRESHOLD = (AXIS_NORMALIZE_RANGE / 8);
 
 static void to_single_joy(const uni_gamepad_t* gp, uni_joystick_t* out_joy);
 

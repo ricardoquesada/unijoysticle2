@@ -660,10 +660,10 @@ static void process_drm_e(uni_hid_device_t* d, const uint8_t* report,
   ly -= 32;
   rx -= 16;
   ry -= 16;
-  lx *= (512 / 32);
-  ly *= (512 / 32);
-  rx *= (512 / 16);
-  ry *= (512 / 16);
+  lx *= (AXIS_NORMALIZE_RANGE / 2 / 32);
+  ly *= (AXIS_NORMALIZE_RANGE / 2 / 32);
+  rx *= (AXIS_NORMALIZE_RANGE / 2 / 16);
+  ry *= (AXIS_NORMALIZE_RANGE / 2 / 16);
   gp->axis_x = lx;
   gp->axis_y = -ly;
   gp->axis_rx = rx;
