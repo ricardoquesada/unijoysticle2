@@ -45,7 +45,9 @@ static const uint8_t SWITCH_HID_DESCRIPTOR[] = {
     0x30, 0x91, 0x02, 0x85, 0x12, 0x09, 0x12, 0x75, 0x08, 0x95, 0x30, 0x91,
     0x02, 0xC0,
 };
-// Stick calibration start address
+// Stick calibration start address. Taken from:
+// https://github.com/dekuNukem/Nintendo_Switch_Reverse_Engineering/blob/master/spi_flash_notes.md
+// TODO: should we use 0x8000 instead?
 static const uint16_t SWITCH_CAL_DATA_ADDR = 0x603d;
 // 12 bits per value * 2 axis (x,y) * 3 values (min,center,max) * 2 sticks
 // 12 * 2 * 3 * 2 == 144 bits (18 bytes)
