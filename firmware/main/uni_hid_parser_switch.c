@@ -18,6 +18,15 @@ limitations under the License.
 
 #include "uni_hid_parser_switch.h"
 
+#define ENABLE_SPI_FLAS_DUMP 0
+
+#if ENABLE_SPI_FLASH_DUMP
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
+#endif  // ENABLE_SPI_FLASH_DUMP
+
 #include "hid_usage.h"
 #include "uni_debug.h"
 #include "uni_gamepad.h"
@@ -47,14 +56,19 @@ static const uint8_t SWITCH_HID_DESCRIPTOR[] = {
 };
 // Stick calibration start address. Taken from:
 // https://github.com/dekuNukem/Nintendo_Switch_Reverse_Engineering/blob/master/spi_flash_notes.md
-static const uint16_t SWITCH_FACTORY_CAL_DATA_ADDR = 0x603d;
 #define SWITCH_FACTORY_CAL_DATA_SIZE 18
-static const uint16_t SWITCH_USER_CAL_DATA_ADDR = 0x8010;
+static const uint16_t SWITCH_FACTORY_CAL_DATA_ADDR = 0x603d;
 #define SWITCH_USER_CAL_DATA_SIZE 22
+static const uint16_t SWITCH_USER_CAL_DATA_ADDR = 0x8010;
+#define SWITCH_DUMP_ROM_DATA_SIZE 16  // Max size is 24
+#if ENABLE_SPI_FLASH_DUMP
+static const uint16_t SWITCH_DUMP_ROM_DATA_ADDR = 0x0000;
+#endif  // ENABLE_SPI_FLASH_DUMP
 
 enum switch_state {
   STATE_UNINIT,
   STATE_SETUP,
+  STATE_DUMP_FLASH,                // Dump SPI Flash memory
   STATE_REQ_DEV_INFO,              // What controller
   STATE_READ_FACTORY_CALIBRATION,  // Factory calibration info
   STATE_READ_USER_CALIBRATION,     // User calibration info
@@ -95,6 +109,7 @@ enum switch_subcmd {
   SUBCMD_ENABLE_IMU = 0x40,
 };
 
+// Calibration values for a stick.
 typedef struct switch_cal_stick_s {
   int16_t min;
   int16_t center;
@@ -113,6 +128,10 @@ typedef struct switch_instance_s {
   switch_cal_stick_t cal_y;
   switch_cal_stick_t cal_rx;
   switch_cal_stick_t cal_ry;
+
+  // Debug only
+  int debug_fd;         // File descriptor where dump is saved
+  uint32_t debug_addr;  // Current dump address
 } switch_instance_t;
 
 struct switch_subcmd_request {
@@ -175,12 +194,15 @@ static switch_instance_t* get_switch_instance(uni_hid_device_t* d);
 static void send_subcmd(uni_hid_device_t* d, struct switch_subcmd_request* r,
                         int len);
 static void process_fsm(struct uni_hid_device_s* d);
+static void fsm_dump_rom(struct uni_hid_device_s* d);
 static void fsm_request_device_info(struct uni_hid_device_s* d);
 static void fsm_read_factory_calibration(struct uni_hid_device_s* d);
 static void fsm_read_user_calibration(struct uni_hid_device_s* d);
 static void fsm_set_full_report(struct uni_hid_device_s* d);
 static void fsm_enable_imu(struct uni_hid_device_s* d);
 static void fsm_update_led(struct uni_hid_device_s* d);
+static void process_reply_read_spi_dump(struct uni_hid_device_s* d,
+                                        const uint8_t* data, int len);
 static void process_reply_read_spi_factory_calibration(
     struct uni_hid_device_s* d, const uint8_t* data, int len);
 static void process_reply_read_spi_user_calibration(struct uni_hid_device_s* d,
@@ -207,6 +229,16 @@ void uni_hid_parser_switch_setup(struct uni_hid_device_s* d) {
 
   ins->state = STATE_SETUP;
   ins->mode = SWITCH_MODE_NONE;
+
+  // Dump SPI flash
+#if ENABLE_SPI_FLASH_DUMP
+  ins->debug_addr = SWITCH_DUMP_ROM_DATA_ADDR;
+  ins->debug_fd = open("/tmp/spi_flash.bin", O_CREAT | O_RDWR);
+  if (ins->debug_fd < 0) {
+    loge("Switch: failed to create dump file");
+  }
+#endif  // ENABLE_SPI_FLASH_DUMP
+
   process_fsm(d);
 }
 
@@ -244,29 +276,64 @@ static void process_fsm(struct uni_hid_device_s* d) {
   switch_instance_t* ins = get_switch_instance(d);
   switch (ins->state) {
     case STATE_SETUP:
+      logd("STATE_SETUP\n");
+      fsm_dump_rom(d);
+      break;
+    case STATE_DUMP_FLASH:
+      logd("STATE_DUMP_FLASH\n");
       fsm_request_device_info(d);
       break;
     case STATE_REQ_DEV_INFO:
+      logd("STATE_REQ_DEV_INFO\n");
       fsm_read_factory_calibration(d);
       break;
     case STATE_READ_FACTORY_CALIBRATION:
+      logd("STATE_READ_FACTORY_CALIBRATION\n");
       fsm_read_user_calibration(d);
       break;
     case STATE_READ_USER_CALIBRATION:
+      logd("STATE_READ_USER_CALIBRATION\n");
       fsm_set_full_report(d);
       break;
     case STATE_SET_FULL_REPORT:
+      logd("STATE_SET_FULL_REPORT\n");
       fsm_enable_imu(d);
       break;
     case STATE_ENABLE_IMU:
+      logd("STATE_ENABLE_IMU\n");
       fsm_update_led(d);
       break;
     case STATE_READY:
+      logd("STATE_READY\n");
       logi("Switch: gamepad is ready!\n");
       break;
     default:
       loge("Switch: unexpected state: 0x%02x\n", ins->mode);
   }
+}
+
+static void process_reply_read_spi_dump(struct uni_hid_device_s* d,
+                                        const uint8_t* data, int len) {
+#if ENABLE_SPI_FLASH_DUMP
+  switch_instance_t* ins = get_switch_instance(d);
+  uint32_t addr = data[0] | data[1] << 8 | data[2] << 16 | data[3] << 24;
+  int chunk_size = data[4];
+
+  if (chunk_size != SWITCH_DUMP_ROM_DATA_SIZE) {
+    loge(
+        "Switch: could not dump chunk at 0x%04x. Invalid size, got %d, want "
+        "%d\n",
+        addr, chunk_size, SWITCH_DUMP_ROM_DATA_SIZE);
+    return;
+  }
+
+  logi("Switch: dumping %d bytes at address: 0x%04x\n", chunk_size, addr);
+  write(ins->debug_fd, &data[5], chunk_size);
+#else
+  UNUSED(d);
+  UNUSED(data);
+  UNUSED(len);
+#endif  // ENABLE_SPI_FLASH_DUMP
 }
 
 static void process_reply_read_spi_factory_calibration(
@@ -364,10 +431,9 @@ static void process_reply_set_report_mode(struct uni_hid_device_s* d,
 static void process_reply_spi_flash_read(struct uni_hid_device_s* d,
                                          const struct switch_report_21_s* r,
                                          int len) {
-  UNUSED(len);
-  // Assuming this is a stick calibration response
-  // TODO: verify address is correct
-  int mem_len = r->data[2] << 16 | r->data[3] << 8 | r->data[4];
+  int mem_len = r->data[4];
+  uint32_t addr =
+      r->data[0] | r->data[1] << 8 | r->data[2] << 16 | r->data[3] << 24;
   switch (mem_len) {
     case SWITCH_FACTORY_CAL_DATA_SIZE:
       process_reply_read_spi_factory_calibration(d, r->data, mem_len + 5);
@@ -375,8 +441,13 @@ static void process_reply_spi_flash_read(struct uni_hid_device_s* d,
     case SWITCH_USER_CAL_DATA_SIZE:
       process_reply_read_spi_user_calibration(d, r->data, mem_len + 5);
       break;
+    case SWITCH_DUMP_ROM_DATA_SIZE:
+      process_reply_read_spi_dump(d, r->data, mem_len + 5);
+      break;
     default:
-      loge("Switch: unexpected spi_read size reply: %d\n", mem_len);
+      loge("Switch: unexpected spi_read size reply %d at 0x%04x\n", mem_len,
+           addr);
+      printf_hexdump((const uint8_t*)r, len);
   }
 }
 
@@ -499,7 +570,7 @@ static void process_input_imu_data(struct uni_hid_device_s* d,
   gp->axis_rx = calibrate_axis(rx, ins->cal_rx);
   int16_t ry = (r->stick_right[1] >> 4) | (r->stick_right[2] << 4);
   gp->axis_ry = -calibrate_axis(ry, ins->cal_ry);
-  logi("uncalibrated values: x=%d,y=%d,rx=%d,ry=%d\n", lx, ly, rx, ry);
+  logd("uncalibrated values: x=%d,y=%d,rx=%d,ry=%d\n", lx, ly, rx, ry);
 
   gp->updated_states |= GAMEPAD_STATE_AXIS_X | GAMEPAD_STATE_AXIS_Y |
                         GAMEPAD_STATE_AXIS_RX | GAMEPAD_STATE_AXIS_RY;
@@ -561,6 +632,40 @@ static void process_input_button_event(struct uni_hid_device_s* d,
                 AXIS_NORMALIZE_RANGE / 2;
   gp->updated_states |= GAMEPAD_STATE_AXIS_X | GAMEPAD_STATE_AXIS_Y |
                         GAMEPAD_STATE_AXIS_RX | GAMEPAD_STATE_AXIS_RY;
+}
+
+static void fsm_dump_rom(struct uni_hid_device_s* d) {
+#if ENABLE_SPI_FLASH_DUMP
+  switch_instance_t* ins = get_switch_instance(d);
+  uint32_t addr = ins->debug_addr;
+
+  // Only dump the first 64k
+  if (addr >= 0x10000 || ins->debug_fd < 0) {
+    ins->state = STATE_DUMP_FLASH;
+    close(ins->debug_fd);
+    process_fsm(d);
+    return;
+  }
+
+  uint8_t out[sizeof(struct switch_subcmd_request) + 5] = {0};
+  struct switch_subcmd_request* req = (struct switch_subcmd_request*)&out[0];
+  req->transaction_type = 0xa2;  // DATA | TYPE_OUTPUT
+  req->report_id = 0x01;         // 0x01 for sub commands
+  req->subcmd_id = SUBCMD_SPI_FLASH_READ;
+  // Address to read from: stick calibration
+  req->data[0] = addr & 0xff;
+  req->data[1] = (addr >> 8) & 0xff;
+  req->data[2] = (addr >> 16) & 0xff;
+  req->data[3] = (addr >> 24) & 0xff;
+  req->data[4] = SWITCH_DUMP_ROM_DATA_SIZE;
+  send_subcmd(d, req, sizeof(out));
+
+  ins->debug_addr += SWITCH_DUMP_ROM_DATA_SIZE;
+#else
+  switch_instance_t* ins = get_switch_instance(d);
+  ins->state = STATE_DUMP_FLASH;
+  process_fsm(d);
+#endif  // ENABLE_SPI_FLASH_DUMP
 }
 
 static void fsm_request_device_info(struct uni_hid_device_s* d) {
