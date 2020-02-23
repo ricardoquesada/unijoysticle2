@@ -47,20 +47,20 @@ static const uint8_t SWITCH_HID_DESCRIPTOR[] = {
 };
 // Stick calibration start address. Taken from:
 // https://github.com/dekuNukem/Nintendo_Switch_Reverse_Engineering/blob/master/spi_flash_notes.md
-// TODO: should we use 0x8000 instead?
-static const uint16_t SWITCH_CAL_DATA_ADDR = 0x603d;
-// 12 bits per value * 2 axis (x,y) * 3 values (min,center,max) * 2 sticks
-// 12 * 2 * 3 * 2 == 144 bits (18 bytes)
-static const uint16_t SWITCH_CAL_DATA_SIZE = 18;
+static const uint16_t SWITCH_FACTORY_CAL_DATA_ADDR = 0x603d;
+#define SWITCH_FACTORY_CAL_DATA_SIZE 18
+static const uint16_t SWITCH_USER_CAL_DATA_ADDR = 0x8010;
+#define SWITCH_USER_CAL_DATA_SIZE 22
 
 enum switch_state {
   STATE_UNINIT,
   STATE_SETUP,
-  STATE_REQ_DEV_INFO,            // What controller
-  STATE_READ_STICK_CALIBRATION,  // Calibration info
-  STATE_SET_FULL_REPORT,         // Request report 0x30
-  STATE_ENABLE_IMU,              // Enable/Disable gyro/accel
-  STATE_READY,                   // Gamepad setup ready!
+  STATE_REQ_DEV_INFO,              // What controller
+  STATE_READ_FACTORY_CALIBRATION,  // Factory calibration info
+  STATE_READ_USER_CALIBRATION,     // User calibration info
+  STATE_SET_FULL_REPORT,           // Request report 0x30
+  STATE_ENABLE_IMU,                // Enable/Disable gyro/accel
+  STATE_READY,                     // Gamepad setup ready!
 };
 
 enum switch_flags {
@@ -176,10 +176,16 @@ static void send_subcmd(uni_hid_device_t* d, struct switch_subcmd_request* r,
                         int len);
 static void process_fsm(struct uni_hid_device_s* d);
 static void fsm_request_device_info(struct uni_hid_device_s* d);
-static void fsm_read_stick_calibration(struct uni_hid_device_s* d);
+static void fsm_read_factory_calibration(struct uni_hid_device_s* d);
+static void fsm_read_user_calibration(struct uni_hid_device_s* d);
 static void fsm_set_full_report(struct uni_hid_device_s* d);
 static void fsm_enable_imu(struct uni_hid_device_s* d);
 static void fsm_update_led(struct uni_hid_device_s* d);
+static void process_reply_read_spi_factory_calibration(
+    struct uni_hid_device_s* d, const uint8_t* data, int len);
+static void process_reply_read_spi_user_calibration(struct uni_hid_device_s* d,
+                                                    const uint8_t* data,
+                                                    int len);
 static void process_reply_req_dev_info(struct uni_hid_device_s* d,
                                        const struct switch_report_21_s* r,
                                        int len);
@@ -241,9 +247,12 @@ static void process_fsm(struct uni_hid_device_s* d) {
       fsm_request_device_info(d);
       break;
     case STATE_REQ_DEV_INFO:
-      fsm_read_stick_calibration(d);
+      fsm_read_factory_calibration(d);
       break;
-    case STATE_READ_STICK_CALIBRATION:
+    case STATE_READ_FACTORY_CALIBRATION:
+      fsm_read_user_calibration(d);
+      break;
+    case STATE_READ_USER_CALIBRATION:
       fsm_set_full_report(d);
       break;
     case STATE_SET_FULL_REPORT:
@@ -258,6 +267,66 @@ static void process_fsm(struct uni_hid_device_s* d) {
     default:
       loge("Switch: unexpected state: 0x%02x\n", ins->mode);
   }
+}
+
+static void process_reply_read_spi_factory_calibration(
+    struct uni_hid_device_s* d, const uint8_t* data, int len) {
+  UNUSED(len);
+  switch_instance_t* ins = get_switch_instance(d);
+  // Left stick
+  int16_t cal_x_max = data[5] | ((data[6] & 0x0f) << 8);
+  int16_t cal_y_max = (data[6] >> 4) | (data[7] << 4);
+  ins->cal_x.center = data[8] | ((data[9] & 0x0f) << 8);
+  ins->cal_y.center = (data[9] >> 4) | (data[10] << 4);
+  int16_t cal_x_min = data[11] | ((data[12] & 0x0f) << 8);
+  int16_t cal_y_min = (data[12] >> 4) | (data[13] << 4);
+  ins->cal_x.min = ins->cal_x.center - cal_x_min;
+  ins->cal_x.max = ins->cal_x.center + cal_x_max;
+  ins->cal_y.min = ins->cal_y.center - cal_y_min;
+  ins->cal_y.max = ins->cal_y.center + cal_y_max;
+
+  // Right stick
+  int16_t cal_rx_max = data[14] | ((data[15] & 0x0f) << 8);
+  int16_t cal_ry_max = (data[15] >> 4) | (data[16] << 4);
+  ins->cal_rx.center = data[17] | ((data[18] & 0x0f) << 8);
+  ins->cal_ry.center = (data[18] >> 4) | (data[19] << 4);
+  int16_t cal_rx_min = data[20] | ((data[21] & 0x0f) << 8);
+  int16_t cal_ry_min = (data[21] >> 4) | (data[22] << 4);
+  ins->cal_rx.min = ins->cal_rx.center - cal_rx_min;
+  ins->cal_rx.max = ins->cal_rx.center + cal_rx_max;
+  ins->cal_ry.min = ins->cal_ry.center - cal_ry_min;
+  ins->cal_ry.max = ins->cal_ry.center + cal_ry_max;
+
+  // It seems that most some clones have a hardcoded calibration value, making
+  // it break the standard algorithm.
+  if (ins->firmware_hi == 3 && ins->firmware_lo == 72 &&
+      ins->cal_ry.min == -7 && ins->cal_ry.center == 1504 &&
+      ins->cal_ry.max == 3552) {
+    logi(
+        "Switch: Most probably using a Nintendo Swich clone controller. "
+        "Overriding calibration values with default ones\n");
+    // Clones use a [0-4095] range, while original Pro controller seems to use a
+    // [512-3548] range
+    ins->cal_x.min = ins->cal_y.min = ins->cal_rx.min = ins->cal_ry.min = 0;
+    ins->cal_x.center = ins->cal_y.center = ins->cal_rx.center =
+        ins->cal_ry.center = 2048;
+    ins->cal_x.max = ins->cal_y.max = ins->cal_rx.max = ins->cal_ry.max = 4096;
+  }
+
+  logi(
+      "Switch: Calibration info: x=%d,%d,%d, y=%d,%d,%d, rx=%d,%d,%d, "
+      "ry=%d,%d,%d\n",
+      ins->cal_x.min, ins->cal_x.center, ins->cal_x.max, ins->cal_y.min,
+      ins->cal_y.center, ins->cal_y.max, ins->cal_rx.min, ins->cal_rx.center,
+      ins->cal_rx.max, ins->cal_ry.min, ins->cal_ry.center, ins->cal_ry.max);
+}
+
+static void process_reply_read_spi_user_calibration(struct uni_hid_device_s* d,
+                                                    const uint8_t* data,
+                                                    int len) {
+  UNUSED(d);
+  logi("process_reply_read_spi_user_calibration\n");
+  printf_hexdump(data, len);
 }
 
 // Reply to SUBCMD_REQ_DEV_INFO
@@ -296,58 +365,19 @@ static void process_reply_spi_flash_read(struct uni_hid_device_s* d,
                                          const struct switch_report_21_s* r,
                                          int len) {
   UNUSED(len);
-  switch_instance_t* ins = get_switch_instance(d);
   // Assuming this is a stick calibration response
   // TODO: verify address is correct
-  if (r->data[4] != SWITCH_CAL_DATA_SIZE) {
-    loge("Switch: unexpected spi_read size reply; got %d, want %d\n",
-         r->data[4], SWITCH_CAL_DATA_SIZE);
-    return;
+  int mem_len = r->data[2] << 16 | r->data[3] << 8 | r->data[4];
+  switch (mem_len) {
+    case SWITCH_FACTORY_CAL_DATA_SIZE:
+      process_reply_read_spi_factory_calibration(d, r->data, mem_len + 5);
+      break;
+    case SWITCH_USER_CAL_DATA_SIZE:
+      process_reply_read_spi_user_calibration(d, r->data, mem_len + 5);
+      break;
+    default:
+      loge("Switch: unexpected spi_read size reply: %d\n", mem_len);
   }
-  // Left stick
-  int16_t cal_x_max = r->data[5] | ((r->data[6] & 0x0f) << 8);
-  int16_t cal_y_max = (r->data[6] >> 4) | (r->data[7] << 4);
-  ins->cal_x.center = r->data[8] | ((r->data[9] & 0x0f) << 8);
-  ins->cal_y.center = (r->data[9] >> 4) | (r->data[10] << 4);
-  int16_t cal_x_min = r->data[11] | ((r->data[12] & 0x0f) << 8);
-  int16_t cal_y_min = (r->data[12] >> 4) | (r->data[13] << 4);
-  ins->cal_x.min = ins->cal_x.center - cal_x_min;
-  ins->cal_x.max = ins->cal_x.center + cal_x_max;
-  ins->cal_y.min = ins->cal_y.center - cal_y_min;
-  ins->cal_y.max = ins->cal_y.center + cal_y_max;
-
-  // Right stick
-  int16_t cal_rx_max = r->data[14] | ((r->data[15] & 0x0f) << 8);
-  int16_t cal_ry_max = (r->data[15] >> 4) | (r->data[16] << 4);
-  ins->cal_rx.center = r->data[17] | ((r->data[18] & 0x0f) << 8);
-  ins->cal_ry.center = (r->data[18] >> 4) | (r->data[19] << 4);
-  int16_t cal_rx_min = r->data[20] | ((r->data[21] & 0x0f) << 8);
-  int16_t cal_ry_min = (r->data[21] >> 4) | (r->data[22] << 4);
-  ins->cal_rx.min = ins->cal_rx.center - cal_rx_min;
-  ins->cal_rx.max = ins->cal_rx.center + cal_rx_max;
-  ins->cal_ry.min = ins->cal_ry.center - cal_ry_min;
-  ins->cal_ry.max = ins->cal_ry.center + cal_ry_max;
-
-  // It seems that most some clones have a hardcoded calibration value, making
-  // it break the standard algorithm.
-  if (ins->firmware_hi == 3 && ins->firmware_lo == 72 &&
-      ins->cal_ry.min == -7 && ins->cal_ry.center == 1504 &&
-      ins->cal_ry.max == 3552) {
-    logi(
-        "Switch: Most probably using a Nintendo Swich clone controller. "
-        "Overriding calibration values with default ones\n");
-    ins->cal_x.min = ins->cal_y.min = ins->cal_rx.min = ins->cal_ry.min = 500;
-    ins->cal_x.center = ins->cal_y.center = ins->cal_rx.center =
-        ins->cal_ry.center = 2000;
-    ins->cal_x.max = ins->cal_y.max = ins->cal_rx.max = ins->cal_ry.max = 3500;
-  }
-
-  logi(
-      "Switch. Calibration info: x=%d,%d,%d, y=%d,%d,%d, rx=%d,%d,%d, "
-      "ry=%d,%d,%d\n",
-      ins->cal_x.min, ins->cal_x.center, ins->cal_x.max, ins->cal_y.min,
-      ins->cal_y.center, ins->cal_y.max, ins->cal_rx.min, ins->cal_rx.center,
-      ins->cal_rx.max, ins->cal_ry.min, ins->cal_ry.center, ins->cal_ry.max);
 }
 
 // Reply to SUBCMD_SET_LEDS
@@ -413,8 +443,6 @@ static void process_input_imu_data(struct uni_hid_device_s* d,
   // 9A FF
 
   UNUSED(len);
-  // printf_hexdump(report, len);
-  // return;
   uni_gamepad_t* gp = &d->gamepad;
   const struct switch_report_30_s* r =
       (const struct switch_report_30_s*)&report[3];
@@ -461,16 +489,17 @@ static void process_input_imu_data(struct uni_hid_device_s* d,
 
   switch_instance_t* ins = get_switch_instance(d);
   // Stick left
-  int16_t stick_lx = r->stick_left[0] | ((r->stick_left[1] & 0x0f) << 8);
-  gp->axis_x = calibrate_axis(stick_lx, ins->cal_x);
-  int16_t stick_ly = (r->stick_left[1] >> 4) | (r->stick_left[2] << 4);
-  gp->axis_y = -calibrate_axis(stick_ly, ins->cal_y);
+  int16_t lx = r->stick_left[0] | ((r->stick_left[1] & 0x0f) << 8);
+  gp->axis_x = calibrate_axis(lx, ins->cal_x);
+  int16_t ly = (r->stick_left[1] >> 4) | (r->stick_left[2] << 4);
+  gp->axis_y = -calibrate_axis(ly, ins->cal_y);
 
   // Stick right
-  int16_t stick_rx = r->stick_right[0] | ((r->stick_right[1] & 0x0f) << 8);
-  gp->axis_rx = calibrate_axis(stick_rx, ins->cal_rx);
-  int16_t stick_ry = (r->stick_right[1] >> 4) | (r->stick_right[2] << 4);
-  gp->axis_ry = -calibrate_axis(stick_ry, ins->cal_ry);
+  int16_t rx = r->stick_right[0] | ((r->stick_right[1] & 0x0f) << 8);
+  gp->axis_rx = calibrate_axis(rx, ins->cal_rx);
+  int16_t ry = (r->stick_right[1] >> 4) | (r->stick_right[2] << 4);
+  gp->axis_ry = -calibrate_axis(ry, ins->cal_ry);
+  logi("uncalibrated values: x=%d,y=%d,rx=%d,ry=%d\n", lx, ly, rx, ry);
 
   gp->updated_states |= GAMEPAD_STATE_AXIS_X | GAMEPAD_STATE_AXIS_Y |
                         GAMEPAD_STATE_AXIS_RX | GAMEPAD_STATE_AXIS_RY;
@@ -545,9 +574,9 @@ static void fsm_request_device_info(struct uni_hid_device_s* d) {
   send_subcmd(d, &req, sizeof(req));
 }
 
-static void fsm_read_stick_calibration(struct uni_hid_device_s* d) {
+static void fsm_read_factory_calibration(struct uni_hid_device_s* d) {
   switch_instance_t* ins = get_switch_instance(d);
-  ins->state = STATE_READ_STICK_CALIBRATION;
+  ins->state = STATE_READ_FACTORY_CALIBRATION;
 
   uint8_t out[sizeof(struct switch_subcmd_request) + 5] = {0};
   struct switch_subcmd_request* req = (struct switch_subcmd_request*)&out[0];
@@ -555,11 +584,29 @@ static void fsm_read_stick_calibration(struct uni_hid_device_s* d) {
   req->report_id = 0x01;         // 0x01 for sub commands
   req->subcmd_id = SUBCMD_SPI_FLASH_READ;
   // Address to read from: stick calibration
-  req->data[0] = SWITCH_CAL_DATA_ADDR & 0xff;
-  req->data[1] = (SWITCH_CAL_DATA_ADDR >> 8) & 0xff;
-  req->data[2] = (SWITCH_CAL_DATA_ADDR >> 16) & 0xff;
-  req->data[3] = (SWITCH_CAL_DATA_ADDR >> 24) & 0xff;
-  req->data[4] = SWITCH_CAL_DATA_SIZE;
+  req->data[0] = SWITCH_FACTORY_CAL_DATA_ADDR & 0xff;
+  req->data[1] = (SWITCH_FACTORY_CAL_DATA_ADDR >> 8) & 0xff;
+  req->data[2] = (SWITCH_FACTORY_CAL_DATA_ADDR >> 16) & 0xff;
+  req->data[3] = (SWITCH_FACTORY_CAL_DATA_ADDR >> 24) & 0xff;
+  req->data[4] = SWITCH_FACTORY_CAL_DATA_SIZE;
+  send_subcmd(d, req, sizeof(out));
+}
+
+static void fsm_read_user_calibration(struct uni_hid_device_s* d) {
+  switch_instance_t* ins = get_switch_instance(d);
+  ins->state = STATE_READ_USER_CALIBRATION;
+
+  uint8_t out[sizeof(struct switch_subcmd_request) + 5] = {0};
+  struct switch_subcmd_request* req = (struct switch_subcmd_request*)&out[0];
+  req->transaction_type = 0xa2;  // DATA | TYPE_OUTPUT
+  req->report_id = 0x01;         // 0x01 for sub commands
+  req->subcmd_id = SUBCMD_SPI_FLASH_READ;
+  // Address to read from: stick calibration
+  req->data[0] = SWITCH_USER_CAL_DATA_ADDR & 0xff;
+  req->data[1] = (SWITCH_USER_CAL_DATA_ADDR >> 8) & 0xff;
+  req->data[2] = (SWITCH_USER_CAL_DATA_ADDR >> 16) & 0xff;
+  req->data[3] = (SWITCH_USER_CAL_DATA_ADDR >> 24) & 0xff;
+  req->data[4] = SWITCH_USER_CAL_DATA_SIZE;
   send_subcmd(d, req, sizeof(out));
 }
 
