@@ -18,7 +18,7 @@ limitations under the License.
 
 #include "uni_hid_parser_switch.h"
 
-#define ENABLE_SPI_FLAS_DUMP 0
+#define ENABLE_SPI_FLASH_DUMP 0
 
 #if ENABLE_SPI_FLASH_DUMP
 #include <fcntl.h>
@@ -60,9 +60,10 @@ static const uint8_t SWITCH_HID_DESCRIPTOR[] = {
 static const uint16_t SWITCH_FACTORY_CAL_DATA_ADDR = 0x603d;
 #define SWITCH_USER_CAL_DATA_SIZE 22
 static const uint16_t SWITCH_USER_CAL_DATA_ADDR = 0x8010;
-#define SWITCH_DUMP_ROM_DATA_SIZE 16  // Max size is 24
+#define SWITCH_DUMP_ROM_DATA_SIZE 24  // Max size is 24
 #if ENABLE_SPI_FLASH_DUMP
-static const uint16_t SWITCH_DUMP_ROM_DATA_ADDR = 0x0000;
+static const uint32_t SWITCH_DUMP_ROM_DATA_ADDR_START = 0x20000;
+static const uint32_t SWITCH_DUMP_ROM_DATA_ADDR_END = 0x30000;
 #endif  // ENABLE_SPI_FLASH_DUMP
 
 enum switch_state {
@@ -232,7 +233,7 @@ void uni_hid_parser_switch_setup(struct uni_hid_device_s* d) {
 
   // Dump SPI flash
 #if ENABLE_SPI_FLASH_DUMP
-  ins->debug_addr = SWITCH_DUMP_ROM_DATA_ADDR;
+  ins->debug_addr = SWITCH_DUMP_ROM_DATA_ADDR_START;
   ins->debug_fd = open("/tmp/spi_flash.bin", O_CREAT | O_RDWR);
   if (ins->debug_fd < 0) {
     loge("Switch: failed to create dump file");
@@ -315,6 +316,7 @@ static void process_fsm(struct uni_hid_device_s* d) {
 static void process_reply_read_spi_dump(struct uni_hid_device_s* d,
                                         const uint8_t* data, int len) {
 #if ENABLE_SPI_FLASH_DUMP
+  UNUSED(len);
   switch_instance_t* ins = get_switch_instance(d);
   uint32_t addr = data[0] | data[1] << 8 | data[2] << 16 | data[3] << 24;
   int chunk_size = data[4];
@@ -639,8 +641,7 @@ static void fsm_dump_rom(struct uni_hid_device_s* d) {
   switch_instance_t* ins = get_switch_instance(d);
   uint32_t addr = ins->debug_addr;
 
-  // Only dump the first 64k
-  if (addr >= 0x10000 || ins->debug_fd < 0) {
+  if (addr >= SWITCH_DUMP_ROM_DATA_ADDR_END || ins->debug_fd < 0) {
     ins->state = STATE_DUMP_FLASH;
     close(ins->debug_fd);
     process_fsm(d);
