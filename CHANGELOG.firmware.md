@@ -4,9 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2020-??-????
+## [0.5.4] - 2020-02-23
 ### Added
-- Firmware: Nintendo Switch uses "raw" parser instead of HID, making it more flexible.
+- Firmware: Nintendo Switch Pro uses "raw" parser instead of HID, making it more flexible.
+- Firmware: Nintendo Switch Pro clones supported.
+- Firmware: Nintendo Switch Pro uses factory calibration data to align sticks.
 
 ## [0.5.3] - 2020-02-09
 ### Added
