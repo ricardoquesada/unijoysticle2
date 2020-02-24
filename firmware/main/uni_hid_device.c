@@ -349,10 +349,10 @@ void uni_hid_device_dump_device(uni_hid_device_t* d) {
   logi(
       "%s, handle=%d, ctrl_cid=0x%04x, intr_cid=0x%04x, cod=0x%08x, "
       "vid=0x%04x, pid=0x%04x, flags=0x%08x, "
-      "port=%d, name='%s'\n",
+      "port=%d, ctrl_type=0x%02x, name='%s'\n",
       bd_addr_to_str(d->address), d->con_handle, d->hid_control_cid,
       d->hid_interrupt_cid, d->cod, d->vendor_id, d->product_id, d->flags,
-      d->joystick_port, d->name);
+      d->joystick_port, d->controller_type, d->name);
 }
 
 void uni_hid_device_dump_all(void) {
@@ -506,6 +506,7 @@ void uni_hid_device_guess_controller_type_from_pid_vid(uni_hid_device_t* d) {
       break;
   }
 
+  d->controller_type = type;
   d->flags |= FLAGS_HAS_CONTROLLER_TYPE;
 }
 

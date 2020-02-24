@@ -89,6 +89,7 @@ struct uni_hid_device_s {
   enum DEVICE_STATE state;
 
   // Gamepad
+  uint8_t controller_type;            // type of controller attached
   uni_emulation_mode_t emu_mode;      // type of controller to emulate
   uni_joystick_port_t joystick_port;  // which port does it control, A or B?
   uni_joystick_port_t
