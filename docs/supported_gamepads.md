@@ -11,8 +11,8 @@ Example of Bluetooth Classic HID controllers are:
 
 - Xbox One S controller
 - Sony Dualshock 4 controller
-- Nintendo Wii / Wii U controllers, including Nunchuk
 - Nintendo Switch Pro controller
+- Nintendo Wii / Wii U controllers, including Nunchuk
 - 8BitDo controllers
 - Android controllers
 - PC/Windows controllers

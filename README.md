@@ -45,8 +45,9 @@ throw grenades / roll by pressing Button B.
 
 - Sony Dualshock 4
 - Xbox One S
-- Nintendo Wii
+- Nintendo Switch Pro
 - Nintendo Wii U
+- Nintendo Wii
 - Android gamepads
 - PC/Window gamepads
 - 8BitDo
