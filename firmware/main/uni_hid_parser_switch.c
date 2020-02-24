@@ -231,6 +231,12 @@ void uni_hid_parser_switch_setup(struct uni_hid_device_s* d) {
   ins->state = STATE_SETUP;
   ins->mode = SWITCH_MODE_NONE;
 
+  // Setup default min,center,max calibration values for sticks.
+  ins->cal_x.min = ins->cal_y.min = ins->cal_rx.min = ins->cal_ry.min = 512;
+  ins->cal_x.center = ins->cal_y.center = ins->cal_rx.center =
+      ins->cal_ry.center = 2048;
+  ins->cal_x.max = ins->cal_y.max = ins->cal_rx.max = ins->cal_ry.max = 3583;
+
   // Dump SPI flash
 #if ENABLE_SPI_FLASH_DUMP
   ins->debug_addr = SWITCH_DUMP_ROM_DATA_ADDR_START;
@@ -340,13 +346,22 @@ static void process_reply_read_spi_dump(struct uni_hid_device_s* d,
 
 static void process_reply_read_spi_factory_calibration(
     struct uni_hid_device_s* d, const uint8_t* data, int len) {
-  UNUSED(len);
   switch_instance_t* ins = get_switch_instance(d);
+
+  if (len < 18 + 5) {
+    loge("Switch: invalid spi factory calibration len; got %d, wanted %d\n",
+         len, 18 + 5);
+    return;
+  }
+
   // Left stick
+  // max
   int16_t cal_x_max = data[5] | ((data[6] & 0x0f) << 8);
   int16_t cal_y_max = (data[6] >> 4) | (data[7] << 4);
+  // center
   ins->cal_x.center = data[8] | ((data[9] & 0x0f) << 8);
   ins->cal_y.center = (data[9] >> 4) | (data[10] << 4);
+  // min
   int16_t cal_x_min = data[11] | ((data[12] & 0x0f) << 8);
   int16_t cal_y_min = (data[12] >> 4) | (data[13] << 4);
   ins->cal_x.min = ins->cal_x.center - cal_x_min;
@@ -354,33 +369,20 @@ static void process_reply_read_spi_factory_calibration(
   ins->cal_y.min = ins->cal_y.center - cal_y_min;
   ins->cal_y.max = ins->cal_y.center + cal_y_max;
 
-  // Right stick
-  int16_t cal_rx_max = data[14] | ((data[15] & 0x0f) << 8);
-  int16_t cal_ry_max = (data[15] >> 4) | (data[16] << 4);
-  ins->cal_rx.center = data[17] | ((data[18] & 0x0f) << 8);
-  ins->cal_ry.center = (data[18] >> 4) | (data[19] << 4);
-  int16_t cal_rx_min = data[20] | ((data[21] & 0x0f) << 8);
-  int16_t cal_ry_min = (data[21] >> 4) | (data[22] << 4);
+  // Right stick (has different order than Left stick)
+  // center
+  ins->cal_rx.center = data[14] | ((data[15] & 0x0f) << 8);
+  ins->cal_ry.center = (data[15] >> 4) | (data[16] << 4);
+  // min
+  int16_t cal_rx_min = data[17] | ((data[18] & 0x0f) << 8);
+  int16_t cal_ry_min = (data[18] >> 4) | (data[19] << 4);
+  // max
+  int16_t cal_rx_max = data[20] | ((data[21] & 0x0f) << 8);
+  int16_t cal_ry_max = (data[21] >> 4) | (data[22] << 4);
   ins->cal_rx.min = ins->cal_rx.center - cal_rx_min;
   ins->cal_rx.max = ins->cal_rx.center + cal_rx_max;
   ins->cal_ry.min = ins->cal_ry.center - cal_ry_min;
   ins->cal_ry.max = ins->cal_ry.center + cal_ry_max;
-
-  // It seems that most some clones have a hardcoded calibration value, making
-  // it break the standard algorithm.
-  if (ins->firmware_hi == 3 && ins->firmware_lo == 72 &&
-      ins->cal_ry.min == -7 && ins->cal_ry.center == 1504 &&
-      ins->cal_ry.max == 3552) {
-    logi(
-        "Switch: Most probably using a Nintendo Swich clone controller. "
-        "Overriding calibration values with default ones\n");
-    // Clones use a [0-4095] range, while original Pro controller seems to use a
-    // [512-3548] range
-    ins->cal_x.min = ins->cal_y.min = ins->cal_rx.min = ins->cal_ry.min = 0;
-    ins->cal_x.center = ins->cal_y.center = ins->cal_rx.center =
-        ins->cal_ry.center = 2048;
-    ins->cal_x.max = ins->cal_y.max = ins->cal_rx.max = ins->cal_ry.max = 4096;
-  }
 
   logi(
       "Switch: Calibration info: x=%d,%d,%d, y=%d,%d,%d, rx=%d,%d,%d, "
