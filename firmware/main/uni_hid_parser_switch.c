@@ -354,6 +354,8 @@ static void process_reply_read_spi_factory_calibration(
     return;
   }
 
+  // Taken from here:
+  // https://github.com/dekuNukem/Nintendo_Switch_Reverse_Engineering/blob/master/spi_flash_notes.md#analog-stick-factory-and-user-calibration
   // Left stick
   // max
   int16_t cal_x_max = data[5] | ((data[6] & 0x0f) << 8);
