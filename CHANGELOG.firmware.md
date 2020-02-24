@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Firmware: Nintendo Switch Pro clones supported.
 - Firmware: Nintendo Switch Pro uses factory calibration data to align sticks.
 - Firmware: hid_device dump includes controller type.
+- Firmware: updated controllers DB from SDL
 
 ## [0.5.3] - 2020-02-09
 ### Added
