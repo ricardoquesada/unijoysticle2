@@ -75,6 +75,8 @@ enum switch_state {
   STATE_READ_USER_CALIBRATION,     // User calibration info
   STATE_SET_FULL_REPORT,           // Request report 0x30
   STATE_ENABLE_IMU,                // Enable/Disable gyro/accel
+  STATE_SET_HOME_LIGHT,            // Enable home light
+  STATE_UPDATE_LED,                // Update LEDs
   STATE_READY,                     // Gamepad setup ready!
 };
 
@@ -107,6 +109,7 @@ enum switch_subcmd {
   SUBCMD_SET_REPORT_MODE = 0x03,
   SUBCMD_SPI_FLASH_READ = 0x10,
   SUBCMD_SET_LEDS = 0x30,
+  SUBCMD_SET_HOME_LIGHT = 0x38,
   SUBCMD_ENABLE_IMU = 0x40,
 };
 
@@ -201,7 +204,9 @@ static void fsm_read_factory_calibration(struct uni_hid_device_s* d);
 static void fsm_read_user_calibration(struct uni_hid_device_s* d);
 static void fsm_set_full_report(struct uni_hid_device_s* d);
 static void fsm_enable_imu(struct uni_hid_device_s* d);
+static void fsm_set_home_light(struct uni_hid_device_s* d);
 static void fsm_update_led(struct uni_hid_device_s* d);
+static void fsm_ready(struct uni_hid_device_s* d);
 static void process_reply_read_spi_dump(struct uni_hid_device_s* d,
                                         const uint8_t* data, int len);
 static void process_reply_read_spi_factory_calibration(
@@ -220,6 +225,9 @@ static void process_reply_spi_flash_read(struct uni_hid_device_s* d,
                                          int len);
 static void process_reply_set_leds(struct uni_hid_device_s* d,
                                    const struct switch_report_21_s* r, int len);
+static void process_reply_set_home_light(struct uni_hid_device_s* d,
+                                         const struct switch_report_21_s* r,
+                                         int len);
 static void process_reply_enable_imu(struct uni_hid_device_s* d,
                                      const struct switch_report_21_s* r,
                                      int len);
@@ -308,7 +316,15 @@ static void process_fsm(struct uni_hid_device_s* d) {
       break;
     case STATE_ENABLE_IMU:
       logd("STATE_ENABLE_IMU\n");
+      fsm_set_home_light(d);
+      break;
+    case STATE_SET_HOME_LIGHT:
+      logd("STATE_SET_HOME_LIGHT\n");
       fsm_update_led(d);
+      break;
+    case STATE_UPDATE_LED:
+      logd("STATE_UPDATE_LED\n");
+      fsm_ready(d);
       break;
     case STATE_READY:
       logd("STATE_READY\n");
@@ -466,6 +482,15 @@ static void process_reply_set_leds(struct uni_hid_device_s* d,
   UNUSED(len);
 }
 
+// Reply to SUBCMD_SET_HOME_LIGHT
+static void process_reply_set_home_light(struct uni_hid_device_s* d,
+                                         const struct switch_report_21_s* r,
+                                         int len) {
+  UNUSED(d);
+  UNUSED(r);
+  UNUSED(len);
+}
+
 // Reply SUBCMD_ENABLE_IMU
 static void process_reply_enable_imu(struct uni_hid_device_s* d,
                                      const struct switch_report_21_s* r,
@@ -499,6 +524,9 @@ static void process_input_subcmd_reply(struct uni_hid_device_s* d,
       break;
     case SUBCMD_SET_LEDS:
       process_reply_set_leds(d, r, len);
+      break;
+    case SUBCMD_SET_HOME_LIGHT:
+      process_reply_set_home_light(d, r, len);
       break;
     case SUBCMD_ENABLE_IMU:
       process_reply_enable_imu(d, r, len);
@@ -746,9 +774,27 @@ static void fsm_enable_imu(struct uni_hid_device_s* d) {
   send_subcmd(d, req, sizeof(out));
 }
 
+static void fsm_set_home_light(struct uni_hid_device_s* d) {
+  switch_instance_t* ins = get_switch_instance(d);
+  ins->state = STATE_SET_HOME_LIGHT;
+
+  uint8_t out[sizeof(struct switch_subcmd_request) + 5] = {0};
+  struct switch_subcmd_request* req = (struct switch_subcmd_request*)&out[0];
+  req->transaction_type = 0xa2;  // DATA | TYPE_OUTPUT
+  req->report_id = 0x01;         // 0x01 for sub commands
+  req->subcmd_id = SUBCMD_SET_HOME_LIGHT;
+  uint8_t brightness = 0x08;
+  req->data[0] = 0x01;
+  req->data[1] = brightness << 4;
+  req->data[2] = brightness | (brightness << 4);
+  req->data[3] = 0x00;
+  req->data[4] = 0x00;
+  send_subcmd(d, req, sizeof(out));
+}
+
 static void fsm_update_led(struct uni_hid_device_s* d) {
   switch_instance_t* ins = get_switch_instance(d);
-  ins->state = STATE_READY;
+  ins->state = STATE_UPDATE_LED;
 
   uint8_t out[sizeof(struct switch_subcmd_request) + 1] = {0};
   struct switch_subcmd_request* req = (struct switch_subcmd_request*)&out[0];
@@ -757,6 +803,11 @@ static void fsm_update_led(struct uni_hid_device_s* d) {
   req->subcmd_id = SUBCMD_SET_LEDS;
   req->data[0] = d->joystick_port;
   send_subcmd(d, req, sizeof(out));
+}
+
+static void fsm_ready(struct uni_hid_device_s* d) {
+  switch_instance_t* ins = get_switch_instance(d);
+  ins->state = STATE_READY;
 }
 
 void uni_hid_parser_switch_update_led(uni_hid_device_t* d) {
