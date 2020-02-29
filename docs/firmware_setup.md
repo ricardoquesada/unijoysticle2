@@ -64,22 +64,24 @@ Development can be done locally or using Vagrant for convenience. It's recommend
 ### ESP-IDF
 
 From the [CHANGELOG.md][changelog], see what is the latest supported ESP-IDF
-version. As of this writing it is `v3.2.2`
+version. As of this writing it is `v4.0`
 
 ```sh
 $ cd esp/esp-idf
-$ git checkout v3.2.2
+$ git checkout v4.0
 $ git submodule update --init
+$ ./install.sh
+$ source ./export.sh
 ```
 
 ### Compile BTstack
 
 From the [CHANGELOG.md][changelog], see what is the latest supported BTStack
-version. As of this writing it is `dbb3cbc198393187c63748b8b0ed0a7357c9f190`.
+version. As of this writing it is `4d24213549c6b94b84d732afda9c2628df22fd70`.
 
 ```sh
 $ cd src/btstack
-$ git checkout dbb3cbc198393187c63748b8b0ed0a7357c9f190
+$ git checkout 4d24213549c6b94b84d732afda9c2628df22fd70
 ```
 
 [changelog]: https://gitlab.com/ricardoquesada/unijoysticle2/blob/master/CHANGELOG.md
