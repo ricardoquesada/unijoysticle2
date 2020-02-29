@@ -16,6 +16,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ****************************************************************************/
 
+// Technical info taken from:
+// https://github.com/dekuNukem/Nintendo_Switch_Reverse_Engineering
+// https://github.com/DanielOgorchock/linux/blob/ogorchock/drivers/hid/hid-nintendo.c
+
 #include "uni_hid_parser_switch.h"
 
 #define ENABLE_SPI_FLASH_DUMP 0
@@ -54,8 +58,6 @@ static const uint8_t SWITCH_HID_DESCRIPTOR[] = {
     0x30, 0x91, 0x02, 0x85, 0x12, 0x09, 0x12, 0x75, 0x08, 0x95, 0x30, 0x91,
     0x02, 0xC0,
 };
-// Stick calibration start address. Taken from:
-// https://github.com/dekuNukem/Nintendo_Switch_Reverse_Engineering/blob/master/spi_flash_notes.md
 #define SWITCH_FACTORY_CAL_DATA_SIZE 18
 static const uint16_t SWITCH_FACTORY_CAL_DATA_ADDR = 0x603d;
 #define SWITCH_USER_CAL_DATA_SIZE 22
@@ -102,8 +104,6 @@ enum switch_controller_types {
   SWITCH_CONTROLLER_TYPE_PRO = 0x03,  // Gamepad Pro
 };
 
-// Nintendo Switch output-report info taken from:
-// https://github.com/DanielOgorchock/linux/blob/ogorchock/drivers/hid/hid-nintendo.c
 enum switch_subcmd {
   SUBCMD_REQ_DEV_INFO = 0x02,
   SUBCMD_SET_REPORT_MODE = 0x03,
@@ -370,8 +370,6 @@ static void process_reply_read_spi_factory_calibration(
     return;
   }
 
-  // Taken from here:
-  // https://github.com/dekuNukem/Nintendo_Switch_Reverse_Engineering/blob/master/spi_flash_notes.md#analog-stick-factory-and-user-calibration
   // Left stick
   // max
   int16_t cal_x_max = data[5] | ((data[6] & 0x0f) << 8);

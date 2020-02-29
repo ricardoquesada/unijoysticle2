@@ -19,8 +19,8 @@ limitations under the License.
 // More info about Xbox One gamepad:
 // https://support.xbox.com/en-US/xbox-one/accessories/xbox-one-wireless-controller
 
-// HID Usage Tables:
-// https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf
+// Technical info taken from:
+// https://github.com/atar-axis/xpadneo/blob/master/hid-xpadneo/src/hid-xpadneo.c
 
 #include "uni_hid_parser_xboxone.h"
 
@@ -492,8 +492,6 @@ static void rumble(uni_hid_device_t* d) {
     FF_TRIGGER_LEFT = 1 << 3,
   };
 
-  // Force feedback info taken from:
-  // https://github.com/atar-axis/xpadneo/blob/master/hid-xpadneo/src/hid-xpadneo.c
   struct ff_report {
     // Report related
     uint8_t transaction_type;  // type of transaction

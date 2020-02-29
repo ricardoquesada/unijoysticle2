@@ -4,8 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.6.0] - 2020-02-29
+## [1.0.0] - 2020-02-29
 - Firmware: Nintendo Switch Pro: turns on LED when connected
+- Firmware: Where applicable, added technical info references at top of .c files
+- Firmware: Renamed PS4 to DS4 (DUALSHOCK4)
 - ESP-IDF: Using v4.0
 - BtStack: Using hash 4d24213549c6b94b84d732afda9c2628df22fd70 (2020-02-20)
     - Components Bluetooth: enabled

@@ -43,11 +43,11 @@ limitations under the License.
 #define UNIJOYSTICLE_SINGLE_PORT 0  // Enabled if 1
 
 // From Linux drivers/hid/hid-sony.c:
-// The default behavior of the Dualshock 4 is to send reports using
+// The default behavior of the DUALSHOCK 4 is to send reports using
 // report type 1 when running over Bluetooth. However, when feature
 // report 2 is requested during the controller initialization it starts
 // sending input reports in report 17.
-// Using report 0x11 is needed to change the DualShock4 LEDs
+// Using report 0x11 is needed to change the DUALSHOCK4 LEDs
 #define UNI_USE_DUALSHOCK4_REPORT_0x11 1  // Enabled if 1
 
 #endif  // UNI_CONFIG_H

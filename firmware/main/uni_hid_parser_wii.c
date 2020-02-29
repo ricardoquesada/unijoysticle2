@@ -16,10 +16,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ****************************************************************************/
 
-/* Protocol info taken from:
-   http://wiibrew.org/wiki/Wiimote
-   https://github.com/dvdhrm/xwiimote/blob/master/doc/PROTOCOL
- */
+//  Technical info taken from:
+//  http://wiibrew.org/wiki/Wiimote
+//  https://github.com/dvdhrm/xwiimote/blob/master/doc/PROTOCOL
 
 #include "uni_hid_parser_wii.h"
 

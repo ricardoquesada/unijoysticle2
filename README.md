@@ -43,7 +43,7 @@ throw grenades / roll by pressing Button B.
 
 ![Supported_gamepads](https://lh3.googleusercontent.com/c75GplkxZYaX8_uuPK8OnLaJMC6a0QMdKkQbRXvVx9_WT_mV-U_Hb_Wx3i8JbENQLlmx018WYmO1VWPkzSW4vByw0YthMwf7L934n0XM8vqKXmceKG-LThC8vuwmipRjctytBtyF65I=-no)
 
-- Sony Dualshock 4
+- Sony DUALSHOCK 4
 - Xbox One S
 - Nintendo Switch Pro
 - Nintendo Wii U

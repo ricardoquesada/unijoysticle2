@@ -26,11 +26,11 @@ limitations under the License.
 #include "uni_hid_device_vendors.h"
 #include "uni_hid_parser_8bitdo.h"
 #include "uni_hid_parser_android.h"
+#include "uni_hid_parser_ds4.h"
 #include "uni_hid_parser_generic.h"
 #include "uni_hid_parser_icade.h"
 #include "uni_hid_parser_nimbus.h"
 #include "uni_hid_parser_ouya.h"
-#include "uni_hid_parser_ps4.h"
 #include "uni_hid_parser_smarttvremote.h"
 #include "uni_hid_parser_switch.h"
 #include "uni_hid_parser_wii.h"
@@ -457,15 +457,15 @@ void uni_hid_device_guess_controller_type_from_pid_vid(uni_hid_device_t* d) {
       break;
     case CONTROLLER_TYPE_PS4Controller:
       d->report_parser.setup = NULL;
-      d->report_parser.init_report = uni_hid_parser_ps4_init_report;
+      d->report_parser.init_report = uni_hid_parser_ds4_init_report;
 #if UNI_USE_DUALSHOCK4_REPORT_0x11
-      d->report_parser.parse_raw = uni_hid_parser_ps4_parse_raw;
-      d->report_parser.update_led = uni_hid_parser_ps4_update_led;
+      d->report_parser.parse_raw = uni_hid_parser_ds4_parse_raw;
+      d->report_parser.update_led = uni_hid_parser_ds4_update_led;
 #else
-      d->report_parser.parse_usage = uni_hid_parser_ps4_parse_usage;
+      d->report_parser.parse_usage = uni_hid_parser_ds4_parse_usage;
       d->report_parser.update_led = NULL;
 #endif  //
-      logi("Device detected as PS4: 0x%02x\n", type);
+      logi("Device detected as DUALSHOCK4: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_8BitdoController:
       d->report_parser.setup = NULL;

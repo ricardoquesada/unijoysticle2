@@ -10,7 +10,7 @@ All Bluetooth Classic HID controllers are supported, or should be easy to suppor
 Example of Bluetooth Classic HID controllers are:
 
 - Xbox One S controller
-- Sony Dualshock 4 controller
+- Sony DUALSHOCK 4 controller
 - Nintendo Switch Pro controller
 - Nintendo Wii / Wii U controllers, including Nunchuk
 - 8BitDo controllers
@@ -61,7 +61,7 @@ Tested gamepads so far.
 [xbox_one_s]: https://lh3.googleusercontent.com/YmONc-MhVZhnE8HVRgzH7FKSpT_29MLeIF70U5AfrcBuCtuNJ2Ln5xkmSpNqO0myrFpnDLbFvR2TRTRu0xcqvP3cLNaq1BBpruEAn-Z7vBbwzNtaXx7eQaLLF7aa8tt2Wa0IcYxeD08=-no
 [issue_1]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/1
 
-## Sony DualShock 4
+## Sony DUALSHOCK 4
 
 [![ps4_gamepad][dualshock_4]][14]
 

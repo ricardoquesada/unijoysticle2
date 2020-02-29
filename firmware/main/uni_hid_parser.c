@@ -23,6 +23,9 @@ limitations under the License.
 #include "uni_gamepad.h"
 #include "uni_hid_device.h"
 
+// HID Usage Tables:
+// https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf
+
 void uni_hid_parser(uni_hid_device_t* d, const uint8_t* report,
                     uint16_t report_len) {
   btstack_hid_parser_t parser;

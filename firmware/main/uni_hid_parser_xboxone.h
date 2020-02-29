@@ -24,7 +24,7 @@ limitations under the License.
 #include "btstack.h"
 #include "uni_hid_parser.h"
 
-// For Xbox One gamepads
+// For Xbox One S gamepads
 void uni_hid_parser_xboxone_setup(struct uni_hid_device_s* d);
 void uni_hid_parser_xboxone_init_report(struct uni_hid_device_s* d);
 void uni_hid_parser_xboxone_parse_usage(struct uni_hid_device_s* d,
