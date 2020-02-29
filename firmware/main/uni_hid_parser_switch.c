@@ -778,17 +778,15 @@ static void fsm_set_home_light(struct uni_hid_device_s* d) {
   switch_instance_t* ins = get_switch_instance(d);
   ins->state = STATE_SET_HOME_LIGHT;
 
-  uint8_t out[sizeof(struct switch_subcmd_request) + 5] = {0};
+  uint8_t out[sizeof(struct switch_subcmd_request) + 3] = {0};
   struct switch_subcmd_request* req = (struct switch_subcmd_request*)&out[0];
   req->transaction_type = 0xa2;  // DATA | TYPE_OUTPUT
   req->report_id = 0x01;         // 0x01 for sub commands
   req->subcmd_id = SUBCMD_SET_HOME_LIGHT;
-  uint8_t brightness = 0x08;
-  req->data[0] = 0x01;
-  req->data[1] = brightness << 4;
-  req->data[2] = brightness | (brightness << 4);
-  req->data[3] = 0x00;
-  req->data[4] = 0x00;
+  req->data[0] = 0x01;  // No mini cycles | duration of each cycle.
+  req->data[1] = 0x80;  // LED medium intensity | total mini cycles=0
+  req->data[2] = 0x80;  // 1st mini cycle intensity: medium | ignore
+
   send_subcmd(d, req, sizeof(out));
 }
 

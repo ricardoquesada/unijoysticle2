@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0] - 2020-02-29
+- Firmware: Nintendo Switch Pro: turns on LED when connected
+- ESP-IDF: Using v4.0
+- BtStack: Using hash 4d24213549c6b94b84d732afda9c2628df22fd70 (2020-02-20)
+    - Components Bluetooth: enabled
+       - Controller -> Bluetooth controller mode: Bluetooth dual mode
+       - Controller -> BR/EDR ACL Max Connections: 4
+       - Controller -> BR/EDR Sync Max Connections: 2
+       - Host: Controller only
+    - Components ESP32-specific
+       - Main XTAL frequency: Autodetect
+    - Components Core -dump
+        - Data destination: UART
+       -
+
 ## [0.5.4] - 2020-02-23
 ### Added
 - Firmware: Nintendo Switch Pro uses "raw" parser instead of HID, making it more flexible.
@@ -30,7 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.5.1] - 2020-01-03
 ### Added
 - Firmware: Xbox One: rumbles when connected or switches joystick port.
-- Firmware: esp-idf v3.3.1
+- Firmware: ESP-IDF v3.3.1
 - Firmware: SDP queries timeout after 3 seconds, enabling another SDP query to start.
 - Firmware: improved logging
 
@@ -128,7 +143,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Firmware: Added Wii U Pro controller support.
 
 ### Changed
-- Firmware: Using esp-idf v3.2.2
+- Firmware: Using ESP-IDF v3.2.2
 - Firmware: Using btstack develop-branch. Commit: a4ea32feba8ca8a16509a75d3d80e8017ca2cf3b
 
 ## [0.2.1] - 2019-06-29
@@ -154,7 +169,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Buttons working as expected
   - A bit smoother than v0.1.0 but still not good enough
 - Firmware: Updated link to http://retro.moe/unijoysticle2
-- Firmware: Using esp-idf v3.2. Commit: 286202caa31b61c2182209f37f8069a0b60fb942
+- Firmware: Using ESP-IDF v3.2. Commit: 286202caa31b61c2182209f37f8069a0b60fb942
     - Components Bluetooth: enabled
        - Bluedroid: disabled
        - Controller -> Bluetooth controller mode: Bluetooth dual mode
@@ -171,5 +186,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2019-04-15
 ### Added
 - Firmware: v0.1.0
-  - Using esp-idf v3.1.3. Commit: cf5dbadf4f25b395887238a7d4d8251c279afa8c
+  - Using ESP-IDF v3.1.3. Commit: cf5dbadf4f25b395887238a7d4d8251c279afa8c
   - Using btstack develop-branch. Commit: 8b22c04ddc425565c8e4002a6d4d26a53426a31f
