@@ -12,7 +12,7 @@ All Bluetooth Classic HID controllers are supported, or should be easy to suppor
 Example of Bluetooth Classic HID controllers are:
 
 - Xbox One S controller (`L`)
-- DUALSHOCK 4 controller (`O`, `P`)
+- DUALSHOCK 4 controller, both 2013 (`P`) and 2016 (`O`) editions
 - Nintendo Switch Pro controller (`W`) and clones (`V`)
 - Nintendo Wii Remote (`T`) and Remote Motion Plus (`S`), including Nunchuk (`Q`) and Classic Controller (`R`)
 - Nintendo Wii U Pro controller (`U`)
