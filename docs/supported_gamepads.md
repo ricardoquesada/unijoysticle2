@@ -14,12 +14,13 @@ Example of Bluetooth Classic HID controllers are:
 - Xbox One S controller (`L`)
 - DUALSHOCK 4 controller, both 2013 (`P`) and 2016 (`O`) editions
 - Nintendo Switch Pro controller (`W`) and clones (`V`)
-- Nintendo Wii Remote (`T`) and Remote Motion Plus (`S`), including Nunchuk (`Q`) and Classic Controller (`R`)
 - Nintendo Wii U Pro controller (`U`)
+- Nintendo Wii Remote (`T`) and Remote Motion Plus (`S`), including Nunchuk (`Q`) and Classic Controller (`R`)
 - 8BitDo controllers (`I`, `J`, `K`)
 - Android controllers (`A`, `D`, `E`, `F`)
 - iCade controllers (`B`, `M`)
 - Nimbus SteelSeries(`N`)
+- OUYA controllers (`C`)
 - Some TV remote controls, like the Amazon Fire TV (`H`)
 - Some mice (`G`)
 
