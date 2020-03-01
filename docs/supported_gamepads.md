@@ -2,23 +2,28 @@
 
 ![Supported gamepads][Supported gamepads]
 
-[Supported gamepads]: https://lh3.googleusercontent.com/c75GplkxZYaX8_uuPK8OnLaJMC6a0QMdKkQbRXvVx9_WT_mV-U_Hb_Wx3i8JbENQLlmx018WYmO1VWPkzSW4vByw0YthMwf7L934n0XM8vqKXmceKG-LThC8vuwmipRjctytBtyF65I=-no
+[Supported gamepads]: https://lh3.googleusercontent.com/U1PRr4a21yGffPHxRlONqeolOnr2i-IuONM4ajQksvxB5Lr3zfQFmkHJJbwRNVUY0WrNik5Ia79se3sQx0aa4axuGnBbytyH_5fJnKELX4FOMRM4qrF3bYCmmp0Vk3ZnltQ0YCiRTK0=-no
 
 ## Bluetooth Classic: Supported
+
+![reference-supported-gamepads][ref-supported-gamepads]
 
 All Bluetooth Classic HID controllers are supported, or should be easy to support them.
 Example of Bluetooth Classic HID controllers are:
 
-- Xbox One S controller
-- Sony DUALSHOCK 4 controller
-- Nintendo Switch Pro controller
-- Nintendo Wii / Wii U controllers, including Nunchuk
-- 8BitDo controllers
-- Android controllers
-- PC/Windows controllers
-- iCade controllers
-- Some TV remote controls, like the Amazon Fire TV
-- Some mice
+- Xbox One S controller (`L`)
+- DUALSHOCK 4 controller (`O`, `P`)
+- Nintendo Switch Pro controller (`W`) and clones (`V`)
+- Nintendo Wii Remote (`T`) and Remote Motion Plus (`S`), including Nunchuk (`Q`) and Classic Controller (`R`)
+- Nintendo Wii U Pro controller (`U`)
+- 8BitDo controllers (`I`, `J`, `K`)
+- Android controllers (`A`, `D`, `E`, `F`)
+- iCade controllers (`B`, `M`)
+- Nimbus SteelSeries(`N`)
+- Some TV remote controls, like the Amazon Fire TV (`H`)
+- Some mice (`G`)
+
+[ref-supported-gamepads]: https://lh3.googleusercontent.com/o_oR_kKOLRvXQXHSXgYVNUZ13dpC-6dKV7PLu_8Rq7RmexMTfOLmQspl_3N-htomOyWgf5YQTzex4Y3GOP1QmEVSZdZBNWYCavk_ql5XhU825VHjaisGcTopVx3o7pOCEavvIrrl44s=w200-h222-no
 
 ## Bluetooth BLE: Not supported ATM
 
@@ -61,7 +66,7 @@ Tested gamepads so far.
 [xbox_one_s]: https://lh3.googleusercontent.com/YmONc-MhVZhnE8HVRgzH7FKSpT_29MLeIF70U5AfrcBuCtuNJ2Ln5xkmSpNqO0myrFpnDLbFvR2TRTRu0xcqvP3cLNaq1BBpruEAn-Z7vBbwzNtaXx7eQaLLF7aa8tt2Wa0IcYxeD08=-no
 [issue_1]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/1
 
-## Sony DUALSHOCK 4
+## DUALSHOCK 4
 
 [![ps4_gamepad][dualshock_4]][14]
 
@@ -187,12 +192,16 @@ Classic Controller can be used.
 
 [![Switch Pro][switch_pro_img]][switch_pro]
 
+Clones and "licensed by Nintendo" controllers should also work supported Ok.
+
 - Press:
   - *B* for Fire
   - *A* for Jump
   - *Right shoulder* for Auto-fire
   - *Home* button to swap joystick port
-- LEDs #1 and #2 indicates what joystick is being controlled.
+- LEDs #1 and #2 indicates what joystick is being controlled
+- Home Light turns on when connected
+
 
 [switch_pro]: https://en.wikipedia.org/wiki/Nintendo_Switch_Pro_Controller
 [switch_pro_img]: https://lh3.googleusercontent.com/33hrGYM117T9pPrW0L-wr7bl0trLXooqmp4I78XV9vWkumHE8mK8Z_5KJZFzWKNpJg31gvrxHC0agF5BUgVr2f6awNYb98R-xPIWaawG6b0XwxHzm8hzz39Wnnv6qLmeEXsRaeoybsA=-no

@@ -41,7 +41,7 @@ throw grenades / roll by pressing Button B.
 
 ## Supported controllers
 
-![Supported_gamepads](https://lh3.googleusercontent.com/c75GplkxZYaX8_uuPK8OnLaJMC6a0QMdKkQbRXvVx9_WT_mV-U_Hb_Wx3i8JbENQLlmx018WYmO1VWPkzSW4vByw0YthMwf7L934n0XM8vqKXmceKG-LThC8vuwmipRjctytBtyF65I=-no)
+![Supported_gamepads](https://lh3.googleusercontent.com/U1PRr4a21yGffPHxRlONqeolOnr2i-IuONM4ajQksvxB5Lr3zfQFmkHJJbwRNVUY0WrNik5Ia79se3sQx0aa4axuGnBbytyH_5fJnKELX4FOMRM4qrF3bYCmmp0Vk3ZnltQ0YCiRTK0=-no)
 
 - Sony DUALSHOCK 4
 - Xbox One S
