@@ -20,6 +20,15 @@ limitations under the License.
 // http://wiibrew.org/wiki/Wiimote
 // https://github.com/dvdhrm/xwiimote/blob/master/doc/PROTOCOL
 
+#define ENABLE_EEPROM_DUMP 0
+
+#if ENABLE_EEPROM_DUMP
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
+#endif  // ENABLE_EEPROM_DUMP
+
 #include "uni_hid_parser_wii.h"
 
 #include "hid_usage.h"
@@ -27,6 +36,12 @@ limitations under the License.
 #include "uni_gamepad.h"
 #include "uni_hid_device.h"
 #include "uni_hid_parser.h"
+
+#if ENABLE_EEPROM_DUMP
+#define WII_DUMP_ROM_DATA_SIZE 16  // Max size is 16
+static const uint32_t WII_DUMP_ROM_DATA_ADDR_START = 0x0000;
+static const uint32_t WII_DUMP_ROM_DATA_ADDR_END = 0x1700;
+#endif  // ENABLE_EEPROM_DUMP
 
 enum wii_flags {
   WII_FLAGS_NONE = 0,
@@ -82,17 +97,26 @@ enum wii_exttype {
 
 // Required steps to determine what kind of extensions are supported.
 enum wii_fsm {
-  WII_FSM_INITIAL,                // Initial state
-  WII_FSM_DID_REQ_STATUS,         // Status requested
-  WII_FSM_DEV_UNK,                // Device unknown
-  WII_FSM_EXT_UNK,                // Extension unknown
-  WII_FSM_EXT_DID_INIT,           // Extension initialized
-  WII_FSM_EXT_DID_NO_ENCRYPTION,  // Extension no encription
-  WII_FSM_EXT_DID_READ_EXT,       // Extension read register
-  WII_FSM_DEV_GUESSED,            // Device type guessed
-  WII_FSM_DEV_ASSIGNED,           // Device type assigned
-  WII_FSM_LED_UPDATED,            // After device was assigned, update LEDs.
+  WII_FSM_UNINIT,                   // Uninitialized
+  WII_FSM_SETUP,                    // Setup
+  WII_FSM_DUMP_EEPROM_IN_PROGRESS,  // EEPROM dump in progress
+  WII_FSM_DUMP_EEPROM_FINISHED,     // EEPROM dump finished
+  WII_FSM_DID_REQ_STATUS,           // Status requested
+  WII_FSM_DEV_UNK,                  // Device unknown
+  WII_FSM_EXT_UNK,                  // Extension unknown
+  WII_FSM_EXT_DID_INIT,             // Extension initialized
+  WII_FSM_EXT_DID_NO_ENCRYPTION,    // Extension no encription
+  WII_FSM_EXT_DID_READ_REGISTER,    // Extension read register
+  WII_FSM_DEV_GUESSED,              // Device type guessed
+  WII_FSM_DEV_ASSIGNED,             // Device type assigned
+  WII_FSM_LED_UPDATED,              // After device was assigned, update LEDs.
 };
+
+// As defined here: http://wiibrew.org/wiki/Wiimote#0x21:_Read_Memory_Data
+typedef enum wii_read_type {
+  WII_READ_FROM_MEM = 0,
+  WII_READ_FROM_REGISTERS = 0x04,
+} wii_read_type_t;
 
 // nunchuk_t represents the data provided by the Nunchuk.
 typedef struct nunchuk_s {
@@ -112,6 +136,10 @@ typedef struct wii_instance_s {
   uint8_t flags;
   enum wii_devtype dev_type;
   enum wii_exttype ext_type;
+
+  // Debug only
+  int debug_fd;         // File descriptor where dump is saved
+  uint32_t debug_addr;  // Current dump address
 } wii_instance_t;
 
 static void process_req_status(uni_hid_device_t* d, const uint8_t* report,
@@ -139,11 +167,14 @@ static nunchuk_t process_nunchuk(const uint8_t* e, uint16_t len);
 static void wii_process_fsm(uni_hid_device_t* d);
 static void wii_fsm_ext_init(uni_hid_device_t* d);
 static void wii_fsm_ext_encrypt_off(uni_hid_device_t* d);
-static void wii_fsm_ext_read_mem(uni_hid_device_t* d);
+static void wii_fsm_ext_read_register(uni_hid_device_t* d);
 static void wii_fsm_req_status(uni_hid_device_t* d);
 static void wii_fsm_assign_device(uni_hid_device_t* d);
 static void wii_fsm_update_led(uni_hid_device_t* d);
+static void wii_fsm_dump_eeprom(uni_hid_device_t* d);
 
+static void wii_read_mem(uni_hid_device_t* d, wii_read_type_t t,
+                         uint32_t offset, uint16_t size);
 static wii_instance_t* get_wii_instance(uni_hid_device_t* d);
 
 // process_ functions
@@ -200,13 +231,9 @@ static void process_req_status(uni_hid_device_t* d, const uint8_t* report,
 }
 
 // Defined here: http://wiibrew.org/wiki/Wiimote#0x21:_Read_Memory_Data
-static void process_req_data(uni_hid_device_t* d, const uint8_t* report,
-                             uint16_t len) {
-  if (len < 22) {
-    loge("Wii: invalid req_data lenght: got %d, want >= 22\n", len);
-    printf_hexdump(report, len);
-    return;
-  }
+static void process_req_data_read_register(uni_hid_device_t* d,
+                                           const uint8_t* report,
+                                           uint16_t len) {
   uint8_t se = report[3];  // SE: size and error
   uint8_t s = se >> 4;     // size
   uint8_t e = se & 0x0f;   // error
@@ -266,6 +293,56 @@ static void process_req_data(uni_hid_device_t* d, const uint8_t* report,
   }
 }
 
+static void process_req_data_dump_eeprom(uni_hid_device_t* d,
+                                         const uint8_t* report, uint16_t len) {
+  UNUSED(len);
+#if ENABLE_EEPROM_DUMP
+  uint8_t se = report[3];     // SE: size and error
+  uint8_t s = (se >> 4) + 1;  // size
+  uint8_t e = se & 0x0f;      // error
+  if (e) {
+    loge("Wii: error reading memory: 0x%02x\n.", e);
+    return;
+  }
+
+  wii_instance_t* ins = get_wii_instance(d);
+  uint16_t addr = report[4] << 8 | report[5];
+
+  logi("Wii: dumping %d bytes at address: 0x%04x\n", s, addr);
+  write(ins->debug_fd, &report[6], s);
+#else
+  UNUSED(d);
+  UNUSED(report);
+#endif  // ENABLE_EEPROM_DUMP
+  wii_process_fsm(d);
+}
+
+// Defined here: http://wiibrew.org/wiki/Wiimote#0x21:_Read_Memory_Data
+static void process_req_data(uni_hid_device_t* d, const uint8_t* report,
+                             uint16_t len) {
+  logi("**** process_req_data\n");
+  printf_hexdump(report, len);
+
+  if (len < 22) {
+    loge("Wii: invalid req_data lenght: got %d, want >= 22\n", len);
+    printf_hexdump(report, len);
+    return;
+  }
+
+  wii_instance_t* ins = get_wii_instance(d);
+  switch (ins->state) {
+    case WII_FSM_EXT_DID_READ_REGISTER:
+      process_req_data_read_register(d, report, len);
+      break;
+    case WII_FSM_DUMP_EEPROM_IN_PROGRESS:
+      process_req_data_dump_eeprom(d, report, len);
+      break;
+    default:
+      loge("process_req_data. Unknown FSM state: 0x%02x\n", ins->state);
+      break;
+  }
+}
+
 // Defined here:
 // http://wiibrew.org/wiki/Wiimote#0x22:_Acknowledge_output_report.2C_return_function_result
 static void process_req_return(uni_hid_device_t* d, const uint8_t* report,
@@ -278,17 +355,16 @@ static void process_req_return(uni_hid_device_t* d, const uint8_t* report,
     // Status != 0: Error. Probably invalid register
     if (report[4] != 0) {
       if (ins->register_address == 0xa6) {
-        loge("Failed to write registers from 0xa6... mmmm\n");
-        ins->state = WII_FSM_INITIAL;
+        loge("Failed to read registers from 0xa6... mmmm\n");
+        ins->state = WII_FSM_SETUP;
       } else {
-        // If it failed to write registers with 0xa4, then try with 0xa6
+        // If it failed to read registers with 0xa4, then try with 0xa6
         // If 0xa6 works Ok, it is safe to assume it is a Wii Remote MP, but
         // for the sake of finishing the "read extension" (might be useful
         // in the future), we continue with it.
         logi(
             "Probably a Remote MP device. Switching to 0xa60000 address "
-            "for "
-            "registers.\n");
+            "for registers.\n");
         ins->state = WII_FSM_DEV_UNK;
         ins->register_address =
             0xa6;  // Register address used for Wii Remote MP.
@@ -766,21 +842,15 @@ static void wii_fsm_ext_encrypt_off(uni_hid_device_t* d) {
   uni_hid_device_send_report(d, report, sizeof(report));
 }
 
-static void wii_fsm_ext_read_mem(uni_hid_device_t* d) {
-  logi("fsm: ext_read_mem\n");
+static void wii_fsm_ext_read_register(uni_hid_device_t* d) {
+  logi("fsm: ext_read_register\n");
   wii_instance_t* ins = get_wii_instance(d);
-  ins->state = WII_FSM_EXT_DID_READ_EXT;
-  // Read 6 bytes from ext register
-  uint8_t report[] = {
-      // clang-format off
-      0xa2, WIIPROTO_REQ_RMEM,
-      0x04,             // Read from registers
-      0xa4, 0x00, 0xfa, // extension register
-      0x00, 0x06,       // read 6 bytes
-      // clang-format on
-  };
-  report[3] = ins->register_address;
-  uni_hid_device_send_report(d, report, sizeof(report));
+  ins->state = WII_FSM_EXT_DID_READ_REGISTER;
+
+  // Addr is either 0xA400FA or 0xA600FA
+  uint32_t offset = 0x0000fa | (ins->register_address << 16);
+  uint16_t bytes_to_read = 6;
+  wii_read_mem(d, WII_READ_FROM_REGISTERS, offset, bytes_to_read);
 }
 
 static void wii_fsm_assign_device(uni_hid_device_t* d) {
@@ -848,10 +918,37 @@ static void wii_fsm_update_led(uni_hid_device_t* d) {
   wii_process_fsm(d);
 }
 
+static void wii_fsm_dump_eeprom(struct uni_hid_device_s* d) {
+#if ENABLE_EEPROM_DUMP
+  wii_instance_t* ins = get_wii_instance(d);
+  uint32_t addr = ins->debug_addr;
+
+  ins->state = WII_FSM_DUMP_EEPROM_IN_PROGRESS;
+
+  if (addr >= WII_DUMP_ROM_DATA_ADDR_END || ins->debug_fd < 0) {
+    ins->state = WII_FSM_DUMP_EEPROM_FINISHED;
+    close(ins->debug_fd);
+    wii_process_fsm(d);
+    return;
+  }
+
+  wii_read_mem(d, WII_READ_FROM_MEM, ins->debug_addr, WII_DUMP_ROM_DATA_SIZE);
+  ins->debug_addr += WII_DUMP_ROM_DATA_SIZE;
+#else
+  wii_instance_t* ins = get_wii_instance(d);
+  ins->state = WII_FSM_DUMP_EEPROM_FINISHED;
+  wii_process_fsm(d);
+#endif  // ENABLE_EEPROM_DUMP
+}
+
 static void wii_process_fsm(uni_hid_device_t* d) {
   wii_instance_t* ins = get_wii_instance(d);
   switch (ins->state) {
-    case WII_FSM_INITIAL:
+    case WII_FSM_SETUP:
+    case WII_FSM_DUMP_EEPROM_IN_PROGRESS:
+      wii_fsm_dump_eeprom(d);
+      break;
+    case WII_FSM_DUMP_EEPROM_FINISHED:
       wii_fsm_req_status(d);
       break;
     case WII_FSM_DID_REQ_STATUS:
@@ -866,9 +963,9 @@ static void wii_process_fsm(uni_hid_device_t* d) {
       wii_fsm_ext_encrypt_off(d);
       break;
     case WII_FSM_EXT_DID_NO_ENCRYPTION:
-      wii_fsm_ext_read_mem(d);
+      wii_fsm_ext_read_register(d);
       break;
-    case WII_FSM_EXT_DID_READ_EXT:
+    case WII_FSM_EXT_DID_READ_REGISTER:
       // Do nothing
       break;
     case WII_FSM_DEV_GUESSED:
@@ -888,11 +985,20 @@ static void wii_process_fsm(uni_hid_device_t* d) {
 void uni_hid_parser_wii_setup(uni_hid_device_t* d) {
   wii_instance_t* ins = get_wii_instance(d);
 
-  ins->state = WII_FSM_INITIAL;
+  ins->state = WII_FSM_SETUP;
 
   // Start with 0xa40000 (all Wii devices, except for the Wii Remote Plus)
   // If it fails it will use 0xa60000
   ins->register_address = 0xa4;
+
+  // Dump EEPROM
+#if ENABLE_EEPROM_DUMP
+  ins->debug_addr = WII_DUMP_ROM_DATA_ADDR_START;
+  ins->debug_fd = open("/tmp/wii_eeprom.bin", O_CREAT | O_RDWR);
+  if (ins->debug_fd < 0) {
+    loge("Wii: failed to create dump file");
+  }
+#endif  // ENABLE_EEPROM_DUMP
 
   wii_process_fsm(d);
 }
@@ -971,4 +1077,18 @@ void uni_hid_parser_wii_update_led(uni_hid_device_t* d) {
 //
 static wii_instance_t* get_wii_instance(uni_hid_device_t* d) {
   return (wii_instance_t*)&d->data[0];
+}
+
+static void wii_read_mem(uni_hid_device_t* d, wii_read_type_t t,
+                         uint32_t offset, uint16_t size) {
+  logi("****** read_mem: offset=0x%04x, size=%d from=%d\n", offset, size, t);
+  uint8_t report[] = {
+      // clang-format off
+      0xa2, WIIPROTO_REQ_RMEM,
+      t, // Read from registers or memory
+      (offset & 0xff0000) >> 16, (offset & 0xff00) >> 8, (offset & 0xff), // Offset
+      (size & 0xff00) >> 8, (size & 0xff), // Size in bytes
+      // clang-format on
+  };
+  uni_hid_device_send_report(d, report, sizeof(report));
 }
