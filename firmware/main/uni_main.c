@@ -16,6 +16,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ****************************************************************************/
 
+#include "btstack_port_esp32.h"
+#include "btstack_run_loop.h"
+#include "hci_dump.h"
+
 #include "uni_bluetooth.h"
 #include "uni_config.h"
 #include "uni_hid_device.h"
@@ -43,6 +47,22 @@ int btstack_main(int argc, const char** argv) {
 
   // Continue with bluetooth setup.
   uni_bluetooth_init();
+
+  return 0;
+}
+
+int app_main(void) {
+
+  //hci_dump_open(NULL, HCI_DUMP_STDOUT);
+
+  // Configure BTstack for ESP32 VHCI Controller
+  btstack_init();
+
+  // Setup example
+  btstack_main(0, NULL);
+
+  // Enter run loop (forever)
+  btstack_run_loop_execute();
 
   return 0;
 }
