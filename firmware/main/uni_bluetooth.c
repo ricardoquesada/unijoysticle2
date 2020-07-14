@@ -117,10 +117,15 @@ static void hid_host_setup(void) {
   hci_event_callback_registration.callback = &packet_handler;
   hci_add_event_handler(&hci_event_callback_registration);
 
-  l2cap_register_service(packet_handler, PSM_HID_INTERRUPT, L2CAP_CHANNEL_MTU,
-                         LEVEL_2);
-  l2cap_register_service(packet_handler, PSM_HID_CONTROL, L2CAP_CHANNEL_MTU,
-                         LEVEL_2);
+
+  int security_level = gap_get_security_level();
+  logi("USING SECURITY: %d\n", security_level);
+  l2cap_register_service(packet_handler, PSM_HID_INTERRUPT, L2CAP_CHANNEL_MTU, security_level);
+  l2cap_register_service(packet_handler, PSM_HID_CONTROL, L2CAP_CHANNEL_MTU, security_level);
+
+  // To force PIN auth, we should use security level 0
+  //logi("Forcing security level 0 to use PIN auth\n");
+  //gap_set_security_level(0);
 
   // Disable stdout buffering
   setbuf(stdout, NULL);
@@ -316,13 +321,19 @@ static void packet_handler(uint8_t packet_type, uint16_t channel,
         }
         case HCI_EVENT_PIN_CODE_REQUEST: {
           bd_addr_t pin_code;
+          bd_addr_t local_addr;
           logi("--> HCI_EVENT_PIN_CODE_REQUEST\n");
-          // FIXME: Assumes an incoming connection from Nintendo Wii was
-          // initiated. Sending reversed mac-address as pin.
+          // FIXME: Assumes incoming connection from Nintendo Wii using Sync.
+          //
+          // From: https://wiibrew.org/wiki/Wiimote#Bluetooth_Pairing:
+          //  If connecting by holding down the 1+2 buttons, the PIN is the
+          //  bluetooth address of the wiimote backwards, if connecting by
+          //  pressing the "sync" button on the back of the wiimote, then the
+          //  PIN is the bluetooth address of the host backwards.
           hci_event_pin_code_request_get_bd_addr(packet, event_addr);
-          // Pin is the reversed address
-          reverse_bd_addr(event_addr, pin_code);
-          logi("Using pin code: ");
+          gap_local_bd_addr(local_addr);
+          reverse_bd_addr(local_addr, pin_code);
+          logi("Using PIN code: \n");
           printf_hexdump(pin_code, sizeof(pin_code));
           hci_send_cmd(&hci_pin_code_request_reply, event_addr,
                        sizeof(pin_code), pin_code);
