@@ -119,13 +119,13 @@ static void hid_host_setup(void) {
 
 
   int security_level = gap_get_security_level();
-  logi("USING SECURITY: %d\n", security_level);
+  logi("Gap security level: %d\n", security_level);
   l2cap_register_service(packet_handler, PSM_HID_INTERRUPT, L2CAP_CHANNEL_MTU, security_level);
   l2cap_register_service(packet_handler, PSM_HID_CONTROL, L2CAP_CHANNEL_MTU, security_level);
 
-  // To force PIN auth, we should use security level 0
-  //logi("Forcing security level 0 to use PIN auth\n");
-  //gap_set_security_level(0);
+  // Using a minimum of 7 bytes needed for Nintendo Wii / Wii U controllers.
+  // See: https://github.com/bluekitchen/btstack/issues/299
+  gap_set_required_encryption_key_size(7);
 
   // Disable stdout buffering
   setbuf(stdout, NULL);
