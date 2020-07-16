@@ -117,11 +117,12 @@ static void hid_host_setup(void) {
   hci_event_callback_registration.callback = &packet_handler;
   hci_add_event_handler(&hci_event_callback_registration);
 
-
   int security_level = gap_get_security_level();
   logi("Gap security level: %d\n", security_level);
-  l2cap_register_service(packet_handler, PSM_HID_INTERRUPT, L2CAP_CHANNEL_MTU, security_level);
-  l2cap_register_service(packet_handler, PSM_HID_CONTROL, L2CAP_CHANNEL_MTU, security_level);
+  l2cap_register_service(packet_handler, PSM_HID_INTERRUPT, L2CAP_CHANNEL_MTU,
+                         security_level);
+  l2cap_register_service(packet_handler, PSM_HID_CONTROL, L2CAP_CHANNEL_MTU,
+                         security_level);
 
   // Using a minimum of 7 bytes needed for Nintendo Wii / Wii U controllers.
   // See: https://github.com/bluekitchen/btstack/issues/299
