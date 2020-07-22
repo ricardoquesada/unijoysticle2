@@ -95,9 +95,7 @@ Tested gamepads so far.
 - LEDs #1 and #2 indicates what joystick is being controlled.
   - E.g: If LED #1 is lit, it means that the Wii Remote is controlling Joystick #1.
 - Press *Home* button to swap joystick port
-- Known issues: [issue #6][issue_6]
-
-[issue_6]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/6
+- To start pairing, use the "Sync" method (press "Sync" button).
 
 ### Sideways mode
 
@@ -185,7 +183,6 @@ Classic Controller can be used.
   - *A* for Jump
   - *Right shoulder* for Auto-fire
   - *Home* button to swap joystick port
-- Known issues: [issue #6][issue_6]
 
 [wii_u_pro]: https://lh3.googleusercontent.com/kfKAySKzV-lLG7VmQGfCES1KuhtjBcTIfMzo59FgABcL7Ir9Tp7fQqrTP2iFqf8UVIhce1JhIXyBN_EH9eXpjlf5Q4b9NhhyxrFX9H0yVVRF0_pghjjz3pVqmY4uxS-FMgr7FC7egNo=w360-no
 
@@ -259,7 +256,7 @@ Clones and "licensed by Nintendo" controllers should also work supported Ok.
   - *A* for Jump
   - *Right shoulder* for Auto-fire
   - *Start* (or *Home*) to swap joystick port (depends on the 8Bitdo controller)
-- Known issues: [issue #3][issue_3], [issue #10][issue_10]
+- Known issues: [issue #10][issue_10]
 
 [8bitdo_sn30_pro_img]: https://lh3.googleusercontent.com/KX3q2kT7UZcEDGN8953RB7msPV343Gworbgaq-eLeKtqSzjTlOIUkoCf0QAf2GrnroQm0ADOCDgj3rK8EWpl2tfqScqExsiSorWZFf7lzA8-m1EoYYkVyjYaeFsSxzcC17kw9CkMNWQ=-no
 [8bitdo_nes30]: https://www.google.com/search?q=8bitdo+nes30
