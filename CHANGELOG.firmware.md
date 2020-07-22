@@ -4,8 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.1.0] - 2020-07-21
+## [1.1.0] - 2020-07-22
 - Firmware: Nintendo Wii/Wii U: auth works as expected.
+- Firmware: use gap_pin_code_response() to send Pin codes.
 - Firmware: "idf.py build" fixed
 - Reconnection works!
 - ESP-IDF: Using v4.1-beta2 - c5cb44d8135a5ec6678259e30468632bc2442288
