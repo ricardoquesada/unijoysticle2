@@ -321,7 +321,9 @@ static void packet_handler(uint8_t packet_type, uint16_t channel,
           break;
         }
         case HCI_EVENT_PIN_CODE_REQUEST: {
-          bd_addr_t pin_code;
+          // gap_pin_code_response_binary does not copy the data, and data must
+          // be valid until the next hci_send_cmd is called.
+          static bd_addr_t pin_code;
           bd_addr_t local_addr;
           logi("--> HCI_EVENT_PIN_CODE_REQUEST\n");
           // FIXME: Assumes incoming connection from Nintendo Wii using Sync.
@@ -336,8 +338,7 @@ static void packet_handler(uint8_t packet_type, uint16_t channel,
           reverse_bd_addr(local_addr, pin_code);
           logi("Using PIN code: \n");
           printf_hexdump(pin_code, sizeof(pin_code));
-          hci_send_cmd(&hci_pin_code_request_reply, event_addr,
-                       sizeof(pin_code), pin_code);
+          gap_pin_code_response_binary(event_addr, pin_code, sizeof(pin_code));
           break;
         }
         case HCI_EVENT_USER_CONFIRMATION_REQUEST:
