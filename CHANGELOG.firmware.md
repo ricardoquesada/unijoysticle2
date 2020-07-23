@@ -4,14 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.1.0] - 2020-07-22
+## [1.1.0] - 2020-07-23
 - Firmware: Nintendo Wii/Wii U: auth works as expected.
 - Firmware: use gap_pin_code_response() to send Pin codes.
             iCade + Nintendo Wii works in any situation.
 - Firmware: "idf.py build" fixed
-- Reconnection works!
+- Firmware: Gamepad Reconnection works.
 - ESP-IDF: Using v4.1-beta2 - c5cb44d8135a5ec6678259e30468632bc2442288
-- BTstack: Using master 2020-07-10 - 4ebf3b58f139fa6bb126f8ba357c6a1cf2677902
+- BTstack: Using develop 2020-07-23 - 2992f73460b28b1f150ed983204620fbe35503bc
 
 ## [1.0.0] - 2020-02-29 (abuelito Ricardo release)
 - Firmware: Nintendo Switch Pro: turns on LED when connected
