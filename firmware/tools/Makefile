@@ -35,6 +35,12 @@ VPATH += ${BTSTACK_ROOT}/chipset/zephyr
 CFLAGS  += $(shell pkg-config libusb-1.0 --cflags) -I../main
 LDFLAGS += $(shell pkg-config libusb-1.0 --libs)
 
+EXAMPLES = ${EXAMPLES_GENERAL} ${EXAMPLES_CLASSIC_ONLY} ${EXAMPLES_LE_ONLY} ${EXAMPLES_DUAL_MODE}
+EXAMPLES += pan_lwip_http_server
+EXAMPLES += csr_set_bd_addr
+
+csr_set_bd_addr: ${CORE_OBJ} ${COMMON_OBJ} btstack_chipset_csr.o csr_set_bd_addr.o
+	${CC} $^ ${CFLAGS} ${LDFLAGS} -o $@
 
 # use pkg-config for portaudio
 # CFLAGS  += $(shell pkg-config portaudio-2.0 --cflags) -DHAVE_PORTAUDIO
@@ -63,4 +69,4 @@ unijoysticle: ${CORE_OBJ} ${COMMON_OBJ} ${CLASSIC_OBJ} ${SDP_CLIENT} btstack_rin
 	uni_platform_pc.o
 	${CC} $^ ${CFLAGS} ${LDFLAGS} -o $@
 
-all: unijoysticle
+all: unijoysticle ${EXAMPLES}
