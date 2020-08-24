@@ -50,4 +50,9 @@ limitations under the License.
 // Using report 0x11 is needed to change the DUALSHOCK4 LEDs
 #define UNI_USE_DUALSHOCK4_REPORT_0x11 1  // Enabled if 1
 
+// Whether or not Bluetooth Low Energy should also be enabled.
+// Most if not all gamepads use "Bluetooth Classic", so BLE is not needed.
+// But some remotes and other "weird" controllers use BLE.
+#define UNI_BLE_ENABLED 1  // Enabled if 1
+
 #endif  // UNI_CONFIG_H
