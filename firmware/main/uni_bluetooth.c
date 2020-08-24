@@ -78,18 +78,7 @@ static const unsigned int attribute_value_buffer_size =
     MAX_ATTRIBUTE_VALUE_SIZE;
 
 static btstack_packet_callback_registration_t hci_event_callback_registration;
-static btstack_packet_callback_registration_t sm_event_callback_registration;
 
-static gatt_client_service_t hid_service;
-static gatt_client_characteristic_t protocol_mode_characteristic;
-static gatt_client_characteristic_t boot_keyboard_input_characteristic;
-static gatt_client_characteristic_t boot_mouse_input_characteristic;
-static gatt_client_notification_t   keyboard_notifications;
-static gatt_client_notification_t   mouse_notifications;
-static hci_con_handle_t connection_handle;
-
-static void sm_packet_handler(uint8_t packet_type, uint16_t channel,
-                              uint8_t* packet, uint16_t size);
 static void packet_handler(uint8_t packet_type, uint16_t channel,
                            uint8_t* packet, uint16_t size);
 static void handle_sdp_hid_query_result(uint8_t packet_type, uint16_t channel,
@@ -257,154 +246,6 @@ static void handle_sdp_pid_query_result(uint8_t packet_type, uint16_t channel,
   }
 }
 
-static bool adv_event_contains_hid_service(const uint8_t* packet) {
-  const uint8_t* ad_data = gap_event_advertising_report_get_data(packet);
-  uint16_t ad_len = gap_event_advertising_report_get_data_length(packet);
-  return ad_data_contains_uuid16(ad_len, ad_data,
-                                 ORG_BLUETOOTH_SERVICE_HUMAN_INTERFACE_DEVICE);
-}
-
-static void handle_gatt_client_event(uint8_t packet_type, uint16_t channel,
-                                     uint8_t* packet, uint16_t size) {
-  UNUSED(packet_type);
-  UNUSED(channel);
-  UNUSED(size);
-  gatt_client_characteristic_t characteristic;
-  static int query_done = 0;
-  static uint8_t boot_protocol_mode = 0;
-
-  switch (hci_event_packet_get_type(packet)) {
-    case GATT_EVENT_SERVICE_QUERY_RESULT:
-      printf("--> GATT_EVENT_SERVICE_QUERY_RESULT <--\n");
-      // store service (we expect only one)
-      gatt_event_service_query_result_get_service(packet, &hid_service);
-      break;
-    case GATT_EVENT_QUERY_COMPLETE:
-      printf("--> GATT_EVENT_QUERY_COMPLETE <--\n");
-      if (gatt_event_query_complete_get_att_status(packet) !=
-          ATT_ERROR_SUCCESS) {
-        printf("ATT Error status %x.\n",
-               gatt_event_query_complete_get_att_status(packet));
-        gap_disconnect(connection_handle);
-        break;
-      }
-      printf("Find required HID Service Characteristics...\n");
-      if (!query_done) {
-        gatt_client_discover_characteristics_for_service(
-            &handle_gatt_client_event, connection_handle, &hid_service);
-        query_done = 1;
-        gatt_client_write_value_of_characteristic_without_response(
-            connection_handle, protocol_mode_characteristic.value_handle, 1,
-            &boot_protocol_mode);
-      }
-      break;
-    case GATT_EVENT_CHARACTERISTIC_QUERY_RESULT:
-      printf("--> GATT_EVENT_CHARACTERISTIC_QUERY_RESULT <--\n");
-      // get characteristic
-      gatt_event_characteristic_query_result_get_characteristic(
-          packet, &characteristic);
-      switch (characteristic.uuid16) {
-        case ORG_BLUETOOTH_CHARACTERISTIC_BOOT_KEYBOARD_INPUT_REPORT:
-          printf(
-              "Found CHARACTERISTIC_BOOT_KEYBOARD_INPUT_REPORT, value handle "
-              "0x%04x\n",
-              characteristic.value_handle);
-          memcpy(&boot_keyboard_input_characteristic, &characteristic,
-                 sizeof(gatt_client_characteristic_t));
-          gatt_client_write_client_characteristic_configuration(
-              &handle_gatt_client_event, connection_handle,
-              &boot_keyboard_input_characteristic,
-              GATT_CLIENT_CHARACTERISTICS_CONFIGURATION_NOTIFICATION);
-          break;
-        case ORG_BLUETOOTH_CHARACTERISTIC_BOOT_MOUSE_INPUT_REPORT:
-          printf(
-              "Found CHARACTERISTIC_BOOT_MOUSE_INPUT_REPORT, value handle "
-              "0x%04x\n",
-              characteristic.value_handle);
-          memcpy(&boot_mouse_input_characteristic, &characteristic,
-                 sizeof(gatt_client_characteristic_t));
-          break;
-        case ORG_BLUETOOTH_CHARACTERISTIC_PROTOCOL_MODE:
-          printf("Found CHARACTERISTIC_PROTOCOL_MODE\n");
-          memcpy(&protocol_mode_characteristic, &characteristic,
-                 sizeof(gatt_client_characteristic_t));
-          break;
-        case ORG_BLUETOOTH_CHARACTERISTIC_BOOT_KEYBOARD_OUTPUT_REPORT:
-          printf(
-              "Found CHARACTERISTIC_BOOT_KEYBOARD_OUTPUT_REPORT, value handle "
-              "0x%04x\n",
-              characteristic.value_handle);
-          break;
-        case ORG_BLUETOOTH_CHARACTERISTIC_HID_INFORMATION:
-          printf("Found CHARACTERISTIC_HID_INFORMATION\n");
-          break;
-        case ORG_BLUETOOTH_CHARACTERISTIC_REPORT_MAP:
-          printf("Found CHARACTERISTIC_REPORT_MAP\n");
-          break;
-        case ORG_BLUETOOTH_CHARACTERISTIC_HID_CONTROL_POINT:
-          printf("Found CHARACTERISTIC_HID_CONTROL_POINT\n");
-          break;
-        case ORG_BLUETOOTH_CHARACTERISTIC_REPORT:
-          printf("Found CHARACTERISTIC_REPORT\n");
-          break;
-        default:
-          printf("default char: characteristic.uuid16 0x%04x = 0x%04x\n",
-                 characteristic.uuid16, characteristic.value_handle);
-          break;
-      }
-      break;
-    default:
-      printf("--> Unknown event: 0x%04x <--\n", hci_event_packet_get_type(packet));
-      break;
-  }
-}
-
-static void sm_packet_handler(uint8_t packet_type, uint16_t channel,
-                              uint8_t* packet, uint16_t size) {
-  UNUSED(channel);
-  UNUSED(size);
-
-  if (packet_type != HCI_EVENT_PACKET) return;
-
-  switch (hci_event_packet_get_type(packet)) {
-    case SM_EVENT_JUST_WORKS_REQUEST:
-      printf("Just works requested\n");
-      sm_just_works_confirm(sm_event_just_works_request_get_handle(packet));
-      break;
-    case SM_EVENT_NUMERIC_COMPARISON_REQUEST:
-      printf("Confirming numeric comparison: %" PRIu32 "\n",
-             sm_event_numeric_comparison_request_get_passkey(packet));
-      sm_numeric_comparison_confirm(
-          sm_event_passkey_display_number_get_handle(packet));
-      break;
-    case SM_EVENT_PASSKEY_DISPLAY_NUMBER:
-      printf("Display Passkey: %" PRIu32 "\n",
-             sm_event_passkey_display_number_get_passkey(packet));
-      break;
-    case SM_EVENT_PAIRING_COMPLETE:
-      switch (sm_event_pairing_complete_get_status(packet)) {
-        case ERROR_CODE_SUCCESS:
-          printf("Pairing complete, success\n");
-          break;
-        case ERROR_CODE_CONNECTION_TIMEOUT:
-          printf("Pairing failed, timeout\n");
-          break;
-        case ERROR_CODE_REMOTE_USER_TERMINATED_CONNECTION:
-          printf("Pairing faileed, disconnected\n");
-          break;
-        case ERROR_CODE_AUTHENTICATION_FAILURE:
-          printf("Pairing failed, reason = %u\n",
-                 sm_event_pairing_complete_get_reason(packet));
-          break;
-        default:
-          break;
-      }
-      break;
-    default:
-      break;
-  }
-}
-
 static void packet_handler(uint8_t packet_type, uint16_t channel,
                            uint8_t* packet, uint16_t size) {
   static uint8_t bt_ready = 0;
@@ -567,72 +408,10 @@ static void packet_handler(uint8_t packet_type, uint16_t channel,
           uni_hid_device_request_inquire();
           continue_remote_names();
           break;
-        // BLE
-        case GAP_EVENT_ADVERTISING_REPORT: {
-          logi("--> GAP_EVENT_ADVERTISING_REPORT\n");
-          gap_event_advertising_report_get_address(packet, event_addr);
-          uint8_t event_type =
-              gap_event_advertising_report_get_advertising_event_type(packet);
-          uint8_t address_type =
-              gap_event_advertising_report_get_address_type(packet);
-          int8_t rssi = gap_event_advertising_report_get_rssi(packet);
-          uint8_t length = gap_event_advertising_report_get_data_length(packet);
-          const uint8_t* data = gap_event_advertising_report_get_data(packet);
-
-          logi(
-              "Advertisement event: evt-type %u, addr-type %u, addr %s, rssi "
-              "%d, "
-              "data[%u] ",
-              event_type, address_type, bd_addr_to_str(event_addr), rssi,
-              length);
-          printf_hexdump(data, length);
-          if (adv_event_contains_hid_service(packet)) {
-            logi("HID device found\n");
-            gap_stop_scan();
-            gap_connect(event_addr, address_type);
-          }
-          break;
-        }
-        case HCI_EVENT_LE_META: {
-          logi("--> HCI_EVENT_LE_META\n");
-          // wait for connection complete
-          if (hci_event_le_meta_get_subevent_code(packet) !=
-              HCI_SUBEVENT_LE_CONNECTION_COMPLETE)
-            break;
-          connection_handle =
-              hci_subevent_le_connection_complete_get_connection_handle(packet);
-          hci_subevent_le_connection_complete_get_peer_address(packet,
-                                                               event_addr);
-          printf("Connection complete\n");
-          sm_request_pairing(connection_handle);
-          //          uni_hid_device_t* d = uni_hid_device_create(event_addr);
-          //          uni_hid_device_set_connection_handle(d, handle);
-          //          uni_hid_device_dump_device(d);
-          break;
-        }
-        case HCI_EVENT_ENCRYPTION_CHANGE: {
-          logi("--> HCI_EVENT_ENCRYPTION_CHANGE\n");
-          if (connection_handle !=
-              hci_event_encryption_change_get_connection_handle(packet))
-            break;
-          printf("Connection encrypted: %u\n",
-                 hci_event_encryption_change_get_encryption_enabled(packet));
-          if (hci_event_encryption_change_get_encryption_enabled(packet) == 0) {
-            printf("Encryption failed -> abort\n");
-            gap_disconnect(connection_handle);
-            gap_start_scan();
-            break;
-          }
-          // continue - query primary services
-          printf("Search for HID service.\n");
-          gatt_client_discover_primary_services_by_uuid16(
-              handle_gatt_client_event, connection_handle,
-              ORG_BLUETOOTH_SERVICE_HUMAN_INTERFACE_DEVICE);
-          break;
-        }
         default:
           break;
       }
+      break;
     case L2CAP_DATA_PACKET:
       on_l2cap_data_packet(channel, packet, size);
       break;
@@ -1173,28 +952,6 @@ int uni_bluetooth_init(void) {
 
   // enabled EIR
   hci_set_inquiry_mode(INQUIRY_MODE_RSSI_AND_EIR);
-
-#if UNI_BLE_ENABLED
-  logi("BLE enabled\n");
-  // setup le device db
-  le_device_db_init();
-
-  // allow for role switch in general and sniff mode
-  gap_set_default_link_policy_settings(LM_LINK_POLICY_ENABLE_ROLE_SWITCH |
-                                       LM_LINK_POLICY_ENABLE_SNIFF_MODE);
-
-  // setup SM: Display only
-  sm_init();
-  gatt_client_init();
-
-  sm_event_callback_registration.callback = &sm_packet_handler;
-  sm_add_event_handler(&sm_event_callback_registration);
-
-  // Active scanning, 100% (scan interval = scan window), unit=0.625 msec
-  // 0=Passive, 1=Active
-  gap_set_scan_parameters(0, 48, 48);
-  gap_start_scan();
-#endif  // UNI_BLE_ENABLED
 
   // register for HCI events
   hci_event_callback_registration.callback = &packet_handler;

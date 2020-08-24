@@ -5,7 +5,6 @@ CORE += main.c btstack_stdin_posix.c btstack_tlv_posix.c
 
 COMMON += hci_transport_h2_libusb.c btstack_run_loop_posix.c le_device_db_tlv.c btstack_link_key_db_tlv.c wav_util.c btstack_network_posix.c
 COMMON += btstack_audio_portaudio.c btstack_chipset_zephyr.c rijndael.c
-COMMON += gatt_client.c att_dispatch.c att_server.c att_db.c
 
 include ${BTSTACK_ROOT}/example/Makefile.inc
 
@@ -72,6 +71,7 @@ unijoysticle: ${CORE_OBJ} ${COMMON_OBJ} ${CLASSIC_OBJ} ${SDP_CLIENT} btstack_rin
 	${CC} $^ ${CFLAGS} ${LDFLAGS} -o $@
 
 ble_host:  ${CORE_OBJ} ${COMMON_OBJ} ${CLASSIC_OBJ} ${SDP_CLIENT} btstack_ring_buffer.o btstack_hid_parser.o \
+	gatt_client.o att_dispatch.o att_server.o att_db.o \
 	ble_host.o
 
 all: unijoysticle ble_host ${EXAMPLES}
