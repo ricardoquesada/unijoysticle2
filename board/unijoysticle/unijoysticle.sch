@@ -1,5 +1,4 @@
 EESchema Schematic File Version 4
-LIBS:unijoysticle-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
@@ -7,7 +6,7 @@ encoding utf-8
 Sheet 1 1
 Title "Unijoysticle 2"
 Date "2019-09-27"
-Rev "D"
+Rev "F"
 Comp "Retro Moe"
 Comment1 "Ricardo Quesada"
 Comment2 ""
@@ -431,17 +430,6 @@ F 3 "~" H 1650 6950 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Diode:1N4001 D3
-U 1 1 5CA00191
-P 4300 6900
-F 0 "D3" H 4300 6684 50  0000 C CNN
-F 1 "1N4001" H 4300 6775 50  0000 C CNN
-F 2 "Diode_THT:D_DO-41_SOD81_P7.62mm_Horizontal" H 4300 6725 50  0001 C CNN
-F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 4300 6900 50  0001 C CNN
-	1    4300 6900
-	-1   0    0    1   
-$EndComp
-$Comp
 L Connector:Barrel_Jack J3
 U 1 1 5CA09684
 P 3600 7000
@@ -522,17 +510,6 @@ Wire Wire Line
 Connection ~ 5550 7150
 Wire Wire Line
 	5550 7150 5550 7350
-$Comp
-L Diode:1N4001 D4
-U 1 1 5DA3B4FA
-P 5950 7150
-F 0 "D4" V 5904 7229 50  0000 L CNN
-F 1 "1N4001" V 5995 7229 50  0000 L CNN
-F 2 "Diode_THT:D_DO-41_SOD81_P7.62mm_Horizontal" H 5950 6975 50  0001 C CNN
-F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 5950 7150 50  0001 C CNN
-	1    5950 7150
-	-1   0    0    1   
-$EndComp
 Wire Wire Line
 	6250 6650 6250 6550
 Wire Notes Line
@@ -846,4 +823,50 @@ F 3 "~" H 10450 1100 50  0001 C CNN
 	1    10450 1100
 	-1   0    0    1   
 $EndComp
+$Comp
+L Device:D_Schottky D3
+U 1 1 5F66A0AA
+P 4300 6900
+F 0 "D3" H 4300 6683 50  0000 C CNN
+F 1 "D_Schottky" H 4300 6774 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 4300 6900 50  0001 C CNN
+F 3 "~" H 4300 6900 50  0001 C CNN
+	1    4300 6900
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:D_Schottky D4
+U 1 1 5F66BD2F
+P 5950 7150
+F 0 "D4" H 5950 6933 50  0000 C CNN
+F 1 "D_Schottky" H 5950 7024 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 5950 7150 50  0001 C CNN
+F 3 "~" H 5950 7150 50  0001 C CNN
+	1    5950 7150
+	-1   0    0    1   
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H1
+U 1 1 5F6B0E64
+P 10000 1750
+F 0 "H1" H 10100 1799 50  0000 L CNN
+F 1 "MountingHole_Pad" H 10100 1708 50  0000 L CNN
+F 2 "MountingHole:MountingHole_2.2mm_M2_Pad" H 10000 1750 50  0001 C CNN
+F 3 "~" H 10000 1750 50  0001 C CNN
+	1    10000 1750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0116
+U 1 1 5F6BE84B
+P 10000 2050
+F 0 "#PWR0116" H 10000 1800 50  0001 C CNN
+F 1 "GND" H 10005 1877 50  0000 C CNN
+F 2 "" H 10000 2050 50  0001 C CNN
+F 3 "" H 10000 2050 50  0001 C CNN
+	1    10000 2050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10000 1850 10000 2050
 $EndSCHEMATC
