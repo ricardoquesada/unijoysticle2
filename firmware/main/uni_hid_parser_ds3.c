@@ -27,22 +27,13 @@ limitations under the License.
 
 #include "uni_hid_parser_ds3.h"
 
+#include <string.h>
+
 #include "hid_usage.h"
 #include "uni_config.h"
 #include "uni_debug.h"
 #include "uni_hid_device.h"
 #include "uni_hid_parser.h"
-
-// Dual Shock 3 Control Packet, as defined in
-// https://github.com/ros-drivers/joystick_drivers/blob/52e8fcfb5619382a04756207b228fbc569f9a3ca/ps3joy/scripts/ps3joy_node.py#L276
-static uint8_t ds3_control_packet[] = {
-    0x52, 0x01, 0x00, 0xff, 0x00, 0xff, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0xff, 0x27, 0x10, 0x00, 0x32, 0xff, 0x27, 0x10,
-    0x00, 0x32, 0xff, 0x27, 0x10, 0x00, 0x32, 0xff, 0x27, 0x10,
-    0x00, 0x32, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-
-#define PS3_REPORT_BUFFER_SIZE 48
 
 enum ps3_packet_index {
   ps3_packet_index_buttons_raw = 2,
@@ -106,11 +97,13 @@ enum ps3_led_mask {
   ps3_led_mask_led4 = 1 << 4,
 };
 
+
+
 void uni_hid_parser_ds3_init_report(uni_hid_device_t* d) {
   memset(&d->gamepad, 0, sizeof(d->gamepad));
 }
 
-void buttonMapper(const uint32_t ps3_buttons_raw, uni_gamepad_t* gp) {
+void button_mapper(const uint32_t ps3_buttons_raw, uni_gamepad_t* gp) {
   uint32_t ps3_dpad_buttons[] = {ps3_button_mask_up, ps3_button_mask_down,
                                  ps3_button_mask_left, ps3_button_mask_right};
   uint8_t dpad_buttons[] = {DPAD_UP, DPAD_DOWN, DPAD_LEFT, DPAD_RIGHT};
@@ -178,10 +171,11 @@ void buttonMapper(const uint32_t ps3_buttons_raw, uni_gamepad_t* gp) {
 
 void uni_hid_parser_ds3_parse_raw(uni_hid_device_t* d, const uint8_t* report,
                                   uint16_t len) {
+  printf_hexdump(report, len);
   uni_gamepad_t* gp = &d->gamepad;
 
   // Mapping buttons as on-off trigger buttons
-  buttonMapper(*((uint32_t*)&report[ps3_packet_index_buttons_raw]), gp);
+  button_mapper(*((uint32_t*)&report[ps3_packet_index_buttons_raw]), gp);
 
   // Update Axis data
   const uint16_t int_offset = 0x80;
@@ -204,74 +198,41 @@ void uni_hid_parser_ds3_parse_raw(uni_hid_device_t* d, const uint8_t* report,
   gp->updated_states |= GAMEPAD_STATE_BRAKE | GAMEPAD_STATE_ACCELERATOR;
 }
 
-#define LED_OFFSET 11
-#define PACKET_OFFSET 0
-#define CONTROL_RETRY_TIMEOUT 100
-#define TIMER_RETRIES 3
-
-typedef void (*bt_control_func)(struct uni_hid_device_s*);
-static btstack_timer_source_t control_retry_timer;
-struct retry_contex_s {
-  bt_control_func func;
-  struct uni_hid_device_s* d;
-  char retries;
-};
-typedef struct retry_contex_s retry_contex_t;
-
-static void retry_handler(struct btstack_timer_source* ts) {
-  retry_contex_t* ctx = (retry_contex_t*)ts->context;
-  char retries = ctx->retries;
-  if (retries-- <= 0) {
-    return;
-  }
-  ctx->func(ctx->d);
-  ctx->retries = retries;
-}
-
-void prepare_retry(bt_control_func func, struct uni_hid_device_s* d,
-                   char retries) {
-  static retry_contex_t ctx;
-  ctx.func = func;
-  ctx.d = d;
-  ctx.retries = retries;
-
-  control_retry_timer.process = &retry_handler;
-  control_retry_timer.context = &ctx;
-  btstack_run_loop_set_timer(&control_retry_timer, CONTROL_RETRY_TIMEOUT);
-  btstack_run_loop_add_timer(&control_retry_timer);
-}
-
 void uni_hid_parser_ds3_update_led(uni_hid_device_t* d) {
-  uint8_t packet_buffer[sizeof(ds3_control_packet)];
-  memcpy(packet_buffer, ds3_control_packet, sizeof(ds3_control_packet));
-  packet_buffer[LED_OFFSET] = 0;
+  logi("DS3: Update LEDs\n");
+// Dual Shock 3 Control Packet, as defined in
+// https://github.com/ros-drivers/joystick_drivers/blob/52e8fcfb5619382a04756207b228fbc569f9a3ca/ps3joy/scripts/ps3joy_node.py#L276
+  uint8_t control_packet[] = {
+    0x52, // Transaction type
+    0x01, 0x00, 0xff, 0x00, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, // LED cmd
+    0xff, 0x27, 0x10, 0x00, 0x32,   // LED 4
+    0xff, 0x27, 0x10, 0x00, 0x32,   // LED 3
+    0xff, 0x27, 0x10, 0x00, 0x32,   // LED 2
+    0xff, 0x27, 0x10, 0x00, 0x32,   // LED 1
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+
+#define LED_OFFSET 11
+
+  control_packet[LED_OFFSET] = 0;
 
   if ((d->joystick_port & JOYSTICK_PORT_A) != 0) {
-    packet_buffer[LED_OFFSET] |= ps3_led_mask_led1;
+    control_packet[LED_OFFSET] |= ps3_led_mask_led1;
   }
 
   if ((d->joystick_port & JOYSTICK_PORT_B) != 0) {
-    packet_buffer[LED_OFFSET] |= ps3_led_mask_led2;
+    control_packet[LED_OFFSET] |= ps3_led_mask_led2;
   }
 
-  int err = l2cap_send(d->hid_control_cid, packet_buffer + PACKET_OFFSET,
-                       sizeof(ds3_control_packet) - PACKET_OFFSET);
-  if (err) {
-    logi("DS3: Could not update leds, retry");
-    prepare_retry(&uni_hid_parser_ds3_update_led, d, TIMER_RETRIES);
-  }
+  uni_hid_device_queue_ctrl_report(d, (uint8_t*)&control_packet, sizeof(control_packet));
 }
 
 void uni_hid_parser_ds3_setup(struct uni_hid_device_s* d) {
-  logi("DS3: Setup");
+  logi("DS3: Setup\n");
   // Dual Shock 3 Sixasis requires a magic packet to be sent in order to enable
   // reports Taken from:
   // https://github.com/ros-drivers/joystick_drivers/blob/52e8fcfb5619382a04756207b228fbc569f9a3ca/ps3joy/scripts/ps3joy_node.py#L299
   static uint8_t sixaxisEnableReports[] = {0x53, 0xf4, 0x42, 0x03, 0x00, 0x00};
-  int err = l2cap_send(d->hid_control_cid, sixaxisEnableReports,
-                       sizeof(sixaxisEnableReports));
-  if (err) {
-    logi("DS3: Could not setup, retry in 100ms");
-    prepare_retry(&uni_hid_parser_ds3_setup, d, TIMER_RETRIES);
-  }
+  uni_hid_device_queue_ctrl_report(d, (uint8_t*)&sixaxisEnableReports, sizeof(sixaxisEnableReports));
 }

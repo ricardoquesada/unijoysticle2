@@ -707,7 +707,6 @@ static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet,
     //printf_hexdump(packet, size);
     return;
   }
-  printf_hexdump(packet, size);
 
   if (channel != d->hid_interrupt_cid) return;
 

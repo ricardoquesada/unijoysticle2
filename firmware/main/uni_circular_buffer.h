@@ -34,6 +34,7 @@ enum {
 };
 
 typedef struct uni_ciruclar_buffer_data_s {
+  int16_t cid;
   uint8_t data[UNI_CIRCULAR_BUFFER_DATA_SIZE];
   int data_len;
 } uni_circular_buffer_data_t;
@@ -44,9 +45,9 @@ typedef struct uni_circular_buffer_s {
   int16_t tail_idx;
 } uni_circular_buffer_t;
 
-uint8_t uni_circular_buffer_put(uni_circular_buffer_t* b, const void* data,
+uint8_t uni_circular_buffer_put(uni_circular_buffer_t* b, int16_t cid, const void* data,
                                 int len);
-uint8_t uni_circular_buffer_get(uni_circular_buffer_t* b, void** data,
+uint8_t uni_circular_buffer_get(uni_circular_buffer_t* b, int16_t* cid, void** data,
                                 int* len);
 uint8_t uni_circular_buffer_is_empty(uni_circular_buffer_t* b);
 uint8_t uni_circular_buffer_is_full(uni_circular_buffer_t* b);
