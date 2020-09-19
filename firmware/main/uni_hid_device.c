@@ -26,6 +26,7 @@ limitations under the License.
 #include "uni_hid_device_vendors.h"
 #include "uni_hid_parser_8bitdo.h"
 #include "uni_hid_parser_android.h"
+#include "uni_hid_parser_ds3.h"
 #include "uni_hid_parser_ds4.h"
 #include "uni_hid_parser_generic.h"
 #include "uni_hid_parser_icade.h"
@@ -454,6 +455,14 @@ void uni_hid_device_guess_controller_type_from_pid_vid(uni_hid_device_t* d) {
       d->report_parser.parse_usage = uni_hid_parser_smarttvremote_parse_usage;
       d->report_parser.parse_raw = NULL;
       logi("Device detected as Smart TV remote: 0x%02x\n", type);
+      break;
+    case CONTROLLER_TYPE_PS3Controller:
+      d->report_parser.setup = uni_hid_parser_ds3_setup;
+      d->report_parser.init_report = uni_hid_parser_ds3_init_report;
+      d->report_parser.parse_raw = uni_hid_parser_ds3_parse_raw;
+      d->report_parser.update_led = uni_hid_parser_ds3_update_led;
+      d->report_parser.parse_usage = NULL;
+      logi("Device detected as DUALSHOCK3: 0x%02x\n", type);
       break;
     case CONTROLLER_TYPE_PS4Controller:
       d->report_parser.setup = NULL;

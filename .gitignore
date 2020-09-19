@@ -41,3 +41,6 @@ ui_*.h
 
 # Vagrant stuff
 .vagrant
+
+/firmware/build
+/firmware/.vscode
