@@ -794,7 +794,7 @@ static void wii_fsm_req_status(uni_hid_device_t* d) {
   wii_instance_t* ins = get_wii_instance(d);
   ins->state = WII_FSM_DID_REQ_STATUS;
   const uint8_t status[] = {0xa2, WIIPROTO_REQ_SREQ, 0x00 /* rumble off */};
-  uni_hid_device_queue_intr_report(d, status, sizeof(status));
+  uni_hid_device_send_intr_report(d, status, sizeof(status));
 }
 
 static void wii_fsm_ext_init(uni_hid_device_t* d) {
@@ -816,7 +816,7 @@ static void wii_fsm_ext_init(uni_hid_device_t* d) {
       // clang-format on
   };
   report[3] = ins->register_address;
-  uni_hid_device_queue_intr_report(d, report, sizeof(report));
+  uni_hid_device_send_intr_report(d, report, sizeof(report));
 }
 
 static void wii_fsm_ext_encrypt_off(uni_hid_device_t* d) {
@@ -838,7 +838,7 @@ static void wii_fsm_ext_encrypt_off(uni_hid_device_t* d) {
       // clang-format on
   };
   report[3] = ins->register_address;
-  uni_hid_device_queue_intr_report(d, report, sizeof(report));
+  uni_hid_device_send_intr_report(d, report, sizeof(report));
 }
 
 static void wii_fsm_ext_read_register(uni_hid_device_t* d) {
@@ -893,7 +893,7 @@ static void wii_fsm_assign_device(uni_hid_device_t* d) {
         }
       }
       uint8_t report[] = {0xa2, WIIPROTO_REQ_DRM, 0x00, reportType};
-      uni_hid_device_queue_intr_report(d, report, sizeof(report));
+      uni_hid_device_send_intr_report(d, report, sizeof(report));
       break;
     }
     case WII_DEVTYPE_PRO_CONTROLLER: {
@@ -901,7 +901,7 @@ static void wii_fsm_assign_device(uni_hid_device_t* d) {
       // 0x34 WIIPROTO_REQ_DRM_KEE (present in Wii U Pro controller)
       const uint8_t reportKee[] = {0xa2, WIIPROTO_REQ_DRM, 0x00,
                                    WIIPROTO_REQ_DRM_KEE};
-      uni_hid_device_queue_intr_report(d, reportKee, sizeof(reportKee));
+      uni_hid_device_send_intr_report(d, reportKee, sizeof(reportKee));
       break;
     }
   }
@@ -1068,7 +1068,7 @@ void uni_hid_parser_wii_update_led(uni_hid_device_t* d) {
     led |= 0x40;
   }
   report[2] = led;
-  uni_hid_device_queue_intr_report(d, report, sizeof(report));
+  uni_hid_device_send_intr_report(d, report, sizeof(report));
 }
 
 //
@@ -1089,5 +1089,5 @@ static void wii_read_mem(uni_hid_device_t* d, wii_read_type_t t,
       (size & 0xff00) >> 8, (size & 0xff), // Size in bytes
       // clang-format on
   };
-  uni_hid_device_queue_intr_report(d, report, sizeof(report));
+  uni_hid_device_send_intr_report(d, report, sizeof(report));
 }

@@ -858,7 +858,7 @@ static void send_subcmd(uni_hid_device_t* d, struct switch_subcmd_request* r,
   static uint8_t packet_num = 0;
   r->packet_num = packet_num++;
   if (packet_num > 0x0f) packet_num = 0;
-  uni_hid_device_queue_intr_report(d, (const uint8_t*)r, len);
+  uni_hid_device_send_intr_report(d, (const uint8_t*)r, len);
 }
 
 static int32_t calibrate_axis(int16_t v, switch_cal_stick_t cal) {

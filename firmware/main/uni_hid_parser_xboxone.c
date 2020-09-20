@@ -520,7 +520,7 @@ static void rumble(uni_hid_device_t* d) {
       .loop_count = 0,
   };
 
-  uni_hid_device_queue_intr_report(d, (uint8_t*)&ff, sizeof(ff));
+  uni_hid_device_send_intr_report(d, (uint8_t*)&ff, sizeof(ff));
 }
 
 //
