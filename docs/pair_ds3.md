@@ -6,8 +6,7 @@ The DUALSHOCK3 gamepad does not implement the entire Bluetooth stack. It require
 
 ### Fetch the Unijoysticle device Bluetooth Address
 
-* Connect a terminal to the Unijoysticle. If you don't know, read [the users guide][reporting_bugs],
-the section about reporting bugs.
+* Connect a terminal to the Unijoysticle. If you don't know, see [Reporting Bugs][reporting_bugs] in the Users Guide.
 
 * Reset the Unijoysticle
 
@@ -43,8 +42,7 @@ Btstack ready!
 
 The Unijoysticle Bluetooth Address is "CC:50:E3:AF:E2:96"
 
-
-[reporting_bugs]: docsuser_guide.md
+[reporting_bugs]: user_guide.md#reporting-bugs
 
 ### Plugin the DS3 gamepad
 
