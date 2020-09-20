@@ -26,6 +26,7 @@
 
 #include <stdint.h>
 
+// clang-format off
 typedef enum {
   CONTROLLER_TYPE_None = -1,
   CONTROLLER_TYPE_Unknown = 0,
@@ -50,9 +51,8 @@ typedef enum {
   CONTROLLER_TYPE_SwitchJoyConPair = 41,
   CONTROLLER_TYPE_SwitchInputOnlyController = 42,
   CONTROLLER_TYPE_MobileTouch = 43,
-  CONTROLLER_TYPE_XInputSwitchController =
-      44,  // Client-side only, used to mark Switch-compatible controllers as
-           // not supporting Switch controller protocol
+  CONTROLLER_TYPE_XInputSwitchController = 44,  // Client-side only, used to mark Switch-compatible controllers as
+                                                // not supporting Switch controller protocol
 
   CONTROLLER_TYPE_iCadeController = 45,          // (Unijoysticle)
   CONTROLLER_TYPE_SmartTVRemoteController = 46,  // (Unijoysticle)
@@ -61,14 +61,14 @@ typedef enum {
   CONTROLLER_TYPE_NimbusController = 49,         // (Unijoysticle)
   CONTROLLER_TYPE_OUYAController = 50,           // (Unijoysticle)
 
-  CONTROLLER_TYPE_LastController,  // Don't add game controllers below this
-                                   // enumeration - this enumeration can
-                                   // change value
+  CONTROLLER_TYPE_LastController,  // Don't add game controllers below this enumeration -
+                                   // this enumeration can change value
 
   // Keyboards and Mice
   CONTROLLER_TYPE_GenericKeyboard = 400,
   CONTROLLER_TYPE_GenericMouse = 800,
 } uni_controller_type_t;
+// clang-format on
 
 #define MAKE_CONTROLLER_ID(nVID, nPID) (uint32_t)(nVID << 16 | nPID)
 typedef struct {

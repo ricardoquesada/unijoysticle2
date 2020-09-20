@@ -35,6 +35,21 @@ limitations under the License.
 #include "uni_hid_device.h"
 #include "uni_hid_parser.h"
 
+// Required steps to determine what kind of extensions are supported.
+typedef enum ds3_fsm {
+  DS3_FSM_0,                    // Uninitialized
+  DS3_FSM_REQUIRES_LED_UPDATE,  // Requires LED to be updated
+  DS3_FSM_LED_UPDATED,          // LED updated
+} ds3_fsm_t;
+
+// ds3_instance_t represents data used by the DS3 driver instance.
+typedef struct ds3_instance_s {
+  ds3_fsm_t state;
+} ds3_instance_t;
+
+static ds3_instance_t* get_ds3_instance(uni_hid_device_t* d);
+static void update_led(uni_hid_device_t* d);
+
 enum ps3_packet_index {
   ps3_packet_index_buttons_raw = 2,
 
@@ -90,90 +105,82 @@ enum ps3_button_mask {
   ps3_button_mask_ps = 1 << 16
 };
 
-enum ps3_led_mask {
-  ps3_led_mask_led1 = 1 << 1,
-  ps3_led_mask_led2 = 1 << 2,
-  ps3_led_mask_led3 = 1 << 3,
-  ps3_led_mask_led4 = 1 << 4,
-};
-
 void uni_hid_parser_ds3_init_report(uni_hid_device_t* d) {
+  // Reset old state. Each report contains a full-state.
   memset(&d->gamepad, 0, sizeof(d->gamepad));
 }
 
-void button_mapper(const uint32_t ps3_buttons_raw, uni_gamepad_t* gp) {
+void uni_hid_parser_ds3_parse_raw(uni_hid_device_t* d, const uint8_t* report,
+                                  uint16_t len) {
+  UNUSED(len);
+
+  ds3_instance_t* ins = get_ds3_instance(d);
+  if (ins->state == DS3_FSM_REQUIRES_LED_UPDATE) {
+    update_led(d);
+  }
+
+  uni_gamepad_t* gp = &d->gamepad;
+
+  // Mapping buttons as on-off trigger buttons
+  uint32_t ps3_buttons_raw =
+      *((uint32_t*)&report[ps3_packet_index_buttons_raw]);
   uint32_t ps3_dpad_buttons[] = {ps3_button_mask_up, ps3_button_mask_down,
                                  ps3_button_mask_left, ps3_button_mask_right};
-  uint8_t dpad_buttons[] = {DPAD_UP, DPAD_DOWN, DPAD_LEFT, DPAD_RIGHT};
+  uint32_t dpad_buttons[] = {DPAD_UP, DPAD_DOWN, DPAD_LEFT, DPAD_RIGHT};
+#define DPAD_SIZE (int)(sizeof(dpad_buttons) / sizeof(dpad_buttons[0]))
 
   uint32_t ps3_fire_buttons[] = {
       ps3_button_mask_triangle, ps3_button_mask_circle, ps3_button_mask_cross,
       ps3_button_mask_square,   ps3_button_mask_l1,     ps3_button_mask_r1,
       ps3_button_mask_l2,       ps3_button_mask_r2,     ps3_button_mask_l3,
       ps3_button_mask_r3};
-  uint16_t fire_buttons[] = {
+  uint32_t fire_buttons[] = {
       BUTTON_X,          BUTTON_A,          BUTTON_B,         BUTTON_Y,
       BUTTON_SHOULDER_L, BUTTON_SHOULDER_R, BUTTON_TRIGGER_L, BUTTON_TRIGGER_R,
       BUTTON_THUMB_L,    BUTTON_THUMB_R};
+#define FIRE_BUTTONS_SIZE (int)(sizeof(fire_buttons) / sizeof(fire_buttons[0]))
 
   uint32_t ps3_system_buttons[] = {ps3_button_mask_ps, ps3_button_mask_start,
                                    ps3_button_mask_select};
-  uint8_t system_buttons[] = {MISC_BUTTON_HOME, MISC_BUTTON_BACK,
-                              MISC_BUTTON_SYSTEM};
+  uint32_t system_buttons[] = {MISC_BUTTON_SYSTEM, MISC_BUTTON_HOME,
+                               MISC_BUTTON_BACK};
+#define SYSTEM_BUTTONS_SIZE \
+  (int)(sizeof(system_buttons) / sizeof(system_buttons[0]))
 
   // DPad
-  uint8_t old_dpad = gp->dpad;
-  for (int i = 0; i < sizeof(ps3_dpad_buttons) / sizeof(uint32_t); i++) {
+  for (int i = 0; i < DPAD_SIZE; i++) {
     if (ps3_buttons_raw & ps3_dpad_buttons[i])
       gp->dpad |= (dpad_buttons[i]);
     else
       gp->dpad &= ~(dpad_buttons[i]);
   }
-
-  if (gp->dpad != old_dpad) {
-    gp->updated_states |= GAMEPAD_STATE_DPAD;
-  }
+  gp->updated_states |= GAMEPAD_STATE_DPAD;
 
   // Fire Buttons
-  uint8_t old_fire = gp->buttons;
-  for (int i = 0; i < sizeof(ps3_fire_buttons) / sizeof(uint32_t); i++) {
+  for (int i = 0; i < FIRE_BUTTONS_SIZE; i++) {
     if (ps3_buttons_raw & ps3_fire_buttons[i])
       gp->buttons |= (fire_buttons[i]);
     else
       gp->buttons &= ~(fire_buttons[i]);
   }
 
-  if (gp->buttons != old_fire) {
-    gp->updated_states |= GAMEPAD_STATE_BUTTON_X | GAMEPAD_STATE_BUTTON_Y |
-                          GAMEPAD_STATE_BUTTON_A | GAMEPAD_STATE_BUTTON_B;
-    gp->updated_states |=
-        GAMEPAD_STATE_BUTTON_TRIGGER_L | GAMEPAD_STATE_BUTTON_TRIGGER_R |
-        GAMEPAD_STATE_BUTTON_SHOULDER_L | GAMEPAD_STATE_BUTTON_SHOULDER_R |
-        GAMEPAD_STATE_BUTTON_THUMB_L | GAMEPAD_STATE_BUTTON_THUMB_R;
-  }
+  gp->updated_states |= GAMEPAD_STATE_BUTTON_X | GAMEPAD_STATE_BUTTON_Y |
+                        GAMEPAD_STATE_BUTTON_A | GAMEPAD_STATE_BUTTON_B;
+  gp->updated_states |=
+      GAMEPAD_STATE_BUTTON_TRIGGER_L | GAMEPAD_STATE_BUTTON_TRIGGER_R |
+      GAMEPAD_STATE_BUTTON_SHOULDER_L | GAMEPAD_STATE_BUTTON_SHOULDER_R |
+      GAMEPAD_STATE_BUTTON_THUMB_L | GAMEPAD_STATE_BUTTON_THUMB_R;
 
   // System Buttons
-  uint8_t old_misc = gp->misc_buttons;
-
-  for (int i = 0; i < sizeof(ps3_system_buttons) / sizeof(uint32_t); i++) {
+  for (int i = 0; i < SYSTEM_BUTTONS_SIZE; i++) {
     if (ps3_buttons_raw & ps3_system_buttons[i])
       gp->misc_buttons |= (system_buttons[i]);
     else
       gp->misc_buttons &= ~(system_buttons[i]);
   }
-
-  if (gp->misc_buttons != old_misc) {
-    gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM;
-  }
-}
-
-void uni_hid_parser_ds3_parse_raw(uni_hid_device_t* d, const uint8_t* report,
-                                  uint16_t len) {
-  printf_hexdump(report, len);
-  uni_gamepad_t* gp = &d->gamepad;
-
-  // Mapping buttons as on-off trigger buttons
-  button_mapper(*((uint32_t*)&report[ps3_packet_index_buttons_raw]), gp);
+  gp->updated_states |= GAMEPAD_STATE_MISC_BUTTON_SYSTEM |
+                        GAMEPAD_STATE_MISC_BUTTON_HOME |
+                        GAMEPAD_STATE_MISC_BUTTON_BACK;
 
   // Update Axis data
   const uint16_t int_offset = 0x80;
@@ -197,22 +204,63 @@ void uni_hid_parser_ds3_parse_raw(uni_hid_device_t* d, const uint8_t* report,
 }
 
 void uni_hid_parser_ds3_update_led(uni_hid_device_t* d) {
-  logi("DS3: Update LEDs\n");
+  ds3_instance_t* ins = get_ds3_instance(d);
+
+  // It seems that if a LED update is sent before the "request stream report",
+  // then the stream report is ignored.
+  // Update LED after stream report is set.
+  if (ins->state <= DS3_FSM_REQUIRES_LED_UPDATE) {
+    ins->state = DS3_FSM_REQUIRES_LED_UPDATE;
+    return;
+  }
+  update_led(d);
+}
+
+void uni_hid_parser_ds3_setup(struct uni_hid_device_s* d) {
+  // Dual Shock 3 Sixasis requires a magic packet to be sent in order to
+  // enable reports Taken from:
+  // https://github.com/ros-drivers/joystick_drivers/blob/52e8fcfb5619382a04756207b228fbc569f9a3ca/ps3joy/scripts/ps3joy_node.py#L299
+  static uint8_t sixaxisEnableReports[] = {
+      0x53,  // Transaction type: SET_REPORT Feature
+      0xf4,  // Report ID
+      0x42, 0x03, 0x00, 0x00};
+  uni_hid_device_send_ctrl_report(d, (uint8_t*)&sixaxisEnableReports,
+                                  sizeof(sixaxisEnableReports));
+}
+
+//
+// Helpers
+//
+static ds3_instance_t* get_ds3_instance(uni_hid_device_t* d) {
+  return (ds3_instance_t*)&d->data[0];
+}
+
+static void update_led(uni_hid_device_t* d) {
+  ds3_instance_t* ins = get_ds3_instance(d);
+  ins->state = DS3_FSM_LED_UPDATED;
+
   // Dual Shock 3 Control Packet, as defined in
   // https://github.com/ros-drivers/joystick_drivers/blob/52e8fcfb5619382a04756207b228fbc569f9a3ca/ps3joy/scripts/ps3joy_node.py#L276
   uint8_t control_packet[] = {
-      0x52,  // Transaction type
-      0x01, 0x00, 0xff, 0x00, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x52,  // Transaction type: SET_REPORT Output
+      0x01,  // Report ID
+      0x00, 0xff, 0x00, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00,
       0x00,                          // LED cmd
       0xff, 0x27, 0x10, 0x00, 0x32,  // LED 4
       0xff, 0x27, 0x10, 0x00, 0x32,  // LED 3
       0xff, 0x27, 0x10, 0x00, 0x32,  // LED 2
       0xff, 0x27, 0x10, 0x00, 0x32,  // LED 1
-      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+
+  enum ps3_led_mask {
+    ps3_led_mask_led1 = 1 << 1,
+    ps3_led_mask_led2 = 1 << 2,
+    ps3_led_mask_led3 = 1 << 3,
+    ps3_led_mask_led4 = 1 << 4,
+  };
 
 #define LED_OFFSET 11
-
   control_packet[LED_OFFSET] = 0;
 
   if ((d->joystick_port & JOYSTICK_PORT_A) != 0) {
@@ -225,14 +273,4 @@ void uni_hid_parser_ds3_update_led(uni_hid_device_t* d) {
 
   uni_hid_device_send_ctrl_report(d, (uint8_t*)&control_packet,
                                   sizeof(control_packet));
-}
-
-void uni_hid_parser_ds3_setup(struct uni_hid_device_s* d) {
-  logi("DS3: Setup\n");
-  // Dual Shock 3 Sixasis requires a magic packet to be sent in order to enable
-  // reports Taken from:
-  // https://github.com/ros-drivers/joystick_drivers/blob/52e8fcfb5619382a04756207b228fbc569f9a3ca/ps3joy/scripts/ps3joy_node.py#L299
-  static uint8_t sixaxisEnableReports[] = {0x53, 0xf4, 0x42, 0x03, 0x00, 0x00};
-  uni_hid_device_send_ctrl_report(d, (uint8_t*)&sixaxisEnableReports,
-                                  sizeof(sixaxisEnableReports));
 }

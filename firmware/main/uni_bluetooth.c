@@ -953,6 +953,9 @@ int uni_bluetooth_init(void) {
   // register for HCI events
   hci_event_callback_registration.callback = &packet_handler;
   hci_add_event_handler(&hci_event_callback_registration);
+
+  // TODO:
+  // Added for DS3 support. Not sure whether it will break other gamepads.
   gap_set_security_level(0);
 
   int security_level = gap_get_security_level();
