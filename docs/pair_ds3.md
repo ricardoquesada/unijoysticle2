@@ -50,16 +50,12 @@ Plugin the DS3 gamepad to your PC. Should work on all Linux, Mac and Windows, al
 
 ### Pair it
 
-* Install [HIDAPI][hidapi]
-
-* For Debian-based OSs, do:
+Install [HIDAPI][hidapi]. For Debian-based OSs, do:
 ```
 $ sudo apt install libhidapi-dev
 ```
 
-* For MacOS, Windows, do:
-
-Don't know, but make sure that have HIDAPI installed.
+For MacOS, Windows: I don't know, you are in your own.
 
 * Compile the "sixaxis pairer":
 
