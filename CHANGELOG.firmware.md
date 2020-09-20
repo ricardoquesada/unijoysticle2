@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+- Firmware: Added support Sony DualShock3 gamepads
 - tools: Compiles & updated to new btstack code
 - BTstack: Using master 2020-07-31 - f0565ba15ec6e40b02659514800395516b4729f6
 
