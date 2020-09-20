@@ -13,6 +13,7 @@ Example of Bluetooth Classic HID controllers are:
 
 - Xbox One S controller (`L`)
 - DUALSHOCK 4 controller, both 2013 (`P`) and 2016 (`O`) editions
+- DUALSHOCK 3
 - Nintendo Switch Pro controller (`W`) and clones (`V`)
 - Nintendo Wii U Pro controller (`U`)
 - Nintendo Wii Remote (`T`) and Remote Motion Plus (`S`), including Nunchuk (`Q`) and Classic Controller (`R`)
@@ -69,7 +70,7 @@ Tested gamepads so far.
 
 ## DUALSHOCK 4
 
-[![ps4_gamepad][dualshock_4]][14]
+[![ds4_gamepad][dualshock_4]][14]
 
 - [Must be in PC mode][25]. Clones might not work.
 - Supports both the 2013 and 2016 editions
@@ -81,7 +82,21 @@ Tested gamepads so far.
 - LED sets color according to assigned port number. Green: port #1, red: port #2, yellow: enhanced mode.
 
 [dualshock_4]: https://lh3.googleusercontent.com/_0sAxKXbSkk4g8rWJzTNxAirz2hD632jW4TGjGVOwjoac8sD4AfiN9PA1HdGWhm_ujcVygDlEG-LENPemF7IyFhqVsHgVHfCMVeFVjBbeDl-fUUjdMbRYAE8FiKdyWM_UBNUNmVy9Ro=-no
-[issue_4]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/4
+
+## DUALSHOCK 3
+
+[![ds3_gamepad][dualshock_3]][14]
+
+- Tested with Genuine DS3. Clones might not work.
+- Press:
+  - *X* for Fire
+  - *O* for Jump
+  - *Right shoulder* for Auto-fire
+  - *Play* button to swap joystick port
+- LEDs #1 and #2 indicates what joystick is being controlled. E.g: If LED #1 is lit, it means that the gamepad is controlling Joystick #1.
+- Requires that the DS3 is manually paired to the Unijoysticle device.
+
+[dualshock_3]: https://lh3.googleusercontent.com/pw/ACtC-3dEBJYkdIpF5_icFUY7n7otgw5LPpLyviKS14JL2EJtuiDBt6Kk-XcKlIIP9JCgT0yxJVN1KuW-JICpilYKhMGfDxQt6vjJm8r_lRS1R9IyOX4iBlUQoIrflt9KmSjXBjcJlS81cmKaGB166HF608v5MA=-no
 
 ## Nintendo Wii Remote
 
@@ -177,7 +192,7 @@ Classic Controller can be used.
 
 [![Wii U Pro][wii_u_pro]][27]
 
-- LEDs #1 and #2 indicates what joystick is being controlled. E.g: If LED #1 is lit, it means that the Wii Remote is controlling Joystick #1.
+- LEDs #1 and #2 indicates what joystick is being controlled. E.g: If LED #1 is lit, it means that the gamepad is controlling Joystick #1.
 - Press:
   - *B* for Fire
   - *A* for Jump
