@@ -13,7 +13,7 @@ Example of Bluetooth Classic HID controllers are:
 
 - Xbox One S controller (`L`)
 - DUALSHOCK 4 controller, both 2013 (`P`) and 2016 (`O`) editions
-- DUALSHOCK 3
+- DUALSHOCK 3 controller
 - Nintendo Switch Pro controller (`W`) and clones (`V`)
 - Nintendo Wii U Pro controller (`U`)
 - Nintendo Wii Remote (`T`) and Remote Motion Plus (`S`), including Nunchuk (`Q`) and Classic Controller (`R`)
@@ -87,16 +87,17 @@ Tested gamepads so far.
 
 [![ds3_gamepad][dualshock_3]][14]
 
-- Tested with Genuine DS3. Clones might not work.
+- Tested with genuine DS3. Clones might not work.
 - Press:
   - *X* for Fire
   - *O* for Jump
   - *Right shoulder* for Auto-fire
   - *Play* button to swap joystick port
 - LEDs #1 and #2 indicates what joystick is being controlled. E.g: If LED #1 is lit, it means that the gamepad is controlling Joystick #1.
-- Requires that the DS3 is manually paired to the Unijoysticle device.
+- Requires that the [DS3 is manually paired][pair_ds3] to the Unijoysticle device.
 
 [dualshock_3]: https://lh3.googleusercontent.com/pw/ACtC-3dEBJYkdIpF5_icFUY7n7otgw5LPpLyviKS14JL2EJtuiDBt6Kk-XcKlIIP9JCgT0yxJVN1KuW-JICpilYKhMGfDxQt6vjJm8r_lRS1R9IyOX4iBlUQoIrflt9KmSjXBjcJlS81cmKaGB166HF608v5MA=-no
+[pair_ds3]: pair_ds3.md
 
 ## Nintendo Wii Remote
 
