@@ -40,7 +40,7 @@ BTstack up and running at CC:50:E3:AF:E2:96     <------ THIS IS THE BLUETOOTH AD
 Btstack ready!
 ```
 
-The Unijoysticle Bluetooth Address is "CC:50:E3:AF:E2:96"
+In this example, the Unijoysticle Bluetooth Address is "CC:50:E3:AF:E2:96".
 
 [reporting_bugs]: user_guide.md#reporting-bugs
 
@@ -50,20 +50,26 @@ Plugin the DS3 gamepad to your PC. Should work on all Linux, Mac and Windows, al
 
 ### Pair it
 
-* Install needed deps:
+* Install [HIDAPI][hidapi]
 
+* For Debian-based OSs, do:
 ```
-# Linux only:
 $ sudo apt install libhidapi-dev
 ```
 
-* Compile the "pairer":
+* For MacOS, Windows, do:
+
+Don't know, but make sure that have HIDAPI installed.
+
+* Compile the "sixaxis pairer":
 
 ```sh
 $ cd ~/src/unijoysticle2/firmware/tools
 $ make sixaxispairer
 $ ./sixaxispairer XX:XX:XX:XX:XX:XX  # Following our example, it should be CC:50:E3:AF:E2:96
 ```
+
+[hidapi]: https://github.com/signal11/hidapi
 
 ### Unplug DS3 from computer
 
