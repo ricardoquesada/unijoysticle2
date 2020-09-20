@@ -97,8 +97,6 @@ enum ps3_led_mask {
   ps3_led_mask_led4 = 1 << 4,
 };
 
-
-
 void uni_hid_parser_ds3_init_report(uni_hid_device_t* d) {
   memset(&d->gamepad, 0, sizeof(d->gamepad));
 }
@@ -200,18 +198,18 @@ void uni_hid_parser_ds3_parse_raw(uni_hid_device_t* d, const uint8_t* report,
 
 void uni_hid_parser_ds3_update_led(uni_hid_device_t* d) {
   logi("DS3: Update LEDs\n");
-// Dual Shock 3 Control Packet, as defined in
-// https://github.com/ros-drivers/joystick_drivers/blob/52e8fcfb5619382a04756207b228fbc569f9a3ca/ps3joy/scripts/ps3joy_node.py#L276
+  // Dual Shock 3 Control Packet, as defined in
+  // https://github.com/ros-drivers/joystick_drivers/blob/52e8fcfb5619382a04756207b228fbc569f9a3ca/ps3joy/scripts/ps3joy_node.py#L276
   uint8_t control_packet[] = {
-    0x52, // Transaction type
-    0x01, 0x00, 0xff, 0x00, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, // LED cmd
-    0xff, 0x27, 0x10, 0x00, 0x32,   // LED 4
-    0xff, 0x27, 0x10, 0x00, 0x32,   // LED 3
-    0xff, 0x27, 0x10, 0x00, 0x32,   // LED 2
-    0xff, 0x27, 0x10, 0x00, 0x32,   // LED 1
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+      0x52,  // Transaction type
+      0x01, 0x00, 0xff, 0x00, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x00,                          // LED cmd
+      0xff, 0x27, 0x10, 0x00, 0x32,  // LED 4
+      0xff, 0x27, 0x10, 0x00, 0x32,  // LED 3
+      0xff, 0x27, 0x10, 0x00, 0x32,  // LED 2
+      0xff, 0x27, 0x10, 0x00, 0x32,  // LED 1
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
 #define LED_OFFSET 11
 
@@ -225,7 +223,8 @@ void uni_hid_parser_ds3_update_led(uni_hid_device_t* d) {
     control_packet[LED_OFFSET] |= ps3_led_mask_led2;
   }
 
-  uni_hid_device_queue_ctrl_report(d, (uint8_t*)&control_packet, sizeof(control_packet));
+  uni_hid_device_queue_ctrl_report(d, (uint8_t*)&control_packet,
+                                   sizeof(control_packet));
 }
 
 void uni_hid_parser_ds3_setup(struct uni_hid_device_s* d) {
@@ -234,5 +233,6 @@ void uni_hid_parser_ds3_setup(struct uni_hid_device_s* d) {
   // reports Taken from:
   // https://github.com/ros-drivers/joystick_drivers/blob/52e8fcfb5619382a04756207b228fbc569f9a3ca/ps3joy/scripts/ps3joy_node.py#L299
   static uint8_t sixaxisEnableReports[] = {0x53, 0xf4, 0x42, 0x03, 0x00, 0x00};
-  uni_hid_device_queue_ctrl_report(d, (uint8_t*)&sixaxisEnableReports, sizeof(sixaxisEnableReports));
+  uni_hid_device_queue_ctrl_report(d, (uint8_t*)&sixaxisEnableReports,
+                                   sizeof(sixaxisEnableReports));
 }

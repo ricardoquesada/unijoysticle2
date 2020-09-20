@@ -178,9 +178,9 @@ enum DEVICE_STATE uni_hid_device_get_state(uni_hid_device_t* d);
 void uni_hid_device_send_report(void* d /* uni_hid_device_t */, uint16_t cid,
                                 const uint8_t* report, uint16_t len);
 void uni_hid_device_queue_intr_report(void* d /* uni_hid_device_t */,
-                                 const uint8_t* report, uint16_t len);
+                                      const uint8_t* report, uint16_t len);
 void uni_hid_device_queue_ctrl_report(void* d /* uni_hid_device_t */,
-                                 const uint8_t* report, uint16_t len);
+                                      const uint8_t* report, uint16_t len);
 void uni_hid_device_send_queued_reports(uni_hid_device_t* d);
 
 void uni_hid_device_set_joystick_port(uni_hid_device_t* d,

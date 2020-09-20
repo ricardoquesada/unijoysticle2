@@ -22,8 +22,8 @@ limitations under the License.
 
 #include "uni_debug.h"
 
-uint8_t uni_circular_buffer_put(uni_circular_buffer_t* b, int16_t cid, const void* data,
-                                int len) {
+uint8_t uni_circular_buffer_put(uni_circular_buffer_t* b, int16_t cid,
+                                const void* data, int len) {
   if (uni_circular_buffer_is_full(b)) {
     return UNI_CIRCULAR_BUFFER_ERROR_BUFFER_FULL;
   }
@@ -39,8 +39,8 @@ uint8_t uni_circular_buffer_put(uni_circular_buffer_t* b, int16_t cid, const voi
   return UNI_CIRCULAR_BUFFER_ERROR_OK;
 }
 
-uint8_t uni_circular_buffer_get(uni_circular_buffer_t* b, int16_t *cid, void** data,
-                                int* len) {
+uint8_t uni_circular_buffer_get(uni_circular_buffer_t* b, int16_t* cid,
+                                void** data, int* len) {
   if (uni_circular_buffer_is_empty(b)) {
     return UNI_CIRCULAR_BUFFER_ERROR_BUFFER_EMPTY;
   }

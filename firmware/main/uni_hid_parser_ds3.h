@@ -20,13 +20,15 @@ limitations under the License.
 #define UNI_HID_PARSER_DS3_H
 
 #include <stdint.h>
+
 #include "btstack.h"
 #include "uni_hid_parser.h"
 
 // For DUALSHOCK 3 gamepads
-void uni_hid_parser_ds3_setup(struct uni_hid_device_s* d);
+void uni_hid_parser_ds3_setup(struct uni_hid_device_s *d);
 void uni_hid_parser_ds3_init_report(struct uni_hid_device_s *d);
-void uni_hid_parser_ds3_parse_raw(struct uni_hid_device_s *d, const uint8_t *report, uint16_t len);
+void uni_hid_parser_ds3_parse_raw(struct uni_hid_device_s *d,
+                                  const uint8_t *report, uint16_t len);
 void uni_hid_parser_ds3_update_led(struct uni_hid_device_s *d);
 
 #endif  // UNI_HID_PARSER_DS3_H

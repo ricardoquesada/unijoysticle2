@@ -45,10 +45,10 @@ typedef struct uni_circular_buffer_s {
   int16_t tail_idx;
 } uni_circular_buffer_t;
 
-uint8_t uni_circular_buffer_put(uni_circular_buffer_t* b, int16_t cid, const void* data,
-                                int len);
-uint8_t uni_circular_buffer_get(uni_circular_buffer_t* b, int16_t* cid, void** data,
-                                int* len);
+uint8_t uni_circular_buffer_put(uni_circular_buffer_t* b, int16_t cid,
+                                const void* data, int len);
+uint8_t uni_circular_buffer_get(uni_circular_buffer_t* b, int16_t* cid,
+                                void** data, int* len);
 uint8_t uni_circular_buffer_is_empty(uni_circular_buffer_t* b);
 uint8_t uni_circular_buffer_is_full(uni_circular_buffer_t* b);
 void uni_circular_buffer_reset(uni_circular_buffer_t* b);

@@ -737,7 +737,8 @@ void uni_hid_device_set_joystick_port(uni_hid_device_t* d,
 
 // Try to send the report now. If it can't, queue it and send it in the next
 // event loop.
-void uni_hid_device_send_report(void *d, uint16_t cid, const uint8_t* report, uint16_t len) {
+void uni_hid_device_send_report(void* d, uint16_t cid, const uint8_t* report,
+                                uint16_t len) {
   uni_hid_device_t* self = (uni_hid_device_t*)d;
   if (self == NULL) {
     loge("Invalid device\n");
@@ -756,7 +757,8 @@ void uni_hid_device_send_report(void *d, uint16_t cid, const uint8_t* report, ui
   int err = l2cap_send(cid, (uint8_t*)report, len);
   if (err != 0) {
     logi("Could not send report (error=0x%04x). Adding it to queue\n", err);
-    if (uni_circular_buffer_put(&self->outgoing_buffer, cid, report, len) != 0) {
+    if (uni_circular_buffer_put(&self->outgoing_buffer, cid, report, len) !=
+        0) {
       loge("ERROR: ciruclar buffer full. Cannot queue report\n");
     }
   }
@@ -768,7 +770,8 @@ void uni_hid_device_send_report(void *d, uint16_t cid, const uint8_t* report, ui
 
 // Queue an interrupt-report and send it the report in the next event loop.
 // It uses the "interrupt" channel.
-void uni_hid_device_queue_intr_report(void* d, const uint8_t* report, uint16_t len) {
+void uni_hid_device_queue_intr_report(void* d, const uint8_t* report,
+                                      uint16_t len) {
   uni_hid_device_t* self = (uni_hid_device_t*)d;
   if (self == NULL) {
     loge("Invalid device\n");
@@ -784,7 +787,8 @@ void uni_hid_device_queue_intr_report(void* d, const uint8_t* report, uint16_t l
     return;
   }
 
-  int err = uni_circular_buffer_put(&self->outgoing_buffer, self->hid_interrupt_cid, report, len);
+  int err = uni_circular_buffer_put(&self->outgoing_buffer,
+                                    self->hid_interrupt_cid, report, len);
   if (err != 0) {
     loge("ERROR: Cannot queue interrupt report, error: %d\n", err);
     return;
@@ -795,7 +799,8 @@ void uni_hid_device_queue_intr_report(void* d, const uint8_t* report, uint16_t l
 
 // Queue a control-report and send it the report in the next event loop.
 // It uses the "control" channel.
-void uni_hid_device_queue_ctrl_report(void* d, const uint8_t* report, uint16_t len) {
+void uni_hid_device_queue_ctrl_report(void* d, const uint8_t* report,
+                                      uint16_t len) {
   uni_hid_device_t* self = (uni_hid_device_t*)d;
   if (self == NULL) {
     loge("Invalid device\n");
@@ -812,7 +817,8 @@ void uni_hid_device_queue_ctrl_report(void* d, const uint8_t* report, uint16_t l
     return;
   }
 
-  int err = uni_circular_buffer_put(&self->outgoing_buffer, self->hid_control_cid, report, len);
+  int err = uni_circular_buffer_put(&self->outgoing_buffer,
+                                    self->hid_control_cid, report, len);
   if (err != 0) {
     loge("ERROR: Cannot queue control report, error: %d\n", err);
     return;
@@ -828,7 +834,8 @@ void uni_hid_device_send_queued_reports(uni_hid_device_t* d) {
     return;
   }
   if (d->hid_interrupt_cid <= 0 || d->hid_control_cid <= 0) {
-    loge("Invalid hid_interrupt_cid:%d, or hid_control_cid:%d\n", d->hid_interrupt_cid, d->hid_control_cid);
+    loge("Invalid hid_interrupt_cid:%d, or hid_control_cid:%d\n",
+         d->hid_interrupt_cid, d->hid_control_cid);
     return;
   }
 
@@ -840,7 +847,8 @@ void uni_hid_device_send_queued_reports(uni_hid_device_t* d) {
   void* data;
   int data_len;
   int16_t cid;
-  if (uni_circular_buffer_get(&d->outgoing_buffer, &cid, &data, &data_len) != UNI_CIRCULAR_BUFFER_ERROR_OK) {
+  if (uni_circular_buffer_get(&d->outgoing_buffer, &cid, &data, &data_len) !=
+      UNI_CIRCULAR_BUFFER_ERROR_OK) {
     loge("ERROR: could not get buffer from circular buffer.\n");
     return;
   }

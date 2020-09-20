@@ -109,8 +109,6 @@ static void fsm_process(uni_hid_device_t* d);
 static void l2cap_create_control_connection(uni_hid_device_t* d);
 static void l2cap_create_interrupt_connection(uni_hid_device_t* d);
 
-
-
 // HID results: HID descriptor, PSM interrupt, PSM control, etc.
 static void handle_sdp_hid_query_result(uint8_t packet_type, uint16_t channel,
                                         uint8_t* packet, uint16_t size) {
@@ -704,7 +702,7 @@ static void on_l2cap_data_packet(uint16_t channel, uint8_t* packet,
   d = uni_hid_device_get_instance_for_cid(channel);
   if (d == NULL) {
     loge("Invalid cid: 0x%04x\n", channel);
-    //printf_hexdump(packet, size);
+    // printf_hexdump(packet, size);
     return;
   }
 

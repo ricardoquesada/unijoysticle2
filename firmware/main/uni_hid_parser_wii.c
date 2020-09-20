@@ -29,13 +29,12 @@ limitations under the License.
 #include <unistd.h>
 #endif  // ENABLE_EEPROM_DUMP
 
-#include "uni_hid_parser_wii.h"
-
 #include "hid_usage.h"
 #include "uni_debug.h"
 #include "uni_gamepad.h"
 #include "uni_hid_device.h"
 #include "uni_hid_parser.h"
+#include "uni_hid_parser_wii.h"
 
 #if ENABLE_EEPROM_DUMP
 #define WII_DUMP_ROM_DATA_SIZE 16  // Max size is 16

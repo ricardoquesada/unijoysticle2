@@ -18,13 +18,12 @@ limitations under the License.
 
 // Stub version
 
-#include "uni_platform.h"
-
 #include <stdio.h>
 #include <string.h>
 
 #include "uni_debug.h"
 #include "uni_hid_device.h"
+#include "uni_platform.h"
 
 static int g_enhanced_mode = 0;
 static int g_delete_keys = 0;
