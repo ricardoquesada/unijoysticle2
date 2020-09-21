@@ -824,28 +824,6 @@ F 3 "~" H 10450 1100 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L Device:D_Schottky D3
-U 1 1 5F66A0AA
-P 4300 6900
-F 0 "D3" H 4300 6683 50  0000 C CNN
-F 1 "D_Schottky" H 4300 6774 50  0000 C CNN
-F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 4300 6900 50  0001 C CNN
-F 3 "~" H 4300 6900 50  0001 C CNN
-	1    4300 6900
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:D_Schottky D4
-U 1 1 5F66BD2F
-P 5950 7150
-F 0 "D4" H 5950 6933 50  0000 C CNN
-F 1 "D_Schottky" H 5950 7024 50  0000 C CNN
-F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 5950 7150 50  0001 C CNN
-F 3 "~" H 5950 7150 50  0001 C CNN
-	1    5950 7150
-	-1   0    0    1   
-$EndComp
-$Comp
 L Mechanical:MountingHole_Pad H1
 U 1 1 5F6B0E64
 P 10000 1750
@@ -869,4 +847,26 @@ F 3 "" H 10000 2050 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	10000 1850 10000 2050
+$Comp
+L Diode:1N5819 D3
+U 1 1 5F697863
+P 4300 6900
+F 0 "D3" H 4300 6683 50  0000 C CNN
+F 1 "1N5819" H 4300 6774 50  0000 C CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P7.62mm_Horizontal" H 4300 6725 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/88525/1n5817.pdf" H 4300 6900 50  0001 C CNN
+	1    4300 6900
+	-1   0    0    1   
+$EndComp
+$Comp
+L Diode:1N5819 D4
+U 1 1 5F695DDA
+P 5950 7150
+F 0 "D4" H 5950 7367 50  0000 C CNN
+F 1 "1N5819" H 5950 7276 50  0000 C CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P7.62mm_Horizontal" H 5950 6975 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/88525/1n5817.pdf" H 5950 7150 50  0001 C CNN
+	1    5950 7150
+	-1   0    0    1   
+$EndComp
 $EndSCHEMATC
