@@ -57,9 +57,13 @@ Needed components:
 
 You can source the components from here:
 
-- Unijoysticle 2 PCB from: [PCBWay][3]
-- ESP32 devkit from: [ESP32 Mini Kit][5]
-- Remaining components: [DigiKey list][7]
+- Unijoysticle 2 PCB from: [PCBWay][pcbway]
+- ESP32 devkit from: [ESP32 Mini Kit][esp32mini]
+- Remaining components: [DigiKey list][digikey]
+
+[pcbway]: https://www.pcbway.com/project/shareproject/Unijoysticle_2___Rev_F__Gamepads_for_the_C64_and_other_retro_computers.html
+[esp32mini]: https://www.aliexpress.com/store/product/MH-ET-LIVE-ESP32-MINI-KIT-WiFi-Bluetooth-Internet-of-Things-development-board-based-ESP8266-Fully/2348158_32819107932.html?spm=a2g0x.12010108.1000001.12.56543b1cEQVriV
+[digikey]: https://www.digikey.com/short/z2fr7v
 
 ## Flashing the firmware
 
@@ -251,9 +255,6 @@ The logs can be fetched by connecting a terminal to the ESP32 module.
 
 [1]: firmware_setup.md
 [2]: supported_gamepads.md
-[3]: https://www.pcbway.com/project/shareproject/Unijoysticle_2___Rev__D.html
-[5]: https://www.aliexpress.com/store/product/MH-ET-LIVE-ESP32-MINI-KIT-WiFi-Bluetooth-Internet-of-Things-development-board-based-ESP8266-Fully/2348158_32819107932.html?spm=a2g0x.12010108.1000001.12.56543b1cEQVriV
-[7]: https://www.digikey.com/short/pnq527
 [8]: https://en.wikipedia.org/wiki/Robotron:_2084
 [9]: https://csdb.dk/release/?id=38140
 [10]: https://csdb.dk/release/?id=137173
