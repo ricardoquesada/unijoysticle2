@@ -46,7 +46,7 @@ Needed components:
 - 2 x 14p DIP sockets for the 7405s (ref: IC1, IC2)
 - 1 x standard green LED 3mm (ref: D1)
 - 1 x standard red LED 3mm (ref: D2)
-- 2 x 1N4001 diode (ref: D3, D4)
+- 2 x 1N5819 (or 1N4001) diodes (ref: D3, D4)
 - 2 x 150 ohm resistors (ref: R1, R2)
 - 1 x Switch Tacticle SPST (ref: SW1)
 - 1 x Switch Slide SPDT 200mA (ref: SW2)
