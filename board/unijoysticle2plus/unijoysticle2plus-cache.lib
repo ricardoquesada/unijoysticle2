@@ -125,11 +125,11 @@ X 9 9 -300 -300 150 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Connector_USB_B_Micro
+# Connector_USB_B_Mini
 #
-DEF Connector_USB_B_Micro J 0 40 Y Y 1 F N
+DEF Connector_USB_B_Mini J 0 40 Y Y 1 F N
 F0 "J" -200 450 50 H V L CNN
-F1 "Connector_USB_B_Micro" -200 350 50 H V L CNN
+F1 "Connector_USB_B_Mini" -200 350 50 H V L CNN
 F2 "" 150 -50 50 H I C CNN
 F3 "" 150 -50 50 H I C CNN
 ALIAS USB_B_Mini
