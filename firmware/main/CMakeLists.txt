@@ -17,7 +17,7 @@ set(COMPONENT_SRCS "uni_bluetooth.c"
                    "uni_hid_parser_xboxone.c"
                    "uni_main.c"
                    "uni_main_esp32.c"
-                   "uni_platform_esp32.c")
+                   "uni_platform_esp32_c64.c")
 set(COMPONENT_ADD_INCLUDEDIRS ".")
 
 register_component()
