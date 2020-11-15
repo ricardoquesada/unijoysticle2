@@ -6,7 +6,7 @@ The DUALSHOCK3 gamepad does not implement the entire Bluetooth stack. It require
 
 ### Fetch the Unijoysticle device Bluetooth Address
 
-* Connect a terminal to the Unijoysticle. If you don't know, see [Reporting Bugs][reporting_bugs] in the Users Guide.
+* Connect a terminal to the Unijoysticle using 115200 baud 8N1. If you don't know, see [Reporting Bugs][reporting_bugs] in the Users Guide.
 
 * Reset the Unijoysticle
 
@@ -55,13 +55,20 @@ Install [HIDAPI][hidapi]. For Debian-based OSs, do:
 $ sudo apt install libhidapi-dev
 ```
 
+On Gentoo Linux run:
+```
+$ sudo emerge dev-libs/hidapi
+```
+
 For MacOS, Windows: I don't know, you are in your own.
 
 * Compile the "sixaxis pairer":
 
+Get the firmware source code from https://gitlab.com/ricardoquesada/bluepad32
+
 ```sh
-$ cd ~/src/unijoysticle2/firmware/tools
-$ make sixaxispairer
+$ cd /.../bluepad32/src/tools
+$ cc -o sixaxispairer sixaxispairer.c -lhidapi-libusb
 $ ./sixaxispairer XX:XX:XX:XX:XX:XX  # Following our example, it should be CC:50:E3:AF:E2:96
 ```
 
