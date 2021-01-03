@@ -67,7 +67,7 @@ For MacOS, Windows: I don't know, you are in your own.
 Get the firmware source code from https://gitlab.com/ricardoquesada/bluepad32
 
 ```sh
-$ cd /.../bluepad32/src/tools
+$ cd /.../bluepad32/tools
 $ cc -o sixaxispairer sixaxispairer.c -lhidapi-libusb
 $ ./sixaxispairer XX:XX:XX:XX:XX:XX  # Following our example, it should be CC:50:E3:AF:E2:96
 ```

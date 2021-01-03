@@ -800,61 +800,6 @@ Wire Wire Line
 	2500 3150 2600 3150
 Wire Wire Line
 	2600 3150 2600 2950
-$Comp
-L Interface_USB:CP2102N-A01-GQFN24 U4
-U 1 1 5FA66230
-P 8850 3650
-F 0 "U4" H 8850 4731 50  0000 C CNN
-F 1 "CP2102N-A01-GQFN24" H 8850 4640 50  0000 C CNN
-F 2 "Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm" H 9300 2850 50  0001 L CNN
-F 3 "https://www.silabs.com/documents/public/data-sheets/cp2102n-datasheet.pdf" H 8900 2600 50  0001 C CNN
-	1    8850 3650
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	8950 4550 8950 4700
-Wire Wire Line
-	8950 4700 8900 4700
-Wire Wire Line
-	8850 4700 8850 4550
-Wire Wire Line
-	8900 4700 8900 4850
-Connection ~ 8900 4700
-Wire Wire Line
-	8900 4700 8850 4700
-$Comp
-L power:GND #PWR0111
-U 1 1 5FA7D398
-P 8900 4850
-F 0 "#PWR0111" H 8900 4600 50  0001 C CNN
-F 1 "GND" H 8905 4677 50  0000 C CNN
-F 2 "" H 8900 4850 50  0001 C CNN
-F 3 "" H 8900 4850 50  0001 C CNN
-	1    8900 4850
-	1    0    0    -1  
-$EndComp
-NoConn ~ 9450 3050
-NoConn ~ 9450 3150
-NoConn ~ 9450 3550
-NoConn ~ 9450 3750
-NoConn ~ 9450 3950
-NoConn ~ 9450 4050
-Wire Wire Line
-	9450 3250 9950 3250
-Wire Wire Line
-	9450 3350 9950 3350
-Wire Wire Line
-	9450 3450 9950 3450
-Text Label 9950 3250 2    50   ~ 0
-RTS_PROG
-Text Label 9950 3350 2    50   ~ 0
-TXD
-Text Label 9950 3450 2    50   ~ 0
-RXD
-Wire Wire Line
-	9450 3650 9950 3650
-Text Label 9950 3650 2    50   ~ 0
-DTR_PROG
 NoConn ~ 8150 1250
 Wire Wire Line
 	8150 1150 9000 1150
@@ -992,9 +937,9 @@ F 3 "" H 9000 1800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text Label 9200 1050 2    50   ~ 0
-USB_DP
+USBD+
 Text Label 9200 1150 2    50   ~ 0
-USB_DN
+USBD-
 Connection ~ 8400 850 
 $Comp
 L Diode:1N5819 D7
@@ -1113,95 +1058,6 @@ F 3 "" H 750 7250 50  0001 C CNN
 $EndComp
 Wire Notes Line
 	3850 3950 3850 7800
-Wire Wire Line
-	8250 4050 7900 4050
-Wire Wire Line
-	8250 4150 7900 4150
-Wire Wire Line
-	8250 3950 7900 3950
-Text Label 7900 3950 0    50   ~ 0
-VBUS
-Text Label 7900 4050 0    50   ~ 0
-USB_DP
-Text Label 7900 4150 0    50   ~ 0
-USB_DN
-NoConn ~ 9450 4250
-NoConn ~ 9450 4150
-Wire Wire Line
-	8750 2750 8150 2750
-Wire Wire Line
-	8250 3650 8150 3650
-Wire Wire Line
-	8150 2750 8150 3650
-NoConn ~ 8250 3350
-Wire Wire Line
-	8150 2750 7850 2750
-Wire Wire Line
-	7250 2750 7250 2650
-Connection ~ 8150 2750
-Wire Wire Line
-	7850 2750 7850 2850
-Connection ~ 7850 2750
-Wire Wire Line
-	7850 2750 7450 2750
-Wire Wire Line
-	7450 2750 7450 2850
-Connection ~ 7450 2750
-Wire Wire Line
-	7450 2750 7250 2750
-$Comp
-L power:+3V3 #PWR0125
-U 1 1 60588328
-P 7250 2650
-F 0 "#PWR0125" H 7250 2500 50  0001 C CNN
-F 1 "+3V3" H 7265 2823 50  0000 C CNN
-F 2 "" H 7250 2650 50  0001 C CNN
-F 3 "" H 7250 2650 50  0001 C CNN
-	1    7250 2650
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C2
-U 1 1 60589E4B
-P 7450 2950
-F 0 "C2" H 7542 2996 50  0000 L CNN
-F 1 "4.7uF" H 7542 2905 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 7450 2950 50  0001 C CNN
-F 3 "~" H 7450 2950 50  0001 C CNN
-	1    7450 2950
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C3
-U 1 1 605BA99D
-P 7850 2950
-F 0 "C3" H 7942 2996 50  0000 L CNN
-F 1 "0.1uF" H 7942 2905 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 7850 2950 50  0001 C CNN
-F 3 "~" H 7850 2950 50  0001 C CNN
-	1    7850 2950
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7850 3050 7850 3150
-Wire Wire Line
-	7850 3150 7450 3150
-Wire Wire Line
-	7450 3150 7450 3050
-Wire Wire Line
-	7450 3150 7450 3250
-Connection ~ 7450 3150
-$Comp
-L power:GND #PWR0126
-U 1 1 605CE8E5
-P 7450 3250
-F 0 "#PWR0126" H 7450 3000 50  0001 C CNN
-F 1 "GND" H 7455 3077 50  0000 C CNN
-F 2 "" H 7450 3250 50  0001 C CNN
-F 3 "" H 7450 3250 50  0001 C CNN
-	1    7450 3250
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	4050 2450 4300 2450
 Text Label 4300 2450 2    50   ~ 0
@@ -1329,25 +1185,6 @@ F 3 "" H 9650 800 50  0001 C CNN
 	1    9650 800 
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	8850 2750 8850 2350
-Wire Wire Line
-	8850 2350 8700 2350
-$Comp
-L Device:R R4
-U 1 1 60A2328C
-P 8550 2350
-F 0 "R4" V 8757 2350 50  0000 C CNN
-F 1 "1k" V 8666 2350 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8480 2350 50  0001 C CNN
-F 3 "~" H 8550 2350 50  0001 C CNN
-	1    8550 2350
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	8400 2350 8250 2350
-Wire Wire Line
-	8250 2350 8250 3050
 $Comp
 L Transistor_BJT:S8050 Q2
 U 1 1 60A465DF
@@ -1413,7 +1250,6 @@ Text Label 9450 4850 0    50   ~ 0
 RTS_PROG
 Text Label 9450 5400 0    50   ~ 0
 DTR_PROG
-NoConn ~ 8250 3450
 $Comp
 L dk_PMIC-Voltage-Regulators-Linear:AP2114H-3_3TRG1 U5
 U 1 1 60D87153
@@ -1449,6 +1285,159 @@ F 1 "USB_B_Micro" H 7907 1426 50  0000 C CNN
 F 2 "Connector_USB:USB_Micro-B_Molex-105017-0001" H 8000 1000 50  0001 C CNN
 F 3 "~" H 8000 1000 50  0001 C CNN
 	1    7850 1050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9300 2950 9750 2950
+Wire Wire Line
+	9300 3150 9750 3150
+Text Label 9750 2950 2    50   ~ 0
+USBD+
+Text Label 9750 3150 2    50   ~ 0
+USBD-
+$Comp
+L Device:Resonator_Small Y?
+U 1 1 5FA8F467
+P 9600 4050
+F 0 "Y?" V 9925 4000 50  0000 C CNN
+F 1 "12Mhz" V 9834 4000 50  0000 C CNN
+F 2 "" H 9575 4050 50  0001 C CNN
+F 3 "~" H 9575 4050 50  0001 C CNN
+	1    9600 4050
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	9300 3950 9500 3950
+Wire Wire Line
+	9300 4150 9500 4150
+Wire Wire Line
+	9800 4050 9900 4050
+Wire Wire Line
+	9900 4050 9900 4150
+$Comp
+L power:GND #PWR?
+U 1 1 5FAA7D92
+P 9900 4150
+F 0 "#PWR?" H 9900 3900 50  0001 C CNN
+F 1 "GND" H 9905 3977 50  0000 C CNN
+F 2 "" H 9900 4150 50  0001 C CNN
+F 3 "" H 9900 4150 50  0001 C CNN
+	1    9900 4150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7500 3050 7150 3050
+Wire Wire Line
+	7500 3150 7150 3150
+Text Label 7150 3050 0    50   ~ 0
+TXD
+Text Label 7150 3150 0    50   ~ 0
+RDX
+Wire Wire Line
+	8300 2400 8300 2500
+$Comp
+L power:VBUS #PWR?
+U 1 1 5FACC346
+P 8300 2400
+F 0 "#PWR?" H 8300 2250 50  0001 C CNN
+F 1 "VBUS" H 8315 2573 50  0000 C CNN
+F 2 "" H 8300 2400 50  0001 C CNN
+F 3 "" H 8300 2400 50  0001 C CNN
+	1    8300 2400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8300 2500 8100 2500
+Connection ~ 8300 2500
+Wire Wire Line
+	8300 2500 8300 2750
+Wire Wire Line
+	8400 4350 8400 4650
+$Comp
+L power:GND #PWR?
+U 1 1 5FB1E143
+P 8400 4650
+F 0 "#PWR?" H 8400 4400 50  0001 C CNN
+F 1 "GND" H 8405 4477 50  0000 C CNN
+F 2 "" H 8400 4650 50  0001 C CNN
+F 3 "" H 8400 4650 50  0001 C CNN
+	1    8400 4650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5FB5A3AE
+P 8000 2500
+F 0 "C?" V 7771 2500 50  0000 C CNN
+F 1 "0.1uF" V 7862 2500 50  0000 C CNN
+F 2 "" H 8000 2500 50  0001 C CNN
+F 3 "~" H 8000 2500 50  0001 C CNN
+	1    8000 2500
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7900 2500 7900 2550
+$Comp
+L power:GND #PWR?
+U 1 1 5FB64A2F
+P 7900 2550
+F 0 "#PWR?" H 7900 2300 50  0001 C CNN
+F 1 "GND" H 7905 2377 50  0000 C CNN
+F 2 "" H 7900 2550 50  0001 C CNN
+F 3 "" H 7900 2550 50  0001 C CNN
+	1    7900 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Interface_USB:MCP2200-I-SO U4
+U 1 1 5F9EDB53
+P 8400 3550
+F 0 "U4" H 8400 2661 50  0000 C CNN
+F 1 "MCP2200-I-SO" H 8400 2570 50  0000 C CNN
+F 2 "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm" H 8400 2400 50  0001 C CNN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/200022228D.pdf" H 8400 2550 50  0001 C CNN
+	1    8400 3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8500 2500 8500 2750
+Wire Wire Line
+	7500 2950 7150 2950
+Wire Wire Line
+	7150 2950 7150 2800
+$Comp
+L Device:R_Small R?
+U 1 1 5FBBC5FE
+P 7150 2700
+F 0 "R?" H 7209 2746 50  0000 L CNN
+F 1 "1k" H 7209 2655 50  0000 L CNN
+F 2 "" H 7150 2700 50  0001 C CNN
+F 3 "~" H 7150 2700 50  0001 C CNN
+	1    7150 2700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7150 2600 7150 2550
+$Comp
+L power:VBUS #PWR?
+U 1 1 5FBC6994
+P 7150 2550
+F 0 "#PWR?" H 7150 2400 50  0001 C CNN
+F 1 "VBUS" H 7165 2723 50  0000 C CNN
+F 2 "" H 7150 2550 50  0001 C CNN
+F 3 "" H 7150 2550 50  0001 C CNN
+	1    7150 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Interface_USB:MCP2221AxSL U?
+U 1 1 5FBDB3F3
+P 7600 5250
+F 0 "U?" H 7600 4561 50  0000 C CNN
+F 1 "MCP2221AxSL" H 7600 4470 50  0000 C CNN
+F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 7600 6250 50  0001 C CNN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/20005565B.pdf" H 7600 5950 50  0001 C CNN
+	1    7600 5250
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
