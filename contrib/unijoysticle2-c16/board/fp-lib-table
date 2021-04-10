@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name Unijoysticle)(type KiCad)(uri ${KIPRJMOD}/Unijoysticle.pretty)(options "")(descr ""))
+)
