@@ -16,16 +16,34 @@ cables are needed for these computers.
 
 However, the Unijoysticle 2 can be used in any computer that is compatible with the Atari DB9 joystick ports.
 
-That includes, but not limtied to:
+That includes, but not limited to:
 
 - Commodore 64 / SX-64 / 128 / 128-D.
 - Atari 8-bit line, both computers and consoles (requires [DB9 extension cable][cable]).
 - Amiga line (requires [DB9 extension cable][cable]).
 - Atari ST line (requires [DB9 extension cable][cable]).
+- Commodore 16 / 116 / +4 (requires joyadaptercables)
 
 For Amiga / Atari ST 3-button joystick support, read [Amiga / Atari ST support](amiga_atarist.md).
 
 [cable]: https://www.aliexpress.com/item/33012270252.html?spm=a2g0s.9042311.0.0.74394c4diOD0iB
+
+For Commodore 16/116/+4 you need two identical and suitable joyadapters to work with this design, 
+though a new design Unijoysticle 2 for the 264 is available, this one is multi-usable for C64 as for C16/116/+4.
+
+You need joyadapters with suitable pinconnections:
+
+If you want the Unijoysticle 2 with DB9 connectors to work on a C16/+4 together with 264 joyadapters, 
+you have to be sure that the adapters have:
+
+Pin 1-4,6 connected on minidin/DB9, corresponding pinnumbers
+Pin 5 (+5VDC) minidin NC
+Pin 7 (GND) minidin NC (important criterium!)
+Pin 8 minidin (Data/select) on pin 8 DB9 (GND)
+USB external PSU (have not tried it with internal +5VDC pin, while amperage is a bit low)
+
+Before connecting the joyadapters on the Unijoysicle 2 do measure the pinout, 
+while there are different variants!
 
 ## Soldering the kit
 
