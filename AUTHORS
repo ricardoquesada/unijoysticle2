@@ -1,10 +1,8 @@
 Unijoysticle 2 authors:
 
-Firmware, schematic, board: Ricardo Quesada
+Main author:
+  * Ricardo Quesada
 
 Contributors:
-  - Marcelo Lorenzati: Added DualShock3 gamepad support
-
-Many thanks to:
-  - Esteban/PVM and many other PVMers: Dualshock4 and general testing
-  - Pyrofer: Wii / Wii U beta testing and ideas
+  * Eduardo Casino: C16/Plus4 board (see "contrib" folder)
+  * Kospec C64: Improved C64 boards (Rev. H, see "contrib" folder)
