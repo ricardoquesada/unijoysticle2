@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 10476)
+    (start_pass_no 6156)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -87,13 +87,13 @@
     )
   )
   (class "kicad_default"
-    GND "/ESP_EN" VBUS /USBD+ "/USBD-" "/J1_POTX" "/J1_FIRE" "/J1_POTY"
-    "/J1_RIGHT" "/J1_LEFT" "/J1_DOWN" "/J1_UP" "/J2_POTX" "/J2_FIRE" "/J2_POTY" "/J2_RIGHT"
-    "/J2_LEFT" "/J2_DOWN" "/J2_UP" "/RTS_PROG" "/ESP_BOOT" "/DTR_PROG" "/GPIO_J1_LED" "/GPIO_J2_LED"
-    "/GPIO_SWITCH_JOY" "/GPIO_J1_RIGHT" "/GPIO_J2_POTY" "/ESP_TXD" "/ESP_RXD" "/GPIO_J2_POTX" "/GPIO_J1_LEFT" "/GPIO_J1_DOWN"
-    "/GPIO_J2_RIGHT" "/GPIO_J1_POTY" "/GPIO_J2_FIRE" "/GPIO_J1_FIRE" "/GPIO_J2_UP" "/GPIO_J1_UP" "/GPIO_J2_DOWN" "/GPIO_J1_POTX"
-    "/GPIO_J2_LEFT" "Net-(D2-Pad2)" "Net-(D3-Pad2)" "Net-(Q1-Pad2)" "Net-(Q2-Pad2)" "Net-(R7-Pad2)" "Net-(R8-Pad1)" "Net-(D1-Pad2)"
-    "Net-(C8-Pad1)" "Net-(C12-Pad1)"
+    GND "/ESP_EN" /USBD+ "/USBD-" "/J1_POTX" "/J1_FIRE" "/J1_POTY" "/J1_RIGHT"
+    "/J1_LEFT" "/J1_DOWN" "/J1_UP" "/J2_POTX" "/J2_FIRE" "/J2_POTY" "/J2_RIGHT" "/J2_LEFT"
+    "/J2_DOWN" "/J2_UP" "/RTS_PROG" "/ESP_BOOT" "/DTR_PROG" "/GPIO_J1_LED" "/GPIO_J2_LED" "/GPIO_SWITCH_JOY"
+    "/GPIO_J1_RIGHT" "/GPIO_J2_POTY" "/ESP_TXD" "/ESP_RXD" "/GPIO_J2_POTX" "/GPIO_J1_LEFT" "/GPIO_J1_DOWN" "/GPIO_J2_RIGHT"
+    "/GPIO_J1_POTY" "/GPIO_J2_FIRE" "/GPIO_J1_FIRE" "/GPIO_J2_UP" "/GPIO_J1_UP" "/GPIO_J2_DOWN" "/GPIO_J1_POTX" "/GPIO_J2_LEFT"
+    "Net-(D2-Pad2)" "Net-(D3-Pad2)" "Net-(Q1-Pad2)" "Net-(Q2-Pad2)" "Net-(R7-Pad2)" "Net-(R8-Pad1)" "Net-(D1-Pad2)" "Net-(C12-Pad1)"
+    "Net-(C13-Pad2)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
@@ -104,7 +104,7 @@
     )
   )
   (class POWER
-    +3V3 VDD
+    +3V3 VBUS VDD "Net-(C8-Pad1)"
     (clearance_class POWER)
     (via_rule POWER)
     (rule
