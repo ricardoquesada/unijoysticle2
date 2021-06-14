@@ -879,8 +879,9 @@ U 1 1 5F99FD12
 P 7450 2550
 F 0 "J3" H 7507 3017 50  0000 C CNN
 F 1 "USB_B_Micro" H 7507 2926 50  0000 C CNN
-F 2 "Connector_USB:USB_Micro-B_Molex-105017-0001" H 7600 2500 50  0001 C CNN
+F 2 "Connector_USB:USB_Micro-B_Molex_47346-0001" H 7600 2500 50  0001 C CNN
 F 3 "~" H 7600 2500 50  0001 C CNN
+F 4 "C132560" H 7450 2550 50  0001 C CNN "LCSC"
 	1    7450 2550
 	1    0    0    -1  
 $EndComp
@@ -909,16 +910,16 @@ USBD+
 Text Label 9250 3250 0    50   ~ 0
 USBD-
 Wire Wire Line
-	10050 5050 10050 5150
+	10050 5050 10050 5080
 $Comp
 L power:GND #PWR033
 U 1 1 60E6428D
-P 10050 5150
-F 0 "#PWR033" H 10050 4900 50  0001 C CNN
-F 1 "GND" H 10055 4977 50  0000 C CNN
-F 2 "" H 10050 5150 50  0001 C CNN
-F 3 "" H 10050 5150 50  0001 C CNN
-	1    10050 5150
+P 10050 5080
+F 0 "#PWR033" H 10050 4830 50  0001 C CNN
+F 1 "GND" H 10055 4907 50  0000 C CNN
+F 2 "" H 10050 5080 50  0001 C CNN
+F 3 "" H 10050 5080 50  0001 C CNN
+	1    10050 5080
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -959,7 +960,7 @@ L Interface_USB:CP2102N-A01-GQFN28 U6
 U 1 1 60BB8FDE
 P 10050 3750
 F 0 "U6" H 10250 2350 50  0000 C CNN
-F 1 "CP2102N-A01-GQFN28" H 10650 2450 50  0000 C CNN
+F 1 "CP2102" H 10270 2450 50  0000 C CNN
 F 2 "Package_DFN_QFN:QFN-28-1EP_5x5mm_P0.5mm_EP3.35x3.35mm" H 10500 2550 50  0001 L CNN
 F 3 "https://www.silabs.com/documents/public/data-sheets/cp2102n-datasheet.pdf" H 10100 3000 50  0001 C CNN
 F 4 "C6568" H 10050 3750 50  0001 C CNN "LCSC"
@@ -1371,7 +1372,7 @@ F 0 "D6" H 8305 2946 50  0000 L CNN
 F 1 "SP0503BAHT" H 8305 2855 50  0000 L CNN
 F 2 "Package_TO_SOT_SMD:SOT-143" H 8325 2850 50  0001 L CNN
 F 3 "http://www.littelfuse.com/~/media/files/littelfuse/technical%20resources/documents/data%20sheets/sp05xxba.pdf" H 8225 3025 50  0001 C CNN
-F 4 "C7074" H 8100 2900 50  0001 C CNN "LCSC"
+F 4 "C720028" H 8100 2900 50  0001 C CNN "LCSC"
 	1    8100 2900
 	1    0    0    -1  
 $EndComp
@@ -1686,8 +1687,6 @@ F 4 "C7640" H 3060 7050 50  0001 C CNN "LCSC"
 	7    3060 7050
 	0    -1   -1   0   
 $EndComp
-Text Notes 10010 5430 0    50   ~ 0
-Either a cp2102 or cp2102N
 Text Notes 530  7700 0    50   ~ 0
 To prevent keyboard and/or other weird issues,\n7405 must be connected to C64 power lines (VDD)
 Wire Wire Line
@@ -1767,4 +1766,6 @@ Wire Wire Line
 Wire Wire Line
 	4100 1800 4100 1840
 Connection ~ 4100 1550
+Text Notes 9350 5380 0    50   ~ 0
+Only 2102.\nRequires additional resistors for cp2102N
 $EndSCHEMATC

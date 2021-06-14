@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/riq/progs/unijoysticle2/board/unijoysticle2plus/unijoysticle2plus.sch)
-    (date "Thu 10 Jun 2021 01:26:56 PM PDT")
+    (date "Sun 13 Jun 2021 06:47:15 PM PDT")
     (tool "Eeschema 5.1.10-88a1d61d58~88~ubuntu20.04.1")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -144,8 +144,10 @@
       (tstamp 60AF3FED))
     (comp (ref J3)
       (value USB_B_Micro)
-      (footprint Connector_USB:USB_Micro-B_Molex-105017-0001)
+      (footprint Connector_USB:USB_Micro-B_Molex_47346-0001)
       (datasheet ~)
+      (fields
+        (field (name LCSC) C132560))
       (libsource (lib Connector) (part USB_B_Micro) (description "USB Micro Type B connector"))
       (sheetpath (names /) (tstamps /))
       (tstamp 5F99FD12))
@@ -159,7 +161,7 @@
       (sheetpath (names /) (tstamps /))
       (tstamp 60EF6BA5))
     (comp (ref U6)
-      (value CP2102N-A01-GQFN28)
+      (value CP2102)
       (footprint Package_DFN_QFN:QFN-28-1EP_5x5mm_P0.5mm_EP3.35x3.35mm)
       (datasheet https://www.silabs.com/documents/public/data-sheets/cp2102n-datasheet.pdf)
       (fields
@@ -271,7 +273,7 @@
       (footprint Package_TO_SOT_SMD:SOT-143)
       (datasheet http://www.littelfuse.com/~/media/files/littelfuse/technical%20resources/documents/data%20sheets/sp05xxba.pdf)
       (fields
-        (field (name LCSC) C7074))
+        (field (name LCSC) C720028))
       (libsource (lib Power_Protection) (part SP0503BAHT) (description "TVS Diode Array, 5.5V Standoff, 3 Channels, SOT-143 package"))
       (sheetpath (names /) (tstamps /))
       (tstamp 60C4C799))
