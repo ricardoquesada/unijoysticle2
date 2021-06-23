@@ -4,8 +4,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Adheres to the "standard" way to version boards/layouts. E.g: letters instead of numbers.
 
-## [Unreleased]
+## [Unreleased] -
 
+* Unijoysticle2+ Rev B
+    * Uses 0805 with long pads (hand-solder friendly)
+    * Uses CH340C instead of CP2102 (hand-solder friendly)
+    * USB Micro connector moved a few mm inside the board.
+      * Board has "hole" so that the USB Micro has space
+    * Board has 4 layers instead of 2.
+      * Board can be routed in 2 layers without major probblems,
+        but using 4-layers for testing purposes.
+
+## [Unijoysticle2+ Rev A] - 2021-06-22
+
+* First attempt of the Unijoysticle2+
+  * It is case friendly
+  * Doesn't use ESP32 Mini Kit, it is built-in
+  * Most of the components are SMD
+  * Includes caps to filter hi and low frequencies
+  * Schematic seems to be Ok, but layout is not.
 * Firmware, including all related files, moved to Bluepad32 repo
 * Only things related to the board like schematics and layout are kept in this repo
 * Community contributions:
