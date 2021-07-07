@@ -1083,8 +1083,6 @@ Wire Notes Line
 Wire Notes Line
 	3050 450  3050 3950
 Wire Notes Line
-	6850 4750 6800 4750
-Wire Notes Line
 	3700 5500 11050 5500
 Wire Notes Line
 	6700 550  6700 5500
@@ -1265,10 +1263,10 @@ L Device:R R2
 U 1 1 61165DF4
 P 6550 5750
 F 0 "R2" V 6620 5750 50  0000 C CNN
-F 1 "300" V 6460 5750 50  0000 C CNN
+F 1 "1k" V 6460 5750 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 6480 5750 50  0001 C CNN
 F 3 "~" H 6550 5750 50  0001 C CNN
-F 4 "C17617" V 6550 5750 50  0001 C CNN "LCSC"
+F 4 "C17513" V 6550 5750 50  0001 C CNN "LCSC"
 	1    6550 5750
 	0    -1   -1   0   
 $EndComp
@@ -1320,28 +1318,6 @@ NoConn ~ 9460 5910
 NoConn ~ 9460 6010
 NoConn ~ 9460 6110
 $Comp
-L Mechanical:MountingHole_Pad H3
-U 1 1 60D40B18
-P 8300 5830
-F 0 "H3" H 8250 6000 50  0000 L CNN
-F 1 "MountingHole_Pad" H 7960 5650 50  0001 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3_Pad_Via" H 8300 5830 50  0001 C CNN
-F 3 "~" H 8300 5830 50  0001 C CNN
-	1    8300 5830
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:MountingHole_Pad H4
-U 1 1 60D4139A
-P 8550 5830
-F 0 "H4" H 8500 6000 50  0000 L CNN
-F 1 "MountingHole_Pad" H 8200 5650 50  0001 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3_Pad_Via" H 8550 5830 50  0001 C CNN
-F 3 "~" H 8550 5830 50  0001 C CNN
-	1    8550 5830
-	1    0    0    -1  
-$EndComp
-$Comp
 L Graphic:Logo_Open_Hardware_Small #LOGO1
 U 1 1 60C7EEFF
 P 10850 6850
@@ -1357,10 +1333,10 @@ L Device:R R3
 U 1 1 5F98F579
 P 6550 6000
 F 0 "R3" V 6620 6000 50  0000 C CNN
-F 1 "300" V 6460 6000 50  0000 C CNN
+F 1 "1k" V 6460 6000 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 6480 6000 50  0001 C CNN
 F 3 "~" H 6550 6000 50  0001 C CNN
-F 4 "C17617" V 6550 6000 50  0001 C CNN "LCSC"
+F 4 "C17513" V 6550 6000 50  0001 C CNN "LCSC"
 	1    6550 6000
 	0    -1   -1   0   
 $EndComp
@@ -1458,17 +1434,6 @@ Wire Wire Line
 Connection ~ 4100 1550
 Text Notes 9120 6310 0    50   ~ 0
 Available GPIOs for future use.\nGPIOs 34-39 are Input only
-$Comp
-L Mechanical:MountingHole_Pad H1
-U 1 1 60D3FB9A
-P 7800 5830
-F 0 "H1" H 7750 6000 50  0000 L CNN
-F 1 "MountingHole_Pad" H 7460 5640 50  0001 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3_Pad_Via" H 7800 5830 50  0001 C CNN
-F 3 "~" H 7800 5830 50  0001 C CNN
-	1    7800 5830
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	4100 1550 3550 1550
 $Comp
@@ -1604,28 +1569,11 @@ Text Label 10240 3040 0    50   ~ 0
 DTR_PROG
 Text Label 10240 3140 0    50   ~ 0
 RTS_PROG
-$Comp
-L Mechanical:MountingHole_Pad H2
-U 1 1 60D4032A
-P 8050 5830
-F 0 "H2" H 8000 6000 50  0000 L CNN
-F 1 "MountingHole_Pad" H 7710 5640 50  0001 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3_Pad_Via" H 8050 5830 50  0001 C CNN
-F 3 "~" H 8050 5830 50  0001 C CNN
-	1    8050 5830
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
-	8550 5930 8300 5930
-Wire Wire Line
-	8300 5930 8050 5930
-Connection ~ 8300 5930
-Wire Wire Line
-	8050 5930 7800 5930
-Connection ~ 8050 5930
+	8000 5930 7800 5930
+Connection ~ 7800 5930
 Wire Wire Line
 	7800 5930 7800 6010
-Connection ~ 7800 5930
 $Comp
 L power:GND #PWR0104
 U 1 1 610EA861
@@ -1641,8 +1589,8 @@ $Comp
 L Device:R_Small R8
 U 1 1 61160901
 P 10180 2440
-F 0 "R8" V 10240 2440 50  0000 C CNN
-F 1 "1K" V 10300 2440 50  0000 C CNN
+F 0 "R8" V 10250 2440 50  0000 C CNN
+F 1 "1K" V 10310 2440 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 10180 2440 50  0001 C CNN
 F 3 "~" H 10180 2440 50  0001 C CNN
 F 4 "C17513" V 10180 2440 50  0001 C CNN "LCSC"
@@ -1651,18 +1599,6 @@ F 4 "C17513" V 10180 2440 50  0001 C CNN "LCSC"
 $EndComp
 Wire Wire Line
 	10280 2440 10620 2440
-$Comp
-L Device:R R4
-U 1 1 61258BA1
-P 6550 6250
-F 0 "R4" V 6620 6250 50  0000 C CNN
-F 1 "300" V 6460 6250 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 6480 6250 50  0001 C CNN
-F 3 "~" H 6550 6250 50  0001 C CNN
-F 4 "C17617" V 6550 6250 50  0001 C CNN "LCSC"
-	1    6550 6250
-	0    -1   -1   0   
-$EndComp
 Wire Wire Line
 	7430 2450 7860 2450
 Wire Wire Line
@@ -1670,4 +1606,38 @@ Wire Wire Line
 Wire Wire Line
 	7430 2150 7810 2150
 NoConn ~ 9210 2440
+$Comp
+L Mechanical:MountingHole_Pad H2
+U 1 1 60D4139A
+P 8000 5830
+F 0 "H2" H 7950 6000 50  0000 L CNN
+F 1 "MountingHole_Pad" H 7650 5650 50  0001 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_Pad_Via" H 8000 5830 50  0001 C CNN
+F 3 "~" H 8000 5830 50  0001 C CNN
+	1    8000 5830
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H1
+U 1 1 60D40B18
+P 7800 5830
+F 0 "H1" H 7750 6000 50  0000 L CNN
+F 1 "MountingHole_Pad" H 7460 5650 50  0001 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_Pad_Via" H 7800 5830 50  0001 C CNN
+F 3 "~" H 7800 5830 50  0001 C CNN
+	1    7800 5830
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R4
+U 1 1 61258BA1
+P 6550 6250
+F 0 "R4" V 6620 6250 50  0000 C CNN
+F 1 "1k" V 6460 6250 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 6480 6250 50  0001 C CNN
+F 3 "~" H 6550 6250 50  0001 C CNN
+F 4 "C17513" V 6550 6250 50  0001 C CNN "LCSC"
+	1    6550 6250
+	0    -1   -1   0   
+$EndComp
 $EndSCHEMATC
