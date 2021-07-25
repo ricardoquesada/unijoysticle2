@@ -21,7 +21,7 @@ F 0 "U4" H 5800 1350 50  0000 C CNN
 F 1 "ESP32-WROOM-32E" H 5850 1250 50  0000 C CNN
 F 2 "RF_Module:ESP32-WROOM-32" H 5250 1250 50  0001 C CNN
 F 3 "https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32d_esp32-wroom-32u_datasheet_en.pdf" H 4950 2800 50  0001 C CNN
-F 4 "C701342" H 5250 2750 50  0001 C CNN "LCSC"
+F 4 "C473012" H 5250 2750 50  0001 C CNN "LCSC"
 	1    5250 2750
 	1    0    0    -1  
 $EndComp
