@@ -5,8 +5,8 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "Unijoysticle 2+"
-Date "2021-06-25"
-Rev "C"
+Date "2021-07-24"
+Rev "D"
 Comp "Retro Moe"
 Comment1 ""
 Comment2 ""
@@ -450,7 +450,7 @@ Text Label 2900 1350 2    50   ~ 0
 J2_FIRE
 Text Label 6650 2050 2    50   ~ 0
 GPIO_J1_LED
-Text Label 6650 2250 2    50   ~ 0
+Text Label 6650 2150 2    50   ~ 0
 GPIO_J2_LED
 Text Label 6650 2450 2    50   ~ 0
 GPIO_SWITCH_JOY
@@ -462,7 +462,7 @@ Text Label 6650 3450 2    50   ~ 0
 GPIO_J2_UP
 Text Label 6650 3350 2    50   ~ 0
 GPIO_J1_UP
-Text Label 6650 2150 2    50   ~ 0
+Text Label 6650 2250 2    50   ~ 0
 GPIO_J2_FIRE
 Text Label 6650 2350 2    50   ~ 0
 GPIO_J1_FIRE
@@ -605,8 +605,6 @@ Wire Wire Line
 	5850 1950 6650 1950
 Text Label 6650 1950 2    50   ~ 0
 GPIO04
-Wire Wire Line
-	7130 2850 7130 2750
 Text Label 7860 2350 2    50   ~ 0
 USBD+
 Text Label 7860 2450 2    50   ~ 0
@@ -699,37 +697,13 @@ F 3 "" H 9200 900 50  0001 C CNN
 	1    9200 900 
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	7920 4480 7380 4480
-Wire Wire Line
-	7380 4480 7380 4830
-Connection ~ 7380 4830
-Wire Wire Line
-	7280 4280 7280 4630
-Wire Wire Line
-	7280 4280 6980 4280
-Connection ~ 7280 4280
-Wire Wire Line
-	6980 4830 7380 4830
-$Comp
-L Connector:USB_B_Micro J3
-U 1 1 5F99FD12
-P 7130 2350
-F 0 "J3" H 7187 2817 50  0000 C CNN
-F 1 "USB_B_Micro" H 7187 2726 50  0000 C CNN
-F 2 "Unijoysticle:MicroXNJ" H 7280 2300 50  0001 C CNN
-F 3 "~" H 7280 2300 50  0001 C CNN
-F 4 "C404969" H 7130 2350 50  0001 C CNN "LCSC"
-	1    7130 2350
-	1    0    0    -1  
-$EndComp
 Text Label 6980 4280 0    50   ~ 0
 DTR_PROG
 Text Label 6980 4830 0    50   ~ 0
 RTS_PROG
-Text Label 8080 5030 0    50   ~ 0
+Text Label 8640 5270 0    50   ~ 0
 ESP_BOOT
-Text Label 8160 4080 0    50   ~ 0
+Text Label 8830 3840 0    50   ~ 0
 ESP_EN
 Wire Wire Line
 	5850 1550 6650 1550
@@ -769,24 +743,22 @@ GPIO36
 Text Label 4300 1850 0    50   ~ 0
 GPIO39
 Wire Wire Line
-	9460 5710 9860 5710
+	10260 5880 10660 5880
 Wire Wire Line
-	9460 5810 9860 5810
+	10260 5980 10660 5980
 Wire Wire Line
-	9460 5910 9860 5910
+	10260 6080 10660 6080
 Wire Wire Line
-	9460 6010 9860 6010
-Wire Wire Line
-	9460 6110 9860 6110
-Text Label 9610 6010 0    50   ~ 0
+	10260 6180 10660 6180
+Text Label 10410 6080 0    50   ~ 0
 GPIO36
-Text Label 9610 6110 0    50   ~ 0
+Text Label 10410 6180 0    50   ~ 0
 GPIO39
-Text Label 9610 5710 0    50   ~ 0
+Text Label 8790 5880 0    50   ~ 0
 GPIO04
-Text Label 9610 5810 0    50   ~ 0
+Text Label 10410 5880 0    50   ~ 0
 GPIO34
-Text Label 9610 5910 0    50   ~ 0
+Text Label 10410 5980 0    50   ~ 0
 GPIO35
 Wire Wire Line
 	500  6450 1000 6450
@@ -917,8 +889,6 @@ Wire Notes Line
 	3860 5460 11210 5460
 Wire Notes Line
 	6700 550  6700 5500
-Wire Wire Line
-	7280 4630 7870 4630
 $Comp
 L power:+3V3 #PWR013
 U 1 1 5F86633D
@@ -978,7 +948,7 @@ Text Notes 3150 700  0    98   ~ 20
 ESP32
 Text Notes 550  3650 0    98   ~ 20
 C64 PORTS
-Text Notes 10640 5750 0    98   ~ 20
+Text Notes 10810 5640 0    98   ~ 20
 MISC
 Text Notes 500  4100 0    98   ~ 20
 TTL LOGIC
@@ -1041,11 +1011,10 @@ NoConn ~ 4650 2950
 NoConn ~ 4650 3050
 NoConn ~ 4650 3150
 NoConn ~ 4650 3250
-NoConn ~ 9460 5710
-NoConn ~ 9460 5810
-NoConn ~ 9460 5910
-NoConn ~ 9460 6010
-NoConn ~ 9460 6110
+NoConn ~ 10260 5880
+NoConn ~ 10260 5980
+NoConn ~ 10260 6080
+NoConn ~ 10260 6180
 $Comp
 L Graphic:Logo_Open_Hardware_Small #LOGO1
 U 1 1 60C7EEFF
@@ -1062,10 +1031,10 @@ L Device:R R3
 U 1 1 5F98F579
 P 6550 6000
 F 0 "R3" V 6620 6000 50  0000 C CNN
-F 1 "1k" V 6460 6000 50  0000 C CNN
+F 1 "330" V 6460 6000 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 6480 6000 50  0001 C CNN
 F 3 "~" H 6550 6000 50  0001 C CNN
-F 4 "C17513" V 6550 6000 50  0001 C CNN "LCSC"
+F 4 "C17630" V 6550 6000 50  0001 C CNN "LCSC"
 	1    6550 6000
 	0    -1   -1   0   
 $EndComp
@@ -1147,7 +1116,7 @@ Wire Wire Line
 Wire Wire Line
 	4100 1800 4100 1840
 Connection ~ 4100 1550
-Text Notes 9120 6310 0    50   ~ 0
+Text Notes 9920 6380 0    50   ~ 0
 Available GPIOs for future use.\nGPIOs 34-39 are Input only
 Wire Wire Line
 	4100 1550 3550 1550
@@ -1301,35 +1270,6 @@ F 4 "C17513" V 6550 6250 50  0001 C CNN "LCSC"
 	1    6550 6250
 	0    -1   -1   0   
 $EndComp
-$Comp
-L Transistor_BJT:MUN5211DW1 Q1
-U 2 1 60E74B41
-P 7870 4280
-F 0 "Q1" H 8011 4326 50  0000 L CNN
-F 1 "MUN5211DW1" H 8011 4235 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 7875 3840 50  0001 C CNN
-F 3 "http://www.onsemi.com/pub/Collateral/DTC114ED-D.PDF" H 7870 4280 50  0001 C CNN
-	2    7870 4280
-	1    0    0    -1  
-$EndComp
-$Comp
-L Transistor_BJT:MUN5211DW1 Q1
-U 1 1 60E75D85
-P 7820 4830
-F 0 "Q1" H 7961 4784 50  0000 L CNN
-F 1 "MUN5211DW1" H 7961 4875 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 7825 4390 50  0001 C CNN
-F 3 "http://www.onsemi.com/pub/Collateral/DTC114ED-D.PDF" H 7820 4830 50  0001 C CNN
-F 4 "C152507" H 7820 4830 50  0001 C CNN "LCSC"
-	1    7820 4830
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	7870 5030 8450 5030
-Wire Wire Line
-	7380 4830 7470 4830
-Wire Wire Line
-	7280 4280 7520 4280
 Wire Wire Line
 	9610 2010 9610 2140
 Wire Wire Line
@@ -1407,8 +1347,6 @@ F 3 "" H 7130 2850 50  0001 C CNN
 	1    7130 2850
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	7920 4080 8430 4080
 NoConn ~ 7030 2750
 $Comp
 L 74xx:74LS05 U1
@@ -1696,6 +1634,115 @@ F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 8990 2080 50  
 F 3 "~" H 8990 2080 50  0001 C CNN
 F 4 "C28323" H 8990 2080 50  0001 C CNN "LCSC"
 	1    8990 2080
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6980 4830 7450 4830
+Wire Wire Line
+	6980 4280 7420 4280
+$Comp
+L Device:R_Small R7
+U 1 1 6103A444
+P 7640 4280
+F 0 "R7" V 7580 4280 50  0000 C CNN
+F 1 "10k" V 7710 4280 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 7640 4280 50  0001 C CNN
+F 3 "~" H 7640 4280 50  0001 C CNN
+F 4 "C17414" V 7640 4280 50  0001 C CNN "LCSC"
+	1    7640 4280
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R8
+U 1 1 6103B159
+P 7640 4830
+F 0 "R8" V 7570 4830 50  0000 C CNN
+F 1 "10k" V 7720 4830 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" H 7640 4830 50  0001 C CNN
+F 3 "~" H 7640 4830 50  0001 C CNN
+F 4 "C17414" V 7640 4830 50  0001 C CNN "LCSC"
+	1    7640 4830
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7740 4280 8040 4280
+Wire Wire Line
+	7740 4830 8040 4830
+Wire Wire Line
+	8340 5030 8340 5270
+Wire Wire Line
+	8340 5270 9000 5270
+Wire Wire Line
+	8340 4080 8340 3840
+Wire Wire Line
+	8340 3840 9100 3840
+Connection ~ 7420 4280
+Wire Wire Line
+	7420 4280 7540 4280
+Wire Wire Line
+	7450 4830 7450 4480
+Wire Wire Line
+	7450 4480 8340 4480
+Connection ~ 7450 4830
+Wire Wire Line
+	7450 4830 7540 4830
+Wire Wire Line
+	8340 4630 7420 4630
+Wire Wire Line
+	7420 4280 7420 4630
+$Comp
+L Device:Q_NPN_BEC Q1
+U 1 1 6114C279
+P 8240 4280
+F 0 "Q1" H 8430 4326 50  0000 L CNN
+F 1 "S8050" H 8430 4235 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 8440 4380 50  0001 C CNN
+F 3 "~" H 8240 4280 50  0001 C CNN
+F 4 "C2146" H 8240 4280 50  0001 C CNN "LCSC"
+	1    8240 4280
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Q_NPN_BEC Q2
+U 1 1 6114CB1B
+P 8240 4830
+F 0 "Q2" H 8430 4876 50  0000 L CNN
+F 1 "S8050" H 8430 4785 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 8440 4930 50  0001 C CNN
+F 3 "~" H 8240 4830 50  0001 C CNN
+F 4 "C2146" H 8240 4830 50  0001 C CNN "LCSC"
+	1    8240 4830
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8780 5880 8780 5980
+$Comp
+L power:GND #PWR0113
+U 1 1 61222325
+P 8780 5980
+F 0 "#PWR0113" H 8780 5730 50  0001 C CNN
+F 1 "GND" H 8785 5807 50  0000 C CNN
+F 2 "" H 8780 5980 50  0001 C CNN
+F 3 "" H 8780 5980 50  0001 C CNN
+	1    8780 5980
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8780 5880 9060 5880
+Text Notes 8420 5780 0    50   ~ 0
+Differenciates between\nUnijoysticle2 and Unijoysticle2+.\nTo only have one firmware
+Wire Wire Line
+	7130 2750 7130 2850
+$Comp
+L Connector:USB_B_Micro J3
+U 1 1 6137E281
+P 7130 2350
+F 0 "J3" H 7187 2817 50  0000 C CNN
+F 1 "USB_B_Micro" H 7187 2726 50  0000 C CNN
+F 2 "Connector_USB:USB_Micro-B_Molex_47346-0001" H 7280 2300 50  0001 C CNN
+F 3 "~" H 7280 2300 50  0001 C CNN
+F 4 "C132560" H 7130 2350 50  0001 C CNN "LCSC"
+	1    7130 2350
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
