@@ -1,4 +1,0 @@
-(sym_lib_table
-  (lib (name SparkFun)(type Legacy)(uri ${KIPRJMOD}/SparkFun/SparkFun-Boards.lib)(options "")(descr ""))
-  (lib (name unijoysticle-rescue)(type Legacy)(uri ${KIPRJMOD}/unijoysticle-rescue.lib)(options "")(descr ""))
-)
