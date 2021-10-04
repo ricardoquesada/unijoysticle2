@@ -5,8 +5,8 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title "Unijoysticle 2+"
-Date "2021-08-07"
-Rev "E"
+Date "2021-10-03"
+Rev "F"
 Comp "Retro Moe"
 Comment1 ""
 Comment2 ""
@@ -1095,10 +1095,10 @@ L Device:C_Small C4
 U 1 1 61155FEC
 P 4100 1700
 F 0 "C4" H 3900 1750 50  0000 C CNN
-F 1 ".1uF" H 3900 1650 50  0000 C CNN
+F 1 "10uF" H 3900 1650 50  0000 C CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 4100 1700 50  0001 C CNN
 F 3 "~" H 4100 1700 50  0001 C CNN
-F 4 "C49678" H 4100 1700 50  0001 C CNN "LCSC"
+F 4 "C15850" H 4100 1700 50  0001 C CNN "LCSC"
 	1    4100 1700
 	1    0    0    -1  
 $EndComp
