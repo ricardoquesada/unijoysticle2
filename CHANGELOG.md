@@ -4,16 +4,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Adheres to the "standard" way to version boards/layouts. E.g: letters instead of numbers.
 
-## [Unreleased] -
+## [Unijoysticle 2+ Rev F] - 2021-10-03
 
-* Unijoysticle2+ Rev B
-    * Uses 0805 with long pads (hand-solder friendly)
-    * Uses CH340C instead of CP2102 (hand-solder friendly)
-    * USB Micro connector moved a few mm inside the board.
-      * Board has "hole" so that the USB Micro has space
-    * Board has 4 layers instead of 2.
-      * Board can be routed in 2 layers without major probblems,
-        but using 4-layers for testing purposes.
+### Added: New model: Unijosyticle 2+!!
+
+  * It is case friendly
+  * Doesn't use ESP32 Mini Kit, it is built-in
+  * Most of the components are SMD, hand-solder friendly (0805 package)
+  * Includes caps to filter hi and low frequencies: fixes noise on C128
+  * Consumes tiny bit less of current: from 100mA to 96mA
+  * Has extra 7405 to control buttons 2 and 3 on both ports on the Amiga / Atari ST
+
+### Changes from Rev A
+
+  * Uses 0805 with long pads (hand-solder friendly)
+  * Uses CH340C instead of CP2102 (hand-solder friendly)
+  * USB Micro connector moved a few mm inside the board.
+    * Board has "hole" so that the USB Micro has space
+  * Board has 4 layers instead of 2.
+    * Board can be routed in 2 layers without major probblems,
+      but using 4-layers for testing purposes.
+  * Cap to filter noise in C128 working Ok
+  * Autoboot working Ok
+  * LEDs have more or less the same intensity
 
 ## [Unijoysticle2+ Rev A] - 2021-06-22
 

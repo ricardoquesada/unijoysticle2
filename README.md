@@ -2,7 +2,7 @@
 
 Like the original [Unijoysticle][1], but remove WiFi and add Bluetooth.
 
-![Unijoysticle 2](https://lh3.googleusercontent.com/DChZhkyEl-qqZ3r9N7_RhzvF4zDkSdgNyZwczBofnp28D6ncXcbGq3CXBc5SeC5zooUbBCRo87stuAx-4Q7FwItz1NfaZ4_EJjX3pIroiiR-fcXPzZWk0OifvtaoA8iUJsQQnhkC9q4=-no)
+![Unijoysticle 2+](https://lh3.googleusercontent.com/pw/AM-JKLVFmCKemhETtopdV_d8YZLiQqKLiUNHi_Rq2Mnh7TOtxw4gMWnLhLZH5gaXYYwuMb2YOuBZ6f09o2lX0T8R-Tpi9KbtTWF7OEAzEVxbj4o-CrMPDtevlreidD5aJdM4xtumcby1szChTP0dRa_rqMqzDw=-no)
 
 Unijoysticle 2 allows you to use modern Bluetooth gamepads, e.g Xbox One gamepad,
 in old computers like the Commodore 64 & 128.
