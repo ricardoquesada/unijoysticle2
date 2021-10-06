@@ -21,7 +21,7 @@ F 0 "U4" H 5800 1350 50  0000 C CNN
 F 1 "ESP32-WROOM-32E" H 5850 1250 50  0000 C CNN
 F 2 "RF_Module:ESP32-WROOM-32" H 5250 1250 50  0001 C CNN
 F 3 "https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32d_esp32-wroom-32u_datasheet_en.pdf" H 4950 2800 50  0001 C CNN
-F 4 "C473012" H 5250 2750 50  0001 C CNN "LCSC"
+F 4 "C82899" H 5250 2750 50  0001 C CNN "LCSC"
 	1    5250 2750
 	1    0    0    -1  
 $EndComp
@@ -933,7 +933,7 @@ Wire Notes Line
 	11200 1700 11200 1650
 Text Notes 6850 1650 0    98   ~ 20
 POWER
-Text Notes 9520 4250 0    98   ~ 20
+Text Notes 9670 4160 0    98   ~ 20
 USB <-> UART
 Text Notes 3150 700  0    98   ~ 20
 ESP32
@@ -1116,10 +1116,10 @@ L Interface_USB:CH340C U6
 U 1 1 60DBAB15
 P 9610 2740
 F 0 "U6" H 9330 2130 50  0000 C CNN
-F 1 "CH340B/C" H 9330 2050 50  0000 C CNN
+F 1 "CH340C" H 9330 2050 50  0000 C CNN
 F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 9660 2190 50  0001 L CNN
 F 3 "https://datasheet.lcsc.com/szlcsc/Jiangsu-Qin-Heng-CH340C_C84681.pdf" H 9260 3540 50  0001 C CNN
-F 4 "C81010" H 9610 2740 50  0001 C CNN "LCSC"
+F 4 "C84681" H 9610 2740 50  0001 C CNN "LCSC"
 	1    9610 2740
 	1    0    0    -1  
 $EndComp
@@ -1755,4 +1755,8 @@ F 3 "" H 6000 1210 50  0001 C CNN
 	1    6000 1210
 	1    0    0    -1  
 $EndComp
+Text Notes 10000 3570 0    50   ~ 0
+Either CH340B or CH340C.\nThey are pin compatible.\n"B" has more features, but\nmore expensive.
+Text Notes 4800 4750 0    50   ~ 0
+Any ESP32-WROOM-32 should work:\n32 or 32D or 32E.\nPrefer "E" if avaiable.
 $EndSCHEMATC
