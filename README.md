@@ -2,7 +2,9 @@
 
 Like the original [Unijoysticle][1], but remove WiFi and add Bluetooth.
 
-![Unijoysticle 2+](https://lh3.googleusercontent.com/pw/AM-JKLVFmCKemhETtopdV_d8YZLiQqKLiUNHi_Rq2Mnh7TOtxw4gMWnLhLZH5gaXYYwuMb2YOuBZ6f09o2lX0T8R-Tpi9KbtTWF7OEAzEVxbj4o-CrMPDtevlreidD5aJdM4xtumcby1szChTP0dRa_rqMqzDw=-no)
+| Unijoysticle 2 | Unijoysticle 2+ |
+| -------------- | --------------- |
+| ![uni2](https://lh3.googleusercontent.com/DChZhkyEl-qqZ3r9N7_RhzvF4zDkSdgNyZwczBofnp28D6ncXcbGq3CXBc5SeC5zooUbBCRo87stuAx-4Q7FwItz1NfaZ4_EJjX3pIroiiR-fcXPzZWk0OifvtaoA8iUJsQQnhkC9q4=-no) | ![uni2+](https://lh3.googleusercontent.com/pw/AM-JKLVeTZLBOCy4GmrG5N-WiRIcqoxLdsVXSN-77reS92gn7xxmZy-JuE_XeXgwSSPaUBYa2qaaw5RvZbzlkHdjDxal2p_WkKIm9RnzD6qeqV_u7j_3sRJOkm35EO5JCXFp_EpLvCTHGNEX6ZOtMyOGrzqLQw=-no) |
 
 Unijoysticle 2 allows you to use modern Bluetooth gamepads, e.g Xbox One gamepad,
 in old computers like the Commodore 64 & 128.
@@ -43,7 +45,7 @@ throw grenades / roll by pressing Button B.
 
 ## Supported controllers
 
-![Supported_gamepads](https://lh3.googleusercontent.com/U1PRr4a21yGffPHxRlONqeolOnr2i-IuONM4ajQksvxB5Lr3zfQFmkHJJbwRNVUY0WrNik5Ia79se3sQx0aa4axuGnBbytyH_5fJnKELX4FOMRM4qrF3bYCmmp0Vk3ZnltQ0YCiRTK0=-no)
+![Supported gamepads](https://lh3.googleusercontent.com/pw/ACtC-3cg22O7VPT8NwXIATr2rsgs-rn2kShZeiUbArIK-2lIkskCLI6q06nRtK9been8Hom49dOacwHD8bVT2Tc8YKsxd5w73W25lhOvlRk6Xf9RVXgB5AZcmdl2PoWhrEAZUbmBl1pS6HrtMuZYI506US7YuA=-no)
 
 - Sony DualSense
 - Sony DUALSHOCK 4
