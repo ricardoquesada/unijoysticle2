@@ -1,11 +1,25 @@
-# Unijoysticle 2 User Guide
+# Unijoysticle 2 / 2+ User Guide
 
-![Unijoysticle 2](https://lh3.googleusercontent.com/cbeL59-n7k_9RIFQCdspwVP8zAm3nssiOad_g7NGF83SjWvAHnhD2opSXFDXh7e1WJnX6LrM31MhGfoeHxgKKDaAJwnOmYoFqY9mrfEv7KCXQWg1RYVepyljDuJCSbkh5gDNzbsNNb8=-no)
+This guide is valid both for Unijoysticle 2 and Unijoysticle 2+.
+Features that are only applicable for Unijoysticle 2 / 2+, are tagged as **[v2 only]** / **[v2+ only]** respectively.
 
-- Toggle Mode button: Toggles between "Basic" and "Enhanced" modes
+Comparison between the two:
+
+| | Unijoysticle 2 | Unijoysticle 2+ |
+| - | -------------- | --------------- |
+| Buttons / Switches / LEDs | ![uni2](https://lh3.googleusercontent.com/cbeL59-n7k_9RIFQCdspwVP8zAm3nssiOad_g7NGF83SjWvAHnhD2opSXFDXh7e1WJnX6LrM31MhGfoeHxgKKDaAJwnOmYoFqY9mrfEv7KCXQWg1RYVepyljDuJCSbkh5gDNzbsNNb8=-no) | ![uni2+](https://lh3.googleusercontent.com/pw/AM-JKLW6182mD0hc30KjSfySV7di5XTLvuQzRy5QcZsx29AzVGkjkqvIOxN_QZykKaFUiILGhlw4ADZZ010PDnUFmd-VFXZEFfUryY4yvsO_RCKAqV-l-Wk176XaE7x0Ehy9PH0SIu_S1RRxk9DXrxQbvEUiFQ=-no) |
+| Size | 63 x 66 x 17 mm | 64 x 64 x 12 mm |
+| Current| ~100mA| ~96mA |
+| Self-powered | Yes, can be turned off with switch | Yes, always on |
+| External power | Both USB and Barrel Jack 5V+ | Only USB |
+| USB connector | Micro USB | Micro USB |
+
+- Toggle Mode button: Toggles between *Basic* and *Enhanced* modes
 - Reboot button: Reboots the Unijoysticle 2
-- LEDs: Green/Red LEDs turn on when Joystick 1/Joystick 2 are attached
-- Self-Powered On/Off: When On, the Unijoysticle will be powered by the Commodore.
+- Green / Red LEDs: Joystick 1 / Joystick 2 are attached
+- Power LED: Red in Unijoysticle 2, Blue in 2+.
+- [v2 only] Self-Powered On/Off: When On, the Unijoysticle will be powered by the Commodore.
+- [v2+ only] Prog Mode: If programming fails, press this button to force "programming mode".
 
 ## Supported computers
 
@@ -28,12 +42,12 @@ For Amiga / Atari ST 3-button joystick support, read [Amiga / Atari ST support](
 
 [cable]: https://www.aliexpress.com/item/33012270252.html?spm=a2g0s.9042311.0.0.74394c4diOD0iB
 
-For Commodore 16/116/+4 you need two identical and suitable joyadapters to work with this design, 
+For Commodore 16/116/+4 you need two identical and suitable joyadapters to work with this design,
 though a new design Unijoysticle 2 for the 264 is available, this one is multi-usable for C64 as for C16/116/+4.
 
 You need joyadapters with suitable pinconnections:
 
-If you want the Unijoysticle 2 with DB9 connectors to work on a C16/+4 together with 264 joyadapters, 
+If you want the Unijoysticle 2 with DB9 connectors to work on a C16/+4 together with 264 joyadapters,
 you have to be sure that the adapters have:
 
 Pin 1-4,6 connected on minidin/DB9, corresponding pinnumbers
@@ -42,10 +56,10 @@ Pin 7 (GND) minidin NC (important criterium!)
 Pin 8 minidin (Data/select) on pin 8 DB9 (GND)
 USB external PSU (have not tried it with internal +5VDC pin, while amperage is a bit low)
 
-Before connecting the joyadapters on the Unijoysicle 2 do measure the pinout, 
+Before connecting the joyadapters on the Unijoysicle 2 do measure the pinout,
 while there are different variants!
 
-## Soldering the kit
+## Soldering the kit [v2 only]
 
 All components are through-hole. The only components that have polarity are the LEDs and the diodes.
 See graphic for reference:
@@ -85,26 +99,33 @@ You can source the components from here:
 
 ## Flashing the firmware
 
-See: [firmware_setup.md][1]
+See: [firmware_setup.md][firmware_setup]
+
+[firmware_setup]: https://gitlab.com/ricardoquesada/bluepad32/-/blob/main/docs/firmware_setup.md
 
 ## Power on
 
 ![Self-powered](https://lh3.googleusercontent.com/j9ruthMtq84AaKz4ABCAuhsUWJ6tPFzelvwwb1t3MpEIMc7jXJaKpywNKp9GSX2qXQmdul5ZT7JB5g928YSXKaXNttvLVmMbJZaczqUGD1E_FaUtP9BlGxOHjQVOdEk5D674QHMxZfI=-no)
 
-The Unijoysticle 2 can be powered in three different ways:
+*Unijoysticle 2* can be powered in three different ways:
 
-- Self-powered.
-- USB-powered.
-- +5V barrel jack-powered.
+- Self-powered (with switch to enable/disable it)
+- USB-powered
+- +5V barrel jack-powered
 
-Note: It is safe to plug the three of them at the same time, but that won't give you any additional benefit.
+*Unijoysticle 2+* can be powered in two different ways:
+
+- Self-powered (there is no switch, it is always on)
+- USB-powered
+
+Note: It is safe to plug the two / three of them at the same time, but that won't give you any additional benefit.
 
 ### Self-powered
 
 ![self_powered](https://lh3.googleusercontent.com/XVQU7lkllCqc-1k6KX_3CdDIOlx0NCHO8NVDuBOJGdVef3Rq03KJpDHLqG_FNYW2GTeXOAxna9njsclcrlxmhOiBR_KvI-M8CDUOglUX9nCZLBILnkSB32Tews7yhmU38tfaVMxXnWU=-no)
 
 - Gets current directly from the joystick ports. No extra cables needed.
-- "Self-powered" switch must be "ON", otherwise the ESP32 won't receive current.
+- [v2 only] "Self-powered" switch must be "ON", otherwise the ESP32 won't receive current.
 - A beefy [power supply with ~4Amps][power_supply] is recommended (depends on the peripherals used).
 - Tested successfully with:
   - C128 + 1541 Ultimate 2 + Unijoysticle 2 + [beefy power supply][power_supply].
@@ -112,7 +133,7 @@ Note: It is safe to plug the three of them at the same time, but that won't give
   - SX-64 + Unijoysticle 2
   - Atari ST 1040F
 
-This features is only available on [Revision D][changelog_board] (and newer).
+This feature is available since Unijoysticle 2 [Revision D][changelog_board], and in any revision of Unijoysticle 2+.
 
 [changelog_board]: https://gitlab.com/ricardoquesada/unijoysticle2/blob/master/CHANGELOG.board.md
 
@@ -122,15 +143,15 @@ This features is only available on [Revision D][changelog_board] (and newer).
 
 - Connect the ESP32 with a micro-USB cable to your computer (or any other source).
 - Ideal for debugging: you can see the Unijoysticle console by attaching a terminal to it.
-- "Self-powered" switch should be in "OFF" (but no harm done if it is "ON").
+- [v2 only]: "Self-powered" switch can either "On" or "Off".
 
-### Jack Barrel-powered
+### Jack Barrel-powered [v2 only]
 
 ![jack_barrel_powered](https://lh3.googleusercontent.com/REa_wfIZt5KEQT8ypO6d-OmpHLg8t8BUgz5tqnp-f6_ne7JgagdjGzp9RlPIbSXzIlAokX_ewJudmwD1Ony5OYq1Epd6-DnGMWVtXEafDw9H6DIvXlT3iffDOlmXTLoYWQhbR8TrLH8=-no)
 
 - Connect a 5V+ / ~250mA to the Power Barrel Jack (like some Arduino boards).
 - Polarity: positive polarity (tip=+5v, sleeve=0v).
-- "Self-powered" switch should be in "OFF" (but no harm done if it is "ON").
+- [v2 only]: "Self-powered" switch can either "On" or "Off".
 
 [power_supply]: https://www.carlsenelectronics.net/
 
@@ -271,7 +292,6 @@ The logs can be fetched by connecting a terminal to the ESP32 module.
 ![Set Bauds](https://lh3.googleusercontent.com/evBxv1oQ2jv28wk29ofAKiM0CNMK2GVi6tXmrCX8Wml3xZG6MEz4WoAVIbyX2h21fYDGN7SvkYiFFmTxwVarR4Zm0oElPwzL-oHnIuW5FCOSzclQt3rRI_rrqw5LZ1SzceUBMBSDIjY=-no)
 
 
-[1]: firmware_setup.md
 [2]: supported_gamepads.md
 [8]: https://en.wikipedia.org/wiki/Robotron:_2084
 [9]: https://csdb.dk/release/?id=38140
