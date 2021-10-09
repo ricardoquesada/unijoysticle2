@@ -5,21 +5,32 @@ Features that are only applicable for Unijoysticle 2 / 2+, are tagged as **[v2 o
 
 Comparison between the two:
 
-| | Unijoysticle 2 | Unijoysticle 2+ |
-| - | -------------- | --------------- |
-| Buttons / Switches / LEDs | ![uni2](https://lh3.googleusercontent.com/cbeL59-n7k_9RIFQCdspwVP8zAm3nssiOad_g7NGF83SjWvAHnhD2opSXFDXh7e1WJnX6LrM31MhGfoeHxgKKDaAJwnOmYoFqY9mrfEv7KCXQWg1RYVepyljDuJCSbkh5gDNzbsNNb8=-no) | ![uni2+](https://lh3.googleusercontent.com/pw/AM-JKLW6182mD0hc30KjSfySV7di5XTLvuQzRy5QcZsx29AzVGkjkqvIOxN_QZykKaFUiILGhlw4ADZZ010PDnUFmd-VFXZEFfUryY4yvsO_RCKAqV-l-Wk176XaE7x0Ehy9PH0SIu_S1RRxk9DXrxQbvEUiFQ=-no) |
+|   | Unijoysticle 2 | Unijoysticle 2+ |
+| - | -------------- | ------------------ |
+| Buttons / Switches / LEDs | ![uni2](https://lh3.googleusercontent.com/pw/AM-JKLUphquTBg9JoV-L7wuMtze_aKIJ8LvfokTakuBKSVFClziLWCViggcrlNZtqGUMgv6u6yYpZ_RuE2jdGSn3Q0oYl0jOQzzGcutRt-JiMjLZY_oAvK4LehrawNj_aNbthCJ-VEJzsW3dywhJNekjhTsfNQ=-no) | ![uni2plus](https://lh3.googleusercontent.com/pw/AM-JKLWV2Zo912VtOfuM71AluanNXGwVQiAehNEiQ1VL3L7SkWDl-9k0fA6tfza9QpGL52petBfFFFHMb8rh_ybSj17LOQA70IycMDQw6AVqlN8Jp4HDWT8sWcXHIPEQZTxNuQ-RFygKbmVpW2n52wwi5cJgwA=-no) |
+| Amiga / AtariST 2nd & 3rd button support| Only in Port #1| Both in Port #1 and #2 (1) |
+| C64 mouse support (1351) | No | No |
+| Amiga / AtariST mouse support | Yes (2) | Yes (2) |
+| Filter noise for C128 ([Issue #17][issue_17]) | No | Yes |
+| Case friendly | No | Yes |
+| Easy to solder | Yes. All components are through-hole | No. Most components are surface-mount |
+| Self-powered | Yes, can be turned on/off with switch | Yes, always on |
+| External power | Both USB and Barrel Jack 5V+ | Only USB |
 | Size | 63 x 66 x 17 mm | 64 x 64 x 12 mm |
 | Current| ~100mA| ~96mA |
-| Self-powered | Yes, can be turned off with switch | Yes, always on |
-| External power | Both USB and Barrel Jack 5V+ | Only USB |
 | USB connector | Micro USB | Micro USB |
 
-- Toggle Mode button: Toggles between *Basic* and *Enhanced* modes
-- Reboot button: Reboots the Unijoysticle 2
+- Toggle Mode button: Toggles between *Basic* and *Enhanced* mode (see below for further info)
+- Reset button: Resets the device
 - Green / Red LEDs: Joystick 1 / Joystick 2 are attached
-- Power LED: Red in Unijoysticle 2, Blue in 2+.
+- Power LED: Red in Unijoysticle 2, Blue in 2+. If On, it means the device has current.
 - [v2 only] Self-Powered On/Off: When On, the Unijoysticle will be powered by the Commodore.
-- [v2+ only] Prog Mode: If programming fails, press this button to force "programming mode".
+- [v2+ only] Prog Mode: If programming the firmware fails, press this button to force "programming mode". Legacy feature, might be removed in future revisions.
+
+* (1): Requires update in Bluepad32 firmware (WIP)
+* (2): Requires update in Bluepad32 firmware (WIP)
+
+[issue_17]: https://gitlab.com/ricardoquesada/unijoysticle2/-/issues/17
 
 ## Supported computers
 
@@ -59,70 +70,29 @@ USB external PSU (have not tried it with internal +5VDC pin, while amperage is a
 Before connecting the joyadapters on the Unijoysicle 2 do measure the pinout,
 while there are different variants!
 
-## Soldering the kit [v2 only]
-
-All components are through-hole. The only components that have polarity are the LEDs and the diodes.
-See graphic for reference:
-
-![Solering the kit](https://lh3.googleusercontent.com/OeZOaFWiLGXJBIcYT9sOwVjyqbsDSZoijTJW9cbUNGYfc9TbIJVF53CqkWTVfTdlYQfp77WaFv4bsRyZmPLXDquYdG8hyqrcCCb6tOtwiuIDGkAcJAjTXWARg1gh9Owzy4crkM6BMhQ=-no)
-
-An assembled + soldered kit should look like this:
-
-![Assembled kit](https://lh3.googleusercontent.com/f-C7DUbvMRB_aTx0MFTeJAaFxzJ2_EG6xE9aztIERBFYnqPDXcAmC_RI3-B546JMcBqZOAGRAwmOPGcqEdEO3BXl1xXhaQoPP2ANkf5qFqEea-H6qP6pvE_J2gKnZnpTIubd0NDPhZk=-no)
-
-Needed components:
-
-- 1 x Unijoysticle 2 PCB
-- 1 x ESP32 Mini Kit (and its pins) (ref: B1)
-- 2 x 74HC05N ICs
-- 2 x 14p DIP sockets for the 7405s (ref: IC1, IC2)
-- 1 x standard green LED 3mm (ref: D1)
-- 1 x standard red LED 3mm (ref: D2)
-- 2 x 1N5819 (or 1N4001) diodes (ref: D3, D4)
-- 2 x 150 ohm resistors (ref: R1, R2)
-- 1 x Switch Tacticle SPST (ref: SW1)
-- 1 x Switch Slide SPDT 200mA (ref: SW2)
-- 2 x db9 female connectors (ref: J1, J2)
-- 1 x DC Power Barrel Jack (ref: J3)
-
-![Reference](https://lh3.googleusercontent.com/BZplH5gzBTbTEPQ1l5KSiLJBKZHsFWQEoTvIFTTcSLrdnKBCY7O1BuwaI28URDwALjSvUshcuRu5MHDktKl-I9ZqmWwRNEOlRW8g4KBjII-ZTMKznyK2nsnc92jYbycMiTUf-GYuUPw=-no)
-
-You can source the components from here:
-
-- Unijoysticle 2 PCB from: [PCBWay][pcbway]
-- ESP32 devkit from: [ESP32 Mini Kit][esp32mini]
-- Remaining components: [DigiKey list][digikey]
-
-[pcbway]: https://www.pcbway.com/project/shareproject/Unijoysticle_2___Rev_F__Gamepads_for_the_C64_and_other_retro_computers.html
-[esp32mini]: https://www.aliexpress.com/store/product/MH-ET-LIVE-ESP32-MINI-KIT-WiFi-Bluetooth-Internet-of-Things-development-board-based-ESP8266-Fully/2348158_32819107932.html?spm=a2g0x.12010108.1000001.12.56543b1cEQVriV
-[digikey]: https://www.digikey.com/short/z2fr7v
-
 ## Flashing the firmware
 
 See: [firmware_setup.md][firmware_setup]
 
 [firmware_setup]: https://gitlab.com/ricardoquesada/bluepad32/-/blob/main/docs/firmware_setup.md
 
-## Power on
+## How to power on the device
 
-![Self-powered](https://lh3.googleusercontent.com/j9ruthMtq84AaKz4ABCAuhsUWJ6tPFzelvwwb1t3MpEIMc7jXJaKpywNKp9GSX2qXQmdul5ZT7JB5g928YSXKaXNttvLVmMbJZaczqUGD1E_FaUtP9BlGxOHjQVOdEk5D674QHMxZfI=-no)
+There are multiple ways to power on the device
 
-*Unijoysticle 2* can be powered in three different ways:
-
-- Self-powered (with switch to enable/disable it)
-- USB-powered
-- +5V barrel jack-powered
-
-*Unijoysticle 2+* can be powered in two different ways:
-
-- Self-powered (there is no switch, it is always on)
-- USB-powered
+|   | Unijoysticle 2 | Unijoysticle 2+ |
+| - | -------------- | --------------- |
+| Self-powered | Yes, requires the "Self powered" switch to be On | Yes, always On |
+| USB powered | Yes | Yes |
+| External 5V+ | Yes, using the Barrel jack | No |
 
 Note: It is safe to plug the two / three of them at the same time, but that won't give you any additional benefit.
 
 ### Self-powered
 
-![self_powered](https://lh3.googleusercontent.com/XVQU7lkllCqc-1k6KX_3CdDIOlx0NCHO8NVDuBOJGdVef3Rq03KJpDHLqG_FNYW2GTeXOAxna9njsclcrlxmhOiBR_KvI-M8CDUOglUX9nCZLBILnkSB32Tews7yhmU38tfaVMxXnWU=-no)
+| Unijoysticle 2 | Unijoysticle 2+ |
+| -------------- | --------------- |
+| ![uni2](https://lh3.googleusercontent.com/XVQU7lkllCqc-1k6KX_3CdDIOlx0NCHO8NVDuBOJGdVef3Rq03KJpDHLqG_FNYW2GTeXOAxna9njsclcrlxmhOiBR_KvI-M8CDUOglUX9nCZLBILnkSB32Tews7yhmU38tfaVMxXnWU=-no) | ![uni2plus](https://lh3.googleusercontent.com/pw/AM-JKLUXjhjUsPDIVH1C_i8310k5ERQT-IQc71w2ibmBWCHoKC5uEIHjHBdp52ydb0XBZoKqftGv8JIonAn9tfuxXnoo00BypKL62ZTk_kbOLEQwdXG7QM3FDhrHm41NAbP9dhAxn9N4M5pTxUMiOJ_T2oHgSw=-no) |
 
 - Gets current directly from the joystick ports. No extra cables needed.
 - [v2 only] "Self-powered" switch must be "ON", otherwise the ESP32 won't receive current.
@@ -133,17 +103,20 @@ Note: It is safe to plug the two / three of them at the same time, but that won'
   - SX-64 + Unijoysticle 2
   - Atari ST 1040F
 
-This feature is available since Unijoysticle 2 [Revision D][changelog_board], and in any revision of Unijoysticle 2+.
+This feature is available since Unijoysticle 2 [Revision D][changelog_board], and is present in all
+Unijoysticle 2+ revisions.
 
 [changelog_board]: https://gitlab.com/ricardoquesada/unijoysticle2/blob/master/CHANGELOG.board.md
 
 ### USB-powered
 
-![usb_powered](https://lh3.googleusercontent.com/lYiISEtede7TkKwvBZyOB57ZUynSDzPuKIqmfp6Cpl75BbGENM6qZkAXWD066YhpY1Xg-k016PrVt3783Q6iuLXFOdZrpXIW_XaEEwRaeUFvPBk1XVtwIvVjmxMGt5bvAPUHwOFScYw=-no)
+| Unijoysticle 2 | Unijoysticle 2+ |
+| -------------- | --------------- |
+| ![uni2](https://lh3.googleusercontent.com/lYiISEtede7TkKwvBZyOB57ZUynSDzPuKIqmfp6Cpl75BbGENM6qZkAXWD066YhpY1Xg-k016PrVt3783Q6iuLXFOdZrpXIW_XaEEwRaeUFvPBk1XVtwIvVjmxMGt5bvAPUHwOFScYw=-no) | ![uni2plus](https://lh3.googleusercontent.com/pw/AM-JKLXXbxm4umDQfC-xYt9AzvAWIXsGQaYrpQUFnDpYwE0F5SanC8DgjQu9Uu7s9nj2dAd1dVWq4WD8EWxifGM8t73bT0Mz-yiFPCXn8dyUgNXkW2FA2SA00PfL_kdCBbVpXKLRu1Ez7hnaMBSmlUiufBncxw=-no) |
 
-- Connect the ESP32 with a micro-USB cable to your computer (or any other source).
+- Use a micro-USB cable to connect the Unijosyticle device to your computer.
 - Ideal for debugging: you can see the Unijoysticle console by attaching a terminal to it.
-- [v2 only]: "Self-powered" switch can either "On" or "Off".
+- [v2 only]: "Self-powered" switch can either be "On" or "Off".
 
 ### Jack Barrel-powered [v2 only]
 
@@ -151,14 +124,9 @@ This feature is available since Unijoysticle 2 [Revision D][changelog_board], an
 
 - Connect a 5V+ / ~250mA to the Power Barrel Jack (like some Arduino boards).
 - Polarity: positive polarity (tip=+5v, sleeve=0v).
-- [v2 only]: "Self-powered" switch can either "On" or "Off".
+- [v2 only]: "Self-powered" switch can either be "On" or "Off".
 
 [power_supply]: https://www.carlsenelectronics.net/
-
-## Booting
-
-You should see the two LEDS (green and red) blink one for ~1 second.
-The Unijoysticle 2 will be ready once both LEDs are off.
 
 ## Using Gamepads
 
@@ -200,9 +168,9 @@ Super Mario Bros, Mayhem in Monsterland, etc.
 
 In Enhanced mode, you control both joysticks from only one gamepad.
 Since "Button B" is mapped to "J1 fire" this is great for games like
-[Commmando][10] or [1942][9] since you can throw grenades / do rolls with it.
+[Commando][commando] or [1942][1942] since you can throw grenades / do rolls with it.
 It also opens up the possibility to create games that require more controls,
-like [Robotron: 2084][8]
+like [Commando 2084][commando2084]
 
 - Left joypad / d-pad: control Joystick #2 movements
 - Right joypad: control Joystick #1 movements
@@ -211,25 +179,39 @@ like [Robotron: 2084][8]
 - Button Shoulder Left: auto-fire for Joystick #1
 - Button Shoulder Right: auto-fire for Joystick #2
 
+[1942]: https://csdb.dk/release/?id=38140
+[commando]: https://csdb.dk/release/?id=137173
+[commando2084]: https://csdb.dk/release/?id=182074
+
 ## Troubleshooting
 
-![Buttons](https://lh3.googleusercontent.com/Ck97IlSA8diFQ0E-SxdAkO6z2yRX-tfSJYtEd-zKqIy9vd8orW7kaOVqlWY5QKqgnBAtzPd3iwqfo2TKRwIwFIwdRS-vnB5pOriiBoccYz4chHoM7UOGV08OjvB95b_2uZIjxyGDJmw=-no)
+### Fails to boot
+
+![booting](https://lh3.googleusercontent.com/pw/AM-JKLWhqgMB9Ysm8rpigW8leZ-9EVDI6V16cgqHZ367sgmLW5_ryNepZgCgczJwPRkreb9YBnEFCRXXY3mhwJk7wLR-vo2qRNmtjzNkC-4nnxtCKecsL4qI7CnLm1owSAOWeCwqHjyA9TxdaLE10FzuXWQLWg=-no)
+
+Booting the device takes ~1 second. You should see:
+
+- Power LED must be On
+- J1 (Green) & J2 (Red) LEDs should stay On for ~1 second
+- Once J1 and J2 are Off, the device will be ready to use
+
+If one of the above mentioned conditions are not met, please file a bug (See "Filing bugs" down below).
 
 ### Gamepad cannot connect
 
-This could be due to a lot of things. Assuming that you are using a [supported gamepad][2], try:
+This could be due to a lot of things. Assuming that you are using a [supported gamepad][supported_gamepads], try:
 
 1. Unplug the Unijoysticle from the Commodore (turn off the Commodore first).
 
-2. Reboot the Unijoysticle: Press the "Reboot" button that is placed in the ESP32 Mini Kit.
+2. Reset the Unijoysticle: Press the "Reset" button that is placed in the ESP32 Mini Kit.
 
-3. While rebooting, the LEDs should turn on, and after ~half a second, the should turn off.
+3. While rebooting, the LEDs should turn on, and after ~half a second, then they should turn off.
    - If the LEDs don't turn On at all: file a bug (see below).
    - If the LEDs don't turn Off, it means that Bluetooth is not ready. Go to step 2.
 
 4. Once the LEDs are off, trying connecting the Gamepad again.
 
-5. If it fails press "Reboot + Toggle-Mode" buttons at the same time.
+5. If it fails press "Reset + Toggle-Mode" buttons at the same time.
    This will reboot the Unijoysticle while also deleting the stored Bluetooth keys.
 
 6. Put the gamepad in Bluetooth discovery mode (grab the manual of your gamepad). Try again.
@@ -241,11 +223,13 @@ This could be due to a lot of things. Assuming that you are using a [supported g
 
 If it keeps failing, file a bug (see below).
 
+[supported_gamepads]: supported_gamepads.md
+
 ### Gamepad cannot re-connect
 
 Assuming that the gamepad connects Ok for the first time, but fails to reconnect then:
 
-- Press the Reboot + Toggle-Mode buttons at the same time.
+- Press the Reset + Toggle-Mode buttons at the same time.
   This will reboot the Unijoysticle while also deleting the stored BT keys.
   Any try again.
 
@@ -253,7 +237,7 @@ Assuming that the gamepad connects Ok for the first time, but fails to reconnect
 
 If none of the above works, file a bug (see below).
 
-## Reporting bugs
+## Filing bugs
 
 File bug here: https://gitlab.com/ricardoquesada/unijoysticle2/issues
 
@@ -271,7 +255,7 @@ The logs can be fetched by connecting a terminal to the ESP32 module.
 
 1. Connect the ESP32 module to your PC using a micro USB cable.
 2. Launch any serial terminal, like the one that comes from Arduino.
-3. Reboot the Unijoysticle
+3. Reset the Unijoysticle
 4. Try to connect the gamepad again.
 5. Let it try for a few seconds.
 6. Copy & paste the output from the terminal and put it in the bug report.
@@ -292,7 +276,3 @@ The logs can be fetched by connecting a terminal to the ESP32 module.
 ![Set Bauds](https://lh3.googleusercontent.com/evBxv1oQ2jv28wk29ofAKiM0CNMK2GVi6tXmrCX8Wml3xZG6MEz4WoAVIbyX2h21fYDGN7SvkYiFFmTxwVarR4Zm0oElPwzL-oHnIuW5FCOSzclQt3rRI_rrqw5LZ1SzceUBMBSDIjY=-no)
 
 
-[2]: supported_gamepads.md
-[8]: https://en.wikipedia.org/wiki/Robotron:_2084
-[9]: https://csdb.dk/release/?id=38140
-[10]: https://csdb.dk/release/?id=137173
