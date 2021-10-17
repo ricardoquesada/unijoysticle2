@@ -17,7 +17,7 @@ Comparison between the two:
 | Self-powered | Yes, can be turned on/off with switch | Yes, always on |
 | External power | Both USB and Barrel Jack 5V+ | Only USB |
 | Size | 63 x 66 x 17 mm | 64 x 64 x 12 mm |
-| Current| ~100mA| ~96mA |
+| Current | ~95mA | ~100mA |
 | USB connector | Micro USB | Micro USB |
 
 - Toggle Mode button: Toggles between *Basic* and *Enhanced* mode (see below for further info)
@@ -182,6 +182,24 @@ like [Commando 2084][commando2084]
 [1942]: https://csdb.dk/release/?id=38140
 [commando]: https://csdb.dk/release/?id=137173
 [commando2084]: https://csdb.dk/release/?id=182074
+
+### Supported gamepads
+
+![gamepads](https://lh3.googleusercontent.com/pw/AM-JKLWUZS_vlkMmd3o8EKzXlYCS0uriEW_gXfOoiFqZlABJi_dM1GWYHGafrdMnTP-VHgVdCdVA4pUageZgyI98RH1SHtydac2yyrx_vJVXgWPYBFN-SJoOikdlGuOowPoDqYOwfKU39yketYPJyRJlIPwjEw=-no)
+
+- Sony DualSense
+- Sony DUALSHOCK 4
+- Xbox One S
+- Nintendo Switch Pro
+- Nintendo Wii U
+- Nintendo Wii
+- Android gamepads
+- PC/Window gamepads
+- 8BitDo
+- iCade
+- And more
+
+For a complete list, see: [Supported gamepads][supported_gamepads]
 
 ## Troubleshooting
 
