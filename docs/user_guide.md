@@ -17,6 +17,7 @@ Comparison between the two:
 | Self-powered | Yes, can be turned on/off with switch | Yes, always on |
 | External power | Both USB and Barrel Jack 5V+ | Only USB |
 | Size | 63 x 66 x 17 mm | 64 x 64 x 12 mm |
+| Weight | 35 grams | 24 grams |
 | Current | ~95mA | ~100mA |
 | USB connector | Micro USB | Micro USB |
 
@@ -27,8 +28,10 @@ Comparison between the two:
 - [v2 only] Self-Powered On/Off: When On, the Unijoysticle will be powered by the Commodore.
 - [v2+ only] Prog Mode: If programming the firmware fails, press this button to force "programming mode". Legacy feature, might be removed in future revisions.
 
-* (1): Requires update in Bluepad32 firmware (WIP)
-* (2): Requires update in Bluepad32 firmware (WIP)
+Notes:
+
+- (1): Requires update in Bluepad32 firmware (WIP)
+- (2): Requires update in Bluepad32 firmware (WIP)
 
 [issue_17]: https://gitlab.com/ricardoquesada/unijoysticle2/-/issues/17
 
@@ -283,14 +286,12 @@ The logs can be fetched by connecting a terminal to the ESP32 module.
 1. Download Arduino from here: https://www.arduino.cc/en/main/software
 2. Launch Arduino -> Tools -> Set Port
 
-![Arduino Set Port](https://lh3.googleusercontent.com/ZFQuAf_6tvYutrRcdcduTdFJSS-dfhDcznTpv5GTkAVdKzsPgHBrpBcuZX5TApMCoc1FXI0wLnKkTKSxONlWGF0Y7RZXJxFmi3a4iZE8AZ_ovOCTl_a3Vd8jOUEbtX0g4m0F_OlHESo=-no)
+   ![Arduino Set Port](https://lh3.googleusercontent.com/ZFQuAf_6tvYutrRcdcduTdFJSS-dfhDcznTpv5GTkAVdKzsPgHBrpBcuZX5TApMCoc1FXI0wLnKkTKSxONlWGF0Y7RZXJxFmi3a4iZE8AZ_ovOCTl_a3Vd8jOUEbtX0g4m0F_OlHESo=-no)
 
 3. Arduino -> Tools -> Serial Monitor
 
-![Arduino Serial Monitor](https://lh3.googleusercontent.com/0z1QOhcuTcLnv-Ra-JrgEoOYD0-cH4tAumqxECO9jE6KdcItf7zycBx5tG4BWhUyISq_E5e7T9gC4fdAehkQ6WJDYAN3U6B2P5OwSsStEXOs6-kFkW1Kol0-Jf26Bno8dIxf7Jp1l0E=-no)
+   ![Arduino Serial Monitor](https://lh3.googleusercontent.com/0z1QOhcuTcLnv-Ra-JrgEoOYD0-cH4tAumqxECO9jE6KdcItf7zycBx5tG4BWhUyISq_E5e7T9gC4fdAehkQ6WJDYAN3U6B2P5OwSsStEXOs6-kFkW1Kol0-Jf26Bno8dIxf7Jp1l0E=-no)
 
 4. From the Serial Monitor, set Bauds to 115200
 
-![Set Bauds](https://lh3.googleusercontent.com/evBxv1oQ2jv28wk29ofAKiM0CNMK2GVi6tXmrCX8Wml3xZG6MEz4WoAVIbyX2h21fYDGN7SvkYiFFmTxwVarR4Zm0oElPwzL-oHnIuW5FCOSzclQt3rRI_rrqw5LZ1SzceUBMBSDIjY=-no)
-
-
+   ![Set Bauds](https://lh3.googleusercontent.com/evBxv1oQ2jv28wk29ofAKiM0CNMK2GVi6tXmrCX8Wml3xZG6MEz4WoAVIbyX2h21fYDGN7SvkYiFFmTxwVarR4Zm0oElPwzL-oHnIuW5FCOSzclQt3rRI_rrqw5LZ1SzceUBMBSDIjY=-no)
