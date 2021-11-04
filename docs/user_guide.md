@@ -295,3 +295,8 @@ The logs can be fetched by connecting a terminal to the ESP32 module.
 4. From the Serial Monitor, set Bauds to 115200
 
    ![Set Bauds](https://lh3.googleusercontent.com/evBxv1oQ2jv28wk29ofAKiM0CNMK2GVi6tXmrCX8Wml3xZG6MEz4WoAVIbyX2h21fYDGN7SvkYiFFmTxwVarR4Zm0oElPwzL-oHnIuW5FCOSzclQt3rRI_rrqw5LZ1SzceUBMBSDIjY=-no)
+
+## Contact
+
+* Discord: https://discord.gg/r5aMn6Cw5q
+* Email group: https://groups.google.com/forum/#!forum/unijoysticle
