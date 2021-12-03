@@ -8,9 +8,9 @@ Comparison between the two:
 |   | Unijoysticle 2 | Unijoysticle 2+ |
 | - | -------------- | ------------------ |
 | Buttons / Switches / LEDs | ![uni2](https://lh3.googleusercontent.com/pw/AM-JKLUphquTBg9JoV-L7wuMtze_aKIJ8LvfokTakuBKSVFClziLWCViggcrlNZtqGUMgv6u6yYpZ_RuE2jdGSn3Q0oYl0jOQzzGcutRt-JiMjLZY_oAvK4LehrawNj_aNbthCJ-VEJzsW3dywhJNekjhTsfNQ=-no) | ![uni2plus](https://lh3.googleusercontent.com/pw/AM-JKLWV2Zo912VtOfuM71AluanNXGwVQiAehNEiQ1VL3L7SkWDl-9k0fA6tfza9QpGL52petBfFFFHMb8rh_ybSj17LOQA70IycMDQw6AVqlN8Jp4HDWT8sWcXHIPEQZTxNuQ-RFygKbmVpW2n52wwi5cJgwA=-no) |
-| Amiga / AtariST 2nd & 3rd button support| Only in Port #1| Both in Port #1 and #2 (1) |
+| Amiga / AtariST 2nd & 3rd button support| Only in Port #1| Both in Port #1 and #2 |
 | C64 mouse support (1351) | No | No |
-| Amiga / AtariST mouse support | Yes (2) | Yes (2) |
+| Amiga / AtariST mouse support | Yes (1) | Yes (1) |
 | Filter noise for C128 ([Issue #17][issue_17]) | No | Yes |
 | Case friendly | No | Yes |
 | Easy to solder | Yes. All components are through-hole | No. Most components are surface-mount |
@@ -31,7 +31,6 @@ Comparison between the two:
 Notes:
 
 - (1): Requires update in Bluepad32 firmware (WIP)
-- (2): Requires update in Bluepad32 firmware (WIP)
 
 [issue_17]: https://gitlab.com/ricardoquesada/unijoysticle2/-/issues/17
 

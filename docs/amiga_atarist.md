@@ -1,5 +1,8 @@
 # Amiga / Atari ST support
 
+**OUTDATED INFO: Should include info about Unijoysticle 2+ that supports 2nd & 3rd
+buttons on Amiga/AtariST on both ports using the same firmware**
+
 The Unijoysticle 2 can be used in any "[Atari DB9 joystick][db9]"-compatible computer.
 That includes the 8-bit Atari family, the Commodore C64/C128, as well as the
 Amiga and Atari ST (among others).
