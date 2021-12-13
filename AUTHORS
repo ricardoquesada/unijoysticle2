@@ -4,8 +4,14 @@ Main author:
   * Ricardo Quesada
 
 Contributors:
-  * Eduardo Casino: C16/Plus4 board (see "contrib" folder)
-  * Kospec C64: Improved C64 boards (Rev. H, see "contrib" folder)
-                Fixed issue #17 (Noise in C128)
-                General suggestions + ideas
-  * SukkoPera: General suggestions + ideas
+  * Eduardo Casino:
+    * C16/Plus4 board (in "contrib" folder)
+  * Kospec C64:
+    * Improved C64 boards (Rev. H, in "contrib" folder)
+    * Fixed issue #17 (Noise in C128)
+    * General suggestions + ideas
+  * SukkoPera:
+    * General suggestions + ideas
+  * Hyvax:
+    * Added Unijoysticle2 for NeoGeo (in "contrib" folder)
+    * Added Unijoysticle2 Adapter for NeoGeo (in "contrib" folder)

@@ -1,8 +1,16 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Adheres to the "standard" way to version boards/layouts. E.g: letters instead of numbers.
+
+## Unreleased
+
+### Added
+
+ * contrib: Unijoysticle2 NeoGeo adapter for Unijoysticle2
+ * contrib: Unijoysticle2 for NeoGeo
 
 
 ## [Unijoysticle 2+ Rev F] - 2021-10-03

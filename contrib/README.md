@@ -6,3 +6,6 @@ Kopsec C64:
 
 Eduardo Casino:
  - C16/Plus4 board
+
+Hyvax:
+  - NeoGeo board
