@@ -1,18 +1,18 @@
 # Unijoysticle2 for NeoGeo
 
-## Directory structure
+## Projects
 
-- folder `neogeo-unijoysticle2`:
+### Unijoysticle2 for NeoGeo
 
-    PCB & schematic - unijoysticle2 NeoGeo version - with DB15 connector
+![uni-neogeo](neogeo-unijoysticle2/neogeo-unijoysticle2-board.jpg)
 
-- folder `neogeo-unijoysticle2-adapter`:
+Includes PCB & schematic (Eagle CAD 6.5.0): Unijoysticle2 NeoGeo version - with DB15 connector.
 
-    & schematic - adapter for unijoysticle2 - 2x DB9 -> DB15
+### Unijoysticle2 Adapter for NeoGeo
 
-## Schematic + Layout
+![uni-neogeo-adapter](neogeo-unijoysticle2-adapter/neogeo-unijoysticle2-adapter-board.jpg)
 
-`.brd` and `.sch` files made in Eagle CAD 6.5.0
+Includes PCB & schematic (Eagle CAD 6.5.0): Adapter for Unijoysticle2 - 2x DB9 -> DB15
 
 ## NeoGeo pinout
 
