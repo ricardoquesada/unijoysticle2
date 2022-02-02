@@ -9,3 +9,6 @@ Eduardo Casino:
 
 Hyvax:
   - NeoGeo board
+
+Aakko:
+  - Case for Unijosyticle 2+
