@@ -47,17 +47,19 @@ throw grenades / roll by pressing Button B.
 
 ## Supported controllers
 
-![Supported gamepads](https://lh3.googleusercontent.com/pw/ACtC-3cg22O7VPT8NwXIATr2rsgs-rn2kShZeiUbArIK-2lIkskCLI6q06nRtK9been8Hom49dOacwHD8bVT2Tc8YKsxd5w73W25lhOvlRk6Xf9RVXgB5AZcmdl2PoWhrEAZUbmBl1pS6HrtMuZYI506US7YuA=-no)
+![Supported gamepads](https://lh3.googleusercontent.com/pw/AM-JKLXpmyDvNXZ_LmlmBSYObRZDhwuY6hHXXBzAicFw1YH1QNSgZrpiPWXZMiPNM0ATgrockqGf5bLsI3fWceJtQQEj2_OroHs1SrxsgmS8Rh4XHlnFolchomsTPVC7o5zi4pXGQkhGEFbinoh3-ub_a4lQIw=-no?authuser=0)
 
 - Sony DualSense
 - Sony DUALSHOCK 4
-- Xbox One S
+- Sony DUALSHOCK 3
 - Nintendo Switch Pro
+- Nintendo JoyCons
 - Nintendo Wii U
-- Nintendo Wii
+- Nintendo Wii + accesories
+- Xbox Wireless controller (model 1708)
 - Android gamepads
 - PC/Window gamepads
-- 8BitDo
+- 8BitDo controllers
 - iCade
 - And more
 

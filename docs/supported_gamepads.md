@@ -4,6 +4,12 @@
 
 [Supported gamepads]: https://lh3.googleusercontent.com/U1PRr4a21yGffPHxRlONqeolOnr2i-IuONM4ajQksvxB5Lr3zfQFmkHJJbwRNVUY0WrNik5Ia79se3sQx0aa4axuGnBbytyH_5fJnKELX4FOMRM4qrF3bYCmmp0Vk3ZnltQ0YCiRTK0=-no
 
+Unijoysticle 2 & 2+ support all the gamepads supported by firmware Bluepad32. For a complete, up-to-date list, see:
+
+* [Bluepad32 supported gamepads][bp32_supported_gamepads]
+
+[bp32_supported_gamepads]: https://github.com/ricardoquesada/bluepad32/blob/main/docs/supported_gamepads.md
+
 ## Bluetooth Classic: Supported
 
 ![reference-supported-gamepads][ref-supported-gamepads]
@@ -11,7 +17,7 @@
 All Bluetooth Classic HID controllers are supported, or should be easy to support them.
 Example of Bluetooth Classic HID controllers are:
 
-- Xbox One S controller (`L`)
+- Xbox Wireless controller (`L`)
 - DUALSHOCK 4 controller, both 2013 (`P`) and 2016 (`O`) editions
 - DUALSHOCK 3 controller
 - Nintendo Switch Pro controller (`W`) and clones (`V`)
@@ -27,31 +33,11 @@ Example of Bluetooth Classic HID controllers are:
 
 [ref-supported-gamepads]: https://lh3.googleusercontent.com/o_oR_kKOLRvXQXHSXgYVNUZ13dpC-6dKV7PLu_8Rq7RmexMTfOLmQspl_3N-htomOyWgf5YQTzex4Y3GOP1QmEVSZdZBNWYCavk_ql5XhU825VHjaisGcTopVx3o7pOCEavvIrrl44s=w200-h222-no
 
-## Bluetooth BLE: Not supported ATM
-
-Not every Bluetooth HID controller is "Classic". Some of them are "BLE" (low energy).
-And "BLE" controllers are **not supported** at the moment, like:
-
-- Apple TV remote control (1st gen)
-- Nexus Android TV remote control
-
-The good news is that all popular Bluetooth gamepads are Classic (not BLE).
-
-## Non-Bluetooth: Not supported
-
-Not every wireless controller is Bluetooth. If the controller doesn't explicitly say
-it is a Bluetooth, most probably it is not a Bluetooth controller, hence not supported by Unijoysticle.
-
-Controllers known to be non-Bluetooth:
-
-- mice / keyboards that come with their own wireless dongle.
-- NVIDIA Shield gamepad
-
 # Tested gamepads
 
 Tested gamepads so far.
 
-## Xbox One S
+## Xbox Wireless controller (model 1708)
 
 [![Xbox One S][xbox_one_s]][13]
 
@@ -334,52 +320,6 @@ There many *generic* Bluetooth controllers that sometimes are offered as gifts i
 
 [generic_gamepad]: https://lh3.googleusercontent.com/JG0sQGQ4lmFIITl_nincUDdPi-mlYPol-RSQrnoxsYZf1_cc16A4WMod_ttuLJoIQigvcZ_ZF6NiA7p54bBQP-Eu52b28mbjfVCwsMjuu_LCQB9Lj0k9e5UkW_PkRM12IB0HrW8ah0k=-no
 
-# Technical notes: Virtual gamepad
-
-Internally, all controllers are converted to a virtual gamepad which is very similar
-to the Android/Xbox One gamepads layout. The different parsers convert the physical
-gamepads to the virtual gamepad.
-
-Button are mapped based on physical position, and not on names. For example, 8bitdo N30 gamepad
-uses the Nintendo layout, which is different than the Virtual Gamepad layout:
-
-```
-NES30 layout     Virtual Gamepad layout
-    X                     Y
-    ^                     ^
-Y<-   ->A             X<-   ->B
-    v                     v
-    B                     A
- ```
-
- So, instead of honoring the button names, N30 will get remapped to match the
- virtual gamepad layout, meaning that:
-
-- Button B -> A
-- Button A -> B
-- Button Y -> X
-- Button X -> Y
-
-## Virtual gamepad mappings
-
-Many of the virtual buttons/pads are left unmapped, but could be mapped in the future.
-
-![virtual_gamepad][1]
-
-- 1: D-pad
-- 2: Axis X & Y, Button Thumb Left
-- 3: Axis Rx & Ry, Button Thumb Right
-- 4: Button X
-- 5: Button A
-- 6: Button Y
-- 7: Button B
-- 8: Button Shoulder Right
-- 9: Accelerator, Trigger Button Right
-- 10: Brake, Trigger Button Left
-- 11: Button Shoulder Left
-- M1: Button System
-- M2: Button Home
-- M3: Button Back
 
 [1]: https://lh3.googleusercontent.com/sfRd1qSHaxe4he4lt63Xjsr_ejmrthB00bPpIj4CwuUOyzKy3otIrdsPqhy_Y0U78Ibcw5bssuUOgKxNsvhvq6AQGlmigtj2tWA67HQHEaDU4tEmq850Z47rwRW9EzAhFGi6XrgUhUI=-no
 [13]: https://www.xbox.com/en-US/xbox-one/accessories/controllers/xbox-wireless-controller
