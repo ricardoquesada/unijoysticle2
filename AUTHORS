@@ -6,7 +6,7 @@ Main author:
 Contributors:
   * Eduardo Casino:
     * C16/Plus4 board (in "contrib" folder)
-  * Kospec C64:
+  * Kopsec C64:
     * Improved C64 boards (Rev. H, in "contrib" folder)
     * Fixed issue #17 (Noise in C128)
     * General suggestions + ideas
