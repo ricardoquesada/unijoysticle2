@@ -4,11 +4,12 @@
 
 [Supported gamepads]: https://lh3.googleusercontent.com/U1PRr4a21yGffPHxRlONqeolOnr2i-IuONM4ajQksvxB5Lr3zfQFmkHJJbwRNVUY0WrNik5Ia79se3sQx0aa4axuGnBbytyH_5fJnKELX4FOMRM4qrF3bYCmmp0Vk3ZnltQ0YCiRTK0=-no
 
-Unijoysticle 2 & 2+ support all the gamepads supported by firmware Bluepad32. For a complete, up-to-date list, see:
+Unijoysticle 2 & 2+ support all the gamepads supported by [Bluepad32][bp32]. For a complete, up-to-date list, see:
 
-* [Bluepad32 supported gamepads][bp32_supported_gamepads]
+* [Bluepad32 supported gamepads][bp32_supported_gamepads] <-- UP TO DATE LIST
 
 [bp32_supported_gamepads]: https://github.com/ricardoquesada/bluepad32/blob/main/docs/supported_gamepads.md
+[bp32]: https://github.com/ricardoquesada/bluepad32/
 
 ## Bluetooth Classic: Supported
 
@@ -37,22 +38,21 @@ Example of Bluetooth Classic HID controllers are:
 
 Tested gamepads so far.
 
-## Xbox Wireless controller (model 1708)
+## Sony DualSense (PS5)
 
-[![Xbox One S][xbox_one_s]][13]
+[![ddualsense_gamepad][dualsense]][11]
 
-- Must be the *Xbox One S* and not the *Xbox One* gamepad. The *Xbox One S* supports Bluetooth, while the regular *Xbox One* doesn't.
-- Supports both "old" and "new" Xbox One mappings:  supports firmware v3.1 as well as firmware v4.8.
+- [Must be in PC mode][25]
 - Press:
-  - *A* for Fire
-  - *B* for Jump
+  - *X* for Fire
+  - *O* for Jump
   - *Right shoulder* for Auto-fire
-  - *Xbox* button to swap joystick port
-- Supports Force Feedback: it rumbles when it connects to the Unijoysticle device or changes joystick port.
-- Known Issues: [issue #1][issue_1]
+  - *Play* button to swap joystick port
+- Supported features: rumble, lightbar color, player LEDs
+- Lightbar color sets color according to assigned port number. Green: port #1, red: port #2, yellow: enhanced mode.
 
-[xbox_one_s]: https://lh3.googleusercontent.com/YmONc-MhVZhnE8HVRgzH7FKSpT_29MLeIF70U5AfrcBuCtuNJ2Ln5xkmSpNqO0myrFpnDLbFvR2TRTRu0xcqvP3cLNaq1BBpruEAn-Z7vBbwzNtaXx7eQaLLF7aa8tt2Wa0IcYxeD08=-no
-[issue_1]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/1
+[dualsense]: https://lh3.googleusercontent.com/pw/ACtC-3d1CVA-e5srBTDhTD6D-3BSWYi7MncfECPj_9bQJfcGOAKIHrP6g6Ha7xAD0trE59eN-Qv_U33MklCFPskPWRLjfFI4ITHEol8RAmTYNHFNrA-gwhoXEn2ks_M7UDDbxiKhNdaPNXexxgj5zzOtpBjiyw=-no
+
 
 ## DUALSHOCK 4
 
@@ -65,7 +65,7 @@ Tested gamepads so far.
   - *O* for Jump
   - *Right shoulder* for Auto-fire
   - *Play* button to swap joystick port
-- LED sets color according to assigned port number. Green: port #1, red: port #2, yellow: enhanced mode.
+- Lightbar color sets color according to assigned port number. Green: port #1, red: port #2, yellow: enhanced mode.
 
 [dualshock_4]: https://lh3.googleusercontent.com/_0sAxKXbSkk4g8rWJzTNxAirz2hD632jW4TGjGVOwjoac8sD4AfiN9PA1HdGWhm_ujcVygDlEG-LENPemF7IyFhqVsHgVHfCMVeFVjBbeDl-fUUjdMbRYAE8FiKdyWM_UBNUNmVy9Ro=-no
 
@@ -84,6 +84,51 @@ Tested gamepads so far.
 
 [dualshock_3]: https://lh3.googleusercontent.com/pw/ACtC-3dEBJYkdIpF5_icFUY7n7otgw5LPpLyviKS14JL2EJtuiDBt6Kk-XcKlIIP9JCgT0yxJVN1KuW-JICpilYKhMGfDxQt6vjJm8r_lRS1R9IyOX4iBlUQoIrflt9KmSjXBjcJlS81cmKaGB166HF608v5MA=-no
 [pair_ds3]: pair_ds3.md
+
+## Nintendo Switch Pro
+
+[![Switch Pro][switch_pro_img]][switch_pro]
+
+Clones and "licensed by Nintendo" controllers should also work supported Ok.
+
+- Press:
+  - *B* for Fire
+  - *A* for Jump
+  - *Right shoulder* for Auto-fire
+  - *Home* button to swap joystick port
+- LEDs #1 and #2 indicates what joystick is being controlled
+- Home Light turns on when connected
+
+
+[switch_pro]: https://en.wikipedia.org/wiki/Nintendo_Switch_Pro_Controller
+[switch_pro_img]: https://lh3.googleusercontent.com/33hrGYM117T9pPrW0L-wr7bl0trLXooqmp4I78XV9vWkumHE8mK8Z_5KJZFzWKNpJg31gvrxHC0agF5BUgVr2f6awNYb98R-xPIWaawG6b0XwxHzm8hzz39Wnnv6qLmeEXsRaeoybsA=-no
+
+## Nintendo Switch JoyCon
+
+[![Switch JoyCon][switch_joycon_img]][switch_joycon]
+
+Both Left and Right JoyCon are supported.
+
+- Supported features: player LEDs
+- They must be used in "horizontal" mode.
+- Each JoyCon represents one gamepad. Cannot be used as a single/combined gamepad.
+- Some clones are known to work Ok
+
+[switch_joycon]: https://en.wikipedia.org/wiki/Joy-Con
+[switch_joycon_img]: https://lh3.googleusercontent.com/pw/ACtC-3cN7JVNm3SvOM3IeKiAg4Ex03Dg7yxozBRNNV95Ycr_0J1eHF03_oDz8ydwpTZCFcPPfFuSzroK4UQ-3KcM0Y2XKew8deuYTqu_q5Q0nEEjA_KTQJCioVRU0IEbBGXHqy2ybtTP7EXp3p-7_RfjYK7Wjg=w360-no
+
+## Nintendo Wii U Pro controller
+
+[![Wii U Pro][wii_u_pro]][27]
+
+- LEDs #1 and #2 indicates what joystick is being controlled. E.g: If LED #1 is lit, it means that the gamepad is controlling Joystick #1.
+- Press:
+  - *B* for Fire
+  - *A* for Jump
+  - *Right shoulder* for Auto-fire
+  - *Home* button to swap joystick port
+
+[wii_u_pro]: https://lh3.googleusercontent.com/kfKAySKzV-lLG7VmQGfCES1KuhtjBcTIfMzo59FgABcL7Ir9Tp7fQqrTP2iFqf8UVIhce1JhIXyBN_EH9eXpjlf5Q4b9NhhyxrFX9H0yVVRF0_pghjjz3pVqmY4uxS-FMgr7FC7egNo=w360-no
 
 ## Nintendo Wii Remote
 
@@ -175,42 +220,27 @@ Classic Controller can be used.
 
 [wii_classic_controller_img]: https://lh3.googleusercontent.com/nX-CyjcmorkW90mP8RybO_pJ7ezM4EJk1tsqkz8HAuLkHBAasccZzq5h-A74Ez-h7Zmv5hpsuBu5n66EeThwRUnLTIu8ffk2MstEMBjHiGrcNoyq-XAC9zeh97Kz8GDBDLqmujmm2J0=-no
 
-## Nintendo Wii U Pro controller
+## Xbox Wireless controller (model 1708)
 
-[![Wii U Pro][wii_u_pro]][27]
+[![Xbox One S][xbox_one_s]][13]
 
-- LEDs #1 and #2 indicates what joystick is being controlled. E.g: If LED #1 is lit, it means that the gamepad is controlling Joystick #1.
+- Must be the *Xbox Wireless Controller model 1708*, model 1797 might work. But versions prior to 1708 and newer than 1797 are not supported.
+- Supports both "old" and "new" Xbox One mappings:  supports firmware v3.1 as well as firmware v4.8.
 - Press:
-  - *B* for Fire
-  - *A* for Jump
+  - *A* for Fire
+  - *B* for Jump
   - *Right shoulder* for Auto-fire
-  - *Home* button to swap joystick port
+  - *Xbox* button to swap joystick port
+- Supports Force Feedback: it rumbles when it connects to the Unijoysticle device or changes joystick port.
 
-[wii_u_pro]: https://lh3.googleusercontent.com/kfKAySKzV-lLG7VmQGfCES1KuhtjBcTIfMzo59FgABcL7Ir9Tp7fQqrTP2iFqf8UVIhce1JhIXyBN_EH9eXpjlf5Q4b9NhhyxrFX9H0yVVRF0_pghjjz3pVqmY4uxS-FMgr7FC7egNo=w360-no
+[xbox_one_s]: https://lh3.googleusercontent.com/YmONc-MhVZhnE8HVRgzH7FKSpT_29MLeIF70U5AfrcBuCtuNJ2Ln5xkmSpNqO0myrFpnDLbFvR2TRTRu0xcqvP3cLNaq1BBpruEAn-Z7vBbwzNtaXx7eQaLLF7aa8tt2Wa0IcYxeD08=-no
 
-## Nintendo Switch Pro
-
-[![Switch Pro][switch_pro_img]][switch_pro]
-
-Clones and "licensed by Nintendo" controllers should also work supported Ok.
-
-- Press:
-  - *B* for Fire
-  - *A* for Jump
-  - *Right shoulder* for Auto-fire
-  - *Home* button to swap joystick port
-- LEDs #1 and #2 indicates what joystick is being controlled
-- Home Light turns on when connected
-
-
-[switch_pro]: https://en.wikipedia.org/wiki/Nintendo_Switch_Pro_Controller
-[switch_pro_img]: https://lh3.googleusercontent.com/33hrGYM117T9pPrW0L-wr7bl0trLXooqmp4I78XV9vWkumHE8mK8Z_5KJZFzWKNpJg31gvrxHC0agF5BUgVr2f6awNYb98R-xPIWaawG6b0XwxHzm8hzz39Wnnv6qLmeEXsRaeoybsA=-no
 
 ## Android
 
 ![Android][android_gamepad]
 
-- Tested with: [ASUS][15], [Moga Pro 2][16], [Amazon Fire TV gamepads][17]
+- Tested with: [ASUS][15], [Moga Pro 2][16], [Amazon Fire TV gamepads][17], [SteelSeries Status Duo][stratus_duo]
 - Press:
   - *A* for Fire
   - *B* for Jump
@@ -218,6 +248,7 @@ Clones and "licensed by Nintendo" controllers should also work supported Ok.
   - the main/big button in the center (depends on the Android gamepad) to swap joystick port.
 
 [android_gamepad]: https://lh3.googleusercontent.com/S3H1pEGYGT5aVTwF3ySWHF7vqbonDYR0UxOLJBxFe5At6Q4AP_4TQUCaNOiEXD22U4H3C0lVP1E3m26H3QM4rIbgp1wysbQoSt1NpD61snlWES5N5zGUgx20c2sfFCKZL4w_Gl66Y1s=-no
+[stratus_duo]: https://steelseries.com/gaming-controllers/stratus-duo
 
 ## Nimbus SteelSeries
 
@@ -251,7 +282,8 @@ Clones and "licensed by Nintendo" controllers should also work supported Ok.
 
 [![8bitdo SN30 Pro][8bitdo_sn30_pro_img]][8bitdo_sn30_pro]
 
-- Tested with: [8BitDo SN30 Pro][8bitdo_sn30_pro], [8BitDo Lite][8bitdo_lite], [8BitDo NES30][8bitdo_nes30]
+- - Tested with: [8BitDo SN30 Pro][8bitdo_sn30_pro], [8BitDo Arcade Stick][8bitdo_arcade_stick],
+  [8BitDo Lite][8bitdo_lite], [8BitDo NES30][8bitdo_nes30]
 - All 8BitDo modes are supported: *Switch*, *Android*, *Windows* and *macOS*.
 - Press:
   - *B* for Fire
@@ -264,6 +296,7 @@ Clones and "licensed by Nintendo" controllers should also work supported Ok.
 [8bitdo_nes30]: https://www.google.com/search?q=8bitdo+nes30
 [8bitdo_lite]: https://www.8bitdo.com/lite/
 [8bitdo_sn30_pro]: https://www.8bitdo.com/sn30-pro-g-classic-or-sn30-pro-sn/
+[8bitdo_arcade_stick]: https://www.8bitdo.com/arcade-stick/
 [issue_3]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/3
 [issue_10]: https://gitlab.com/ricardoquesada/unijoysticle2/issues/10
 
