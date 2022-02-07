@@ -67,6 +67,12 @@ See: [Supported gamepads][gamepads]
 
 [gamepads]: https://gitlab.com/ricardoquesada/unijoysticle2/blob/master/docs/supported_gamepads.md
 
+## Order info
+
+If you are looking for ready-to-use boards, you can purchase them here:
+
+<a href="https://www.tindie.com/stores/riq/?ref=offsite_badges&utm_source=sellers_riq&utm_medium=badges&utm_campaign=badge_large"><img src="https://d2ss6ovg47m0r5.cloudfront.net/badges/tindie-larges.png" alt="I sell on Tindie" width="200" height="104"></a>
+
 ## More Info
 
 - [Users guide][users_guide]
