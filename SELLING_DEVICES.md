@@ -6,7 +6,7 @@ I sell the Unijoysticle on Tindie. If you can purchase it from my Tindie store, 
 
 | Product | Image |
 | ------- | ----- |
-| Unijoysticle 2+</br><a href="https://www.tindie.com/stores/riq/?ref=offsite_badges&utm_source=sellers_riq&utm_medium=badges&utm_campaign=badge_large"><img src="https://d2ss6ovg47m0r5.cloudfront.net/badges/tindie-larges.png" alt="I sell on Tindie" width="200" height="104"></a> | <img src="https://lh3.googleusercontent.com/pw/AM-JKLUXjtgKSpJq7tH98-28yuaWiBRLN9y0tF5wdYgk4cfPPnoVxpX2astdSZLqT5JVz2Sddw7OIjZ4xDtDL2yf04rxHvgVgu_m74OlERyXDkTKn1VnrxQWaQpGT-xA0ydgKCcCqVGhh9a_0VpfasM_PGLnOg=-no" width="300"> |
+| Unijoysticle 2+<br><a href="https://www.tindie.com/stores/riq/?ref=offsite_badges&utm_source=sellers_riq&utm_medium=badges&utm_campaign=badge_large"><img src="https://d2ss6ovg47m0r5.cloudfront.net/badges/tindie-larges.png" alt="I sell on Tindie" width="200" height="104"></a> | <img src="https://lh3.googleusercontent.com/pw/AM-JKLUXjtgKSpJq7tH98-28yuaWiBRLN9y0tF5wdYgk4cfPPnoVxpX2astdSZLqT5JVz2Sddw7OIjZ4xDtDL2yf04rxHvgVgu_m74OlERyXDkTKn1VnrxQWaQpGT-xA0ydgKCcCqVGhh9a_0VpfasM_PGLnOg=-no" width="300"> |
 
 ## Remix and 3rd party vendors
 
@@ -14,11 +14,11 @@ You can also get Unijoysticle-like device from these other makers / vendors:
 
 | Product | Image |
 | ------- | ----- |
-| Vendor: Kopsec </br>Description: Already assembled + case</br>Price: Commercial</br>Further info: [Ebay store][kopsec_store] |  ![image][kopsec_image] |
-| Vendor: Arananet</br>Description: Single joystick version, ideal for Amiga</br>Price: Commercial</br>Further info: [Unijoy2Amiga][arananet_store] | ![image][arananet_image] |
-| Vendor: Eduardo Casino</br>Description: Unijoysticle2 for the C16 & Plus/4</br>Price: [Contact author for availability][casino_contact]</br>Further info: [PCBWay page][casino_store] | ![image][casino_image] |
-| Vendor: SukkoPera</br>Description: Fits in the Amiga 500</br>Price: Free, DIY</br>Further info: [Project page][sukkopera_store] </br> | ![image][sukkopera_image] |
-| Vendor: Hyvax</br>Description: Unijoysticle for NeoGeo</br>Price: Free, DIY</br>Further info: [Project page][hyvax_store] | ![image][hyvax_image] |
+| Vendor: Kopsec <br>Description: Already assembled + case<br>Price: Commercial<br>Further info: [Ebay store][kopsec_store] |  ![image][kopsec_image] |
+| Vendor: Arananet<br>Description: Single joystick version, ideal for Amiga<br>Price: Commercial<br>Further info: [Unijoy2Amiga][arananet_store] | ![image][arananet_image] |
+| Vendor: Eduardo Casino<br>Description: Unijoysticle2 for the C16 & Plus/4<br>Price: [Contact author for availability][casino_contact]<br>Further info: [PCBWay page][casino_store] | ![image][casino_image] |
+| Vendor: SukkoPera<br>Description: Fits in the Amiga 500<br>Price: Free, DIY<br>Further info: [Project page][sukkopera_store] <br> | ![image][sukkopera_image] |
+| Vendor: Hyvax<br>Description: Unijoysticle for NeoGeo<br>Price: Free, DIY<br>Further info: [Project page][hyvax_store] | ![image][hyvax_image] |
 
 [kopsec_store]: https://www.ebay.es/itm/Unijoysticle-2-in-case-Use-modern-Bluetooth-gamepads-in-your-Commodore-64-128-/233557376702
 [kopsec_image]: https://lh3.googleusercontent.com/pw/ACtC-3c3XC07S03WVHKnlZhrbDd7g9YkG5QHW35Gv-PgX62odPKok5A56Jc3drYu_W2yBhXJ1k_8Qs5S2I1sKtcqXm_IgPiof5d-7Ztjrj_EIfTfWidgIg9KifyYBrLJJnKS0KcBHzLaxti-tnJdMmQ_YKEV_Q=-no-w350

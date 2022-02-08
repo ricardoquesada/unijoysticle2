@@ -1,4 +1,4 @@
-# Unijoysticle 2
+# Unijoysticle™ 2
 
 [![discord](https://img.shields.io/discord/775177861665521725.svg)](https://discord.gg/r5aMn6Cw5q)
 
