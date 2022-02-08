@@ -73,6 +73,10 @@ If you are looking for ready-to-use boards, you can purchase them here:
 
 <a href="https://www.tindie.com/stores/riq/?ref=offsite_badges&utm_source=sellers_riq&utm_medium=badges&utm_campaign=badge_large"><img src="https://d2ss6ovg47m0r5.cloudfront.net/badges/tindie-larges.png" alt="I sell on Tindie" width="200" height="104"></a>
 
+Looking for a remixe and/or 3rd party vendors. Go here:[SELLING_DEVICES.md][selling_devices]
+
+[selling_devices]: SELLING_DEVICES.md
+
 ## More Info
 
 - [Users guide][users_guide]
