@@ -389,7 +389,9 @@
         "microvia_diameter": 0.5,
         "microvia_drill": 0.1,
         "name": "GND",
-        "nets": [],
+        "nets": [
+          "GND"
+        ],
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.5,
@@ -407,7 +409,11 @@
         "microvia_diameter": 0.5,
         "microvia_drill": 0.1,
         "name": "POWER",
-        "nets": [],
+        "nets": [
+          "+3V3",
+          "+5V",
+          "VBUS"
+        ],
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.5,
