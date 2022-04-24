@@ -173,14 +173,17 @@
     (path "/1e0fa736-c93b-4f04-ac49-f38ac4164c62/52879976-fbda-4973-820e-9e4a24f5fa6d"
       (reference "#PWR035") (unit 1) (value "GND") (footprint "")
     )
+    (path "/1e0fa736-c93b-4f04-ac49-f38ac4164c62/1cfb8e9f-2f08-422d-a63b-136ca9ac4513"
+      (reference "#PWR036") (unit 1) (value "GND") (footprint "")
+    )
     (path "/1e0fa736-c93b-4f04-ac49-f38ac4164c62/588c76b6-4da2-44d6-8cfa-bbf62f1c8316"
-      (reference "#PWR036") (unit 1) (value "+5V") (footprint "")
+      (reference "#PWR037") (unit 1) (value "+5V") (footprint "")
     )
     (path "/1e0fa736-c93b-4f04-ac49-f38ac4164c62/deb6255b-89dd-460e-a062-03bef39e511a"
-      (reference "#PWR037") (unit 1) (value "GND") (footprint "")
+      (reference "#PWR038") (unit 1) (value "GND") (footprint "")
     )
     (path "/1e0fa736-c93b-4f04-ac49-f38ac4164c62/9f292b5e-ba1d-4000-8995-8f42619ffc1d"
-      (reference "#PWR038") (unit 1) (value "GND") (footprint "")
+      (reference "#PWR039") (unit 1) (value "GND") (footprint "")
     )
     (path "/4c2fb79c-207e-4f92-8ea1-7543e9ed400d/00000000-0000-0000-0000-000060dcb6b2"
       (reference "C1") (unit 1) (value ".1uF") (footprint "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder")
@@ -255,7 +258,7 @@
       (reference "J3") (unit 1) (value "PORT JOY #2") (footprint "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.54mm_EdgePinOffset9.40mm")
     )
     (path "/1e0fa736-c93b-4f04-ac49-f38ac4164c62/00028951-7bdb-4ce0-9417-e89df2bb7b07"
-      (reference "JP1") (unit 1) (value "SolderJumper_2_Open") (footprint "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm")
+      (reference "JP1") (unit 1) (value "SolderJumper_1_Open") (footprint "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm")
     )
     (path "/1e0fa736-c93b-4f04-ac49-f38ac4164c62/e61fcb36-ac85-45f4-8eb4-fcc7cca84c46"
       (reference "JP2") (unit 1) (value "SolderJumper_2_Open") (footprint "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm")
@@ -292,6 +295,15 @@
     )
     (path "/1e0fa736-c93b-4f04-ac49-f38ac4164c62/00000000-0000-0000-0000-000061258ba1"
       (reference "R9") (unit 1) (value "1.5K") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
+    )
+    (path "/1e0fa736-c93b-4f04-ac49-f38ac4164c62/926f8528-02c9-4a07-9eef-1ee3786dff1e"
+      (reference "R10") (unit 1) (value "1K") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
+    )
+    (path "/1e0fa736-c93b-4f04-ac49-f38ac4164c62/9d2c88a5-1499-4699-b05e-4a7c7f9ee908"
+      (reference "R11") (unit 1) (value "0") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
+    )
+    (path "/1e0fa736-c93b-4f04-ac49-f38ac4164c62/457495e6-9083-46ee-84cb-a5ae1193aafb"
+      (reference "R12") (unit 1) (value "0") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
     )
     (path "/4c2fb79c-207e-4f92-8ea1-7543e9ed400d/00000000-0000-0000-0000-00005f878aea"
       (reference "SW1") (unit 1) (value "RESET") (footprint "Button_Switch_THT:SW_Tactile_SPST_Angled_PTS645Vx39-2LFS")
