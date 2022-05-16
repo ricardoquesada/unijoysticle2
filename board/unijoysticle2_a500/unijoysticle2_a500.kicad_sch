@@ -125,14 +125,8 @@
     (path "/93281dcd-2548-47fa-896a-a960429efc33/00000000-0000-0000-0000-00005fd77036"
       (reference "#PWR019") (unit 1) (value "VBUS") (footprint "")
     )
-    (path "/93281dcd-2548-47fa-896a-a960429efc33/00000000-0000-0000-0000-000060f9851b"
-      (reference "#PWR020") (unit 1) (value "+3V3") (footprint "")
-    )
     (path "/93281dcd-2548-47fa-896a-a960429efc33/00000000-0000-0000-0000-000060fa924e"
       (reference "#PWR021") (unit 1) (value "GND") (footprint "")
-    )
-    (path "/93281dcd-2548-47fa-896a-a960429efc33/00000000-0000-0000-0000-000060fe0119"
-      (reference "#PWR022") (unit 1) (value "+3V3") (footprint "")
     )
     (path "/93281dcd-2548-47fa-896a-a960429efc33/00000000-0000-0000-0000-000060e5e033"
       (reference "#PWR023") (unit 1) (value "GND") (footprint "")
@@ -191,6 +185,15 @@
     (path "/1e0fa736-c93b-4f04-ac49-f38ac4164c62/9f292b5e-ba1d-4000-8995-8f42619ffc1d"
       (reference "#PWR041") (unit 1) (value "GND") (footprint "")
     )
+    (path "/93281dcd-2548-47fa-896a-a960429efc33/71f4d7a8-8395-412f-bb21-4b0de4da3980"
+      (reference "#PWR0101") (unit 1) (value "VBUS") (footprint "")
+    )
+    (path "/93281dcd-2548-47fa-896a-a960429efc33/6988ce2c-cf46-4a70-8cc3-0890f361dca5"
+      (reference "#PWR0102") (unit 1) (value "VBUS") (footprint "")
+    )
+    (path "/93281dcd-2548-47fa-896a-a960429efc33/afd14859-4a48-476b-b520-a75bca31c1e5"
+      (reference "#PWR0103") (unit 1) (value "GND") (footprint "")
+    )
     (path "/4c2fb79c-207e-4f92-8ea1-7543e9ed400d/00000000-0000-0000-0000-000060dcb6b2"
       (reference "C1") (unit 1) (value ".1uF") (footprint "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder")
     )
@@ -229,6 +232,9 @@
     )
     (path "/1e0fa736-c93b-4f04-ac49-f38ac4164c62/00000000-0000-0000-0000-000060c47614"
       (reference "C13") (unit 1) (value ".1uF") (footprint "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder")
+    )
+    (path "/93281dcd-2548-47fa-896a-a960429efc33/e0df0bb6-fd52-421a-a7ca-58bc740c06c2"
+      (reference "C14") (unit 1) (value ".1uF") (footprint "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder")
     )
     (path "/4c2fb79c-207e-4f92-8ea1-7543e9ed400d/9dda4965-dc94-45fb-b1f6-29c5fe4d1548"
       (reference "D1") (unit 1) (value "PWR") (footprint "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder")
