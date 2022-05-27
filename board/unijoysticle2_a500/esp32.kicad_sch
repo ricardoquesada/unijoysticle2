@@ -2059,7 +2059,7 @@
     (in_bom yes) (on_board yes)
     (uuid c76b31d1-5f95-4fdc-a0d8-1ced053f5f3b)
     (property "Reference" "R2" (id 0) (at 177.8 129.032 90))
-    (property "Value" "2.2K" (id 1) (at 177.8 133.096 90))
+    (property "Value" "3.3K" (id 1) (at 177.8 133.096 90))
     (property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" (id 2) (at 177.8 132.588 90)
       (effects (font (size 1.27 1.27)) hide)
     )
