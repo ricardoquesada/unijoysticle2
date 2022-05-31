@@ -324,7 +324,7 @@
       (reference "SW2") (unit 1) (value "BOOT") (footprint "Unijoysticle:SW_Push_1P1T_NO_5.1x5.1mm")
     )
     (path "/1e0fa736-c93b-4f04-ac49-f38ac4164c62/00000000-0000-0000-0000-00005f96f5c6"
-      (reference "SW3") (unit 1) (value "MOUSE") (footprint "Button_Switch_THT:SW_Tactile_SPST_Angled_PTS645Vx39-2LFS")
+      (reference "SW3") (unit 1) (value "MODE") (footprint "Button_Switch_THT:SW_Tactile_SPST_Angled_PTS645Vx39-2LFS")
     )
     (path "/1e0fa736-c93b-4f04-ac49-f38ac4164c62/80da2f62-cc11-4b19-9752-11df92973959"
       (reference "SW4") (unit 1) (value "SWAP") (footprint "Button_Switch_THT:SW_Tactile_SPST_Angled_PTS645Vx39-2LFS")

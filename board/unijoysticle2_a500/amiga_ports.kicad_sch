@@ -836,7 +836,6 @@
     )
   )
 
-
   (junction (at 17.78 144.78) (diameter 0) (color 0 0 0 0)
     (uuid 3243c8a1-5dd6-4265-b2fc-7a030b745746)
   )
@@ -2177,7 +2176,7 @@
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-00005f96f5c6)
     (property "Reference" "SW3" (id 0) (at 54.61 173.99 0))
-    (property "Value" "MOUSE" (id 1) (at 54.61 176.53 0))
+    (property "Value" "MODE" (id 1) (at 54.61 176.53 0))
     (property "Footprint" "Button_Switch_THT:SW_Tactile_SPST_Angled_PTS645Vx39-2LFS" (id 2) (at 54.61 167.64 0)
       (effects (font (size 1.27 1.27)) hide)
     )
