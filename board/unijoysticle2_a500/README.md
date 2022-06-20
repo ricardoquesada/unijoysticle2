@@ -1,8 +1,12 @@
-# Unijoysticle2 A500
+# Unijoysticle™ 2 A500
+
+![uni2_a500_photo][uni2_a500_photo]
 
 Unijoysticle2 A500 is device that lets you use modern Gamepad and Mice in retro computers like the Amiga.
 
 Unijoysticle2 is open source / open hardware. See [license][license] for details.
+
+[uni2_a500_photo]: https://lh3.googleusercontent.com/pw/AM-JKLXEB6NQ-lr54G6cPEVQJ9i1OGR0XWLVYsjCs4Sc_883w-gYvwnUOPlH2wnzM0ibH48Y6QGAAIRO9pnfTxDsdQqY7JHBKzJPzOOY8Cin6t9sSjHvx94k1VZLdTh1Fkknum6nIR0z1pAMz69txQRV7qQksg=-no 
 
 ## Schematic
 

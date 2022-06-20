@@ -4,9 +4,32 @@
 
 Like the original [Unijoysticle][1], but remove WiFi and add Bluetooth.
 
-| Unijoysticle 2 | Unijoysticle 2+ | Unijoysticle 2 A500 |
-| -------------- | --------------- | ------------------- |
-| ![uni2_photo] | ![uni2_plus_photo] | ![uni2_a500_photo] |
+|   | Unijoysticle 2| Unijoysticle 2+| Unijoysticle 2 A500 |
+| - | -------------- | --------------- | ------------------- |
+|   | ![uni2_photo] | ![uni2_plus_photo] | ![uni2_a500_photo] |
+| Total Size (mm) | 63 x 66 x 17 | 64 x 64 x 13.6 | 67 x 72 x 13.6 |
+| PCB Size (mm) | 46 x 57 x 1.6 | 49 x 62 x 1.6 | 52 x 67 x 1.6 |
+| Weight (gr) | 37 | 24 | 25.6 |
+| Current (mA)| ~100 | ~96 | ~96 |
+| Amiga 2nd & 3rd button support| Only in Port #1| Both in Port #1 and #2 | Both in Port #1 and #2 |
+| C64 mouse support (1351) | No | No | No |
+| Amiga / AtariST mouse support | Yes (1) | Yes (1) | Yes  (1)|
+| Fits | C64 / C128 | C64 / C128 | Amiga 500 / 1200 |
+| Buttons | Reset, Enhanced | Reset, Enhanced | Reset, Mode,  Swap |
+| LEDs | Port #1, #2 | Port #1, #2 | Port #1, #2, Bluetooth |
+| Filter noise for C128 ([Issue #17][issue_17]) | No | Yes | Yes |
+| Case friendly | No | Yes | Yes |
+| Easy to DIY | Yes | No | No |
+| Self-powered support | Yes (2) | Yes (2) | Yes (2) |
+| External power | Both USB and Barrel Jack 5V+ | Only USB | Only USB |
+| USB connector | Micro USB | Micro USB | Micro USB |
+| Release date | April 2019 | August 2021 | ??? 2022 |
+
+(1): Requires firmware Bluepad32 v3.5 or newer
+
+(2): Amiga 500 requires external power.
+
+[issue_17]: https://gitlab.com/ricardoquesada/unijoysticle2/-/issues/17
 
 Unijoysticle 2 allows you to use modern Bluetooth gamepads, e.g DualSense gamepad,
 in retro computers like the Commodore 64, Amiga and AtariST.
@@ -68,9 +91,13 @@ throw grenades / roll by pressing Button B.
 - iCade
 - And more
 
-See: [Supported gamepads][gamepads]
+See:
+
+* [Supported gamepads][gamepads]
+* [Supported mice][mice]
 
 [gamepads]: https://gitlab.com/ricardoquesada/unijoysticle2/blob/master/docs/supported_gamepads.md
+[mice]: https://gitlab.com/ricardoquesada/bluepad32/blob/develop/docs/supported_mice.md
 
 ## Order info
 
@@ -78,19 +105,19 @@ If you are looking for ready-to-use boards, you can purchase one from here:
 
 <a href="https://www.tindie.com/stores/riq/?ref=offsite_badges&utm_source=sellers_riq&utm_medium=badges&utm_campaign=badge_large"><img src="https://d2ss6ovg47m0r5.cloudfront.net/badges/tindie-larges.png" alt="I sell on Tindie" width="200" height="104"></a>
 
-Looking for a remix and/or 3rd party vendors. Go here:[SELLING_DEVICES.md][selling_devices]
+Looking for a remix and/or 3rd party vendors. Go here: [SELLING_DEVICES.md][selling_devices]
 
 [selling_devices]: SELLING_DEVICES.md
 
 ## More Info
 
 - [Users guide][users_guide]
-- [Forum][forum]
 - [Discord][discord]
+- [Email group][email_group]
 
 [users_guide]: https://gitlab.com/ricardoquesada/unijoysticle2/blob/master/docs/user_guide.md
-[forum]: https://groups.google.com/forum/#!forum/unijoysticle
 [discord]: https://discord.gg/r5aMn6Cw5q
+[email_group]: https://groups.google.com/forum/#!forum/unijoysticle
 
 [1]: https://retro.moe/unijoysticle
 [2]: https://csdb.dk/release/?id=137173
