@@ -4,14 +4,19 @@
 
 Like the original [Unijoysticle][1], but remove WiFi and add Bluetooth.
 
-| Unijoysticle 2 | Unijoysticle 2+ |
-| -------------- | --------------- |
-| ![uni2](https://lh3.googleusercontent.com/DChZhkyEl-qqZ3r9N7_RhzvF4zDkSdgNyZwczBofnp28D6ncXcbGq3CXBc5SeC5zooUbBCRo87stuAx-4Q7FwItz1NfaZ4_EJjX3pIroiiR-fcXPzZWk0OifvtaoA8iUJsQQnhkC9q4=-no) | ![uni2+](https://lh3.googleusercontent.com/pw/AM-JKLVeTZLBOCy4GmrG5N-WiRIcqoxLdsVXSN-77reS92gn7xxmZy-JuE_XeXgwSSPaUBYa2qaaw5RvZbzlkHdjDxal2p_WkKIm9RnzD6qeqV_u7j_3sRJOkm35EO5JCXFp_EpLvCTHGNEX6ZOtMyOGrzqLQw=-no) |
+| Unijoysticle 2 | Unijoysticle 2+ | Unijoysticle 2 A500 |
+| -------------- | --------------- | ------------------- |
+| ![uni2_photo] | ![uni2_plus_photo] | ![uni2_a500_photo] |
 
-Unijoysticle 2 allows you to use modern Bluetooth gamepads, e.g Xbox One gamepad,
-in old computers like the Commodore 64 & 128.
+Unijoysticle 2 allows you to use modern Bluetooth gamepads, e.g DualSense gamepad,
+in retro computers like the Commodore 64, Amiga and AtariST.
 
-And of course, you can still  use your unicycle to control your retro computer!
+It also supports mice (for Amiga / AtariST only).
+
+[uni2_photo]: https://lh3.googleusercontent.com/DChZhkyEl-qqZ3r9N7_RhzvF4zDkSdgNyZwczBofnp28D6ncXcbGq3CXBc5SeC5zooUbBCRo87stuAx-4Q7FwItz1NfaZ4_EJjX3pIroiiR-fcXPzZWk0OifvtaoA8iUJsQQnhkC9q4=-no
+[uni2_plus_photo]: https://lh3.googleusercontent.com/pw/AM-JKLVeTZLBOCy4GmrG5N-WiRIcqoxLdsVXSN-77reS92gn7xxmZy-JuE_XeXgwSSPaUBYa2qaaw5RvZbzlkHdjDxal2p_WkKIm9RnzD6qeqV_u7j_3sRJOkm35EO5JCXFp_EpLvCTHGNEX6ZOtMyOGrzqLQw=-no
+[uni2_a500_photo]: https://lh3.googleusercontent.com/pw/AM-JKLXEB6NQ-lr54G6cPEVQJ9i1OGR0XWLVYsjCs4Sc_883w-gYvwnUOPlH2wnzM0ibH48Y6QGAAIRO9pnfTxDsdQqY7JHBKzJPzOOY8Cin6t9sSjHvx94k1VZLdTh1Fkknum6nIR0z1pAMz69txQRV7qQksg=-no 
+
 
 ## Basic functionality
 
@@ -69,7 +74,7 @@ See: [Supported gamepads][gamepads]
 
 ## Order info
 
-If you are looking for ready-to-use boards, you can purchase them here:
+If you are looking for ready-to-use boards, you can purchase one from here:
 
 <a href="https://www.tindie.com/stores/riq/?ref=offsite_badges&utm_source=sellers_riq&utm_medium=badges&utm_campaign=badge_large"><img src="https://d2ss6ovg47m0r5.cloudfront.net/badges/tindie-larges.png" alt="I sell on Tindie" width="200" height="104"></a>
 

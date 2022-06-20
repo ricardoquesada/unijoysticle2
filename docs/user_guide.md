@@ -1,38 +1,49 @@
 # Unijoysticle 2 / 2+ User Guide
 
-This guide is valid both for Unijoysticle 2 and Unijoysticle 2+.
-Features that are only applicable for Unijoysticle 2 / 2+, are tagged as **[v2 only]** / **[v2+ only]** respectively.
+This guide is valid both for Unijoysticle 2, Unijoysticle 2+ and Unijoysticle 2 A500.
+Features that are only applicable for Unijoysticle 2 / 2+/ 2 A500, are tagged as **[v2 only]** / **[v2+ only]** / **[v2 a500]** respectively.
 
-Comparison between the two:
+Comparison between them:
 
-|   | Unijoysticle 2 | Unijoysticle 2+ |
-| - | -------------- | ------------------ |
-| Buttons / Switches / LEDs | ![uni2](https://lh3.googleusercontent.com/pw/AM-JKLUphquTBg9JoV-L7wuMtze_aKIJ8LvfokTakuBKSVFClziLWCViggcrlNZtqGUMgv6u6yYpZ_RuE2jdGSn3Q0oYl0jOQzzGcutRt-JiMjLZY_oAvK4LehrawNj_aNbthCJ-VEJzsW3dywhJNekjhTsfNQ=-no) | ![uni2plus](https://lh3.googleusercontent.com/pw/AM-JKLWV2Zo912VtOfuM71AluanNXGwVQiAehNEiQ1VL3L7SkWDl-9k0fA6tfza9QpGL52petBfFFFHMb8rh_ybSj17LOQA70IycMDQw6AVqlN8Jp4HDWT8sWcXHIPEQZTxNuQ-RFygKbmVpW2n52wwi5cJgwA=-no) |
-| Amiga / AtariST 2nd & 3rd button support| Only in Port #1| Both in Port #1 and #2 |
-| C64 mouse support (1351) | No | No |
-| Amiga / AtariST mouse support | Yes (1) | Yes (1) |
-| Filter noise for C128 ([Issue #17][issue_17]) | No | Yes |
-| Case friendly | No | Yes |
-| Easy to solder | Yes. All components are through-hole | No. Most components are surface-mount |
-| Self-powered | Yes, can be turned on/off with switch | Yes, always on |
-| External power | Both USB and Barrel Jack 5V+ | Only USB |
-| Size | 63 x 66 x 17 mm | 64 x 64 x 12 mm |
-| Weight | 35 grams | 24 grams |
-| Current | ~95mA | ~100mA |
-| USB connector | Micro USB | Micro USB |
+|   | Unijoysticle 2 | Unijoysticle 2+ | Unijoysticle 2 A500 |
+| - | -------------- | --------------- | ------------------- |
+| Buttons / Switches / LEDs | ![uni2_photo] | ![uni2plus_photo] | ![uni2a500_photo] |
+| Amiga / AtariST 2nd & 3rd button support| Only in Port #1| Both in Port #1 and #2 | Both in Port #1 and #2 |
+| C64 mouse support (1351) | No | No | No |
+| Amiga / AtariST mouse support | Yes (1) | Yes (1) | Yes (1) |
+| Fits | C64 / C128 | C64 / C128 | Amiga 500 / 1200 |
+| Buttons | Reset, Enhanced | Reset, Enhanced | Reset, Mode,  Swap |
+| LEDs | Port #1, #2 | Port #1, #2 | Port #1, #2, Bluetooth |
+| Filter noise for C128 ([Issue #17][issue_17]) | No | Yes | Yes |
+| Case friendly | No | Yes | Yes |
+| Easy to solder | Yes. All components are through-hole | No. Most components are surface-mount | No. Most components are surface-mount |
+| Self-powered | Yes, can be turned on/off with switch | Yes, always on | Yes, always on |
+| External power | Both USB and Barrel Jack 5V+ | Only USB | Only USB |
+| Total Size (mm) | 63 x 66 x 17 | 64 x 64 x 13.6 | 67 x 72 x 13.6 |
+| PCB Size (mm) | 46 x 57 x 1.6 | 49 x 62 x 1.6 | 52 x 67 x 1.6 |
+| Weight (gr) | 37 | 24 | 25.6 |
+| Current (mA)| ~100 | ~96 | ~96 |
+| USB connector | Micro USB | Micro USB | Micro USB |
+| Release date | April 2019 | August 2021 | ??? 2022 |
 
-- Toggle Mode button: Toggles between *Basic* and *Enhanced* mode (see below for further info)
+- [v2 / v2+ only] Toggle Mode button: Toggles between *Basic* and *Enhanced* mode (see below for further info)
+- [v2 A500 only] Swap button: Swaps joystick ports
+- [v2 A500 only] Mode button: switches between *Normal*, *Enhanced* and *Mouse* modes (see below for further info)
 - Reset button: Resets the device
 - Green / Red LEDs: Joystick 1 / Joystick 2 are attached
-- Power LED: Red in Unijoysticle 2, Blue in 2+. If On, it means the device has current.
+- [v2 A500 only] Blue LED: Indicates that Bluetooth is On, meaning that new connections are accepted.
+- Power LED: Red in Unijoysticle 2 / 2 A500, Blue in 2+. If On, it means the device has current.
 - [v2 only] Self-Powered On/Off: When On, the Unijoysticle will be powered by the Commodore.
-- [v2+ only] Prog Mode: If programming the firmware fails, press this button to force "programming mode". Legacy feature, might be removed in future revisions.
+- [v2+ / v2 A500 only] Prog Mode: If programming the firmware fails, press this button to force "programming mode". Legacy feature, might be removed in future revisions.
 
 Notes:
 
-- (1): Requires update in Bluepad32 firmware (WIP)
+- (1): Requires Bluepad32 v3.5 or newer
 
 [issue_17]: https://gitlab.com/ricardoquesada/unijoysticle2/-/issues/17
+[uni2_photo]: https://lh3.googleusercontent.com/pw/AM-JKLUphquTBg9JoV-L7wuMtze_aKIJ8LvfokTakuBKSVFClziLWCViggcrlNZtqGUMgv6u6yYpZ_RuE2jdGSn3Q0oYl0jOQzzGcutRt-JiMjLZY_oAvK4LehrawNj_aNbthCJ-VEJzsW3dywhJNekjhTsfNQ=-no
+[uni2plus_photo]: https://lh3.googleusercontent.com/pw/AM-JKLWV2Zo912VtOfuM71AluanNXGwVQiAehNEiQ1VL3L7SkWDl-9k0fA6tfza9QpGL52petBfFFFHMb8rh_ybSj17LOQA70IycMDQw6AVqlN8Jp4HDWT8sWcXHIPEQZTxNuQ-RFygKbmVpW2n52wwi5cJgwA=-no
+[uni2a500_photo]: https://lh3.googleusercontent.com/pw/AM-JKLU1BbKnbuLE7Oa_VOY3AnBjYwNVcAPKJcmYa7WUnCK5gMM1bHZyK3lTZ1Mo0NtS30ogeeSqxySx3Qi2ux3AGOlocQnQe9a87NoiKz5tnmHV_IGf3hPln0qsr8t5yfD5biKKVbGlRJ6vN2IbmI8H2Wg6iw=-no
 
 ## Supported computers
 
@@ -47,7 +58,7 @@ That includes, but not limited to:
 
 - Commodore 64 / SX-64 / 128 / 128-D.
 - Atari 8-bit line, both computers and consoles (requires [DB9 extension cable][cable]).
-- Amiga line (requires [DB9 extension cable][cable]).
+- Amiga line (Unijoysticle2 / 2+ requires [DB9 extension cable][cable], Unijoysticle 2 A500 fits Ok).
 - Atari ST line (requires [DB9 extension cable][cable]).
 - Commodore 16 / 116 / +4 (requires joyadaptercables)
 
@@ -103,10 +114,13 @@ Note: It is safe to plug the two / three of them at the same time, but that won'
   - C128 + 1541 Ultimate 2 + Unijoysticle 2 + [beefy power supply][power_supply].
   - C64 + 1541 Ultimate 2 + Unijoysticle 2 + [beefy power supply][power_supply].
   - SX-64 + Unijoysticle 2
-  - Atari ST 1040F
+  - Atari ST 1040F + Unijoysticle 2
+  - Amiga 1200 + Unijoysticle 2 A500
+
+Note: Amiga 500 doesn't provide enough current to power the Unijoysticle. When used with an Amiga 500, you should power the Unijoysticle via the USB port.
 
 This feature is available since Unijoysticle 2 [Revision D][changelog_board], and is present in all
-Unijoysticle 2+ revisions.
+Unijoysticle 2+ / Unijoysticle 2 A500 revisions.
 
 [changelog_board]: https://gitlab.com/ricardoquesada/unijoysticle2/blob/master/CHANGELOG.board.md
 
