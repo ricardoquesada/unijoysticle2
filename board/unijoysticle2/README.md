@@ -2,9 +2,9 @@
 
 ![uni2_photo][uni2_photo]
 
-Unijoysticle2 is device that lets you use modern Gamepad and Mice in retro computers like the Commodore 64.
+Unijoysticle 2 is device that lets you use modern Gamepad and Mice in retro computers like the Commodore 64.
 
-Unijoysticle2 is open source / open hardware. See [license][license] for details.
+Unijoysticle 2 is open source / open hardware. See [license][license] for details.
 
 [uni2_photo]: https://lh3.googleusercontent.com/DChZhkyEl-qqZ3r9N7_RhzvF4zDkSdgNyZwczBofnp28D6ncXcbGq3CXBc5SeC5zooUbBCRo87stuAx-4Q7FwItz1NfaZ4_EJjX3pIroiiR-fcXPzZWk0OifvtaoA8iUJsQQnhkC9q4=-no
 

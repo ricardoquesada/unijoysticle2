@@ -1,2 +1,3 @@
 (sym_lib_table
+  (lib (name "unijoysticle2plus-rescue")(type "Legacy")(uri "${KIPRJMOD}/unijoysticle2plus-rescue.lib")(options "")(descr ""))
 )
