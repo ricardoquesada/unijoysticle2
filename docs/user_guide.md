@@ -1,7 +1,7 @@
-# Unijoysticle 2 / 2+ User Guide
+# Unijoysticle™ 2 / 2+ / 2 A500 User Guide
 
 This guide is valid both for Unijoysticle 2, Unijoysticle 2+ and Unijoysticle 2 A500.
-Features that are only applicable for Unijoysticle 2 / 2+/ 2 A500, are tagged as **[v2 only]** / **[v2+ only]** / **[v2 a500]** respectively.
+Features that are only applicable for Unijoysticle 2 / 2+/ 2 A500, are tagged as **[v2 only]** / **[v2+ only]** / **[v2 A500 only]** respectively.
 
 Comparison between them:
 
@@ -103,9 +103,9 @@ Note: It is safe to plug the two / three of them at the same time, but that won'
 
 ### Self-powered
 
-| Unijoysticle 2 | Unijoysticle 2+ |
-| -------------- | --------------- |
-| ![uni2](https://lh3.googleusercontent.com/XVQU7lkllCqc-1k6KX_3CdDIOlx0NCHO8NVDuBOJGdVef3Rq03KJpDHLqG_FNYW2GTeXOAxna9njsclcrlxmhOiBR_KvI-M8CDUOglUX9nCZLBILnkSB32Tews7yhmU38tfaVMxXnWU=-no) | ![uni2plus](https://lh3.googleusercontent.com/pw/AM-JKLUXjhjUsPDIVH1C_i8310k5ERQT-IQc71w2ibmBWCHoKC5uEIHjHBdp52ydb0XBZoKqftGv8JIonAn9tfuxXnoo00BypKL62ZTk_kbOLEQwdXG7QM3FDhrHm41NAbP9dhAxn9N4M5pTxUMiOJ_T2oHgSw=-no) |
+| Unijoysticle 2 | Unijoysticle 2+ | Unijoysticle 2 A500 |
+| -------------- | --------------- | ------------------- |
+| ![uni2_self_powered_photo] | ![uni2plus_self_powered_photo] | ![uni_a500_self_powered_photo] |
 
 - Gets current directly from the joystick ports. No extra cables needed.
 - [v2 only] "Self-powered" switch must be "ON", otherwise the ESP32 won't receive current.
@@ -117,22 +117,30 @@ Note: It is safe to plug the two / three of them at the same time, but that won'
   - Atari ST 1040F + Unijoysticle 2
   - Amiga 1200 + Unijoysticle 2 A500
 
-Note: Amiga 500 doesn't provide enough current to power the Unijoysticle. When used with an Amiga 500, you should power the Unijoysticle via the USB port.
+Note: Amiga 500 joystick ports don't provide enough current to power the Unijoysticle. Instead power the Unijoysticle through the USB port. It is possible to connect the USB port to the Disk Drive connector (Pin 12 = +5V / Pin 3 = GND, see [disk_drive_power]) which provides enough current.
 
 This feature is available since Unijoysticle 2 [Revision D][changelog_board], and is present in all
 Unijoysticle 2+ / Unijoysticle 2 A500 revisions.
 
+[uni2_self_powered_photo]: https://lh3.googleusercontent.com/XVQU7lkllCqc-1k6KX_3CdDIOlx0NCHO8NVDuBOJGdVef3Rq03KJpDHLqG_FNYW2GTeXOAxna9njsclcrlxmhOiBR_KvI-M8CDUOglUX9nCZLBILnkSB32Tews7yhmU38tfaVMxXnWU=-no
+[uni2plus_self_powered_photo]: https://lh3.googleusercontent.com/pw/AM-JKLUXjhjUsPDIVH1C_i8310k5ERQT-IQc71w2ibmBWCHoKC5uEIHjHBdp52ydb0XBZoKqftGv8JIonAn9tfuxXnoo00BypKL62ZTk_kbOLEQwdXG7QM3FDhrHm41NAbP9dhAxn9N4M5pTxUMiOJ_T2oHgSw=-no
+[uni_a500_self_powered_photo]: https://lh3.googleusercontent.com/pw/AM-JKLUtRVviFYcUu_4RKifSOg3kyJziTpd3GLBE-e0frWdwAB1F0ZUNqEkGM3Hwqipi70lXpFAIv-mv6_u58-9bnSyI5JyPT_jNpRSQbV5D71nT31c45nqDhSkW2k6cELocLjm22cTwwM0zNROfESVJgAoKOA=-no
+[disk_drive_power]: https://photos.google.com/share/AF1QipMEylRnCXSKzgJhfu4Zwgm9mWCi6hTdQpBGb1hFPcph7pbcp4lZ2WgK9JvFszlEhw/photo/AF1QipOta42DAbW1rSQq4LtIFRcd450kx6q15Cf2FSOw?key=S3VDbDg0MkRxUUhlMjlJOW5JV1lFX0hYVnJsMWx3
 [changelog_board]: https://gitlab.com/ricardoquesada/unijoysticle2/blob/master/CHANGELOG.board.md
 
 ### USB-powered
 
-| Unijoysticle 2 | Unijoysticle 2+ |
-| -------------- | --------------- |
-| ![uni2](https://lh3.googleusercontent.com/lYiISEtede7TkKwvBZyOB57ZUynSDzPuKIqmfp6Cpl75BbGENM6qZkAXWD066YhpY1Xg-k016PrVt3783Q6iuLXFOdZrpXIW_XaEEwRaeUFvPBk1XVtwIvVjmxMGt5bvAPUHwOFScYw=-no) | ![uni2plus](https://lh3.googleusercontent.com/pw/AM-JKLXXbxm4umDQfC-xYt9AzvAWIXsGQaYrpQUFnDpYwE0F5SanC8DgjQu9Uu7s9nj2dAd1dVWq4WD8EWxifGM8t73bT0Mz-yiFPCXn8dyUgNXkW2FA2SA00PfL_kdCBbVpXKLRu1Ez7hnaMBSmlUiufBncxw=-no) |
+| Unijoysticle 2 | Unijoysticle 2+ | Unijoysticle 2 A500 |
+| -------------- | --------------- | ------------------- |
+| ![uni2_usb_powered] | ![uni2plus_usb_powered] | ![uni2a500_usb_powered] |
 
 - Use a micro-USB cable to connect the Unijosyticle device to your computer.
 - Ideal for debugging: you can see the Unijoysticle console by attaching a terminal to it.
 - [v2 only]: "Self-powered" switch can either be "On" or "Off".
+
+[uni2_usb_powered]: https://lh3.googleusercontent.com/lYiISEtede7TkKwvBZyOB57ZUynSDzPuKIqmfp6Cpl75BbGENM6qZkAXWD066YhpY1Xg-k016PrVt3783Q6iuLXFOdZrpXIW_XaEEwRaeUFvPBk1XVtwIvVjmxMGt5bvAPUHwOFScYw=-no
+[uni2plus_usb_powered]: https://lh3.googleusercontent.com/pw/AM-JKLXXbxm4umDQfC-xYt9AzvAWIXsGQaYrpQUFnDpYwE0F5SanC8DgjQu9Uu7s9nj2dAd1dVWq4WD8EWxifGM8t73bT0Mz-yiFPCXn8dyUgNXkW2FA2SA00PfL_kdCBbVpXKLRu1Ez7hnaMBSmlUiufBncxw=-no
+[uni2a500_usb_powered]: https://lh3.googleusercontent.com/pw/AM-JKLUekMUSSBPmg3XLniMY1ykeDqYs7NBES2_Y4Q-ld2w0CkQNBWakbI6w-Vu0HiSDhFstachOMwOcS6CH-Cm9fYB7WcWWObe3MBBUhD0E-OC2CbqKIWCjF4V4lZxLLA4OCjwUUimj7zExnekBjYWOZCfG8g=-no
 
 ### Jack Barrel-powered [v2 only]
 
@@ -201,7 +209,7 @@ like [Commando 2084][commando2084]
 
 ### Supported gamepads
 
-![gamepads](https://lh3.googleusercontent.com/pw/AM-JKLWUZS_vlkMmd3o8EKzXlYCS0uriEW_gXfOoiFqZlABJi_dM1GWYHGafrdMnTP-VHgVdCdVA4pUageZgyI98RH1SHtydac2yyrx_vJVXgWPYBFN-SJoOikdlGuOowPoDqYOwfKU39yketYPJyRJlIPwjEw=-no)
+![Supported gamepads](https://lh3.googleusercontent.com/pw/AM-JKLXpmyDvNXZ_LmlmBSYObRZDhwuY6hHXXBzAicFw1YH1QNSgZrpiPWXZMiPNM0ATgrockqGf5bLsI3fWceJtQQEj2_OroHs1SrxsgmS8Rh4XHlnFolchomsTPVC7o5zi4pXGQkhGEFbinoh3-ub_a4lQIw=-no?authuser=0)
 
 - Sony DualSense
 - Sony DUALSHOCK 4
@@ -215,7 +223,12 @@ like [Commando 2084][commando2084]
 - iCade
 - And more
 
-For a complete list, see: [Supported gamepads][supported_gamepads]
+For a complete list, see:
+
+* [Supported gamepads][supported_gamepads]
+* [Supported mice][supported_mice]
+
+[supported_mice]:  https://gitlab.com/ricardoquesada/bluepad32/blob/develop/docs/supported_mice.md
 
 ## Troubleshooting
 
