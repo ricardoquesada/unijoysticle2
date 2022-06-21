@@ -21,3 +21,6 @@ fp-info-cache
 
 # Object files
 *.o
+
+**/assembly*
+**/gerber*
