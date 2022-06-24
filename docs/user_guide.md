@@ -7,13 +7,14 @@ Comparison between them:
 
 |   | Unijoysticle 2 | Unijoysticle 2+ | Unijoysticle 2 A500 |
 | - | -------------- | --------------- | ------------------- |
-| Buttons / Switches / LEDs | ![uni2_photo] | ![uni2plus_photo] | ![uni2a500_photo] |
+| Front | ![uni2_photo_front] | ![uni2plus_photo_front] | ![uni2a500_photo_front] |
+| Back  | ![uni2_photo_back] | ![uni2plus_photo_back] | ![uni2a500_photo_back] |
 | Amiga / AtariST 2nd & 3rd button support| Only in Port #1| Both in Port #1 and #2 | Both in Port #1 and #2 |
 | C64 mouse support (1351) | No | No | No |
 | Amiga / AtariST mouse support | Yes (1) | Yes (1) | Yes (1) |
 | Fits | C64 / C128 | C64 / C128 | Amiga 500 / 1200 |
 | Buttons | Reset, Enhanced | Reset, Enhanced | Reset, Mode,  Swap |
-| LEDs | Port #1, #2 | Port #1, #2 | Port #1, #2, Bluetooth |
+| LEDs | Port #1, #2, Power | Port #1, #2, Power | Port #1, #2, Bluetooth, Power |
 | Filter noise for C128 ([Issue #17][issue_17]) | No | Yes | Yes |
 | Case friendly | No | Yes | Yes |
 | Easy to solder | Yes. All components are through-hole | No. Most components are surface-mount | No. Most components are surface-mount |
@@ -41,9 +42,13 @@ Notes:
 - (1): Requires Bluepad32 v3.5 or newer
 
 [issue_17]: https://gitlab.com/ricardoquesada/unijoysticle2/-/issues/17
-[uni2_photo]: https://lh3.googleusercontent.com/pw/AM-JKLUphquTBg9JoV-L7wuMtze_aKIJ8LvfokTakuBKSVFClziLWCViggcrlNZtqGUMgv6u6yYpZ_RuE2jdGSn3Q0oYl0jOQzzGcutRt-JiMjLZY_oAvK4LehrawNj_aNbthCJ-VEJzsW3dywhJNekjhTsfNQ=-no
-[uni2plus_photo]: https://lh3.googleusercontent.com/pw/AM-JKLWV2Zo912VtOfuM71AluanNXGwVQiAehNEiQ1VL3L7SkWDl-9k0fA6tfza9QpGL52petBfFFFHMb8rh_ybSj17LOQA70IycMDQw6AVqlN8Jp4HDWT8sWcXHIPEQZTxNuQ-RFygKbmVpW2n52wwi5cJgwA=-no
-[uni2a500_photo]: https://lh3.googleusercontent.com/pw/AM-JKLU1BbKnbuLE7Oa_VOY3AnBjYwNVcAPKJcmYa7WUnCK5gMM1bHZyK3lTZ1Mo0NtS30ogeeSqxySx3Qi2ux3AGOlocQnQe9a87NoiKz5tnmHV_IGf3hPln0qsr8t5yfD5biKKVbGlRJ6vN2IbmI8H2Wg6iw=-no
+[uni2_photo_front]: https://lh3.googleusercontent.com/pw/AM-JKLUphquTBg9JoV-L7wuMtze_aKIJ8LvfokTakuBKSVFClziLWCViggcrlNZtqGUMgv6u6yYpZ_RuE2jdGSn3Q0oYl0jOQzzGcutRt-JiMjLZY_oAvK4LehrawNj_aNbthCJ-VEJzsW3dywhJNekjhTsfNQ=-no
+[uni2_photo_back]: https://lh3.googleusercontent.com/pw/AM-JKLXnMbJt7A55lUrtmiuKj4As98He7ZVi6YuPKg8N1sGbw1w5d5TtC8B-ilfoqC5QCKcZG8MFkmHNj5HgVbP8fdHhMBPx2CLgyRhaRmohx0SWF-_wZ57WYCfo7RlH4k7sEmh1txsTvHto2ko0H_0l9aUALg=-no
+[uni2plus_photo_front]: https://lh3.googleusercontent.com/pw/AM-JKLWV2Zo912VtOfuM71AluanNXGwVQiAehNEiQ1VL3L7SkWDl-9k0fA6tfza9QpGL52petBfFFFHMb8rh_ybSj17LOQA70IycMDQw6AVqlN8Jp4HDWT8sWcXHIPEQZTxNuQ-RFygKbmVpW2n52wwi5cJgwA=-no
+[uni2plus_photo_back]: https://lh3.googleusercontent.com/pw/AM-JKLWs_G63eJRX8WuVVRoKKur8UQ-VcWTNbmkjFumwZYvDRhgjqamVa-X9CROAnoPyK3sHDmfwtqAtJiI1DHiwlINBPCgiEY4yWFYWl8SlHA_QOG7LmVKuOKy1UQa-5dALC2r0FBfhS9He6utE7Kz5nWAXiw=-no
+[uni2a500_photo_front]: https://lh3.googleusercontent.com/pw/AM-JKLU1BbKnbuLE7Oa_VOY3AnBjYwNVcAPKJcmYa7WUnCK5gMM1bHZyK3lTZ1Mo0NtS30ogeeSqxySx3Qi2ux3AGOlocQnQe9a87NoiKz5tnmHV_IGf3hPln0qsr8t5yfD5biKKVbGlRJ6vN2IbmI8H2Wg6iw=-no
+[uni2a500_photo_back]: https://lh3.googleusercontent.com/pw/AM-JKLXMUngI6ctahY5clP-76UBjUem9L4Eehj4GFsEwUJwtZ3-MuZCV2nOsxiN3Go1PKvoc9sJbLRY8hCZ9TcV4cq5AtcAtscdjH1LiNzltFSgQY4IQEwSiPHfvhjhZCDezhgHKQDrmmA3EGFM7kJ4MKNxtig=-no
+
 
 ## Supported computers
 
@@ -93,11 +98,11 @@ See: [firmware_setup.md][firmware_setup]
 
 There are multiple ways to power on the device
 
-|   | Unijoysticle 2 | Unijoysticle 2+ |
-| - | -------------- | --------------- |
-| Self-powered | Yes, requires the "Self powered" switch to be On | Yes, always On |
-| USB powered | Yes | Yes |
-| External 5V+ | Yes, using the Barrel jack | No |
+|   | Unijoysticle 2 | Unijoysticle 2+ | Unijoysticle 2 A500 |
+| - | -------------- | --------------- | ------------------- |
+| Self-powered | Yes, requires the "Self powered" switch to be On | Yes, always On | Yes, always On |
+| USB powered | Yes | Yes | Yes |
+| External 5V+ | Yes, using the Barrel jack | No | No |
 
 Note: It is safe to plug the two / three of them at the same time, but that won't give you any additional benefit.
 
@@ -171,6 +176,7 @@ The gamepad could be in two possible modes:
 
 - Basic mode: one gamepad controls one joystick.
 - Enhanced mode: one gamepad controls the two joysticks.
+- [v2 A500 only] Mouse mode: one gamepad controls one mouse.
 
 ### Basic mode
 
@@ -207,6 +213,17 @@ like [Commando 2084][commando2084]
 [commando]: https://csdb.dk/release/?id=137173
 [commando2084]: https://csdb.dk/release/?id=182074
 
+### Mouse mode
+
+[V2 A500 only]
+
+TODO: Add image
+
+- Left or Right axis control the cursor movement
+- Button A: left button
+- Button B: right button
+- Button X: middle button
+
 ### Supported gamepads
 
 ![Supported gamepads](https://lh3.googleusercontent.com/pw/AM-JKLXpmyDvNXZ_LmlmBSYObRZDhwuY6hHXXBzAicFw1YH1QNSgZrpiPWXZMiPNM0ATgrockqGf5bLsI3fWceJtQQEj2_OroHs1SrxsgmS8Rh4XHlnFolchomsTPVC7o5zi4pXGQkhGEFbinoh3-ub_a4lQIw=-no?authuser=0)
@@ -226,6 +243,9 @@ like [Commando 2084][commando2084]
 For a complete list, see:
 
 * [Supported gamepads][supported_gamepads]
+
+### Supported mice
+
 * [Supported mice][supported_mice]
 
 [supported_mice]:  https://gitlab.com/ricardoquesada/bluepad32/blob/develop/docs/supported_mice.md
