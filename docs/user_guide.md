@@ -1,9 +1,15 @@
 # Unijoysticle™ 2 / 2+ / 2 A500 User Guide
 
-This guide is valid both for Unijoysticle 2, Unijoysticle 2+ and Unijoysticle 2 A500.
+This guide is valid for Unijoysticle 2, Unijoysticle 2+ and Unijoysticle 2 A500.
 Features that are only applicable for Unijoysticle 2 / 2+/ 2 A500, are tagged as **[v2 only]** / **[v2+ only]** / **[v2 A500 only]** respectively.
 
-Comparison between them:
+## What is a Unijoysticle
+
+Unijoysticle is that device that allows you to use modern Bluetooth gamepads and mice in retro computers.
+
+## Models
+
+Comparison between the different models
 
 |   | Unijoysticle 2 | Unijoysticle 2+ | Unijoysticle 2 A500 |
 | - | -------------- | --------------- | ------------------- |
@@ -39,7 +45,7 @@ Comparison between them:
 
 Notes:
 
-- (1): Requires Bluepad32 v3.5 or newer
+- (1): Requires [Bluepad32][bluepad32-fw] v3.5 or newer
 
 [issue_17]: https://gitlab.com/ricardoquesada/unijoysticle2/-/issues/17
 [uni2_photo_front]: https://lh3.googleusercontent.com/pw/AM-JKLUphquTBg9JoV-L7wuMtze_aKIJ8LvfokTakuBKSVFClziLWCViggcrlNZtqGUMgv6u6yYpZ_RuE2jdGSn3Q0oYl0jOQzzGcutRt-JiMjLZY_oAvK4LehrawNj_aNbthCJ-VEJzsW3dywhJNekjhTsfNQ=-no
@@ -48,6 +54,15 @@ Notes:
 [uni2plus_photo_back]: https://lh3.googleusercontent.com/pw/AM-JKLWs_G63eJRX8WuVVRoKKur8UQ-VcWTNbmkjFumwZYvDRhgjqamVa-X9CROAnoPyK3sHDmfwtqAtJiI1DHiwlINBPCgiEY4yWFYWl8SlHA_QOG7LmVKuOKy1UQa-5dALC2r0FBfhS9He6utE7Kz5nWAXiw=-no
 [uni2a500_photo_front]: https://lh3.googleusercontent.com/pw/AM-JKLU1BbKnbuLE7Oa_VOY3AnBjYwNVcAPKJcmYa7WUnCK5gMM1bHZyK3lTZ1Mo0NtS30ogeeSqxySx3Qi2ux3AGOlocQnQe9a87NoiKz5tnmHV_IGf3hPln0qsr8t5yfD5biKKVbGlRJ6vN2IbmI8H2Wg6iw=-no
 [uni2a500_photo_back]: https://lh3.googleusercontent.com/pw/AM-JKLXMUngI6ctahY5clP-76UBjUem9L4Eehj4GFsEwUJwtZ3-MuZCV2nOsxiN3Go1PKvoc9sJbLRY8hCZ9TcV4cq5AtcAtscdjH1LiNzltFSgQY4IQEwSiPHfvhjhZCDezhgHKQDrmmA3EGFM7kJ4MKNxtig=-no
+[bluepad32-fw]: https://gitlab.com/ricardoquesada/bluepad32
+
+## Quick starting guide
+
+[![Quick starting guide](https://img.youtube.com/vi/qxDbUfJXXyI/0.jpg)](https://www.youtube.com/watch?v=qxDbUfJXXyI)
+
+1. Plug in the Unijoysticle
+2. Power on the computer
+3. Pair your gamepad and/or mice
 
 
 ## Supported computers
@@ -242,10 +257,10 @@ Button B is mapped to "jump". Ideal for platform games like Giana Sisters,
 Super Mario Bros, Mayhem in Monsterland, etc.
 
 - D-pad/joypad: controls up/down/left/right
-- Button A: fire button
-- Button B: "up"  (ideal for platform games)
-- Button X: 2nd button (Amiga / Atari ST only)
-- Button Y: 3nd button (Amiga / Atari ST only)
+- Button A / Cross: fire button
+- Button B / Circle: "up"  (ideal for platform games)
+- Button X / Square: 2nd button (Amiga / Atari ST only)
+- Button Y / Triangle: 3nd button (Amiga / Atari ST only)
 - Button shoulder-right: autofire
 
 ### Enhanced mode
@@ -260,10 +275,12 @@ like [Commando 2084][commando2084]
 
 - Left joypad / d-pad: control Joystick #2 movements
 - Right joypad: control Joystick #1 movements
-- Button A: fire for Joystick #2
-- Button B: fire for Joystick #1
-- Button Shoulder Left: auto-fire for Joystick #1
-- Button Shoulder Right: auto-fire for Joystick #2
+- Button A / Cross: fire for Joystick #2
+- Button B / Circle: fire for Joystick #1
+- Button X / Square: 2nd button for Joystick #2
+- Button Y / Triangle: 2nd button for Joystick #1
+- Button Shoulder Left: auto-fire for Joystick #2
+- Button Shoulder Right: auto-fire for Joystick #1
 
 [1942]: https://csdb.dk/release/?id=38140
 [commando]: https://csdb.dk/release/?id=137173
@@ -278,9 +295,9 @@ like [Commando 2084][commando2084]
 In *Mouse mode* you control the mouse from a gamepad.
 
 - Left or Right axis control the cursor movement
-- Button A: left button
-- Button B: right button
-- Button X: middle button
+- Button A / Cross: left button
+- Button B / Circle: right button
+- Button X / Square: middle button
 
 Note: Mouse emulation only works on Atari ST / Amiga computers.
 
@@ -305,6 +322,12 @@ For a complete list, see:
 * [Supported gamepads][supported_gamepads]
 
 ### Supported mice
+
+![Supported mice](https://lh3.googleusercontent.com/pw/AM-JKLW1uSIck7GkC2YmalJdDoPwxmnD_NynS7tAiiIsn5N2UQnYtBAMCkZBeR8LMFUe8W4Fqbzo7JW1t7i_77sn-y3wYtw-Xbv3wYGhd4sSejTz3ec1T-HCLOguJ5NJMnv0h9fTlj4Wz2ytlPzXotm__bZW2A=h420-no)
+
+Mouse emulation is only avaiable for **Amiga and Atari ST** computers.
+
+For a detailed list of supported mice, see here:
 
 * [Supported mice][supported_mice]
 
@@ -381,7 +404,10 @@ When you file a bug, make sure that you include as much information as possible:
 The logs can be fetched by connecting a terminal to the ESP32 module.
 
 1. Connect the ESP32 module to your PC using a micro USB cable.
-2. Launch any serial terminal, like the one that comes from Arduino.
+2. Launch any serial terminal. Possible options:
+   * Arduino Serial Terminal (See below for detailed steps)
+   * or `minicom /dev/ttyUSB0` (Linux, macOS)
+   * or `idf.py monitor` (Linux, macOS, Windows. requires to checkout Bluepad32 source code)
 3. Reset the Unijoysticle
 4. Try to connect the gamepad again.
 5. Let it try for a few seconds.

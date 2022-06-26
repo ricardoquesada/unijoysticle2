@@ -2,7 +2,7 @@
 
 [![discord](https://img.shields.io/discord/775177861665521725.svg)](https://discord.gg/r5aMn6Cw5q)
 
-Like the original [Unijoysticle][1], but remove WiFi and add Bluetooth.
+Unijoysticle is that device that allows you to use modern Bluetooth gamepads and mice in retro computers.
 
 |   | Unijoysticle 2| Unijoysticle 2+| Unijoysticle 2 A500 |
 | - | -------------- | --------------- | ------------------- |
@@ -46,35 +46,40 @@ It also supports mice (for Amiga / AtariST only).
 One Bluetooth gamepad controls one joystick.
 You need two gamepads to control the two joysticks.
 
-![Basic mode](https://lh3.googleusercontent.com/hkoAJbbtSpY53cpU-FO76QjTOPwuwWgDiKhQuNdbWnSwiozcqUloeOHuPclvunSC3vjH55n8Og-_cZO2ZTq6BhEbKOc0gb3qmASyLMC7BfAbTBNXjrV2LxzJu8-q0cDMexzOYlD4QE8=-no)
+![Basic mode](https://lh3.googleusercontent.com/pw/AM-JKLW09v8uSrCzB-2ooXXoH-leP2SPqV0-vg6Ym_IFNjwlpQoVELZQguo9oVIl3WhdzG2N-RQTyjH0xV8amFrCSv1XYpcUmgdRKJwGePIeBYQoUtx8JzbZS_c1L3nC3nRmTWdwSolBOnELwMal9qSkSpzfVw=h330-no)
 
 The mappings are:
 
 - D-pad/joypad: controls up/down/left/right.
-- Button A: fire button
-- Button B: "up"  (ideal for platform games).
+- Button A / Cross: fire button
+- Button B / Circle: "up"  (ideal for platform games).
+- Button X / Square: 2nd button (Amiga / AtariST only)
+- Button Y / Triangle: 3rd button (Amiga / AtariST only)
 - Button shoulder-right: autofire.
 - System button swaps between Joystick #1 and #2
 
 ## Enhanced functionality
 
-![Enhanced mode](https://lh3.googleusercontent.com/89CUlpgxrnDJ8b5hXdvHCi-X7d-2a6r6qP5vJbnFJWAHObfCsYy7Flq7pYpwrv-qXy-dT_-Jk02tgWQpgwnedKrC5STNhpl_Xd2OtJ8lgP3PnEvKDIiumTB_PZHdg5qCxsEZLc5-dWU=-no)
+![Enhanced mode](https://lh3.googleusercontent.com/pw/AM-JKLUC6pvyoJ5v5Zb4HNQwBlbUCCKL5IPrZnrTz9S9P-Pkw1AoWjl48LQBmVagog591bUTDwPFaQorr_J9UtaWRldUpNClSc5ZZvX3DfNI5YQKOOwSIawdGMCHQeYWu-ne6RW_BdvlK10seuz1kvvnElMxaw=h360-no)
 
 When in "Enhanced mode", you control the two joysticks with only one gamepad.
 The mappings are:
 
 - Left joypad / d-pad: control Joystick #2 movements.
 - Right joypad: control Joystick #1 movements.
-- Button A: fire for Joystick #2
-- Button B: fire for Joystick #1
-- Button Shoulder Left: auto-fire for Joystick #1
-- Button Shoulder Right : auto-fire for Joystick #2
+- Button A / Cross: fire for Joystick #2
+- Button B / Circle: fire for Joystick #1
+- Button X / Square: 2nd button for Joystick #2
+- Button Y / Triangle: 2nd button for Joystick #1
+- Button Shoulder Left: auto-fire for Joystick #2
+- Button Shoulder Right : auto-fire for Joystick #1
 
 This mode is ideal for games like [Commando][2] or [1942][3] since it allows you
 throw grenades / roll by pressing Button B.
 
 ## Supported controllers
 
+### Gamepads
 ![Supported gamepads](https://lh3.googleusercontent.com/pw/AM-JKLXpmyDvNXZ_LmlmBSYObRZDhwuY6hHXXBzAicFw1YH1QNSgZrpiPWXZMiPNM0ATgrockqGf5bLsI3fWceJtQQEj2_OroHs1SrxsgmS8Rh4XHlnFolchomsTPVC7o5zi4pXGQkhGEFbinoh3-ub_a4lQIw=-no?authuser=0)
 
 - Sony DualSense
@@ -98,6 +103,18 @@ See:
 
 [gamepads]: https://gitlab.com/ricardoquesada/unijoysticle2/blob/master/docs/supported_gamepads.md
 [mice]: https://gitlab.com/ricardoquesada/bluepad32/blob/develop/docs/supported_mice.md
+
+### Mice
+
+![Supported mice](https://lh3.googleusercontent.com/pw/AM-JKLW1uSIck7GkC2YmalJdDoPwxmnD_NynS7tAiiIsn5N2UQnYtBAMCkZBeR8LMFUe8W4Fqbzo7JW1t7i_77sn-y3wYtw-Xbv3wYGhd4sSejTz3ec1T-HCLOguJ5NJMnv0h9fTlj4Wz2ytlPzXotm__bZW2A=h420-no)
+
+Mouse emulation is only avaiable for **Amiga and Atari ST** computers.
+
+For a detailed list of supported mice, see here:
+
+* [Supported mice][supported_mice]
+
+[supported_mice]:  https://gitlab.com/ricardoquesada/bluepad32/blob/develop/docs/supported_mice.md
 
 ## Order info
 
