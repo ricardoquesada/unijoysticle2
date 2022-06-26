@@ -29,7 +29,7 @@ Comparison between them:
 
 - [v2 / v2+ only] Toggle Mode button: Toggles between *Basic* and *Enhanced* mode (see below for further info)
 - [v2 A500 only] Swap button: Swaps joystick ports
-- [v2 A500 only] Mode button: switches between *Normal*, *Enhanced* and *Mouse* modes (see below for further info)
+- [v2 A500 only] Mode button: switches between *Basic*, *Mouse* and *Enhanced* modes (see below for further info)
 - Reset button: Resets the device
 - Green / Red LEDs: Joystick 1 / Joystick 2 are attached
 - [v2 A500 only] Blue LED: Indicates that Bluetooth is On, meaning that new connections are accepted.
@@ -65,28 +65,11 @@ That includes, but not limited to:
 - Atari 8-bit line, both computers and consoles (requires [DB9 extension cable][cable]).
 - Amiga line (Unijoysticle2 / 2+ requires [DB9 extension cable][cable], Unijoysticle 2 A500 fits Ok).
 - Atari ST line (requires [DB9 extension cable][cable]).
-- Commodore 16 / 116 / +4 (requires joyadaptercables)
+- Commodore 16 / 116 / +4 (requires adapter)
 
 For Amiga / Atari ST 3-button joystick support, read [Amiga / Atari ST support](amiga_atarist.md).
 
 [cable]: https://www.aliexpress.com/item/33012270252.html?spm=a2g0s.9042311.0.0.74394c4diOD0iB
-
-For Commodore 16/116/+4 you need two identical and suitable joyadapters to work with this design,
-though a new design Unijoysticle 2 for the 264 is available, this one is multi-usable for C64 as for C16/116/+4.
-
-You need joyadapters with suitable pinconnections:
-
-If you want the Unijoysticle 2 with DB9 connectors to work on a C16/+4 together with 264 joyadapters,
-you have to be sure that the adapters have:
-
-Pin 1-4,6 connected on minidin/DB9, corresponding pinnumbers
-Pin 5 (+5VDC) minidin NC
-Pin 7 (GND) minidin NC (important criterium!)
-Pin 8 minidin (Data/select) on pin 8 DB9 (GND)
-USB external PSU (have not tried it with internal +5VDC pin, while amperage is a bit low)
-
-Before connecting the joyadapters on the Unijoysicle 2 do measure the pinout,
-while there are different variants!
 
 ## Flashing the firmware
 
@@ -122,7 +105,10 @@ Note: It is safe to plug the two / three of them at the same time, but that won'
   - Atari ST 1040F + Unijoysticle 2
   - Amiga 1200 + Unijoysticle 2 A500
 
-Note: Amiga 500 joystick ports don't provide enough current to power the Unijoysticle. Instead power the Unijoysticle through the USB port. It is possible to connect the USB port to the Disk Drive connector (Pin 12 = +5V / Pin 3 = GND, see [disk_drive_power]) which provides enough current.
+Note: Amiga 500 joystick ports don't provide enough current to power the Unijoysticle.
+Instead power the Unijoysticle through the USB port.
+It is possible to connect the USB port to the Disk Drive connector
+(Pin 12 = +5V / Pin 3 = GND, see [disk drive ad-hoc cable][disk_drive_power]) which provides enough current.
 
 This feature is available since Unijoysticle 2 [Revision D][changelog_board], and is present in all
 Unijoysticle 2+ / Unijoysticle 2 A500 revisions.
@@ -157,22 +143,91 @@ Unijoysticle 2+ / Unijoysticle 2 A500 revisions.
 
 [power_supply]: https://www.carlsenelectronics.net/
 
+## Unijoysticle Buttons and LEDs
+
+### V2 A500 only
+
+![uni2_a500_buttons_photo][uni2_a500_buttons_photo]
+
+LEDs:
+
+* Bluetooth LED (Blue)
+  * On: New connections are accepted. Both "connects" and "re-connects" are accepted.
+  * Off: No new connections are accepted. Existing connections will stay on.
+* J1 LED (Green):
+  * On: Gamepad or mouse is controlling joystick port #1
+* J2 JED (Red):
+  * On: Gamepad or mouse is controlling joystick port #2
+* Power LED (Red):
+  * On: Unijoysticle has current.
+  * Off: Disconnected.
+
+Buttons:
+
+* Reset button: Restart the firmware. Connected gamepads/mice will get disconnected.
+* Swap button: Swaps connected gampepads / mice.
+  * For example if a DualSense gamepad is controlling joystick #1 and an Xbox gamepad is controlling joystick #2,
+    "swap" will just swap the gamepads. The result will be that DualSense will control joystick #2 and the Xbox will
+    control joystick #1
+* Mode button: Changes the "mode" of the connected gamepad. Modes:
+  * Basic mode: Connected gamepad controls one joystick
+  * Mouse mode: Connected gamepad controls one mouse
+  * Enhanced mode: Connected gamepad controls two joysticks at the same time
+
+To know in which "mode" it is, the Bluetooth LED (Blue) will blink:
+  * 1 blink: It is in "Basic mode"
+  * 2 blinks: in "mouse mode"
+  * 3 blinks: in "enhanced mode"
+
+See below for further details about gamepad modes.
+
+[uni2_a500_buttons_photo]: https://lh3.googleusercontent.com/pw/AM-JKLULCdDRyDWDQ8R2v0Ab_HjcxOxOtNOTlaj0OrrFvEyEr9zNo8DBBCgVrOGWran1PLX3Ja3LvcpdmU0vw1MnnEZUrv5JQglA7grNkS08wlwpkU6Pt7nnmK5k2sDy-ag2VxVBRJWRpx930hPqtNl1fQ664Q=h360-no
+
+### V2 / V2+ only
+
+![uni2_buttons_photo][uni2_buttons_photo] ![uni2plus_buttons_photo][uni2plus_buttons_photo]
+
+LEDs:
+
+* J1 LED (Green):
+  * On: Gamepad or mouse is controlling joystick port #1
+* J2 JED (Red):
+  * On: Gamepad or mouse is controlling joystick port #2
+* Power LED (Red in V2 / Blue in V2+):
+  * On: Unijoysticle has current.
+  * Off: Disconnected.
+
+Buttons:
+
+* Reset button: Restart the firmware. Connected gamepads/mice will get disconnected.
+* Enhanced Mode button: Switches between "Enhanced mode" and "Basic mode"
+  * Basic mode: Connected gamepad controls one joystick
+  * Enhanced mode: Connected gamepad controls two joysticks at the same time
+
+See below for further details about gamepad modes.
+
+[uni2_buttons_photo]: https://lh3.googleusercontent.com/pw/AM-JKLU5gPENmNjtLsOzfDNbzIH8597OjQ0O6Fl7iPwR4eah0w_eu-8sASmnNZj9COHXjBaB8kZwdZUiqluDmbOGRc4gukS54MHZc108wQSo2tKk-n9grNgD8yW-IeThAcrx655lq3fx6_pCaJnqKvXCzd8_RA=h360-no
+[uni2plus_buttons_photo]: https://lh3.googleusercontent.com/pw/AM-JKLXs6fWz4eqK38pgRKOMIorQvSgxdaFHCGCZL7e-ynURso2G4mMwXb6MM1eadIorlsIMhcN3FkZ7S1FWV3lTUxxFZYfdoZyYNDYIjt25fvVlspf8Mh518OrMW0GgQFycgUuTuY6bACSY65uLUy-FbmWp4A=h360-no
+
+
 ## Using Gamepads
 
-The first gamepad to connect will control joystick #2.
+The first gamepad to connect will control joystick #2 (Red LED).
 The second gamepad to connect will use the available joystick.
 
-If you want to control joystick #1, and you only have one gamepad connected,
+If you want to control joystick #1 (Green LED), and you only have one gamepad connected,
 you have to press the "swap" button in the gamepad.
 
-![swap joystick](https://lh3.googleusercontent.com/jT3RiP75ffx9zWv2Csq3LGl5aFvhwKTt4sk0XkWrr9eyOBSo89ICTf6VzLrsRCGmI3vvbLtwbC1OqSnqR8_P51HR063qZjpOaLLSDE4DHaWLjxy8zi4FyoitwMAM3tPVMkoiQpYNQNk=-no)
+![swap joystick](https://lh3.googleusercontent.com/pw/AM-JKLWuZ8_hwMcuU8fjTmPog8Qb0jhrimzSPN-7gOnx_LNW4phrxEWe6Y8cLr7kRVzsPqxjSg7w2QY3n2kYhLT7Q75cJShM8Vihy239hccfkEo40Jp2b4t5H-468QrBRA8xAuntwyG5b5LjbyRSve7VCrx-Rw=h320-no)
 
 The "swap" button varies from gamepad to gamepad, but usually it is mapped to
-the big button in the center. In the Xbox One it is the "Xbox" button.
+the big button in the center. E.g: In the Xbox One it is the "Xbox" button; for PlayStation gamepads, it is the "PS" button.
 
-If two gamepads are connected, then the swap button is disabled.
+If two gamepads are connected, then both controllers must press the "swap" button in order to swap joysticks.
 
-The gamepad could be in two possible modes:
+Note: [v2 A500 only] Unijoysticle 2 A500 has a built-in "swap" button. Press it to swap joystick ports.
+
+The gamepad could be in three possible modes:
 
 - Basic mode: one gamepad controls one joystick.
 - Enhanced mode: one gamepad controls the two joysticks.
@@ -180,23 +235,24 @@ The gamepad could be in two possible modes:
 
 ### Basic mode
 
-![basic mode](https://lh3.googleusercontent.com/hkoAJbbtSpY53cpU-FO76QjTOPwuwWgDiKhQuNdbWnSwiozcqUloeOHuPclvunSC3vjH55n8Og-_cZO2ZTq6BhEbKOc0gb3qmASyLMC7BfAbTBNXjrV2LxzJu8-q0cDMexzOYlD4QE8=-no)
+![basic mode](https://lh3.googleusercontent.com/pw/AM-JKLW09v8uSrCzB-2ooXXoH-leP2SPqV0-vg6Ym_IFNjwlpQoVELZQguo9oVIl3WhdzG2N-RQTyjH0xV8amFrCSv1XYpcUmgdRKJwGePIeBYQoUtx8JzbZS_c1L3nC3nRmTWdwSolBOnELwMal9qSkSpzfVw=h330-no)
 
-"Basic mode" is what you would expect, with the additional benefit that
+*Basic mode* is what you would expect, with the additional benefit that
 Button B is mapped to "jump". Ideal for platform games like Giana Sisters,
 Super Mario Bros, Mayhem in Monsterland, etc.
 
 - D-pad/joypad: controls up/down/left/right
 - Button A: fire button
 - Button B: "up"  (ideal for platform games)
+- Button X: 2nd button (Amiga / Atari ST only)
+- Button Y: 3nd button (Amiga / Atari ST only)
 - Button shoulder-right: autofire
-- System button swaps between Joystick #1 and #2
 
 ### Enhanced mode
 
-![enhanced mode](https://lh3.googleusercontent.com/89CUlpgxrnDJ8b5hXdvHCi-X7d-2a6r6qP5vJbnFJWAHObfCsYy7Flq7pYpwrv-qXy-dT_-Jk02tgWQpgwnedKrC5STNhpl_Xd2OtJ8lgP3PnEvKDIiumTB_PZHdg5qCxsEZLc5-dWU=-no)
+![enhanced mode](https://lh3.googleusercontent.com/pw/AM-JKLUC6pvyoJ5v5Zb4HNQwBlbUCCKL5IPrZnrTz9S9P-Pkw1AoWjl48LQBmVagog591bUTDwPFaQorr_J9UtaWRldUpNClSc5ZZvX3DfNI5YQKOOwSIawdGMCHQeYWu-ne6RW_BdvlK10seuz1kvvnElMxaw=h360-no)
 
-In Enhanced mode, you control both joysticks from only one gamepad.
+In *Enhanced mode*, you control both joysticks from only one gamepad.
 Since "Button B" is mapped to "J1 fire" this is great for games like
 [Commando][commando] or [1942][1942] since you can throw grenades / do rolls with it.
 It also opens up the possibility to create games that require more controls,
@@ -215,14 +271,18 @@ like [Commando 2084][commando2084]
 
 ### Mouse mode
 
+![mouse mode](https://lh3.googleusercontent.com/pw/AM-JKLVubfn8u70c-UnHu_3M0BmpYhGw9jdHpyHt2whhCqM-LAUWz6JK3I7nSJvrLgdsmH-EYmSKYtQgERpH77DbhAIb66fDPVbTVY_a-xvaNoOGcYenJVmFQKdcS5TnODlVK1QpfL0HFOlzXbHVRNjVz39vDA=h320-no)
+
 [V2 A500 only]
 
-TODO: Add image
+In *Mouse mode* you control the mouse from a gamepad.
 
 - Left or Right axis control the cursor movement
 - Button A: left button
 - Button B: right button
 - Button X: middle button
+
+Note: Mouse emulation only works on Atari ST / Amiga computers.
 
 ### Supported gamepads
 
