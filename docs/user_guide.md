@@ -81,10 +81,12 @@ That includes, but not limited to:
 - Amiga line (Unijoysticle2 / 2+ requires [DB9 extension cable][cable], Unijoysticle 2 A500 fits Ok).
 - Atari ST line (requires [DB9 extension cable][cable]).
 - Commodore 16 / 116 / +4 (requires adapter)
-
-For Amiga / Atari ST 3-button joystick support, read [Amiga / Atari ST support](amiga_atarist.md).
+- [Vampire v4 Stand Alone][vampirev4] (tested by the community)
+- [A2560 Foenix][a2560] (tested by the community)
 
 [cable]: https://www.aliexpress.com/item/33012270252.html?spm=a2g0s.9042311.0.0.74394c4diOD0iB
+[vampirev4]: http://www.apollo-core.com/v4.html
+[a2560]: https://c256foenix.com/
 
 ## Flashing the firmware
 
@@ -120,12 +122,12 @@ Note: It is safe to plug the two / three of them at the same time, but that won'
   - Atari ST 1040F + Unijoysticle 2
   - Amiga 1200 + Unijoysticle 2 A500
 
-Note: Amiga 500 joystick ports don't provide enough current to power the Unijoysticle.
-Instead power the Unijoysticle through the USB port.
-It is possible to connect the USB port to the Disk Drive connector
+Note: The Amiga 500 doesn't provide enough current to power the Unijoysticle.
+You should power the Unijoysticle through the USB port.
+It is possible to connect the USB port to the Amiga Disk Drive connector
 (Pin 12 = +5V / Pin 3 = GND, see [disk drive ad-hoc cable][disk_drive_power]) which provides enough current.
 
-This feature is available since Unijoysticle 2 [Revision D][changelog_board], and is present in all
+Self-power is available since Unijoysticle 2 [Revision D][changelog_board], and is present in all
 Unijoysticle 2+ / Unijoysticle 2 A500 revisions.
 
 [uni2_self_powered_photo]: https://lh3.googleusercontent.com/XVQU7lkllCqc-1k6KX_3CdDIOlx0NCHO8NVDuBOJGdVef3Rq03KJpDHLqG_FNYW2GTeXOAxna9njsclcrlxmhOiBR_KvI-M8CDUOglUX9nCZLBILnkSB32Tews7yhmU38tfaVMxXnWU=-no
@@ -140,8 +142,9 @@ Unijoysticle 2+ / Unijoysticle 2 A500 revisions.
 | -------------- | --------------- | ------------------- |
 | ![uni2_usb_powered] | ![uni2plus_usb_powered] | ![uni2a500_usb_powered] |
 
-- Use a micro-USB cable to connect the Unijosyticle device to your computer.
+- Use a micro-USB cable to connect the Unijosyticle device to your computer or socket.
 - Ideal for debugging: you can see the Unijoysticle console by attaching a terminal to it.
+- Needed in the Amiga 500.
 - [v2 only]: "Self-powered" switch can either be "On" or "Off".
 
 [uni2_usb_powered]: https://lh3.googleusercontent.com/lYiISEtede7TkKwvBZyOB57ZUynSDzPuKIqmfp6Cpl75BbGENM6qZkAXWD066YhpY1Xg-k016PrVt3783Q6iuLXFOdZrpXIW_XaEEwRaeUFvPBk1XVtwIvVjmxMGt5bvAPUHwOFScYw=-no
