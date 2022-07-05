@@ -33,15 +33,6 @@ Comparison between the different models
 | USB connector | Micro USB | Micro USB | Micro USB |
 | Release date | April 2019 | August 2021 | ??? 2022 |
 
-- [v2 / v2+ only] Toggle Mode button: Toggles between *Basic* and *Enhanced* mode (see below for further info)
-- [v2 A500 only] Swap button: Swaps joystick ports
-- [v2 A500 only] Mode button: switches between *Basic*, *Mouse* and *Enhanced* modes (see below for further info)
-- Reset button: Resets the device
-- Green / Red LEDs: Joystick 1 / Joystick 2 are attached
-- [v2 A500 only] Blue LED: Indicates that Bluetooth is On, meaning that new connections are accepted.
-- Power LED: Red in Unijoysticle 2 / 2 A500, Blue in 2+. If On, it means the device has current.
-- [v2 only] Self-Powered On/Off: When On, the Unijoysticle will be powered by the Commodore.
-- [v2+ / v2 A500 only] Prog Mode: If programming the firmware fails, press this button to force "programming mode". Legacy feature, might be removed in future revisions.
 
 Notes:
 
@@ -62,7 +53,7 @@ Notes:
 
 1. Plug in the Unijoysticle
 2. Power on the computer
-3. Pair your gamepad and/or mice
+3. Pair your gamepad and/or mouse
 
 
 ## Supported computers
@@ -335,6 +326,51 @@ For a detailed list of supported mice, see here:
 * [Supported mice][supported_mice]
 
 [supported_mice]:  https://gitlab.com/ricardoquesada/bluepad32/blob/develop/docs/supported_mice.md
+
+## Console
+
+You can configure and dump the current Unijoysticle status from the USB Console.
+
+1. Connect the Unijoysticle with the micro-USB cable to your computer
+2. Launch a terminal
+
+### Which terminal to use
+
+* Windows: [Putty][putty], [Arduino Serial monitor][arduino-monitor], or [idf.py monitor]
+* macOS: [tio], [minicom], or [idf.py monitor]
+* Linux: [tio], [minicom], or [idf.py monitor]
+
+[putty]: https://www.putty.org/
+[arduino-monitor]: https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor
+[minicom]: https://help.ubuntu.com/community/Minicom
+[tio]: https://github.com/tio/tio
+[idf.py monitor]: https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/tools/idf-monitor.html
+
+### How to use it
+
+[![asciicast](https://asciinema.org/a/506468.svg)](https://asciinema.org/a/506468)
+
+(using `tio` in Linux as example)
+
+```sh
+$ tio /dev/ttyUSB0
+```
+
+There are many useful commands. The most "common" ones are:
+
+* `devices`:  Get information about connected devices
+* `get_mouse_scale`:  Get global mouse scale factor
+* `set_mouse_scale  <value>`: Set global mouse scale factor
+* `set_bluetooth_enabled  <0 | 1>`: To enable/disable Bluetooth discover mode
+* `swap_ports`: Swaps joystick ports
+* `set_gamepad_mode  <mode>`: 'normal', 'enhanced' or 'mouse'
+* `get_gamepad_mode`: Returns the gamepad mode.
+* `set_mouse_emulation  <emulation>`: 'amiga', 'atarist'
+* `get_mouse_emulation`: Returns mouse emulation mode
+* `set_autofire_cps  <cps>` Sets the autofire 'clicks per second' (cps)
+* `get_autofire_cps`: Returns the autofire 'clicks per second' (cps)
+* `version` Gets the Unijoysticle version info
+* `help`: Print the list of registered commands
 
 ## Troubleshooting
 
