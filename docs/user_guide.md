@@ -124,7 +124,7 @@ Unijoysticle 2+ / Unijoysticle 2 A500 revisions.
 [uni2_self_powered_photo]: https://lh3.googleusercontent.com/XVQU7lkllCqc-1k6KX_3CdDIOlx0NCHO8NVDuBOJGdVef3Rq03KJpDHLqG_FNYW2GTeXOAxna9njsclcrlxmhOiBR_KvI-M8CDUOglUX9nCZLBILnkSB32Tews7yhmU38tfaVMxXnWU=-no
 [uni2plus_self_powered_photo]: https://lh3.googleusercontent.com/pw/AM-JKLUXjhjUsPDIVH1C_i8310k5ERQT-IQc71w2ibmBWCHoKC5uEIHjHBdp52ydb0XBZoKqftGv8JIonAn9tfuxXnoo00BypKL62ZTk_kbOLEQwdXG7QM3FDhrHm41NAbP9dhAxn9N4M5pTxUMiOJ_T2oHgSw=-no
 [uni_a500_self_powered_photo]: https://lh3.googleusercontent.com/pw/AM-JKLUtRVviFYcUu_4RKifSOg3kyJziTpd3GLBE-e0frWdwAB1F0ZUNqEkGM3Hwqipi70lXpFAIv-mv6_u58-9bnSyI5JyPT_jNpRSQbV5D71nT31c45nqDhSkW2k6cELocLjm22cTwwM0zNROfESVJgAoKOA=-no
-[disk_drive_power]: https://photos.google.com/share/AF1QipMEylRnCXSKzgJhfu4Zwgm9mWCi6hTdQpBGb1hFPcph7pbcp4lZ2WgK9JvFszlEhw/photo/AF1QipOta42DAbW1rSQq4LtIFRcd450kx6q15Cf2FSOw?key=S3VDbDg0MkRxUUhlMjlJOW5JV1lFX0hYVnJsMWx3
+[disk_drive_power]: https://lh3.googleusercontent.com/Rh7ATQXko14BvSI-f_NdUmh7ufc4TmctfiuxB38eKciAIZFQRWD5VNF5w6PN3z9Khx_lF3_0gOWf_nEllz8vB4KlZeN-rdbat_cYVNe_bYYQtFszMLpSc9RRK5eR-F40X2wN5sP79D5WfZh7VduLxiNsycoCQfVdGPDOdnsLVWaZuHpKIkOjUEylguPLux9hY55ov7U8Q9de1rrcNaVEJ64FoaTNHtDTk4pvW7-cYzblptQNjiD7MuFT0LcqKvkIoEewNiZPWyzJXOMohA70idNmBj6K_Wu81PA8jjOd4J5N5YCgqEfHynsD4WtUdEckUiq1vaAV0cRQ9yJ2JHLhichohEiY2vFZB-8VzgaJ970GozfHvdvu8vS-aaw_qS6s_gWrOBe89LN8PAdFjHs5C5hbSapo3l7xmLvV2VOUvZ5r_K9buoPgEa8JfjdWnyDL7umC-ggN4m0SNIAvPjaLv1eqFwkwhxlL1fD99NGP-RC6Xv3abtWjv1AUaqBWxIjmbsArqzTIqaf31QvR2RQxBZ478ipjPxPNGqWLL6VrN4i-L4O8OFBYkqwo75d3Fe7K-vgN7espTms4UGGNXAy7-NP39bTo8xpTWQ-DYCqbsyVBL9aTttF1Ng4x87jXffLiJdycq4oe_Sj3ERkC1U6FK_A99v7mg0XZ9u2g3LjqBXcQ9BmLVlcVCrFXwnd9MF5Nk5V031xsHN22KNNmakrzp4uH-XtrIKt9M1Qu0tLl7HxoBMhQRL-iwZ0dY5RvoZ0=w1272-h954-no?authuser=0
 [changelog_board]: https://gitlab.com/ricardoquesada/unijoysticle2/blob/master/CHANGELOG.board.md
 
 ### USB-powered
@@ -334,11 +334,11 @@ You can configure and dump the current Unijoysticle status from the USB Console.
 1. Connect the Unijoysticle with the micro-USB cable to your computer
 2. Launch a terminal
 
-### Which terminal to use
+### Install a terminal program
 
-* Windows: [Putty][putty], [Arduino Serial monitor][arduino-monitor], or [idf.py monitor]
-* macOS: [tio], [minicom], or [idf.py monitor]
-* Linux: [tio], [minicom], or [idf.py monitor]
+* Windows: [Putty][putty], [Arduino Serial monitor][arduino-monitor] (See "Troubleshooting" for detailed steps), [idf.py monitor], etc.
+* macOS: [tio], [minicom], [idf.py monitor], etc.
+* Linux: [tio], [minicom], [idf.py monitor], etc.
 
 [putty]: https://www.putty.org/
 [arduino-monitor]: https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor
