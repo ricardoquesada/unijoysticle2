@@ -350,18 +350,22 @@ You can configure and dump the current Unijoysticle status from the USB Console.
 
 [![asciicast](https://asciinema.org/a/506468.svg)](https://asciinema.org/a/506468)
 
-(using `tio` in Linux as example)
+As an example, this is how to connect to the console using `tio` and `minicom`
 
 ```sh
+# tio: A great serial terminal  (recommended!)
 $ tio /dev/ttyUSB0
+
+# If you can't use tio, minicom works too.
+$ minicom -D /dev/ttyUSB0
 ```
 
 There are many useful commands. The most "common" ones are:
 
-* `devices`:  Get information about connected devices
+* `list_devices`:  Get information about connected devices
 * `get_mouse_scale`:  Get global mouse scale factor
 * `set_mouse_scale  <value>`: Set global mouse scale factor
-* `set_bluetooth_enabled  <0 | 1>`: To enable/disable Bluetooth discover mode
+* `set_bluetooth_enabled  <0 | 1>`: To enable/disable Bluetooth discovery mode
 * `swap_ports`: Swaps joystick ports
 * `set_gamepad_mode  <mode>`: 'normal', 'enhanced' or 'mouse'
 * `get_gamepad_mode`: Returns the gamepad mode.
@@ -445,7 +449,8 @@ The logs can be fetched by connecting a terminal to the ESP32 module.
 1. Connect the ESP32 module to your PC using a micro USB cable.
 2. Launch any serial terminal. Possible options:
    * Arduino Serial Terminal (See below for detailed steps)
-   * or `minicom /dev/ttyUSB0` (Linux, macOS)
+   * or `minicom -D /dev/ttyUSB0` (Linux, macOS)
+   * or `tio /dev/ttyUSB0` (Linux, macOS)
    * or `idf.py monitor` (Linux, macOS, Windows. requires to checkout Bluepad32 source code)
 3. Reset the Unijoysticle
 4. Try to connect the gamepad again.
