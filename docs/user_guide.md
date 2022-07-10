@@ -31,7 +31,7 @@ Comparison between the different models
 | Weight (gr) | 37 | 24 | 25.6 |
 | Current (mA)| ~100 | ~96 | ~96 |
 | USB connector | Micro USB | Micro USB | Micro USB |
-| Release date | April 2019 | August 2021 | ??? 2022 |
+| Release date | April 2019 | October 2021 | July 2022 |
 
 
 Notes:
