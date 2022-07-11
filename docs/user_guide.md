@@ -13,8 +13,8 @@ Comparison between the different models
 
 |   | Unijoysticle 2 | Unijoysticle 2+ | Unijoysticle 2 A500 |
 | - | -------------- | --------------- | ------------------- |
-| Front | ![uni2_photo_front] | ![uni2plus_photo_front] | ![uni2a500_photo_front] |
-| Back  | ![uni2_photo_back] | ![uni2plus_photo_back] | ![uni2a500_photo_back] |
+| Top | ![uni2_photo_front] | ![uni2plus_photo_front] | ![uni2a500_photo_front] |
+| Bottom  | ![uni2_photo_back] | ![uni2plus_photo_back] | ![uni2a500_photo_back] |
 | Amiga / AtariST 2nd & 3rd button support| Only in Port #1| Both in Port #1 and #2 | Both in Port #1 and #2 |
 | C64 mouse support (1351) | No | No | No |
 | Amiga / AtariST mouse support | Yes (1) | Yes (1) | Yes (1) |
