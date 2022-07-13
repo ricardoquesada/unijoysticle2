@@ -23,7 +23,7 @@ Unijoysticle is that device that allows you to use modern Bluetooth gamepads and
 | Self-powered support | Yes (2) | Yes (2) | Yes (2) |
 | External power | Both USB and Barrel Jack 5V+ | Only USB | Only USB |
 | USB connector | Micro USB | Micro USB | Micro USB |
-| Release date | April 2019 | August 2021 | ??? 2022 |
+| Release date | April 2019 | October 2021 | July 2022 |
 
 (1): Requires firmware Bluepad32 v3.5 or newer
 
