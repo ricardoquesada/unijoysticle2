@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name "Unijoysticle")(type "KiCad")(uri "${KIPRJMOD}/Unijoysticle.pretty")(options "")(descr ""))
+  (lib (name "ESP32_mini")(type "KiCad")(uri "${KIPRJMOD}/ESP32_mini_KiCad_Library/ESP32_mini.pretty")(options "")(descr ""))
+)
