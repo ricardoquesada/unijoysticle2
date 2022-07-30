@@ -2665,7 +2665,7 @@
   (symbol (lib_id "Diode:1N5819") (at 154.94 177.8 180) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-00005f695dda)
-    (property "Reference" "D4" (id 0) (at 154.94 183.3118 0))
+    (property "Reference" "D3" (id 0) (at 154.94 183.3118 0))
     (property "Value" "1N5819" (id 1) (at 154.94 181.0004 0))
     (property "Footprint" "Diode_THT:D_DO-41_SOD81_P7.62mm_Horizontal" (id 2) (at 154.94 173.355 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -3323,7 +3323,7 @@
       (reference "D2") (unit 1) (value "LED") (footprint "LED_THT:LED_D3.0mm")
     )
     (path "/00000000-0000-0000-0000-00005f695dda"
-      (reference "D4") (unit 1) (value "1N5819") (footprint "Diode_THT:D_DO-41_SOD81_P7.62mm_Horizontal")
+      (reference "D3") (unit 1) (value "1N5819") (footprint "Diode_THT:D_DO-41_SOD81_P7.62mm_Horizontal")
     )
     (path "/00000000-0000-0000-0000-00005c705949"
       (reference "J1") (unit 1) (value "DB9_Female") (footprint "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.84mm_EdgePinOffset9.40mm")
