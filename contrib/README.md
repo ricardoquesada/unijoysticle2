@@ -12,3 +12,6 @@ Hyvax:
 
 Aakko:
   - Case for Unijosyticle 2+
+
+Goblin Hero:
+  - Case for Unijoysticle 2 A500

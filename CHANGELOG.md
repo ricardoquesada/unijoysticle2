@@ -11,6 +11,7 @@ Adheres to the "standard" way to version boards/layouts. E.g: letters instead of
 
  * contrib: Unijoysticle2 NeoGeo adapter for Unijoysticle2
  * contrib: Unijoysticle2 for NeoGeo
+ * contrib: Unijoysticle2 A500 case
 
 
 ## [Unijoysticle 2+ Rev F] - 2021-10-03
