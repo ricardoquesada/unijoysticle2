@@ -1,51 +1,33 @@
-# Unijoysticle™ 2
+# Unijoysticle™ 2 Flashparty edition
 
-![uni2_photo][uni2_photo]
+![uni2_fp22_photo_front]
+![uni2_fp22_photo_back]
 
-Unijoysticle 2 is device that lets you use modern Gamepad and Mice in retro computers like the Commodore 64.
+"Unijoysticle 2 Flashparty edition" is device that lets you use modern Gamepad and Mice in retro computers like the Commodore 64.
 
-Unijoysticle 2 is open source / open hardware. See [license][license] for details.
+It was released at [Flashparty 2022][fp22], and participated in the Wild category (got 2nd place).
 
-[uni2_photo]: https://lh3.googleusercontent.com/DChZhkyEl-qqZ3r9N7_RhzvF4zDkSdgNyZwczBofnp28D6ncXcbGq3CXBc5SeC5zooUbBCRo87stuAx-4Q7FwItz1NfaZ4_EJjX3pIroiiR-fcXPzZWk0OifvtaoA8iUJsQQnhkC9q4=-no
+It is open source / open hardware. See [license][license] for details.
 
-## Schematic
+[uni2_fp22_photo_front]: https://lh3.googleusercontent.com/pw/AL9nZEWwl9LfHRdTLCAx-_AEvdTzfyh8dKM37Tx4ALL_nVvqGmzjFyikjOrpVs9gVVnc742Cd3jW4hfpiCNcet7N-1TbfPobJVSKfstmHDJkdQKA5kfeiOZ6xNkHnWtLZOzP8PlyLjyWv-Jc3LJPgv_p52jYBw=h320-no?authuser=0
+[uni2_fp22_photo_back]: https://lh3.googleusercontent.com/pw/AL9nZEV8HZJ-RFJxoaLzKiQJpwYG8TqL1iyaMh4_SiOXLrdZMtfrDsye7F9Asim5IOzMKZ-E1rYljQr6Yd7qSW0YsZozYu0unx70Xs1pwmRZou1Y_hTUVONF2JnkHXPAHyCQjUJt76PZ_panurWHkvTMsxYQfw=h320-no?authuser=0
+[fp22]: https://flashparty.rebelion.digital/
 
-* [Unijoysticle 2 schematic](../../docs/schematic_unijoysticle2.pdf)
 
-## Layout
+## Features
 
-Layout files are in Kicad 5 format in this same folder.
+* Similar features to the original "Unijoysticle 2"
+* with the addition of gamepad rumble support
 
-## BOM
 
-- 1 x Unijoysticle 2 PCB
-- 1 x ESP32 Mini Kit (and its pins) (ref: B1)
-- 2 x 74HC05N ICs
-- 2 x 14p DIP sockets for the 7405s (ref: IC1, IC2)
-- 1 x standard green LED 3mm (ref: D1)
-- 1 x standard red LED 3mm (ref: D2)
-- 2 x 1N5819 (or 1N4001) diodes (ref: D3, D4)
-- 2 x 150 ohm resistors (ref: R1, R2)
-- 1 x Switch Tacticle SPST (ref: SW1)
-- 1 x Switch Slide SPDT 200mA (ref: SW2)
-- 2 x db9 female connectors (ref: J1, J2)
-- 1 x DC Power Barrel Jack (ref: J3)
+See it in action here (English):
 
-You can source the components from here:
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/vCj45OX43JE/0.jpg)](https://www.youtube.com/watch?v=vCj45OX43JE)
 
-- Unijoysticle 2 PCB from: [PCBWay][pcbway]
-- ESP32 devkit from: [ESP32 Mini Kit][esp32mini]
-- Remaining components: [DigiKey list][digikey]
 
-[pcbway]: https://www.pcbway.com/project/shareproject/Unijoysticle_2___Rev_F__Gamepads_for_the_C64_and_other_retro_computers.html
-[esp32mini]: https://www.aliexpress.com/store/product/MH-ET-LIVE-ESP32-MINI-KIT-WiFi-Bluetooth-Internet-of-Things-development-board-based-ESP8266-Fully/2348158_32819107932.html?spm=a2g0x.12010108.1000001.12.56543b1cEQVriV
-[digikey]: https://www.digikey.com/short/z2fr7v
+Spanish version here:
 
-## Order info
-
-If you are looking for ready-to-use boards, you can purchase one from here:
-
-<a href="https://www.tindie.com/stores/riq/?ref=offsite_badges&utm_source=sellers_riq&utm_medium=badges&utm_campaign=badge_large"><img src="https://d2ss6ovg47m0r5.cloudfront.net/badges/tindie-larges.png" alt="I sell on Tindie" width="200" height="104"></a>
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/0pEDP2tvvQc/0.jpg)](https://www.youtube.com/watch?v=0pEDP2tvvQc)
 
 
 [license]: ../../LICENSE
