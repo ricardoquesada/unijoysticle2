@@ -269,8 +269,8 @@
     (path "/1e0fa736-c93b-4f04-ac49-f38ac4164c62/00000000-0000-0000-0000-00005f897be0"
       (reference "J3") (unit 1) (value "PORT JOY #2") (footprint "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.54mm_EdgePinOffset9.40mm")
     )
-    (path "/1e0fa736-c93b-4f04-ac49-f38ac4164c62/00028951-7bdb-4ce0-9417-e89df2bb7b07"
-      (reference "JP1") (unit 1) (value "SolderJumper_1_Open") (footprint "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm")
+    (path "/1e0fa736-c93b-4f04-ac49-f38ac4164c62/74d1dd31-8b58-4b77-af38-911b3c8272f9"
+      (reference "JP1") (unit 1) (value "SolderJumper_2_Bridged") (footprint "Jumper:SolderJumper-2_P1.3mm_Bridged_Pad1.0x1.5mm")
     )
     (path "/4c2fb79c-207e-4f92-8ea1-7543e9ed400d/ff4c4f80-7c8d-4cf6-9a7a-1b633c499f2b"
       (reference "Q1") (unit 1) (value "S8050") (footprint "Package_TO_SOT_SMD:SOT-23")
