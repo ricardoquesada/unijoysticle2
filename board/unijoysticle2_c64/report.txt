@@ -1,0 +1,11 @@
+Annotated GND as #PWR038.
+Annotated GND as #PWR042.
+Annotated R as R13.
+Annotated R as R14.
+Annotated R as R16.
+Annotated R as R17.
+Annotated 1k as R18.
+Annotated 1k as R19.
+Annotated 2k as R20.
+Annotated 2k as R21.
+Annotation complete.
