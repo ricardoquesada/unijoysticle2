@@ -213,7 +213,7 @@
       (reference "C5") (unit 1) (value "22uF") (footprint "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder")
     )
     (path "/93281dcd-2548-47fa-896a-a960429efc33/bbdb3ba2-e9c1-480a-8a83-830882f83298"
-      (reference "C6") (unit 1) (value "2200uF") (footprint "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm")
+      (reference "C6") (unit 1) (value "2200uF") (footprint "Capacitor_SMD:CP_Elec_10x10.5")
     )
     (path "/93281dcd-2548-47fa-896a-a960429efc33/00000000-0000-0000-0000-0000608e91f4"
       (reference "C7") (unit 1) (value "22uF") (footprint "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder")
