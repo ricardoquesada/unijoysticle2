@@ -1027,7 +1027,7 @@
     (uuid d9cc05d9-acec-4545-b9b6-37e0243a84a8)
   )
   (label "+5V_FILTERED" (at 58.42 48.26 0)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (effects (font (size 1 1)) (justify left bottom))
     (uuid ebf0c0cd-4b1b-434a-94d9-04bee6213bc5)
   )
 
