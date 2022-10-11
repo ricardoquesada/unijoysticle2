@@ -996,7 +996,7 @@
     (effects (font (size 2 2)) (justify left bottom))
     (uuid 97a4f50f-a8e3-438d-ae48-a1e9b7248f25)
   )
-  (text "The 2200uF cap is too reduce the noise\nbetween the ESP32 and the C64.\n\nTODO: Add inductor for current filtering.\n\n"
+  (text "The 2200uF cap is too reduce the noise\nbetween the ESP32 and the C64.\n\nTODO: Add inductor for current filtering (???)\n\n"
     (at 36.83 80.01 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid a5ceda37-7bb4-46d2-9a15-20f6ee4b18d9)
