@@ -840,7 +840,6 @@
     )
   )
 
-
   (junction (at 213.995 144.018) (diameter 0) (color 0 0 0 0)
     (uuid 007a4854-c271-43db-8124-aaf207fcfbeb)
   )
@@ -1497,7 +1496,7 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid c36c9a20-8554-49d4-8db3-5936d61630b4)
   )
-  (text "Pull Ups" (at 35.433 104.648 0)
+  (text "Pull Ups for 2nd and 3rd C64GS buttons" (at 35.433 104.648 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid cebe9606-3c78-494c-8a43-2d26ddf4f9e8)
   )
