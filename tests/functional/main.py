@@ -14,8 +14,8 @@ uni2_a500_gpios = {
         'left': 19,
         'right': 23,
         'fire': 14,
-        'fire_5': 33,
-        'fire_9': 16,
+        'pin5': 16,
+        'pin9': 33,
     },
     'j2': {
         'up': 27,
@@ -23,8 +23,8 @@ uni2_a500_gpios = {
         'left': 32,
         'right': 17,
         'fire': 13,
-        'fire_5': 21,
-        'fire_9': 22,
+        'pin5': 22,
+        'pin9': 21,
     },
     'leds': {
         'green': 5,
@@ -45,8 +45,8 @@ uni2_plus_gpios = {
         'left': 19,
         'right': 23,
         'fire': 14,
-        'pin5': 33,
-        'pin9': 16,
+        'pin5': 16,
+        'pin9': 33,
     },
     'j2': {
         'up': 27,
@@ -54,8 +54,8 @@ uni2_plus_gpios = {
         'left': 32,
         'right': 17,
         'fire': 13,
-        'pin5': 21,
-        'pin9': 22,
+        'pin5': 22,
+        'pin9': 21,
     },
     'leds': {
         'green': 5,
@@ -163,6 +163,16 @@ def test_leds():
         GPIO.output(red_pin, GPIO.LOW)
         time.sleep(0.1)
 
+def test_pin(ser, port:str, pin:str) -> None:
+    print(f'Testing {port}:{pin}')
+    esp32_set_gpio(ser, uni2_a500_gpios[port][pin], 1)
+    lvl = GPIO.input(rpi_gpios[port][pin])
+    assert(lvl == 0)
+
+    esp32_set_gpio(ser, uni2_a500_gpios[port][pin], 0)
+    lvl = GPIO.input(rpi_gpios[port][pin])
+    assert(lvl == 1)
+
 
 def main():
 
@@ -172,13 +182,10 @@ def main():
     setup_gpios()
     test_leds()
 
-    esp32_set_gpio(ser, uni2_a500_gpios['j1']['up'], 1)
-    lvl = GPIO.input(rpi_gpios['j1']['up'])
-    print(f'GPIO should be 0 = {lvl}')
-
-    esp32_set_gpio(ser, uni2_a500_gpios['j1']['up'], 0)
-    lvl = GPIO.input(rpi_gpios['j1']['up'])
-    print(f'GPIO should be 1 = {lvl}')
+    ports = ['j1', 'j2']
+    for port in ports:
+        for pin in uni2_a500_gpios[port].keys():
+            test_pin(ser, port, pin)
 
     ser.close()
     GPIO.cleanup()
