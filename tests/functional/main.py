@@ -97,15 +97,52 @@ rpi_gpios = {
 }
 
 
+def esp32_set_gpio(ser, gpio: int, level: int) -> None:
+    s = f"gpio_set {gpio} {level}\r\n"
+    ser.write(bytes(s, 'utf-8'))
+    # Sending the command via Serial + time to for the ESP32 to process it
+    # might take a few milliseconds.
+    # This "wait" is kind of a "sync"
+    time.sleep(0.1)
+
+
+def esp32_get_gpio(ser, gpio: int) -> int:
+    s = f"gpio_get {gpio}\r\n"
+    ser.write(bytes(s, 'utf-8'))
+
+    # First line is Echo, ignore it
+    _ = ser.readline()
+    line = ser.readline()
+
+    # Output should have this format:
+    #   GPIO 26 = 0
+    # Convert it to string, split it by ' ' so we'll have for entries:
+
+    r = line.decode('utf-8')
+    r.strip()
+    _, number, _, lvl = r.split(' ')
+    assert (number, gpio)
+    return lvl
+
+
 def setup_gpios():
     GPIO.setmode(GPIO.BCM)
 
-    dics = rpi_gpios.keys()
-    for d in dics:
-        for k in rpi_gpios[d]:
-            pin = rpi_gpios[d][k]
-            GPIO.setup(pin, GPIO.OUT)
-            GPIO.output(pin, GPIO.LOW)
+    # LEDs are output
+    # J1, J2 are input
+
+    for k in rpi_gpios['leds']:
+        pin = rpi_gpios['leds'][k]
+        GPIO.setup(pin, GPIO.OUT)
+        GPIO.output(pin, GPIO.LOW)
+
+    for k in rpi_gpios['j1']:
+        pin = rpi_gpios['j1'][k]
+        GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+    for k in rpi_gpios['j2']:
+        pin = rpi_gpios['j2'][k]
+        GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 
 def test_leds():
@@ -129,16 +166,22 @@ def test_leds():
 
 def main():
 
+    ser = serial.Serial(sys.argv[1], 115200, timeout=1)
+    print(ser.name)
+
     setup_gpios()
     test_leds()
 
-    ser = serial.Serial(sys.argv[1], 115200, timeout=1)
-    print(ser.name)
-    ser.write(b'version\r\n')
-    lines = ser.readlines()
-    for l in lines:
-        print(l)
+    esp32_set_gpio(ser, uni2_a500_gpios['j1']['up'], 1)
+    lvl = GPIO.input(rpi_gpios['j1']['up'])
+    print(f'GPIO should be 0 = {lvl}')
+
+    esp32_set_gpio(ser, uni2_a500_gpios['j1']['up'], 0)
+    lvl = GPIO.input(rpi_gpios['j1']['up'])
+    print(f'GPIO should be 1 = {lvl}')
+
     ser.close()
+    GPIO.cleanup()
 
 
 if __name__ == '__main__':
