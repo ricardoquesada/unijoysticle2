@@ -116,7 +116,7 @@ Note: It is safe to plug the two / three of them at the same time, but that won'
 Note: The Amiga 500 doesn't provide enough current to power the Unijoysticle.
 You should power the Unijoysticle through the USB port.
 It is possible to connect the USB port to the Amiga Disk Drive connector
-(Pin 12 = +5V / Pin 3 = GND, see [disk drive ad-hoc cable][disk_drive_power]) which provides enough current.
+(Pin 12 = +5V / Pin 3 = GND, see [How to build your own Amiga USB power cable][disk_drive_power]) which provides enough current.
 
 Self-power is available since Unijoysticle 2 [Revision D][changelog_board], and is present in all
 Unijoysticle 2+ / Unijoysticle 2 A500 revisions.
@@ -124,7 +124,7 @@ Unijoysticle 2+ / Unijoysticle 2 A500 revisions.
 [uni2_self_powered_photo]: https://lh3.googleusercontent.com/XVQU7lkllCqc-1k6KX_3CdDIOlx0NCHO8NVDuBOJGdVef3Rq03KJpDHLqG_FNYW2GTeXOAxna9njsclcrlxmhOiBR_KvI-M8CDUOglUX9nCZLBILnkSB32Tews7yhmU38tfaVMxXnWU=-no
 [uni2plus_self_powered_photo]: https://lh3.googleusercontent.com/pw/AM-JKLUXjhjUsPDIVH1C_i8310k5ERQT-IQc71w2ibmBWCHoKC5uEIHjHBdp52ydb0XBZoKqftGv8JIonAn9tfuxXnoo00BypKL62ZTk_kbOLEQwdXG7QM3FDhrHm41NAbP9dhAxn9N4M5pTxUMiOJ_T2oHgSw=-no
 [uni_a500_self_powered_photo]: https://lh3.googleusercontent.com/pw/AM-JKLUtRVviFYcUu_4RKifSOg3kyJziTpd3GLBE-e0frWdwAB1F0ZUNqEkGM3Hwqipi70lXpFAIv-mv6_u58-9bnSyI5JyPT_jNpRSQbV5D71nT31c45nqDhSkW2k6cELocLjm22cTwwM0zNROfESVJgAoKOA=-no
-[disk_drive_power]: https://lh3.googleusercontent.com/pw/AM-JKLX1h8BIZUTdIzU6P_mC6mPDTxCe9GQnnYKjc08f4ARav_fc8LyaSBGO6SvssALuR9QEA_GPan_OuojYyjrmxiI2_TKVjC0Y9oqzdwhxdJTVpmON_ItBKkc6M-kMGRjYyp7Nyz3O_nnf_0Zb6IHo-1Q_WQ=w1694-h1270-no
+[disk_drive_power]: https://gitlab.com/ricardoquesada/unijoysticle2/-/blob/main/docs/amiga_500_usb_cable.md
 [changelog_board]: https://gitlab.com/ricardoquesada/unijoysticle2/blob/master/CHANGELOG.board.md
 
 ### USB-powered
