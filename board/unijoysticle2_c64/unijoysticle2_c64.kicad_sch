@@ -191,6 +191,12 @@
     (path "/1e0fa736-c93b-4f04-ac49-f38ac4164c62/bce67894-5158-4e5c-85dc-e788ad48f89a"
       (reference "#PWR0101") (unit 1) (value "+3V3") (footprint "")
     )
+    (path "/1e0fa736-c93b-4f04-ac49-f38ac4164c62/f4ab8cc9-5cd5-48c7-adbc-2eee7ef141ca"
+      (reference "#PWR0102") (unit 1) (value "+5V") (footprint "")
+    )
+    (path "/1e0fa736-c93b-4f04-ac49-f38ac4164c62/5b1ac46f-06b6-446a-a98f-106a0cf1c13f"
+      (reference "#PWR0103") (unit 1) (value "+5V") (footprint "")
+    )
     (path "/4c2fb79c-207e-4f92-8ea1-7543e9ed400d/00000000-0000-0000-0000-000060dcb6b2"
       (reference "C1") (unit 1) (value ".1uF") (footprint "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder")
     )
