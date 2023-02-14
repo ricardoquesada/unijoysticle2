@@ -270,7 +270,7 @@
       (reference "R1") (unit 1) (value "10K") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
     )
     (path "/4c2fb79c-207e-4f92-8ea1-7543e9ed400d/c76b31d1-5f95-4fdc-a0d8-1ced053f5f3b"
-      (reference "R2") (unit 1) (value "3.3K") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
+      (reference "R2") (unit 1) (value "3K3") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
     )
     (path "/4c2fb79c-207e-4f92-8ea1-7543e9ed400d/87035413-2d28-4ef8-a7d5-8ac199911819"
       (reference "R3") (unit 1) (value "10K") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
