@@ -1,7 +1,7 @@
-# Unijoysticle™ 2 / 2+ / 2 A500 User Guide
+# Unijoysticle™ 2 / 2+ / 2 A500 / 2 C64 User Guide
 
-This guide is valid for Unijoysticle 2, Unijoysticle 2+ and Unijoysticle 2 A500.
-Features that are only applicable for Unijoysticle 2 / 2+/ 2 A500, are tagged as **[v2 only]** / **[v2+ only]** / **[v2 A500 only]** respectively.
+This guide is valid for Unijoysticle 2, Unijoysticle 2+, Unijoysticle 2 A500 and Unijoysticle 2 C64 models.
+Features that are only applicable for Unijoysticle 2 / 2+/ 2 A500 / 2 C64, are tagged as **[v2 only]** / **[v2+ only]** / **[A500 only]** / **[C64 only]** respectively.
 
 ## What is a Unijoysticle
 
@@ -9,12 +9,13 @@ Unijoysticle is that device that allows you to use modern Bluetooth gamepads and
 
 ## Models
 
-Comparison between the different models
+Comparison between the different models:
 
 |   | Unijoysticle 2 | Unijoysticle 2+ | Unijoysticle 2 A500 | Unijoysticle 2 C64 |
-| - | -------------- | --------------- | ------------------- | ------------------- |
+| - | -------------- | --------------- | ------------------- | ------------------ |
 | Top | ![uni2_photo_front] | ![uni2plus_photo_front] | ![uni2a500_photo_front] | ![uni2c64_photo_front] |
 | Bottom  | ![uni2_photo_back] | ![uni2plus_photo_back] | ![uni2a500_photo_back] | ![uni2c64_photo_back] |
+| Status | Supported | Supported | Supported | Supported |
 | Amiga / AtariST 2nd & 3rd button support| Only in Port #1| Both in Port #1 and #2 | Both in Port #1 and #2 | No |
 | Amiga / AtariST mouse support | Yes | Yes | Yes | Yes |
 | C64 2nd & 3rd button support | No | No | No | Yes |
@@ -66,7 +67,7 @@ Notes:
 
 ![supported computers](https://lh3.googleusercontent.com/j9KjfEW5KXse1Caf0xV8WfD8c7HRFO1UCHx5WOnPMAneoKOPsDs8UNXAFS84D9pXzcu5ZdHoPxJDdqNvzUB_0q7hk7tQcqxYXQIa7NsLZ3j-KLlG-qyFI6TknNgiYNpwcIdXxEROOhI=-no)
 
-The Unijoysticle 2 was designed to fit in the Commodore 64 / 128 ports. No additional
+The Unijoysticle 2 was designed to fit in the Commodore 64, and Amiga 500 computers. No additional
 cables are needed for these computers.
 
 However, the Unijoysticle 2 can be used in any computer that is compatible with the Atari DB9 joystick ports.
@@ -95,19 +96,19 @@ See: [firmware_setup.md][firmware_setup]
 
 There are multiple ways to power on the device
 
-|   | Unijoysticle 2 | Unijoysticle 2+ | Unijoysticle 2 A500 |
-| - | -------------- | --------------- | ------------------- |
-| Self-powered | Yes, requires the "Self powered" switch to be On | Yes, always On | Yes, always On |
-| USB powered | Yes | Yes | Yes |
-| External 5V+ | Yes, using the Barrel jack | No | No |
+|   | v2 | v2+ | A500 | C64 |
+| - | -- | --- | ---- | --- |
+| Self-powered | Yes, requires the "Self powered" switch to be On | Yes, always On | Yes, always On | Yes, always On |
+| USB powered | Yes | Yes | Yes | Yes |
+| External 5V+ | Yes, using the Barrel jack | No | No | No |
 
 Note: It is safe to plug the two / three of them at the same time, but that won't give you any additional benefit.
 
 ### Self-powered
 
-| Unijoysticle 2 | Unijoysticle 2+ | Unijoysticle 2 A500 |
-| -------------- | --------------- | ------------------- |
-| ![uni2_self_powered_photo] | ![uni2plus_self_powered_photo] | ![uni_a500_self_powered_photo] |
+| v2 | v2+ | A500 | C64 |
+| -- | --- | ---- | --- |
+| ![uni2_self_powered_photo] | ![uni2plus_self_powered_photo] | ![uni_a500_self_powered_photo] | TBD |
 
 - Gets current directly from the joystick ports. No extra cables needed.
 - [v2 only] "Self-powered" switch must be "ON", otherwise the ESP32 won't receive current.
@@ -135,9 +136,9 @@ Unijoysticle 2+ / Unijoysticle 2 A500 revisions.
 
 ### USB-powered
 
-| Unijoysticle 2 | Unijoysticle 2+ | Unijoysticle 2 A500 |
-| -------------- | --------------- | ------------------- |
-| ![uni2_usb_powered] | ![uni2plus_usb_powered] | ![uni2a500_usb_powered] |
+| v2 | v2+ | A500 | C64 |
+| -- | --- | ---- | --- |
+| ![uni2_usb_powered] | ![uni2plus_usb_powered] | ![uni2a500_usb_powered] | TBD |
 
 - Use a micro-USB cable to connect the Unijosyticle device to your computer or socket.
 - Ideal for debugging: you can see the Unijoysticle console by attaching a terminal to it.
@@ -160,7 +161,7 @@ Unijoysticle 2+ / Unijoysticle 2 A500 revisions.
 
 ## Unijoysticle Buttons and LEDs
 
-### V2 A500 only
+### A500 / C64 models
 
 ![uni2_a500_buttons_photo][uni2_a500_buttons_photo]
 
@@ -240,13 +241,13 @@ the big button in the center. E.g: In the Xbox One it is the "Xbox" button; for 
 
 If two gamepads are connected, then both controllers must press the "swap" button in order to swap joysticks.
 
-Note: [v2 A500 only] Unijoysticle 2 A500 has a built-in "swap" button. Press it to swap joystick ports.
+Note: [A500 only] Unijoysticle 2 A500 has a built-in "swap" button. Press it to swap joystick ports.
 
 The gamepad could be in three possible modes:
 
 - Basic mode: one gamepad controls one joystick.
 - Enhanced mode: one gamepad controls the two joysticks.
-- [v2 A500 only] Mouse mode: one gamepad controls one mouse.
+- [A500 only] Mouse mode: one gamepad controls one mouse.
 
 ### Basic mode
 
@@ -290,7 +291,7 @@ like [Commando 2084][commando2084]
 
 ![mouse mode](https://lh3.googleusercontent.com/pw/AM-JKLVubfn8u70c-UnHu_3M0BmpYhGw9jdHpyHt2whhCqM-LAUWz6JK3I7nSJvrLgdsmH-EYmSKYtQgERpH77DbhAIb66fDPVbTVY_a-xvaNoOGcYenJVmFQKdcS5TnODlVK1QpfL0HFOlzXbHVRNjVz39vDA=h320-no)
 
-[V2 A500 only]
+[A500 only]
 
 In *Mouse mode* you control the mouse from a gamepad.
 
