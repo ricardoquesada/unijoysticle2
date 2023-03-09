@@ -108,7 +108,7 @@ Note: It is safe to plug the two / three of them at the same time, but that won'
 
 | v2 | v2+ | A500 | C64 |
 | -- | --- | ---- | --- |
-| ![uni2_self_powered_photo] | ![uni2plus_self_powered_photo] | ![uni_a500_self_powered_photo] | TBD |
+| ![uni2_self_powered_photo] | ![uni2plus_self_powered_photo] | ![uni_a500_self_powered_photo] | ![uni_c64_self_powered_photo] |
 
 - Gets current directly from the joystick ports. No extra cables needed.
 - [v2 only] "Self-powered" switch must be "ON", otherwise the ESP32 won't receive current.
@@ -131,6 +131,7 @@ Unijoysticle 2+ / Unijoysticle 2 A500 revisions.
 [uni2_self_powered_photo]: https://lh3.googleusercontent.com/XVQU7lkllCqc-1k6KX_3CdDIOlx0NCHO8NVDuBOJGdVef3Rq03KJpDHLqG_FNYW2GTeXOAxna9njsclcrlxmhOiBR_KvI-M8CDUOglUX9nCZLBILnkSB32Tews7yhmU38tfaVMxXnWU=-no
 [uni2plus_self_powered_photo]: https://lh3.googleusercontent.com/pw/AM-JKLUXjhjUsPDIVH1C_i8310k5ERQT-IQc71w2ibmBWCHoKC5uEIHjHBdp52ydb0XBZoKqftGv8JIonAn9tfuxXnoo00BypKL62ZTk_kbOLEQwdXG7QM3FDhrHm41NAbP9dhAxn9N4M5pTxUMiOJ_T2oHgSw=-no
 [uni_a500_self_powered_photo]: https://lh3.googleusercontent.com/pw/AM-JKLUtRVviFYcUu_4RKifSOg3kyJziTpd3GLBE-e0frWdwAB1F0ZUNqEkGM3Hwqipi70lXpFAIv-mv6_u58-9bnSyI5JyPT_jNpRSQbV5D71nT31c45nqDhSkW2k6cELocLjm22cTwwM0zNROfESVJgAoKOA=-no
+[uni_c64_self_powered_photo]: https://lh3.googleusercontent.com/pw/AMWts8DAFSd1iqibcNFXnPkfKRICopugSYzP9YGy8gMeAqWyCzyV61yhsCcLeKK0ahP8rROQThGEd7MqJUvvyZwHhB4L1Mcx5z92Za34J4GyMu_m2wa4-K3oY1Zx3cWlVzv42YNLLmBJuVjcqME6B7BefZ1xyg=-no
 [disk_drive_power]: https://gitlab.com/ricardoquesada/unijoysticle2/-/blob/main/docs/amiga_500_usb_cable.md
 [changelog_board]: https://gitlab.com/ricardoquesada/unijoysticle2/blob/master/CHANGELOG.board.md
 
@@ -138,7 +139,7 @@ Unijoysticle 2+ / Unijoysticle 2 A500 revisions.
 
 | v2 | v2+ | A500 | C64 |
 | -- | --- | ---- | --- |
-| ![uni2_usb_powered] | ![uni2plus_usb_powered] | ![uni2a500_usb_powered] | TBD |
+| ![uni2_usb_powered] | ![uni2plus_usb_powered] | ![uni2a500_usb_powered] | ![uni2c64_usb_powered] |
 
 - Use a micro-USB cable to connect the Unijosyticle device to your computer or socket.
 - Ideal for debugging: you can see the Unijoysticle console by attaching a terminal to it.
@@ -148,6 +149,7 @@ Unijoysticle 2+ / Unijoysticle 2 A500 revisions.
 [uni2_usb_powered]: https://lh3.googleusercontent.com/lYiISEtede7TkKwvBZyOB57ZUynSDzPuKIqmfp6Cpl75BbGENM6qZkAXWD066YhpY1Xg-k016PrVt3783Q6iuLXFOdZrpXIW_XaEEwRaeUFvPBk1XVtwIvVjmxMGt5bvAPUHwOFScYw=-no
 [uni2plus_usb_powered]: https://lh3.googleusercontent.com/pw/AM-JKLXXbxm4umDQfC-xYt9AzvAWIXsGQaYrpQUFnDpYwE0F5SanC8DgjQu9Uu7s9nj2dAd1dVWq4WD8EWxifGM8t73bT0Mz-yiFPCXn8dyUgNXkW2FA2SA00PfL_kdCBbVpXKLRu1Ez7hnaMBSmlUiufBncxw=-no
 [uni2a500_usb_powered]: https://lh3.googleusercontent.com/pw/AM-JKLUekMUSSBPmg3XLniMY1ykeDqYs7NBES2_Y4Q-ld2w0CkQNBWakbI6w-Vu0HiSDhFstachOMwOcS6CH-Cm9fYB7WcWWObe3MBBUhD0E-OC2CbqKIWCjF4V4lZxLLA4OCjwUUimj7zExnekBjYWOZCfG8g=-no
+[uni2c64_usb_powered]: https://lh3.googleusercontent.com/pw/AMWts8CFRhwQWFVujIpi5U4ucUAWYyEYYBwoBSXAZwc8h4fzOm18BaolGFL3R7pNVUVJYV0bz-WgzEZ4wLE8FZfvtz1GLaK2YdkYQy8_YU3x966TSuEA5E60XTRI0bdOmQEcDcsXSFfYtpynDd1nrIeBsOuJgA=-no
 
 ### Jack Barrel-powered [v2 only]
 
