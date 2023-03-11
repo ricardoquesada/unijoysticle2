@@ -165,7 +165,9 @@ Unijoysticle 2+ / Unijoysticle 2 A500 revisions.
 
 ### A500 / C64 models
 
-![uni2_a500_buttons_photo][uni2_a500_buttons_photo]
+| A500 | C64 |
+| ---- | --- |
+| ![uni2_a500_buttons_photo][uni2_a500_buttons_photo] | ![uni2_c64_buttons_photo][uni2_c64_buttons_photo] |
 
 LEDs:
 
@@ -200,10 +202,13 @@ To know in which "mode" it is, the Bluetooth LED (Blue) will blink:
 See below for further details about gamepad modes.
 
 [uni2_a500_buttons_photo]: https://lh3.googleusercontent.com/pw/AM-JKLULCdDRyDWDQ8R2v0Ab_HjcxOxOtNOTlaj0OrrFvEyEr9zNo8DBBCgVrOGWran1PLX3Ja3LvcpdmU0vw1MnnEZUrv5JQglA7grNkS08wlwpkU6Pt7nnmK5k2sDy-ag2VxVBRJWRpx930hPqtNl1fQ664Q=h360-no
+[uni2_c64_buttons_photo]: https://lh3.googleusercontent.com/pw/AMWts8BLrqDjE_ZWreEFw-cU4iQtUnFR5CPL0PEJwbHsmPZHsgwGgepQseeV5Q74Hf3vNOmEaAfgpKjvkn5IBW5XlvhnChfOo6qKD9iBK58ACph9fCVpb1NZiw1eGLztZshWWpy0I5oAmd48-yFZtFtt44DF3g=-no
 
 ### V2 / V2+ only
 
-![uni2_buttons_photo][uni2_buttons_photo] ![uni2plus_buttons_photo][uni2plus_buttons_photo]
+| V2 | V2+ |
+| -- | --- |
+| ![uni2_buttons_photo][uni2_buttons_photo] | ![uni2plus_buttons_photo][uni2plus_buttons_photo] |
 
 LEDs:
 
@@ -266,7 +271,7 @@ Super Mario Bros, Mayhem in Monsterland, etc.
 - Button Y / Triangle: 3nd button (Amiga / Atari ST only)
 - Button shoulder-right: autofire
 
-### Enhanced mode
+### Enhanced mode (AKA Dual Stick mode)
 
 ![enhanced mode](https://lh3.googleusercontent.com/pw/AM-JKLUC6pvyoJ5v5Zb4HNQwBlbUCCKL5IPrZnrTz9S9P-Pkw1AoWjl48LQBmVagog591bUTDwPFaQorr_J9UtaWRldUpNClSc5ZZvX3DfNI5YQKOOwSIawdGMCHQeYWu-ne6RW_BdvlK10seuz1kvvnElMxaw=h360-no)
 

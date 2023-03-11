@@ -4,41 +4,52 @@
 
 Unijoysticle is that device that allows you to use modern Bluetooth gamepads and mice in retro computers.
 
-|   | Unijoysticle 2| Unijoysticle 2+| Unijoysticle 2 A500 |
-| - | -------------- | --------------- | ------------------- |
-|   | ![uni2_photo] | ![uni2_plus_photo] | ![uni2_a500_photo] |
-| Total Size (mm) | 63 x 66 x 17 | 64 x 64 x 13.6 | 67 x 72 x 13.6 |
-| PCB Size (mm) | 46 x 57 x 1.6 | 49 x 62 x 1.6 | 52 x 67 x 1.6 |
-| Weight (gr) | 37 | 24 | 25.6 |
-| Current (mA)| ~100 | ~96 | ~96 |
-| Amiga 2nd & 3rd button support| Only in Port #1| Both in Port #1 and #2 | Both in Port #1 and #2 |
-| C64 mouse support (1351) | No | No | No |
-| Amiga / AtariST mouse support | Yes (1) | Yes (1) | Yes  (1)|
-| Fits | C64 / C128 | C64 / C128 | Amiga 500 / 1200 |
-| Buttons | Reset, Enhanced | Reset, Enhanced | Reset, Mode,  Swap |
-| LEDs | Port #1, #2 | Port #1, #2 | Port #1, #2, Bluetooth |
-| Filter noise for C128 ([Issue #17][issue_17]) | No | Yes | Yes |
-| Case friendly | No | Yes | Yes |
-| Easy to DIY | Yes | No | No |
-| Self-powered support | Yes (2) | Yes (2) | Yes (2) |
-| External power | Both USB and Barrel Jack 5V+ | Only USB | Only USB |
-| USB connector | Micro USB | Micro USB | Micro USB |
-| Release date | April 2019 | October 2021 | July 2022 |
+|   | Unijoysticle 2 | Unijoysticle 2+ | Unijoysticle 2 A500 | Unijoysticle 2 C64 |
+| - | -------------- | --------------- | ------------------- | ------------------ |
+| Top | ![uni2_photo_front] | ![uni2plus_photo_front] | ![uni2a500_photo_front] | ![uni2c64_photo_front] |
+| Bottom  | ![uni2_photo_back] | ![uni2plus_photo_back] | ![uni2a500_photo_back] | ![uni2c64_photo_back] |
+| Status | Supported | Supported | Supported | Supported |
+| Amiga / AtariST 2nd & 3rd button support| Only in Port #1| Both in Port #1 and #2 | Both in Port #1 and #2 | No |
+| Amiga / AtariST mouse support | Yes | Yes | Yes | Yes |
+| C64 2nd & 3rd button support | No | No | No | Yes |
+| C64 mouse support (1351) | No | No | No | Might (1) |
+| C64 Paddle support | No | No | No | Might (1) |
+| Rumble (2) | No | No | No | Yes |
+| Fits | C64 / C128 | C64 / C128 | Amiga 500 / 1200 | C64 / C128 |
+| Buttons | Reset, Enhanced | Reset, Enhanced | Reset, Mode,  Swap | Reset, Mode, Swap |
+| LEDs | Port #1, #2, Power | Port #1, #2, Power | Port #1, #2, Bluetooth, Power | Port #1, #2, Bluetooth, Power |
+| Filter noise for C128 ([Issue #17][issue_17]) | No | Yes | Yes | Yes |
+| Case friendly | No | Yes | Yes | Yes |
+| Easy to solder | Yes. All components are through-hole | No. Most components are surface-mount | No. Most components are surface-mount | No. Most components are surface-mount |
+| Self-powered | Yes, can be turned on/off with switch | Yes | Yes | Yes |
+| External power | Both USB and Barrel Jack 5V+ | Only USB | Only USB | Only USB |
+| Total Size (mm) | 63 x 66 x 17 | 64 x 64 x 13.6 | 67 x 72 x 13.6 | 72 x 68 x 13.6 |
+| PCB Size (mm) | 46 x 57 x 1.6 | 49 x 62 x 1.6 | 52 x 67 x 1.6 | 63 x 60 x 1.6 |
+| Weight (gr) | 37 | 24 | 25.6 | 27.1 |
+| Current (mA)| ~100 | ~96 | ~96 | ~96 |
+| USB connector | Micro USB | Micro USB | Micro USB | Micro USB |
+| Release date | April 2019 | October 2021 | July 2022 | March 2023 |
 
-(1): Requires firmware Bluepad32 v3.5 or newer
+Notes:
 
-(2): Amiga 500 requires external power.
-
-[issue_17]: https://gitlab.com/ricardoquesada/unijoysticle2/-/issues/17
+- (1): Hardware physically connected, but needs testing.
+- (2): Some C64 games can turn on/off rumble on gamepads.
 
 Unijoysticle 2 allows you to use modern Bluetooth gamepads, e.g DualSense gamepad,
 in retro computers like the Commodore 64, Amiga and AtariST.
 
 It also supports mice (for Amiga / AtariST only).
 
-[uni2_photo]: https://lh3.googleusercontent.com/DChZhkyEl-qqZ3r9N7_RhzvF4zDkSdgNyZwczBofnp28D6ncXcbGq3CXBc5SeC5zooUbBCRo87stuAx-4Q7FwItz1NfaZ4_EJjX3pIroiiR-fcXPzZWk0OifvtaoA8iUJsQQnhkC9q4=-no
-[uni2_plus_photo]: https://lh3.googleusercontent.com/pw/AM-JKLVeTZLBOCy4GmrG5N-WiRIcqoxLdsVXSN-77reS92gn7xxmZy-JuE_XeXgwSSPaUBYa2qaaw5RvZbzlkHdjDxal2p_WkKIm9RnzD6qeqV_u7j_3sRJOkm35EO5JCXFp_EpLvCTHGNEX6ZOtMyOGrzqLQw=-no
-[uni2_a500_photo]: https://lh3.googleusercontent.com/pw/AM-JKLXEB6NQ-lr54G6cPEVQJ9i1OGR0XWLVYsjCs4Sc_883w-gYvwnUOPlH2wnzM0ibH48Y6QGAAIRO9pnfTxDsdQqY7JHBKzJPzOOY8Cin6t9sSjHvx94k1VZLdTh1Fkknum6nIR0z1pAMz69txQRV7qQksg=-no 
+[issue_17]: https://gitlab.com/ricardoquesada/unijoysticle2/-/issues/17
+[uni2_photo_front]: https://lh3.googleusercontent.com/pw/AM-JKLUphquTBg9JoV-L7wuMtze_aKIJ8LvfokTakuBKSVFClziLWCViggcrlNZtqGUMgv6u6yYpZ_RuE2jdGSn3Q0oYl0jOQzzGcutRt-JiMjLZY_oAvK4LehrawNj_aNbthCJ-VEJzsW3dywhJNekjhTsfNQ=-no
+[uni2_photo_back]: https://lh3.googleusercontent.com/pw/AM-JKLXnMbJt7A55lUrtmiuKj4As98He7ZVi6YuPKg8N1sGbw1w5d5TtC8B-ilfoqC5QCKcZG8MFkmHNj5HgVbP8fdHhMBPx2CLgyRhaRmohx0SWF-_wZ57WYCfo7RlH4k7sEmh1txsTvHto2ko0H_0l9aUALg=-no
+[uni2plus_photo_front]: https://lh3.googleusercontent.com/pw/AM-JKLWV2Zo912VtOfuM71AluanNXGwVQiAehNEiQ1VL3L7SkWDl-9k0fA6tfza9QpGL52petBfFFFHMb8rh_ybSj17LOQA70IycMDQw6AVqlN8Jp4HDWT8sWcXHIPEQZTxNuQ-RFygKbmVpW2n52wwi5cJgwA=-no
+[uni2plus_photo_back]: https://lh3.googleusercontent.com/pw/AM-JKLWs_G63eJRX8WuVVRoKKur8UQ-VcWTNbmkjFumwZYvDRhgjqamVa-X9CROAnoPyK3sHDmfwtqAtJiI1DHiwlINBPCgiEY4yWFYWl8SlHA_QOG7LmVKuOKy1UQa-5dALC2r0FBfhS9He6utE7Kz5nWAXiw=-no
+[uni2a500_photo_front]: https://lh3.googleusercontent.com/pw/AM-JKLU1BbKnbuLE7Oa_VOY3AnBjYwNVcAPKJcmYa7WUnCK5gMM1bHZyK3lTZ1Mo0NtS30ogeeSqxySx3Qi2ux3AGOlocQnQe9a87NoiKz5tnmHV_IGf3hPln0qsr8t5yfD5biKKVbGlRJ6vN2IbmI8H2Wg6iw=-no
+[uni2a500_photo_back]: https://lh3.googleusercontent.com/pw/AM-JKLXMUngI6ctahY5clP-76UBjUem9L4Eehj4GFsEwUJwtZ3-MuZCV2nOsxiN3Go1PKvoc9sJbLRY8hCZ9TcV4cq5AtcAtscdjH1LiNzltFSgQY4IQEwSiPHfvhjhZCDezhgHKQDrmmA3EGFM7kJ4MKNxtig=-no
+[bluepad32-fw]: https://gitlab.com/ricardoquesada/bluepad32
+[uni2c64_photo_front]: https://lh3.googleusercontent.com/pw/AMWts8AzoDnIOIiM-50UpjAqY8OgdsM6pzM3BuYWb2ZOg4K_o4TxygtSjuZvrKI92lrl4Qqf8sLT6PtLYsXzDbragTDgoeX4yTpymqoc450FiyjiBT1YHxRbLBtGWgUOQHezXUxKCORs5aOcxPwowfrgR4PcQw=-no
+[uni2c64_photo_back]: https://lh3.googleusercontent.com/pw/AMWts8C_vxauz3FAOv8NGAh64LGTExHwCj0N0bX73xsWIeDyR3efFPPUQb3JJQK5S8Qcm9B8bx3r_yio6WWAML1si4u8E9FejXP9DL8vxSCg_TR7rLi5aPiwisQaIptN8hJdfz3Zoh_B4cqiRE9vMi9t50R_gw=-no
 
 
 ## Basic functionality
@@ -58,7 +69,7 @@ The mappings are:
 - Button shoulder-right: autofire.
 - System button swaps between Joystick #1 and #2
 
-## Enhanced functionality
+## Enhanced functionality (AKA Dual Stick mode)
 
 ![Enhanced mode](https://lh3.googleusercontent.com/pw/AM-JKLUC6pvyoJ5v5Zb4HNQwBlbUCCKL5IPrZnrTz9S9P-Pkw1AoWjl48LQBmVagog591bUTDwPFaQorr_J9UtaWRldUpNClSc5ZZvX3DfNI5YQKOOwSIawdGMCHQeYWu-ne6RW_BdvlK10seuz1kvvnElMxaw=h360-no)
 
