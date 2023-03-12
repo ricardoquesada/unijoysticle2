@@ -1,4 +1,4 @@
-# Unijoysticle™ 2 / 2+ / 2 A500 / 2 C64 User Guide
+# Unijoysticle™ 2, 2+, A500, C64 User Guide
 
 [![discord](https://img.shields.io/discord/775177861665521725.svg)](https://discord.gg/r5aMn6Cw5q)
 
