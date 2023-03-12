@@ -401,6 +401,7 @@ There are many useful commands. The most "common" ones are:
   * `3buttons`: Default mode. 2nd and 3rd pot buttons are enabled.
   * `5buttons`: In addition to the 2nd and 3rd buttons, it also enables 4th and 5th buttons. See [crystalct/5plusbuttonsJoystick] for further info.
   * `rumble`: Allows games (e.g: [Rambo], [Lemans]) to send "rumble" feedback. 2nd and 3rd buttons are disabled.
+  * [Collection of C64 games that are known to work with more than one button, or in rumble mode][c64_collection]
 * `get_gamepad_mode`: Returns the gamepad mode.
 * `set_mouse_emulation  <emulation>`: `amiga`, `atarist`
   * `amiga`: (default) Emulates an Amiga mouse
@@ -412,6 +413,7 @@ There are many useful commands. The most "common" ones are:
 * `help`: Print the list of registered commands
 
 [crystalct/5plusbuttonsJoystick]: https://github.com/crystalct/5plusbuttonsJoystick/
+[c64_collection]: https://gitlab.com/ricardoquesada/c64-games-unijoysticle
 
 ## Troubleshooting
 
