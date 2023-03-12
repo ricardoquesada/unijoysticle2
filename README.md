@@ -8,9 +8,11 @@ Unijoysticle is that device that allows you to use modern Bluetooth gamepads and
 | - | -------------- | --------------- | ------------------- | ------------------ |
 | Top | ![uni2_photo_front] | ![uni2plus_photo_front] | ![uni2a500_photo_front] | ![uni2c64_photo_front] |
 | Bottom  | ![uni2_photo_back] | ![uni2plus_photo_back] | ![uni2a500_photo_back] | ![uni2c64_photo_back] |
+| Best for | - | Mega65 / Foenix A2560X | Amiga | C64 / C128 |
+| Good for | C64 / Amiga / AtariST | C64 / Amiga / AtariST | C64 / AtariST | Amiga / AtariST |
 | Status | Supported | Supported | Supported | Supported |
 | Amiga / AtariST 2nd & 3rd button support| Only in Port #1| Both in Port #1 and #2 | Both in Port #1 and #2 | No |
-| Amiga / AtariST mouse support | Yes | Yes | Yes | Yes |
+| Amiga / AtariST mouse support | Yes | Yes | Yes | Yes (3) |
 | C64 2nd & 3rd button support | No | No | No | Yes |
 | C64 mouse support (1351) | No | No | No | Might (1) |
 | C64 Paddle support | No | No | No | Might (1) |
@@ -34,6 +36,7 @@ Notes:
 
 - (1): Hardware physically connected, but needs testing.
 - (2): Some C64 games can turn on/off rumble on gamepads.
+- (3): Right and Middle mouse buttons not supported in C64.
 
 Unijoysticle 2 allows you to use modern Bluetooth gamepads, e.g DualSense gamepad,
 in retro computers like the Commodore 64, Amiga and AtariST.

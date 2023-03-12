@@ -1,5 +1,7 @@
 # Unijoysticle™ 2 / 2+ / 2 A500 / 2 C64 User Guide
 
+[![discord](https://img.shields.io/discord/775177861665521725.svg)](https://discord.gg/r5aMn6Cw5q)
+
 This guide is valid for Unijoysticle 2, Unijoysticle 2+, Unijoysticle 2 A500 and Unijoysticle 2 C64 models.
 Features that are only applicable for Unijoysticle 2 / 2+/ 2 A500 / 2 C64, are tagged as **[v2 only]** / **[v2+ only]** / **[A500 only]** / **[C64 only]** respectively.
 
@@ -15,9 +17,11 @@ Comparison between the different models:
 | - | -------------- | --------------- | ------------------- | ------------------ |
 | Top | ![uni2_photo_front] | ![uni2plus_photo_front] | ![uni2a500_photo_front] | ![uni2c64_photo_front] |
 | Bottom  | ![uni2_photo_back] | ![uni2plus_photo_back] | ![uni2a500_photo_back] | ![uni2c64_photo_back] |
+| Best for | - | Mega65 / Foenix A2560X | Amiga | C64 / C128 |
+| Good for | C64 / Amiga / AtariST | C64 / Amiga / AtariST | C64 / AtariST | Amiga / AtariST |
 | Status | Supported | Supported | Supported | Supported |
 | Amiga / AtariST 2nd & 3rd button support| Only in Port #1| Both in Port #1 and #2 | Both in Port #1 and #2 | No |
-| Amiga / AtariST mouse support | Yes | Yes | Yes | Yes |
+| Amiga / AtariST mouse support | Yes | Yes | Yes | Yes (3) |
 | C64 2nd & 3rd button support | No | No | No | Yes |
 | C64 mouse support (1351) | No | No | No | Might (1) |
 | C64 Paddle support | No | No | No | Might (1) |
@@ -42,6 +46,7 @@ Notes:
 
 - (1): Hardware physically connected, but needs testing.
 - (2): Some C64 games can turn on/off rumble on gamepads.
+- (3): Right and Middle mouse buttons not supported in C64.
 
 [issue_17]: https://gitlab.com/ricardoquesada/unijoysticle2/-/issues/17
 [uni2_photo_front]: https://lh3.googleusercontent.com/pw/AM-JKLUphquTBg9JoV-L7wuMtze_aKIJ8LvfokTakuBKSVFClziLWCViggcrlNZtqGUMgv6u6yYpZ_RuE2jdGSn3Q0oYl0jOQzzGcutRt-JiMjLZY_oAvK4LehrawNj_aNbthCJ-VEJzsW3dywhJNekjhTsfNQ=-no
@@ -489,5 +494,5 @@ The logs can be fetched by connecting a terminal to the ESP32 module.
 
 ## Contact
 
-* Discord: https://discord.gg/r5aMn6Cw5q
+* [![discord](https://img.shields.io/discord/775177861665521725.svg)](https://discord.gg/r5aMn6Cw5q)
 * Email group: https://groups.google.com/forum/#!forum/unijoysticle
