@@ -22,7 +22,8 @@ Comparison between the different models:
 | Status | Supported | Supported | Supported | Supported |
 | Amiga / AtariST 2nd & 3rd button support| Only in Port #1| Both in Port #1 and #2 | Both in Port #1 and #2 | No |
 | Amiga / AtariST mouse support | Yes | Yes | Yes | Yes (3) |
-| C64 2nd & 3rd button support | No | No | No | Yes |
+| C64 2nd & 3rd button support (Pot buttons) | No | No | No | Yes |
+| C64 4th and 5th button support (4) | No | No | No | Yes |
 | C64 mouse support (1351) | No | No | No | Might (1) |
 | C64 Paddle support | No | No | No | Might (1) |
 | Rumble (2) | No | No | No | Yes |
@@ -45,8 +46,9 @@ Comparison between the different models:
 Notes:
 
 - (1): Hardware physically connected, but needs testing.
-- (2): Some C64 games can turn on/off rumble on gamepads.
+- (2): Some C64 games can turn on/off rumble on gamepads. See: [Rambo], and [Lemans]
 - (3): Right and Middle mouse buttons not supported in C64.
+- (4): Based on [CrystalCT 5 buttons joystick][crystalct/5plusbuttonsJoystick]
 
 [issue_17]: https://gitlab.com/ricardoquesada/unijoysticle2/-/issues/17
 [uni2_photo_front]: https://lh3.googleusercontent.com/pw/AM-JKLUphquTBg9JoV-L7wuMtze_aKIJ8LvfokTakuBKSVFClziLWCViggcrlNZtqGUMgv6u6yYpZ_RuE2jdGSn3Q0oYl0jOQzzGcutRt-JiMjLZY_oAvK4LehrawNj_aNbthCJ-VEJzsW3dywhJNekjhTsfNQ=-no
@@ -58,6 +60,8 @@ Notes:
 [bluepad32-fw]: https://gitlab.com/ricardoquesada/bluepad32
 [uni2c64_photo_front]: https://lh3.googleusercontent.com/pw/AMWts8AzoDnIOIiM-50UpjAqY8OgdsM6pzM3BuYWb2ZOg4K_o4TxygtSjuZvrKI92lrl4Qqf8sLT6PtLYsXzDbragTDgoeX4yTpymqoc450FiyjiBT1YHxRbLBtGWgUOQHezXUxKCORs5aOcxPwowfrgR4PcQw=-no
 [uni2c64_photo_back]: https://lh3.googleusercontent.com/pw/AMWts8C_vxauz3FAOv8NGAh64LGTExHwCj0N0bX73xsWIeDyR3efFPPUQb3JJQK5S8Qcm9B8bx3r_yio6WWAML1si4u8E9FejXP9DL8vxSCg_TR7rLi5aPiwisQaIptN8hJdfz3Zoh_B4cqiRE9vMi9t50R_gw=-no
+[Rambo]: https://gitlab.com/ricardoquesada/c64-rambo
+[Lemans]: https://gitlab.com/ricardoquesada/c64-lemans
 
 ## Quick starting guide
 
@@ -86,10 +90,12 @@ That includes, but not limited to:
 - Commodore 16 / 116 / +4 (requires adapter)
 - [Vampire v4 Stand Alone][vampirev4] (tested by the community)
 - [A2560 Foenix][a2560] (tested by the community)
+- [Mega 65][mega65] (tested by the community)
 
 [cable]: https://www.aliexpress.com/item/33012270252.html?spm=a2g0s.9042311.0.0.74394c4diOD0iB
 [vampirev4]: http://www.apollo-core.com/v4.html
 [a2560]: https://c256foenix.com/
+[mega65]: https://mega65.org/
 
 ## Flashing the firmware
 
@@ -387,14 +393,25 @@ There are many useful commands. The most "common" ones are:
 * `set_mouse_scale  <value>`: Set global mouse scale factor
 * `set_bluetooth_enabled  <0 | 1>`: To enable/disable Bluetooth discovery mode
 * `swap_ports`: Swaps joystick ports
-* `set_gamepad_mode  <mode>`: 'normal', 'enhanced' or 'mouse'
+* `set_gamepad_mode  <mode>`: `normal`, `enhanced` or `mouse`
+  * `normal`: One gamepad controls just one joystick.
+  * `mouse`: Gamepad behaves like a mouse. Usefule in Amiga / AtariST
+  * `enhanced`: AKA Dual Stick. One gamepad controls both joysticks at the same time. Good for games that uses dual stick, like [Commando 2084][commando2084]
+* `set_c64_pot_mode`: `3buttons`, `5buttons` or `rumble`
+  * `3buttons`: Default mode. 2nd and 3rd pot buttons are enabled.
+  * `5buttons`: In addition to the 2nd and 3rd buttons, it also enables 4th and 5th buttons. See [crystalct/5plusbuttonsJoystick] for further info.
+  * `rumble`: Allows games (e.g: [Rambo], [Lemans]) to send "rumble" feedback. 2nd and 3rd buttons are disabled.
 * `get_gamepad_mode`: Returns the gamepad mode.
-* `set_mouse_emulation  <emulation>`: 'amiga', 'atarist'
+* `set_mouse_emulation  <emulation>`: `amiga`, `atarist`
+  * `amiga`: (default) Emulates an Amiga mouse
+  * `atarist`: Emulates an Atari ST mouse
 * `get_mouse_emulation`: Returns mouse emulation mode
 * `set_autofire_cps  <cps>` Sets the autofire 'clicks per second' (cps)
 * `get_autofire_cps`: Returns the autofire 'clicks per second' (cps)
 * `version` Gets the Unijoysticle version info
 * `help`: Print the list of registered commands
+
+[crystalct/5plusbuttonsJoystick]: https://github.com/crystalct/5plusbuttonsJoystick/
 
 ## Troubleshooting
 

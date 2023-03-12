@@ -13,7 +13,8 @@ Unijoysticle is that device that allows you to use modern Bluetooth gamepads and
 | Status | Supported | Supported | Supported | Supported |
 | Amiga / AtariST 2nd & 3rd button support| Only in Port #1| Both in Port #1 and #2 | Both in Port #1 and #2 | No |
 | Amiga / AtariST mouse support | Yes | Yes | Yes | Yes (3) |
-| C64 2nd & 3rd button support | No | No | No | Yes |
+| C64 2nd & 3rd button support (Pot buttons) | No | No | No | Yes |
+| C64 4th and 5th button support (4) | No | No | No | Yes |
 | C64 mouse support (1351) | No | No | No | Might (1) |
 | C64 Paddle support | No | No | No | Might (1) |
 | Rumble (2) | No | No | No | Yes |
@@ -32,11 +33,13 @@ Unijoysticle is that device that allows you to use modern Bluetooth gamepads and
 | USB connector | Micro USB | Micro USB | Micro USB | Micro USB |
 | Release date | April 2019 | October 2021 | July 2022 | March 2023 |
 
+
 Notes:
 
 - (1): Hardware physically connected, but needs testing.
-- (2): Some C64 games can turn on/off rumble on gamepads.
+- (2): Some C64 games can turn on/off rumble on gamepads. See: [Rambo], and [Lemans]
 - (3): Right and Middle mouse buttons not supported in C64.
+- (4): Based on [CrystalCT 5 buttons joystick][crystalct/5plusbuttonsJoystick]
 
 Unijoysticle 2 allows you to use modern Bluetooth gamepads, e.g DualSense gamepad,
 in retro computers like the Commodore 64, Amiga and AtariST.
@@ -53,7 +56,9 @@ It also supports mice (for Amiga / AtariST only).
 [bluepad32-fw]: https://gitlab.com/ricardoquesada/bluepad32
 [uni2c64_photo_front]: https://lh3.googleusercontent.com/pw/AMWts8AzoDnIOIiM-50UpjAqY8OgdsM6pzM3BuYWb2ZOg4K_o4TxygtSjuZvrKI92lrl4Qqf8sLT6PtLYsXzDbragTDgoeX4yTpymqoc450FiyjiBT1YHxRbLBtGWgUOQHezXUxKCORs5aOcxPwowfrgR4PcQw=-no
 [uni2c64_photo_back]: https://lh3.googleusercontent.com/pw/AMWts8C_vxauz3FAOv8NGAh64LGTExHwCj0N0bX73xsWIeDyR3efFPPUQb3JJQK5S8Qcm9B8bx3r_yio6WWAML1si4u8E9FejXP9DL8vxSCg_TR7rLi5aPiwisQaIptN8hJdfz3Zoh_B4cqiRE9vMi9t50R_gw=-no
-
+[Rambo]: https://gitlab.com/ricardoquesada/c64-rambo
+[Lemans]: https://gitlab.com/ricardoquesada/c64-lemans
+[crystalct/5plusbuttonsJoystick]: https://github.com/crystalct/5plusbuttonsJoystick/
 
 ## Basic functionality
 

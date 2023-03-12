@@ -5,14 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Adheres to the "standard" way to version boards/layouts. E.g: letters instead of numbers.
 
-## Unreleased
+## [Unijoysticle 2 C64 - Rev C] - 2023-03-12
+### New
+
+* Unijoysticle C64: Model to be used in Commodore 64/128
+* Supports Pot buttons (2nd and 3rd buttons)
+* Supports rumble
+
+## [Unijoysticle 2 A500 - Rev C] - 2022-07-??
+### New
+
+* Unijoysticle A500: Model to be used in Amiga 500 / 1200
+* Supports Amiga / AtariST mouse
 
 ### Added
 
  * contrib: Unijoysticle2 NeoGeo adapter for Unijoysticle2
  * contrib: Unijoysticle2 for NeoGeo
  * contrib: Unijoysticle2 A500 case
-
 
 ## [Unijoysticle 2+ Rev F] - 2021-10-03
 
