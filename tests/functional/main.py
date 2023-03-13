@@ -210,6 +210,7 @@ def test_led(ser, port: str, pin: str) -> None:
         esp32_set_gpio(ser, uni2_a500_gpios[port][pin], 1)
         time.sleep(0.1)
 
+
 def test_default_pin_values(ser) -> None:
     """Test default values for pins"""
     print("Testing default values...")
@@ -219,7 +220,8 @@ def test_default_pin_values(ser) -> None:
             lvl = GPIO.input(rpi_gpios[port][pin])
             assert lvl == 1
 
-def test_all_pins(ser, lvl:int) -> None:
+
+def test_all_pins(ser, lvl: int) -> None:
     """Set level for all pins"""
     print(f"Testing all pins with level {lvl}")
     ports = ["j1", "j2"]
@@ -230,9 +232,10 @@ def test_all_pins(ser, lvl:int) -> None:
     for port in ports:
         for pin in uni2_a500_gpios[port].keys():
             val = GPIO.input(rpi_gpios[port][pin])
-            expected = 0 if lvl==1 else 1
-            #print(f"{port}:{pin} = {val} / expected = {expected}")
+            expected = 0 if lvl == 1 else 1
+            # print(f"{port}:{pin} = {val} / expected = {expected}")
             assert val == expected
+
 
 def main():
     ser = serial.Serial(sys.argv[1], 115200, timeout=1)
