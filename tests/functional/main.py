@@ -173,11 +173,35 @@ def test_pin(ser, port:str, pin:str) -> None:
     lvl = GPIO.input(rpi_gpios[port][pin])
     assert(lvl == 1)
 
+def test_all_pins_except(ser, port:str, pin:str, level:int) -> None:
+    """All must have level, except for port:pin"""
+    ports = ['j1', 'j2']
+    for port in ports:
+        for pin in uni2_a500_gpios[port].keys():
+            if pin == pin and port == port:
+                continue
+            lvl = GPIO.input(rpi_gpios[port][pin])
+            assert(lvl == level)
+
+def test_pin_alone(ser, port:str, pin:str) -> None:
+    """Only port:pin must be asserted, the rest should be deasserted"""
+
+    print(f'Testing alone {port}:{pin}')
+    esp32_set_gpio(ser, uni2_a500_gpios[port][pin], 1)
+    lvl = GPIO.input(rpi_gpios[port][pin])
+    assert(lvl == 0)
+    test_all_pins_except(ser, port, pin, 0)
+
+    esp32_set_gpio(ser, uni2_a500_gpios[port][pin], 0)
+    lvl = GPIO.input(rpi_gpios[port][pin])
+    assert(lvl == 1)
+    test_all_pins_except(ser, port, pin, 0)
+
 def test_led(ser, port:str, pin:str) -> None:
     print(f'Testing {port}:{pin}')
     print('This is a visual test. LED should be blinking')
 
-    for _ in range(10):
+    for _ in range(5):
         esp32_set_gpio(ser, uni2_a500_gpios[port][pin], 0)
         time.sleep(0.1)
         esp32_set_gpio(ser, uni2_a500_gpios[port][pin], 1)
@@ -196,6 +220,10 @@ def main():
     for port in ports:
         for pin in uni2_a500_gpios[port].keys():
             test_pin(ser, port, pin)
+
+    for port in ports:
+        for pin in uni2_a500_gpios[port].keys():
+            test_pin_alone(ser, port, pin)
 
     for pin in uni2_a500_gpios['leds'].keys():
         test_led(ser, 'leds', pin)
