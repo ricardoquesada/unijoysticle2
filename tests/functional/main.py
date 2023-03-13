@@ -121,7 +121,7 @@ def esp32_get_gpio(ser, gpio: int) -> int:
     r = line.decode('utf-8')
     r.strip()
     _, number, _, lvl = r.split(' ')
-    assert (number, gpio)
+    assert (number == gpio)
     return lvl
 
 
@@ -173,6 +173,16 @@ def test_pin(ser, port:str, pin:str) -> None:
     lvl = GPIO.input(rpi_gpios[port][pin])
     assert(lvl == 1)
 
+def test_led(ser, port:str, pin:str) -> None:
+    print(f'Testing {port}:{pin}')
+    print('This is a visual test. LED should be blinking')
+
+    for _ in range(10):
+        esp32_set_gpio(ser, uni2_a500_gpios[port][pin], 0)
+        time.sleep(0.1)
+        esp32_set_gpio(ser, uni2_a500_gpios[port][pin], 1)
+        time.sleep(0.1)
+
 
 def main():
 
@@ -186,6 +196,9 @@ def main():
     for port in ports:
         for pin in uni2_a500_gpios[port].keys():
             test_pin(ser, port, pin)
+
+    for pin in uni2_a500_gpios['leds'].keys():
+        test_led(ser, 'leds', pin)
 
     ser.close()
     GPIO.cleanup()
