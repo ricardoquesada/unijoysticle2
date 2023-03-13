@@ -124,7 +124,7 @@ def esp32_get_gpio(ser, gpio: int) -> int:
     return lvl
 
 
-def setup_gpios():
+def rpi_setup_gpios():
     GPIO.setmode(GPIO.BCM)
 
     # LEDs are output
@@ -144,7 +144,7 @@ def setup_gpios():
         GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 
-def test_leds():
+def harness_test_leds():
     green_pin = rpi_gpios["leds"]["green"]
     red_pin = rpi_gpios["leds"]["red"]
 
@@ -210,13 +210,38 @@ def test_led(ser, port: str, pin: str) -> None:
         esp32_set_gpio(ser, uni2_a500_gpios[port][pin], 1)
         time.sleep(0.1)
 
+def test_default_pin_values(ser) -> None:
+    """Test default values for pins"""
+    print("Testing default values...")
+    ports = ["j1", "j2"]
+    for port in ports:
+        for pin in uni2_a500_gpios[port].keys():
+            lvl = GPIO.input(rpi_gpios[port][pin])
+            assert lvl == 1
+
+def test_all_pins(ser, lvl:int) -> None:
+    """Set level for all pins"""
+    print(f"Testing all pins with level {lvl}")
+    ports = ["j1", "j2"]
+    for port in ports:
+        for pin in uni2_a500_gpios[port].keys():
+            esp32_set_gpio(ser, uni2_a500_gpios[port][pin], lvl)
+
+    for port in ports:
+        for pin in uni2_a500_gpios[port].keys():
+            val = GPIO.input(rpi_gpios[port][pin])
+            expected = 0 if lvl==1 else 1
+            #print(f"{port}:{pin} = {val} / expected = {expected}")
+            assert val == expected
 
 def main():
     ser = serial.Serial(sys.argv[1], 115200, timeout=1)
     print(ser.name)
 
-    setup_gpios()
-    test_leds()
+    rpi_setup_gpios()
+    harness_test_leds()
+
+    test_default_pin_values(ser)
 
     ports = ["j1", "j2"]
     for port in ports:
@@ -226,6 +251,9 @@ def main():
     for port in ports:
         for pin in uni2_a500_gpios[port].keys():
             test_pin_alone(ser, port, pin)
+
+    test_all_pins(ser, 1)
+    test_all_pins(ser, 0)
 
     for pin in uni2_a500_gpios["leds"].keys():
         test_led(ser, "leds", pin)
