@@ -37,9 +37,9 @@ Unijoysticle is that device that allows you to use modern Bluetooth gamepads and
 Notes:
 
 - (1): Hardware physically connected, but needs testing.
-- (2): Some C64 games can turn on/off rumble on gamepads. See: [Rambo], and [Lemans]
+- (2): Some C64 games can turn on/off rumble on gamepads. See: [Rambo], and [Lemans] ([video][rumble_video])
 - (3): Right and Middle mouse buttons not supported in C64.
-- (4): Based on [CrystalCT 5 buttons joystick][crystalct/5plusbuttonsJoystick]
+- (4): Based on [CrystalCT 5 buttons joystick][crystalct/5plusbuttonsJoystick], [video][5_buttons_video]
 
 Unijoysticle 2 allows you to use modern Bluetooth gamepads, e.g DualSense gamepad,
 in retro computers like the Commodore 64, Amiga and AtariST.
@@ -59,6 +59,8 @@ It also supports mice (for Amiga / AtariST only).
 [Rambo]: https://gitlab.com/ricardoquesada/c64-rambo
 [Lemans]: https://gitlab.com/ricardoquesada/c64-lemans
 [crystalct/5plusbuttonsJoystick]: https://github.com/crystalct/5plusbuttonsJoystick/
+[5_buttons_video]: https://www.youtube.com/watch?v=9Em_kUAHEuA
+[rumble_video]: https://www.youtube.com/watch?v=vCj45OX43JE
 
 ## Basic functionality
 

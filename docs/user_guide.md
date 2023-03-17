@@ -46,9 +46,9 @@ Comparison between the different models:
 Notes:
 
 - (1): Hardware physically connected, but needs testing.
-- (2): Some C64 games can turn on/off rumble on gamepads. See: [Rambo], and [Lemans]
+- (2): Some C64 games can turn on/off rumble on gamepads. See: [Rambo], and [Lemans] ([video][rumble_video])
 - (3): Right and Middle mouse buttons not supported in C64.
-- (4): Based on [CrystalCT 5 buttons joystick][crystalct/5plusbuttonsJoystick]
+- (4): Based on [CrystalCT 5 buttons joystick][crystalct/5plusbuttonsJoystick], [video][5_buttons_video]
 
 [issue_17]: https://gitlab.com/ricardoquesada/unijoysticle2/-/issues/17
 [uni2_photo_front]: https://lh3.googleusercontent.com/pw/AM-JKLUphquTBg9JoV-L7wuMtze_aKIJ8LvfokTakuBKSVFClziLWCViggcrlNZtqGUMgv6u6yYpZ_RuE2jdGSn3Q0oYl0jOQzzGcutRt-JiMjLZY_oAvK4LehrawNj_aNbthCJ-VEJzsW3dywhJNekjhTsfNQ=-no
@@ -62,6 +62,8 @@ Notes:
 [uni2c64_photo_back]: https://lh3.googleusercontent.com/pw/AMWts8C_vxauz3FAOv8NGAh64LGTExHwCj0N0bX73xsWIeDyR3efFPPUQb3JJQK5S8Qcm9B8bx3r_yio6WWAML1si4u8E9FejXP9DL8vxSCg_TR7rLi5aPiwisQaIptN8hJdfz3Zoh_B4cqiRE9vMi9t50R_gw=-no
 [Rambo]: https://gitlab.com/ricardoquesada/c64-rambo
 [Lemans]: https://gitlab.com/ricardoquesada/c64-lemans
+[5_buttons_video]: https://www.youtube.com/watch?v=9Em_kUAHEuA
+[rumble_video]: https://www.youtube.com/watch?v=vCj45OX43JE
 
 ## Quick starting guide
 
