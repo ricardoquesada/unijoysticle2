@@ -362,11 +362,31 @@ You can configure and dump the current Unijoysticle status from the USB Console.
 1. Connect the Unijoysticle with the micro-USB cable to your computer
 2. Launch a terminal
 
+### CH340 Driver (Windows only)
+
+The drivers are only needed for Windows. Linux has built-in support for CH340.
+
+After connecting the usb cable to the Unijoysticle and your PC do:
+
+*  Open "device manager" and check if a serial port has been added under "ports COM and LPT"
+   *  If not, then download and install [CH340 USB to Serial Driver][ch340_win_driver]
+*  Look at which serial port number has been added (COMx where x is a number)
+
+[ch340_win_driver]: http://www.wch-ic.com/downloads/CH341SER_ZIP.html
+
 ### Install a terminal program
 
 * Windows: [Putty][putty], [Arduino Serial monitor][arduino-monitor] (See "Troubleshooting" for detailed steps), [idf.py monitor], etc.
 * macOS: [tio], [minicom], [idf.py monitor], etc.
 * Linux: [tio], [minicom], [idf.py monitor], etc.
+
+The parameters for the terminal are:
+
+* Choose the correct port:
+  * Windows: See above
+  * Linux & macOS: `/dev/ttyUSB0` (or `ttyUSB1`...)
+* Connection speed (bauds): 115200
+
 
 [putty]: https://www.putty.org/
 [arduino-monitor]: https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor
@@ -487,16 +507,18 @@ When you file a bug, make sure that you include as much information as possible:
 
 The logs can be fetched by connecting a terminal to the ESP32 module.
 
-1. Connect the ESP32 module to your PC using a micro USB cable.
+1. Connect the Unijoysticle to the PC using a micro USB cable.
 2. Launch any serial terminal. Possible options:
    * Arduino Serial Terminal (See below for detailed steps)
    * or `minicom -D /dev/ttyUSB0` (Linux, macOS)
    * or `tio /dev/ttyUSB0` (Linux, macOS)
    * or `idf.py monitor` (Linux, macOS, Windows. requires to checkout Bluepad32 source code)
+   * or [putty] (Windows only)
 3. Reset the Unijoysticle
 4. Try to connect the gamepad again.
 5. Let it try for a few seconds.
 6. Copy & paste the output from the terminal and put it in the bug report.
+
 
 ### Arduino terminal step-by-step
 
