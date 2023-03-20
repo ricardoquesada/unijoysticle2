@@ -370,9 +370,11 @@ After connecting the usb cable to the Unijoysticle and your PC do:
 
 *  Open "device manager" and check if a serial port has been added under "ports COM and LPT"
    *  If not, then download and install [CH340 USB to Serial Driver][ch340_win_driver]
+   *  If you have trouble installing the drivers, see: [SparkFun CH340 Install guide][sparkfun_ch340] 
 *  Look at which serial port number has been added (COMx where x is a number)
 
 [ch340_win_driver]: http://www.wch-ic.com/downloads/CH341SER_ZIP.html
+[sparkfun_ch340]: https://learn.sparkfun.com/tutorials/how-to-install-ch340-drivers/all
 
 ### Install a terminal program
 
