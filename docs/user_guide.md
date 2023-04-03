@@ -204,7 +204,7 @@ Buttons:
     control joystick #1
 * Mode button: Changes the "mode" of the connected gamepad. Modes:
   * Basic mode: Connected gamepad controls one joystick
-  * Mouse mode: Connected gamepad controls one mouse
+  * Mouse mode: Connected gamepad controls one mouse **[A500 only]**
   * Enhanced mode: Connected gamepad controls two joysticks at the same time
 
 To know in which "mode" it is, the Bluetooth LED (Blue) will blink:
@@ -254,20 +254,27 @@ The second gamepad to connect will use the available joystick.
 If you want to control joystick #1 (Green LED), and you only have one gamepad connected,
 you have to press the "swap" button in the gamepad.
 
-![swap joystick](https://lh3.googleusercontent.com/pw/AM-JKLWuZ8_hwMcuU8fjTmPog8Qb0jhrimzSPN-7gOnx_LNW4phrxEWe6Y8cLr7kRVzsPqxjSg7w2QY3n2kYhLT7Q75cJShM8Vihy239hccfkEo40Jp2b4t5H-468QrBRA8xAuntwyG5b5LjbyRSve7VCrx-Rw=h320-no)
+![swap joystick](https://lh3.googleusercontent.com/pw/AMWts8D4ztR8uNpzReJuTAGhZQ-oBGpJqQZ-veMIXUVIZJlZBMmKiQRVqpkO9HP_rRuvpI-UH3hcP3IInpz3sIkMmANDCaio78JRqbqjsDXzLV3ZVLPDFJkNZuHouyaVqW1yx_lmVMynYs-XQs3LStek7Kq56A=-no?authuser=0)
 
-The "swap" button varies from gamepad to gamepad, but usually it is mapped to
-the big button in the center. E.g: In the Xbox One it is the "Xbox" button; for PlayStation gamepads, it is the "PS" button.
+The "swap" button varies from gamepad to gamepad, but usually it is mapped both to:
+
+* the big button in the center (AKA PS, Xbox button)
+* and to the "select" (AKA "-", "Share" buttons)
+
+E.g: In the Xbox One it is the "Xbox" button; for PlayStation gamepads, it is the "PS" button. 
 
 If two gamepads are connected, then both controllers must press the "swap" button in order to swap joysticks.
-
-Note: [A500 only] Unijoysticle 2 A500 has a built-in "swap" button. Press it to swap joystick ports.
 
 The gamepad could be in three possible modes:
 
 - Basic mode: one gamepad controls one joystick.
 - Enhanced mode: one gamepad controls the two joysticks.
 - [A500 only] Mouse mode: one gamepad controls one mouse.
+
+To switch modes you can press:
+
+* the "mode" button in the Unijoysticle device
+* or the "Start" (AKA "+", "Options" button) on the gamepad
 
 ### Basic mode
 
@@ -284,15 +291,22 @@ Super Mario Bros, Mayhem in Monsterland, etc.
 - Button Y / Triangle: 3nd button (Amiga / Atari ST only)
 - Button shoulder-right: autofire
 
-### Enhanced mode (AKA Dual Stick mode)
+### Enhanced mode (AKA Dual Stick or Twin Stick)
 
 ![enhanced mode](https://lh3.googleusercontent.com/pw/AM-JKLUC6pvyoJ5v5Zb4HNQwBlbUCCKL5IPrZnrTz9S9P-Pkw1AoWjl48LQBmVagog591bUTDwPFaQorr_J9UtaWRldUpNClSc5ZZvX3DfNI5YQKOOwSIawdGMCHQeYWu-ne6RW_BdvlK10seuz1kvvnElMxaw=h360-no)
 
 In *Enhanced mode*, you control both joysticks from only one gamepad.
-Since "Button B" is mapped to "J1 fire" this is great for games like
-[Commando][commando] or [1942][1942] since you can throw grenades / do rolls with it.
-It also opens up the possibility to create games that require more controls,
-like [Commando 2084][commando2084]
+Since "Button B" is mapped to "J1 fire" this is great for games like:
+
+* [Commando][commando] to throw grenades
+* [1942][1942] to do rolls
+* [Turbo Outrun][turbo_outrun] to press "turbo"
+* and many others
+
+You can also play games that requires dual-stick like:
+
+* [Commando 2084][commando2084]
+* [Robotron 2084][robotron2084]
 
 - Left joypad / d-pad: control Joystick #2 movements
 - Right joypad: control Joystick #1 movements
@@ -305,7 +319,9 @@ like [Commando 2084][commando2084]
 
 [1942]: https://csdb.dk/release/?id=38140
 [commando]: https://csdb.dk/release/?id=137173
+[turbo_outrun]: https://csdb.dk/release/?id=192474
 [commando2084]: https://csdb.dk/release/?id=182074
+[robotron2084]: https://csdb.dk/release/?id=94019
 
 ### Mouse mode
 
@@ -322,17 +338,57 @@ In *Mouse mode* you control the mouse from a gamepad.
 
 Note: Mouse emulation only works on Atari ST / Amiga computers.
 
+## Gamepad buttons **[C64 only]**
+
+In addition to the regular 3-button mode, Unijoysticle2 C64 supports two special modes:
+
+* "5 buttons mode" that allows to use 5 buttons (instead of the regular 3).
+* "rumble mode" that allows the game to send "rumble events" to the gamepad
+
+| 3-button mode (default mode) | 5-button mode | rumble mode |
+| ---------------------------- | ------------- | ----------- |
+| ![3-button-mode-png] | ![5-button-mode-png] | ![rumble-mode-png] |
+
+
+
+To enable / disable this mode (disabled by default), you have to use the serial console (see below for further instructions). E.g:
+
+```sh
+bp32> set_c64_pot_mode 5buttons
+```
+
+* `set_c64_pot_mode`: `3buttons`, `5buttons` or `rumble`
+  * `3buttons`: Default mode. 2nd and 3rd pot buttons are enabled.
+  * `5buttons`: In addition to the 2nd and 3rd buttons, it also enables 4th and 5th buttons. See [crystalct/5plusbuttonsJoystick] for further info.
+  * `rumble`:  Only regular "fire" is enabled. Gamepad can receive "rumble" events from the game by using the POT lines.
+
+For further info about "Rumble" mode please watch:
+
+[![Rumble mode](https://img.youtube.com/vi/vCj45OX43JE/0.jpg)](https://www.youtube.com/watch?v=vCj45OX43JE)
+
+[3-button-mode-png]: https://lh3.googleusercontent.com/pw/AMWts8ANW9Ky9WLpThoE5x0kuA2xUNO6T0pv5mucPR1i_DfTJQ8edOssrlhh4dytV7FlrfZe_aE6J8fmxmW2D47YuCWc6TAcfaSSbCQD7A8NX9Y-0pGsl6Zp_p0DsDQALjE5m8hl2NJVMNhgYGR9xTJ4K7OTWw=-no
+[5-button-mode-png]: https://lh3.googleusercontent.com/pw/AMWts8Ar_Vi7O3z_FmmEHapim3E9J79e0kPVGuXGSWsY8HN8xyXkrYGV6nGIOAxhA2onhC5Sv2yUUafETDQDw6sIMlXoA-v6mVyiFy6UzbDJmWSUDhHIsJvOAtjd9B4J9F4JQifjUueGMcPD6qAjcLa_48saSg=-no
+[rumble-mode-png]: https://lh3.googleusercontent.com/pw/AMWts8BkMB3EONK3cRJBncApRJaCgAWE6gCC7w1imZv5svzrlG0EWDtK2s95Ai10-QUz9Gy73IC5Ww0kI0qsPDTmG0kfdN-ezX7CRLS8szyq4peoTro_35RxXPqhRv5Qt6FDIfXaLJ4B_BR6Av1DfitNyO3Egg=-no
+
+## Supported controllers
+
+Unijoysticle supports most, if not all, modern controllers.
+This is a non-comprehensive list of all supported controllers.
+
 ### Supported gamepads
 
-![Supported gamepads](https://lh3.googleusercontent.com/pw/AM-JKLXpmyDvNXZ_LmlmBSYObRZDhwuY6hHXXBzAicFw1YH1QNSgZrpiPWXZMiPNM0ATgrockqGf5bLsI3fWceJtQQEj2_OroHs1SrxsgmS8Rh4XHlnFolchomsTPVC7o5zi4pXGQkhGEFbinoh3-ub_a4lQIw=-no?authuser=0)
+![Supported gamepads](https://lh3.googleusercontent.com/pw/AMWts8BxW7NeSR-OyUVSVVKUeUWqPw0OsayivwLGrhkM3MFEPD0aVJr8aBHUwAE9Ow-ASa7b8gKNXUpy9lW8ncvZ0u4UqCo7XufFY6VgVJrs5l5NEoX2wWnBACXJAeynmhnrkAqoMepaegdUAEwUI6nWOt43rg=-no?authuser=0)
 
 - Sony DualSense
 - Sony DUALSHOCK 4
 - Sony DUALSHOCK 3
+- Sony PS3 Move
 - Xbox Wireless (models 1708, 1914)
 - Nintendo Switch Pro
 - Nintendo Wii U
 - Nintendo Wii
+- Nintendo Balance Board
+- Stadia
 - Android gamepads
 - PC/Window gamepads
 - 8BitDo
