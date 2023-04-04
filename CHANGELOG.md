@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Adheres to the "standard" way to version boards/layouts. E.g: letters instead of numbers.
 
+## [RPi Hat for C64] - 2023-04-03
+### New
+
+* RPi Hat for C64. Similar to the A500 but with a few more resistors for the POT buttons
+* Ports fits the C64
+
 ## [Unijoysticle 2 C64 - Rev C] - 2023-03-12
 ### New
 
