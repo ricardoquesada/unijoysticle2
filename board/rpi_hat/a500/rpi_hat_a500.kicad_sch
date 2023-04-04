@@ -801,7 +801,6 @@
     )
   )
 
-
   (junction (at 93.98 146.05) (diameter 0) (color 0 0 0 0)
     (uuid 25682b7e-5e19-49a0-b192-6e757af90f68)
   )
@@ -1307,7 +1306,7 @@
     )
     (pin "1" (uuid fbd76e40-1dfb-418e-8aff-420e5d552130))
     (instances
-      (project "rpi_hat"
+      (project "rpi_hat_a500"
         (path "/9711d336-577f-4d2d-b77c-be7b3f40b6b3"
           (reference "#PWR01") (unit 1)
         )
@@ -1332,7 +1331,7 @@
     )
     (pin "1" (uuid ea8c24c6-c554-42a4-b720-608ae2203e43))
     (instances
-      (project "rpi_hat"
+      (project "rpi_hat_a500"
         (path "/9711d336-577f-4d2d-b77c-be7b3f40b6b3"
           (reference "#FLG0102") (unit 1)
         )
@@ -1365,7 +1364,7 @@
     (pin "8" (uuid 7288be23-bfc7-4e0b-bbcd-de06e5df300b))
     (pin "9" (uuid 94e4bdee-45ab-42fa-ae82-6ef555a2a38c))
     (instances
-      (project "rpi_hat"
+      (project "rpi_hat_a500"
         (path "/9711d336-577f-4d2d-b77c-be7b3f40b6b3"
           (reference "J2") (unit 1)
         )
@@ -1429,7 +1428,7 @@
     (pin "8" (uuid 6d7db823-c259-42a8-ad5c-af38b42963c7))
     (pin "9" (uuid 737f5824-45f3-42cb-8bf5-dd12b7150040))
     (instances
-      (project "rpi_hat"
+      (project "rpi_hat_a500"
         (path "/9711d336-577f-4d2d-b77c-be7b3f40b6b3"
           (reference "J3") (unit 1)
         )
@@ -1455,7 +1454,7 @@
     (pin "1" (uuid 8d805300-9103-4068-b889-1eb298b6d58c))
     (pin "2" (uuid 94e88ac1-2eae-443b-ba48-29414ca2410c))
     (instances
-      (project "rpi_hat"
+      (project "rpi_hat_a500"
         (path "/9711d336-577f-4d2d-b77c-be7b3f40b6b3"
           (reference "D1") (unit 1)
         )
@@ -1481,7 +1480,7 @@
     (pin "1" (uuid e7b981b8-1d48-41a5-a844-8713e1a57c84))
     (pin "2" (uuid 6e7945c7-f63f-4918-99fe-4c666c56a3c9))
     (instances
-      (project "rpi_hat"
+      (project "rpi_hat_a500"
         (path "/9711d336-577f-4d2d-b77c-be7b3f40b6b3"
           (reference "R3") (unit 1)
         )
@@ -1506,7 +1505,7 @@
     )
     (pin "1" (uuid c3493fb9-f412-4fef-a11a-b69ef78a1f56))
     (instances
-      (project "rpi_hat"
+      (project "rpi_hat_a500"
         (path "/9711d336-577f-4d2d-b77c-be7b3f40b6b3"
           (reference "#PWR05") (unit 1)
         )
@@ -1532,7 +1531,7 @@
     (pin "1" (uuid 4c4b4312-1f4b-4475-9552-097b7cfb959a))
     (pin "2" (uuid 77e58fe6-f826-4605-81da-7e7c67ef9faa))
     (instances
-      (project "rpi_hat"
+      (project "rpi_hat_a500"
         (path "/9711d336-577f-4d2d-b77c-be7b3f40b6b3"
           (reference "R1") (unit 1)
         )
@@ -1557,7 +1556,7 @@
     )
     (pin "1" (uuid 582c7ebd-9740-4151-845c-c2579964dc89))
     (instances
-      (project "rpi_hat"
+      (project "rpi_hat_a500"
         (path "/9711d336-577f-4d2d-b77c-be7b3f40b6b3"
           (reference "#PWR07") (unit 1)
         )
@@ -1590,7 +1589,7 @@
     (pin "8" (uuid 1e81ad46-8459-48b7-910f-2cd518c3012a))
     (pin "9" (uuid 7eb2caa4-55b1-4303-9723-fa49d88b5825))
     (instances
-      (project "rpi_hat"
+      (project "rpi_hat_a500"
         (path "/9711d336-577f-4d2d-b77c-be7b3f40b6b3"
           (reference "J1") (unit 1)
         )
@@ -1616,7 +1615,7 @@
     (pin "1" (uuid 2c42ef58-3964-4c84-b0ef-62d9ccc541a3))
     (pin "2" (uuid 65b7a6fd-2e76-4a3a-a279-38fab437c4af))
     (instances
-      (project "rpi_hat"
+      (project "rpi_hat_a500"
         (path "/9711d336-577f-4d2d-b77c-be7b3f40b6b3"
           (reference "D3") (unit 1)
         )
@@ -1641,7 +1640,7 @@
     )
     (pin "1" (uuid 528ee216-4aec-4adc-91ef-0b54d60673b1))
     (instances
-      (project "rpi_hat"
+      (project "rpi_hat_a500"
         (path "/9711d336-577f-4d2d-b77c-be7b3f40b6b3"
           (reference "#FLG0101") (unit 1)
         )
@@ -1666,7 +1665,7 @@
     )
     (pin "1" (uuid 1f4befa7-efbe-49a9-b770-41d019f7ba89))
     (instances
-      (project "rpi_hat"
+      (project "rpi_hat_a500"
         (path "/9711d336-577f-4d2d-b77c-be7b3f40b6b3"
           (reference "#PWR03") (unit 1)
         )
@@ -1691,7 +1690,7 @@
     )
     (pin "1" (uuid 7a25656a-0e4b-4393-92ed-d9d75179321b))
     (instances
-      (project "rpi_hat"
+      (project "rpi_hat_a500"
         (path "/9711d336-577f-4d2d-b77c-be7b3f40b6b3"
           (reference "#PWR0101") (unit 1)
         )
@@ -1716,7 +1715,7 @@
     )
     (pin "1" (uuid 9b14a177-a7f4-4ea3-a001-7258f8b92d9c))
     (instances
-      (project "rpi_hat"
+      (project "rpi_hat_a500"
         (path "/9711d336-577f-4d2d-b77c-be7b3f40b6b3"
           (reference "#PWR08") (unit 1)
         )
@@ -1741,7 +1740,7 @@
     )
     (pin "1" (uuid 4abd5287-3771-4cf6-b0dd-f0c1d0b93e59))
     (instances
-      (project "rpi_hat"
+      (project "rpi_hat_a500"
         (path "/9711d336-577f-4d2d-b77c-be7b3f40b6b3"
           (reference "#FLG0103") (unit 1)
         )
@@ -1767,7 +1766,7 @@
     (pin "1" (uuid b3fe219f-7deb-4ab0-a2a9-c56371d6eef5))
     (pin "2" (uuid e215f87c-daeb-40cb-a65c-e1e82a968dd6))
     (instances
-      (project "rpi_hat"
+      (project "rpi_hat_a500"
         (path "/9711d336-577f-4d2d-b77c-be7b3f40b6b3"
           (reference "R2") (unit 1)
         )
@@ -1792,7 +1791,7 @@
     )
     (pin "1" (uuid de876562-5eec-47a7-bc3a-b4355a80c512))
     (instances
-      (project "rpi_hat"
+      (project "rpi_hat_a500"
         (path "/9711d336-577f-4d2d-b77c-be7b3f40b6b3"
           (reference "#PWR0102") (unit 1)
         )
@@ -1817,7 +1816,7 @@
     )
     (pin "1" (uuid edc720ef-0114-4c5b-9db2-d878ba4cb269))
     (instances
-      (project "rpi_hat"
+      (project "rpi_hat_a500"
         (path "/9711d336-577f-4d2d-b77c-be7b3f40b6b3"
           (reference "#PWR06") (unit 1)
         )
@@ -1842,7 +1841,7 @@
     )
     (pin "1" (uuid e34a15e2-1a0b-4f00-9089-5b4679ae67f4))
     (instances
-      (project "rpi_hat"
+      (project "rpi_hat_a500"
         (path "/9711d336-577f-4d2d-b77c-be7b3f40b6b3"
           (reference "#PWR02") (unit 1)
         )
@@ -1868,7 +1867,7 @@
     (pin "1" (uuid 274caeec-ae16-425a-a7ac-8a724cf47f1c))
     (pin "2" (uuid ef9a5418-1a29-4214-bad5-8edbabeed6e5))
     (instances
-      (project "rpi_hat"
+      (project "rpi_hat_a500"
         (path "/9711d336-577f-4d2d-b77c-be7b3f40b6b3"
           (reference "D2") (unit 1)
         )
@@ -1893,7 +1892,7 @@
     )
     (pin "1" (uuid 42b2d396-f311-4965-aa4a-54822c77db16))
     (instances
-      (project "rpi_hat"
+      (project "rpi_hat_a500"
         (path "/9711d336-577f-4d2d-b77c-be7b3f40b6b3"
           (reference "#PWR04") (unit 1)
         )
