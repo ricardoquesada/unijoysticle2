@@ -2,12 +2,13 @@
 
 [![discord](https://img.shields.io/discord/775177861665521725.svg)](https://discord.gg/r5aMn6Cw5q)
 
-Unijoysticle is that device that allows you to use modern Bluetooth gamepads and mice in retro computers.
+Unijoysticle is a device that allows you to use modern Bluetooth gamepads and mice in retro computers.
 
 |   | Unijoysticle 2 | Unijoysticle 2+ | Unijoysticle 2 A500 | Unijoysticle 2 C64 |
 | - | -------------- | --------------- | ------------------- | ------------------ |
 | Top | ![uni2_photo_front] | ![uni2plus_photo_front] | ![uni2a500_photo_front] | ![uni2c64_photo_front] |
 | Bottom  | ![uni2_photo_back] | ![uni2plus_photo_back] | ![uni2a500_photo_back] | ![uni2c64_photo_back] |
+| Release date | April 2019 | October 2021 | July 2022 | March 2023 |
 | Best for | - | Mega65 / Foenix A2560X | Amiga | C64 / C128 |
 | Good for | C64 / Amiga / AtariST | C64 / Amiga / AtariST | C64 / AtariST | Amiga / AtariST |
 | Status | Supported | Supported | Supported | Supported |
@@ -31,7 +32,6 @@ Unijoysticle is that device that allows you to use modern Bluetooth gamepads and
 | Weight (gr) | 37 | 24 | 25.6 | 27.1 |
 | Current (mA)| ~100 | ~96 | ~96 | ~96 |
 | USB connector | Micro USB | Micro USB | Micro USB | Micro USB |
-| Release date | April 2019 | October 2021 | July 2022 | March 2023 |
 
 
 Notes:
@@ -93,7 +93,7 @@ The mappings are:
 - Button X / Square: 2nd button for Joystick #2
 - Button Y / Triangle: 2nd button for Joystick #1
 - Button Shoulder Left: auto-fire for Joystick #2
-- Button Shoulder Right : auto-fire for Joystick #1
+- Button Shoulder Right: auto-fire for Joystick #1
 
 This mode is ideal for games like [Commando][2] or [1942][3] since it allows you
 throw grenades / roll by pressing Button B.
@@ -112,7 +112,7 @@ throw grenades / roll by pressing Button B.
 - Nintendo Wii + accesories
 - Xbox Wireless controller (model 1708)
 - Android gamepads
-- PC/Window gamepads
+- PC/Windows gamepads
 - 8BitDo controllers
 - iCade
 - And more
@@ -129,7 +129,7 @@ See:
 
 ![Supported mice](https://lh3.googleusercontent.com/pw/AM-JKLW1uSIck7GkC2YmalJdDoPwxmnD_NynS7tAiiIsn5N2UQnYtBAMCkZBeR8LMFUe8W4Fqbzo7JW1t7i_77sn-y3wYtw-Xbv3wYGhd4sSejTz3ec1T-HCLOguJ5NJMnv0h9fTlj4Wz2ytlPzXotm__bZW2A=h420-no)
 
-Mouse emulation is only avaiable for **Amiga and Atari ST** computers.
+Mouse emulation is only available for **Amiga and Atari ST** computers.
 
 For a detailed list of supported mice, see here:
 

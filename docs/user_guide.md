@@ -17,6 +17,7 @@ Comparison between the different models:
 | - | -------------- | --------------- | ------------------- | ------------------ |
 | Top | ![uni2_photo_front] | ![uni2plus_photo_front] | ![uni2a500_photo_front] | ![uni2c64_photo_front] |
 | Bottom  | ![uni2_photo_back] | ![uni2plus_photo_back] | ![uni2a500_photo_back] | ![uni2c64_photo_back] |
+| Release date | April 2019 | October 2021 | July 2022 | March 2023 |
 | Best for | - | Mega65 / Foenix A2560X | Amiga | C64 / C128 |
 | Good for | C64 / Amiga / AtariST | C64 / Amiga / AtariST | C64 / AtariST | Amiga / AtariST |
 | Status | Supported | Supported | Supported | Supported |
@@ -40,7 +41,6 @@ Comparison between the different models:
 | Weight (gr) | 37 | 24 | 25.6 | 27.1 |
 | Current (mA)| ~100 | ~96 | ~96 | ~96 |
 | USB connector | Micro USB | Micro USB | Micro USB | Micro USB |
-| Release date | April 2019 | October 2021 | July 2022 | March 2023 |
 
 
 Notes:
