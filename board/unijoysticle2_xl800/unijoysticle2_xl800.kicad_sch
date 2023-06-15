@@ -1,0 +1,72 @@
+(kicad_sch (version 20230121) (generator eeschema)
+
+  (uuid 0e6b6c40-efab-4794-bc88-ed2592ffa1bd)
+
+  (paper "A4")
+
+  (title_block
+    (title "Unijoysticle 2 A500")
+    (date "2022-05-15")
+    (rev "B")
+    (company "Ricardo Quesada")
+  )
+
+  (lib_symbols
+  )
+
+
+  (sheet (at 62.23 62.23) (size 40.64 22.86) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 1e0fa736-c93b-4f04-ac49-f38ac4164c62)
+    (property "Sheetname" "Atari Ports" (at 62.23 61.5184 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "amiga_ports.kicad_sch" (at 62.23 85.6746 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "unijoysticle2_xl800"
+        (path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd" (page "4"))
+      )
+    )
+  )
+
+  (sheet (at 111.76 60.96) (size 39.37 25.4) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 4c2fb79c-207e-4f92-8ea1-7543e9ed400d)
+    (property "Sheetname" "ESP32" (at 111.76 60.2484 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "esp32.kicad_sch" (at 111.76 86.9446 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "unijoysticle2_xl800"
+        (path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd" (page "2"))
+      )
+    )
+  )
+
+  (sheet (at 161.29 60.96) (size 45.72 25.4) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 93281dcd-2548-47fa-896a-a960429efc33)
+    (property "Sheetname" "USB Serial & Power" (at 161.29 60.2484 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "usb_serial.kicad_sch" (at 161.29 86.9446 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "unijoysticle2_xl800"
+        (path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd" (page "3"))
+      )
+    )
+  )
+
+  (sheet_instances
+    (path "/" (page "1"))
+  )
+)
