@@ -5,9 +5,9 @@
   (paper "A4")
 
   (title_block
-    (title "Unijoysticle 2 A500")
-    (date "2022-05-26")
-    (rev "C")
+    (title "Unijoysticle 2 XL800")
+    (date "2023-06-16")
+    (rev "A")
     (company "Ricardo Quesada")
   )
 
@@ -1170,7 +1170,7 @@
     (stroke (width 0) (type default))
     (uuid 9d562af6-355f-4ab4-8448-54086c07d62c)
   )
-  (wire (pts (xy 28.956 81.28) (xy 43.18 81.28))
+  (wire (pts (xy 27.94 81.28) (xy 43.18 81.28))
     (stroke (width 0) (type default))
     (uuid 9e0bebaf-6faa-4abd-b2b2-f65af36086cc)
   )
@@ -1452,7 +1452,7 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid d226c5b9-3c40-42f1-82cb-ffd52a2003d0)
   )
-  (label "JOY_PWR" (at 28.956 81.28 0) (fields_autoplaced)
+  (label "JOY_PWR" (at 27.94 81.28 0) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid df2602cf-66bf-488e-8799-119c6bebbcde)
   )
