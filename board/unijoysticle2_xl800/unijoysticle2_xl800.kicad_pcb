@@ -8620,8 +8620,8 @@
   (gr_text "©️ 2023 Ricardo Quesada\nhttp://retro.moe" (at 113.5634 138.75) (layer "B.SilkS") (tstamp aa0466c6-766f-4bb4-abf1-502a6a06f91d)
     (effects (font (size 1.5 1.5) (thickness 0.2)) (justify mirror))
   )
-  (gr_text "JLCJLCJLCJLC" (at 113.435 137.43) (layer "F.SilkS") (tstamp c7f7bd58-1ebd-40fd-a39d-a95530a751b6)
-    (effects (font (size 1 1) (thickness 0.15)))
+  (gr_text "JLCJLCJLCJLC" (at 108.585 139.446) (layer "F.SilkS") (tstamp 24dff202-f781-44c1-aa01-fe06c4b57291)
+    (effects (font (size 1 1) (thickness 0.15)) (justify left bottom))
   )
 
   (segment (start 142.5692 110.6922) (end 142.875 110.998) (width 0.5) (layer "F.Cu") (net 1) (tstamp 04dc0414-f90d-4e24-a937-93a80c7fc473))
