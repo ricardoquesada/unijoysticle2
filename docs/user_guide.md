@@ -1,9 +1,9 @@
-# Unijoysticle™ 2, 2+, A500, C64 User Guide
+# Unijoysticle™ 2, 2+, A500, C64, 800XL User Guide
 
 [![discord](https://img.shields.io/discord/775177861665521725.svg)](https://discord.gg/r5aMn6Cw5q)
 
 This guide is valid for Unijoysticle 2, Unijoysticle 2+, Unijoysticle 2 A500 and Unijoysticle 2 C64 models.
-Features that are only applicable for Unijoysticle 2 / 2+/ 2 A500 / 2 C64, are tagged as **[v2 only]** / **[v2+ only]** / **[A500 only]** / **[C64 only]** respectively.
+Features that are only applicable for Unijoysticle 2 / 2+/ 2 A500 / 2 C64, are tagged as **[v2 only]** / **[v2+ only]** / **[A500 only]** / **[C64 only]** / **[800XL only]** respectively.
 
 ## What is a Unijoysticle
 
@@ -11,36 +11,36 @@ Unijoysticle is that device that allows you to use modern Bluetooth gamepads and
 
 ## Models
 
-Comparison between the different models:
+Comparison between the different Unijoysticle 2 models:
 
-|   | Unijoysticle 2 | Unijoysticle 2+ | Unijoysticle 2 A500 | Unijoysticle 2 C64 |
-| - | -------------- | --------------- | ------------------- | ------------------ |
-| Top | ![uni2_photo_front] | ![uni2plus_photo_front] | ![uni2a500_photo_front] | ![uni2c64_photo_front] |
-| Bottom  | ![uni2_photo_back] | ![uni2plus_photo_back] | ![uni2a500_photo_back] | ![uni2c64_photo_back] |
-| Release date | April 2019 | October 2021 | July 2022 | March 2023 |
-| Best for | - | Mega65 / Foenix A2560X | Amiga | C64 / C128 |
-| Good for | C64 / Amiga / AtariST | C64 / Amiga / AtariST | C64 / AtariST | Amiga / AtariST |
-| Status | Supported | Supported | Supported | Supported |
-| Amiga / AtariST 2nd & 3rd button support| Only in Port #1| Both in Port #1 and #2 | Both in Port #1 and #2 | No |
-| Amiga / AtariST mouse support | Yes | Yes | Yes | Yes (3) |
-| C64 2nd & 3rd button support (Pot buttons) | No | No | No | Yes |
-| C64 4th and 5th button support (4) | No | No | No | Yes |
-| C64 mouse support (1351) | No | No | No | Might (1) |
-| C64 Paddle support | No | No | No | Might (1) |
-| Rumble (2) | No | No | No | Yes |
-| Fits | C64 / C128 | C64 / C128 | Amiga 500 / 1200 | C64 / C128 |
-| Buttons | Reset, Enhanced | Reset, Enhanced | Reset, Mode,  Swap | Reset, Mode, Swap |
-| LEDs | Port #1, #2, Power | Port #1, #2, Power | Port #1, #2, Bluetooth, Power | Port #1, #2, Bluetooth, Power |
-| Filter noise for C128 ([Issue #17][issue_17]) | No | Yes | Yes | Yes |
-| Case friendly | No | Yes | Yes | Yes |
-| Easy to solder | Yes. All components are through-hole | No. Most components are surface-mount | No. Most components are surface-mount | No. Most components are surface-mount |
-| Self-powered | Yes, can be turned on/off with switch | Yes | Yes | Yes |
-| External power | Both USB and Barrel Jack 5V+ | Only USB | Only USB | Only USB |
-| Total Size (mm) | 63 x 66 x 17 | 64 x 64 x 13.6 | 67 x 72 x 13.6 | 72 x 68 x 13.6 |
-| PCB Size (mm) | 46 x 57 x 1.6 | 49 x 62 x 1.6 | 52 x 67 x 1.6 | 63 x 60 x 1.6 |
-| Weight (gr) | 37 | 24 | 25.6 | 27.1 |
-| Current (mA)| ~100 | ~96 | ~96 | ~96 |
-| USB connector | Micro USB | Micro USB | Micro USB | Micro USB |
+|   | 800XL | C64 | A500 | 2+ | 2 |
+| - | ----- | -------------- | --------------- | ------------------- | ------------------ |
+| Top | | ![uni2c64_photo_front] | ![uni2a500_photo_front] | ![uni2plus_photo_front] | ![uni2_photo_front] |
+| Bottom | | ![uni2c64_photo_back] | ![uni2a500_photo_back] | ![uni2plus_photo_back] | ![uni2_photo_back] |
+| Release date | July 2023 | March 2023 | July 2022 | October 2021 | April 2019
+| Best for | Atari 800XL / 600XL | C64 / C128 | Amiga | Mega65 / Foenix A2560X | -
+| Good for | Atari 400 / 800 / Amiga / AtariST | Amiga / AtariST | C64 / AtariST / Atari 8bit | C64 / Amiga / AtariST / Atari 8bit | C64 / Amiga / AtariST / Atari 8bit
+| Status | Active / Supported | Active / Supported | Active / Supported | Discontinued / Supported | Discontinued / Supported
+| Amiga / AtariST 2nd & 3rd button support | Both in Port #1 and #2 | No | Both in Port #1 and #2 | Both in Port #1 and #2 | Only in Port #1
+| Amiga / AtariST mouse support | Yes | Yes (3) | Yes | Yes | Yes
+| C64 2nd & 3rd button support (Pot buttons) | No | Yes | No | No | No
+| C64 4th and 5th button support (4) | No | Yes | No | No | No
+| C64 Paddle support | No | Might (1) | No | No | No
+| Rumble (2) | No | Yes | No | No | No
+| Fits | 800XL / 600XL | C64 / C128 | Amiga 500 / 1200 | C64 / C128 | C64 / C128
+| Buttons | Reset, Mode, Swap | Reset, Mode, Swap | Reset, Mode,  Swap | Reset, Enhanced | Reset, Enhanced
+| LEDs | Port #1, #2, Bluetooth, Power | Port #1, #2, Bluetooth, Power | Port #1, #2, Bluetooth, Power | Port #1, #2, Power | Port #1, #2, Power
+| Filter noise for C128 ([Issue #17][issue_17]) | Yes | Yes | Yes | Yes | No
+| Case friendly | Yes | Yes | Yes | Yes | No
+| Easy to solder | No. Most components are SMD | No. Most components are SMD | No. Most components are SMD | No. Most components are SMD | Yes. All components are through-hole
+| Self-powered | Yes | Yes | Yes | Yes | Yes, can be turned on/off with switch
+| External power | Yes | Only USB | Only USB | Only USB | Both USB and Barrel Jack 5V+
+| Total Size (mm) | 72 x 68 x 13.6 | 72 x 68 x 13.6 | 67 x 72 x 13.6 | 64 x 64 x 13.6 | 63 x 66 x 17
+| PCB Size (mm) | 63 x 60 x 1.6 | 63 x 60 x 1.6 | 52 x 67 x 1.6 | 49 x 62 x 1.6 | 46 x 57 x 1.6
+| Weight (gr) | 29 | 27.1 | 25.6 | 24 | 37
+| Current (mA) | ~96 | ~96 | ~96 | ~96 | ~100
+| USB connector | Micro USB | Micro USB | Micro USB | Micro USB | Micro USB
+
 
 
 Notes:
@@ -109,19 +109,19 @@ See: [firmware_setup.md][firmware_setup]
 
 There are multiple ways to power on the device
 
-|   | v2 | v2+ | A500 | C64 |
-| - | -- | --- | ---- | --- |
-| Self-powered | Yes, requires the "Self powered" switch to be On | Yes, always On | Yes, always On | Yes, always On |
-| USB powered | Yes | Yes | Yes | Yes |
-| External 5V+ | Yes, using the Barrel jack | No | No | No |
+|   | v2 | v2+ | A500 | C64 | 800XL |
+| - | -- | --- | ---- | --- | ----- |
+| Self-powered | Yes, requires the "Self powered" switch to be On | Yes, always On | Yes, always On | Yes, always On | Yes, always On |
+| USB powered | Yes | Yes | Yes | Yes | Yes |
+| External 5V+ | Yes, using the Barrel jack | No | No | No | No |
 
 Note: It is safe to plug the two / three of them at the same time, but that won't give you any additional benefit.
 
 ### Self-powered
 
-| v2 | v2+ | A500 | C64 |
-| -- | --- | ---- | --- |
-| ![uni2_self_powered_photo] | ![uni2plus_self_powered_photo] | ![uni_a500_self_powered_photo] | ![uni_c64_self_powered_photo] |
+| 800XL | C64 | A500 | 2+   | 2   |
+| --    | --  | ---  | ---- | --- |
+|       | ![uni_c64_self_powered_photo] | ![uni_a500_self_powered_photo] | ![uni2plus_self_powered_photo] | ![uni2_self_powered_photo] |
 
 - Gets current directly from the joystick ports. No extra cables needed.
 - [v2 only] "Self-powered" switch must be "ON", otherwise the ESP32 won't receive current.
