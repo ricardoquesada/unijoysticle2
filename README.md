@@ -14,7 +14,7 @@ Unijoysticle 2 models:
 | Best for | Atari 800XL / 600XL | C64 / C128 | Amiga | Mega65 / Foenix A2560X | -
 | Good for | Atari 400 / 800 / Amiga / AtariST | Amiga / AtariST | C64 / AtariST / Atari 8bit | C64 / Amiga / AtariST / Atari 8bit | C64 / Amiga / AtariST / Atari 8bit
 | Status | Active / Supported | Active / Supported | Active / Supported | Discontinued / Supported | Discontinued / Supported
-| Amiga / AtariST 2nd & 3rd button support | Both in Port #1 and #2 | No | Both in Port #1 and #2 | Both in Port #1 and #2 | Only in Port #1
+| Amiga / AtariST 2nd & 3rd button support | Both in Port 1 and 2 | No | Both in Port 1 and 2 | Both in Port 1 and 2 | Only in Port 1
 | Amiga / AtariST mouse support | Yes | Yes (3) | Yes | Yes | Yes
 | C64 2nd & 3rd button support (Pot buttons) | No | Yes | No | No | No
 | C64 4th and 5th button support (4) | No | Yes | No | No | No
@@ -22,7 +22,7 @@ Unijoysticle 2 models:
 | Rumble (2) | No | Yes | No | No | No
 | Fits | 800XL / 600XL | C64 / C128 | Amiga 500 / 1200 | C64 / C128 | C64 / C128
 | Buttons | Reset, Mode, Swap | Reset, Mode, Swap | Reset, Mode,  Swap | Reset, Enhanced | Reset, Enhanced
-| LEDs | Port #1, #2, Bluetooth, Power | Port #1, #2, Bluetooth, Power | Port #1, #2, Bluetooth, Power | Port #1, #2, Power | Port #1, #2, Power
+| LEDs | Port 1, 2, Bluetooth, Power | Port 1, 2, Bluetooth, Power | Port 1, 2, Bluetooth, Power | Port 1, 2, Power | Port 1, 2, Power
 | Filter noise for C128 ([Issue #17][issue_17]) | Yes | Yes | Yes | Yes | No
 | Case friendly | Yes | Yes | Yes | Yes | No
 | Easy to solder | No. Most components are SMD | No. Most components are SMD | No. Most components are SMD | No. Most components are SMD | Yes. All components are through-hole
@@ -42,8 +42,7 @@ Notes:
 - (3): Right and Middle mouse buttons not supported in C64.
 - (4): Based on [CrystalCT 5 buttons joystick][crystalct/5plusbuttonsJoystick], [video][5_buttons_video]
 
-Unijoysticle 2 allows you to use modern Bluetooth gamepads, e.g DualSense gamepad,
-in retro computers like the Commodore 64, Amiga and AtariST.
+Unijoysticle 2 allows you to use modern Bluetooth gamepads. E.g. DualSense controller in retro computers like the Commodore 64, Amiga and AtariST.
 
 It also supports mice (for Amiga / AtariST only).
 
@@ -78,7 +77,7 @@ The mappings are:
 - Button X / Square: 2nd button (Amiga / AtariST only)
 - Button Y / Triangle: 3rd button (Amiga / AtariST only)
 - Button shoulder-right: autofire.
-- System button swaps between Joystick #1 and #2
+- System button swaps between Joystick 1 and 2
 
 ## Enhanced functionality (AKA Dual Stick mode)
 
@@ -87,14 +86,14 @@ The mappings are:
 When in "Enhanced mode", you control the two joysticks with only one gamepad.
 The mappings are:
 
-- Left joypad / d-pad: control Joystick #2 movements.
-- Right joypad: control Joystick #1 movements.
-- Button A / Cross: fire for Joystick #2
-- Button B / Circle: fire for Joystick #1
-- Button X / Square: 2nd button for Joystick #2
-- Button Y / Triangle: 2nd button for Joystick #1
-- Button Shoulder Left: auto-fire for Joystick #2
-- Button Shoulder Right: auto-fire for Joystick #1
+- Left joypad / d-pad: control Joystick 2 movements.
+- Right joypad: control Joystick 1 movements.
+- Button A / Cross: fire for Joystick 2
+- Button B / Circle: fire for Joystick 1
+- Button X / Square: 2nd button for Joystick 2
+- Button Y / Triangle: 2nd button for Joystick 1
+- Button Shoulder Left: auto-fire for Joystick 2
+- Button Shoulder Right: auto-fire for Joystick 1
 
 This mode is ideal for games like [Commando][2] or [1942][3] since it allows you
 throw grenades / roll by pressing Button B.

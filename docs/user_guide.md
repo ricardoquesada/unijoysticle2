@@ -21,7 +21,7 @@ Comparison between the different Unijoysticle 2 models:
 | Best for | Atari 800XL / 600XL | C64 / C128 | Amiga | Mega65 / Foenix A2560X | -
 | Good for | Atari 400 / 800 / Amiga / AtariST | Amiga / AtariST | C64 / AtariST / Atari 8bit | C64 / Amiga / AtariST / Atari 8bit | C64 / Amiga / AtariST / Atari 8bit
 | Status | Active / Supported | Active / Supported | Active / Supported | Discontinued / Supported | Discontinued / Supported
-| Amiga / AtariST 2nd & 3rd button support | Both in Port #1 and #2 | No | Both in Port #1 and #2 | Both in Port #1 and #2 | Only in Port #1
+| Amiga / AtariST 2nd & 3rd button support | Both in Port 1 and 2 | No | Both in Port 1 and 2 | Both in Port 1 and 2 | Only in Port 1
 | Amiga / AtariST mouse support | Yes | Yes (3) | Yes | Yes | Yes
 | C64 2nd & 3rd button support (Pot buttons) | No | Yes | No | No | No
 | C64 4th and 5th button support (4) | No | Yes | No | No | No
@@ -29,7 +29,7 @@ Comparison between the different Unijoysticle 2 models:
 | Rumble (2) | No | Yes | No | No | No
 | Fits | 800XL / 600XL | C64 / C128 | Amiga 500 / 1200 | C64 / C128 | C64 / C128
 | Buttons | Reset, Mode, Swap | Reset, Mode, Swap | Reset, Mode,  Swap | Reset, Enhanced | Reset, Enhanced
-| LEDs | Port #1, #2, Bluetooth, Power | Port #1, #2, Bluetooth, Power | Port #1, #2, Bluetooth, Power | Port #1, #2, Power | Port #1, #2, Power
+| LEDs | Port 1, 2, Bluetooth, Power | Port 1, 2, Bluetooth, Power | Port 1, 2, Bluetooth, Power | Port 1, 2, Power | Port 1, 2, Power
 | Filter noise for C128 ([Issue #17][issue_17]) | Yes | Yes | Yes | Yes | No
 | Case friendly | Yes | Yes | Yes | Yes | No
 | Easy to solder | No. Most components are SMD | No. Most components are SMD | No. Most components are SMD | No. Most components are SMD | Yes. All components are through-hole
@@ -188,9 +188,9 @@ LEDs:
   * On: New connections are accepted. Both "connects" and "re-connects" are accepted.
   * Off: No new connections are accepted. Existing connections will stay on.
 * J1 LED (Green):
-  * On: Gamepad or mouse is controlling joystick port #1
+  * On: Gamepad or mouse is controlling joystick port 1
 * J2 JED (Red):
-  * On: Gamepad or mouse is controlling joystick port #2
+  * On: Gamepad or mouse is controlling joystick port 2
 * Power LED (Red):
   * On: Unijoysticle has current.
   * Off: Disconnected.
@@ -199,9 +199,9 @@ Buttons:
 
 * Reset button: Restart the firmware. Connected gamepads/mice will get disconnected.
 * Swap button: Swaps connected gampepads / mice.
-  * For example if a DualSense gamepad is controlling joystick #1 and an Xbox gamepad is controlling joystick #2,
-    "swap" will just swap the gamepads. The result will be that DualSense will control joystick #2 and the Xbox will
-    control joystick #1
+  * For example if a DualSense gamepad is controlling joystick 1 and an Xbox gamepad is controlling joystick 2,
+    "swap" will just swap the gamepads. The result will be that DualSense will control joystick 2 and the Xbox will
+    control joystick 1
 * Mode button: Changes the "mode" of the connected gamepad. Modes:
   * Basic mode: Connected gamepad controls one joystick
   * Mouse mode: Connected gamepad controls one mouse **[A500 only]**
@@ -226,9 +226,9 @@ See below for further details about gamepad modes.
 LEDs:
 
 * J1 LED (Green):
-  * On: Gamepad or mouse is controlling joystick port #1
+  * On: Gamepad or mouse is controlling joystick port 1
 * J2 JED (Red):
-  * On: Gamepad or mouse is controlling joystick port #2
+  * On: Gamepad or mouse is controlling joystick port 2
 * Power LED (Red in V2 / Blue in V2+):
   * On: Unijoysticle has current.
   * Off: Disconnected.
@@ -248,10 +248,10 @@ See below for further details about gamepad modes.
 
 ## Using Gamepads
 
-The first gamepad to connect will control joystick #2 (Red LED).
+The first gamepad to connect will control joystick 2 (Red LED).
 The second gamepad to connect will use the available joystick.
 
-If you want to control joystick #1 (Green LED), and you only have one gamepad connected,
+If you want to control joystick 1 (Green LED), and you only have one gamepad connected,
 you have to press the "swap" button in the gamepad.
 
 ![swap joystick](https://lh3.googleusercontent.com/pw/AMWts8D4ztR8uNpzReJuTAGhZQ-oBGpJqQZ-veMIXUVIZJlZBMmKiQRVqpkO9HP_rRuvpI-UH3hcP3IInpz3sIkMmANDCaio78JRqbqjsDXzLV3ZVLPDFJkNZuHouyaVqW1yx_lmVMynYs-XQs3LStek7Kq56A=-no?authuser=0)
@@ -308,14 +308,14 @@ You can also play games that requires dual-stick like:
 * [Commando 2084][commando2084]
 * [Robotron 2084][robotron2084]
 
-- Left joypad / d-pad: control Joystick #2 movements
-- Right joypad: control Joystick #1 movements
-- Button A / Cross: fire for Joystick #2
-- Button B / Circle: fire for Joystick #1
-- Button X / Square: 2nd button for Joystick #2
-- Button Y / Triangle: 2nd button for Joystick #1
-- Button Shoulder Left: auto-fire for Joystick #2
-- Button Shoulder Right: auto-fire for Joystick #1
+- Left joypad / d-pad: control Joystick 2 movements
+- Right joypad: control Joystick 1 movements
+- Button A / Cross: fire for Joystick 2
+- Button B / Circle: fire for Joystick 1
+- Button X / Square: 2nd button for Joystick 2
+- Button Y / Triangle: 2nd button for Joystick 1
+- Button Shoulder Left: auto-fire for Joystick 2
+- Button Shoulder Right: auto-fire for Joystick 1
 
 [1942]: https://csdb.dk/release/?id=38140
 [commando]: https://csdb.dk/release/?id=137173
