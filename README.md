@@ -8,14 +8,15 @@ Unijoysticle 2 models:
 
 |   | 800XL | C64 | A500 | 2+ | 2 |
 | - | ----- | -------------- | --------------- | ------------------- | ------------------ |
-| Top | | ![uni2c64_photo_front] | ![uni2a500_photo_front] | ![uni2plus_photo_front] | ![uni2_photo_front] |
-| Bottom | | ![uni2c64_photo_back] | ![uni2a500_photo_back] | ![uni2plus_photo_back] | ![uni2_photo_back] |
+| Top | ![uni2800xl_photo_front] | ![uni2c64_photo_front] | ![uni2a500_photo_front] | ![uni2plus_photo_front] | ![uni2_photo_front] |
+| Bottom | ![uni2800xl_photo_back] | ![uni2c64_photo_back] | ![uni2a500_photo_back] | ![uni2plus_photo_back] | ![uni2_photo_back] |
 | Release date | July 2023 | March 2023 | July 2022 | October 2021 | April 2019
 | Best for | Atari 800XL / 600XL | C64 / C128 | Amiga | Mega65 / Foenix A2560X | -
 | Good for | Atari 400 / 800 / Amiga / AtariST | Amiga / AtariST | C64 / AtariST / Atari 8bit | C64 / Amiga / AtariST / Atari 8bit | C64 / Amiga / AtariST / Atari 8bit
 | Status | Active / Supported | Active / Supported | Active / Supported | Discontinued / Supported | Discontinued / Supported
-| Amiga / AtariST 2nd & 3rd button support | Both in Port 1 and 2 | No | Both in Port 1 and 2 | Both in Port 1 and 2 | Only in Port 1
-| Amiga / AtariST mouse support | Yes | Yes (3) | Yes | Yes | Yes
+| Amiga / AtariST mouse support | Yes | No | Yes | Yes | Yes
+| Amiga / AtariST 2nd & 3rd button support | No | No | Yes | Yes | Only in Port 1
+| Atari 8-bit 2nd & 3rd button support (5) | Yes| No | No | No | No
 | C64 2nd & 3rd button support (Pot buttons) | No | Yes | No | No | No
 | C64 4th and 5th button support (4) | No | Yes | No | No | No
 | C64 Paddle support | No | Might (1) | No | No | No
@@ -37,10 +38,11 @@ Unijoysticle 2 models:
 
 Notes:
 
-- (1): Hardware physically connected, but needs testing.
+- (1): Hardware physically connected, but firmware is still WIP.
 - (2): Some C64 games can turn on/off rumble on gamepads. See: [Rambo], and [Lemans] ([video][rumble_video])
 - (3): Right and Middle mouse buttons not supported in C64.
 - (4): Based on [CrystalCT 5 buttons joystick][crystalct/5plusbuttonsJoystick], [video][5_buttons_video]
+- (5): Based on [Ascrnet Joy 2B+][atari_joy2bplus]
 
 Unijoysticle 2 allows you to use modern Bluetooth gamepads. E.g. DualSense controller in retro computers like the Commodore 64, Amiga and AtariST.
 
@@ -56,11 +58,14 @@ It also supports mice (for Amiga / AtariST only).
 [bluepad32-fw]: https://gitlab.com/ricardoquesada/bluepad32
 [uni2c64_photo_front]: https://lh3.googleusercontent.com/pw/AMWts8AzoDnIOIiM-50UpjAqY8OgdsM6pzM3BuYWb2ZOg4K_o4TxygtSjuZvrKI92lrl4Qqf8sLT6PtLYsXzDbragTDgoeX4yTpymqoc450FiyjiBT1YHxRbLBtGWgUOQHezXUxKCORs5aOcxPwowfrgR4PcQw=-no
 [uni2c64_photo_back]: https://lh3.googleusercontent.com/pw/AMWts8C_vxauz3FAOv8NGAh64LGTExHwCj0N0bX73xsWIeDyR3efFPPUQb3JJQK5S8Qcm9B8bx3r_yio6WWAML1si4u8E9FejXP9DL8vxSCg_TR7rLi5aPiwisQaIptN8hJdfz3Zoh_B4cqiRE9vMi9t50R_gw=-no
+[uni2800xl_photo_front]: https://lh3.googleusercontent.com/pw/AIL4fc9fcgdY3Gka6iSZmyUlBTA1Q9ABujo-9v_4qE85St2GdW-2TBzzLNx-pc25o0rFloL0ghWZDDVW_kGWpQjcXaP-SJf9NWPnNw-2jpc_8tcVKp8gzLH7fxnFd7DBEV1ahWYLy97WvthAy7p193wtZ7uM4w=-no
+[uni2800xl_photo_back]: https://lh3.googleusercontent.com/pw/AIL4fc9PNSKKiA7PHsUTLKXGF1O9ywK-qLHS0nw2-Y6FxWQcgmtZJjajQh9Uch0aqZ2Pw-grH_Vg05IKYZilissF6nxUJPDszew0ouzGu91golm1RYJJpPS0CDANAfk3_O4qbwN_gam6dgGnafzsk4u0Xke0uw=-no
 [Rambo]: https://gitlab.com/ricardoquesada/c64-rambo
 [Lemans]: https://gitlab.com/ricardoquesada/c64-lemans
 [crystalct/5plusbuttonsJoystick]: https://github.com/crystalct/5plusbuttonsJoystick/
 [5_buttons_video]: https://www.youtube.com/watch?v=9Em_kUAHEuA
 [rumble_video]: https://www.youtube.com/watch?v=vCj45OX43JE
+[atari_joy2bplus]: https://github.com/ascrnet/Joy2Bplus
 
 ## Basic functionality
 
@@ -79,9 +84,9 @@ The mappings are:
 - Button shoulder-right: autofire.
 - System button swaps between Joystick 1 and 2
 
-## Enhanced functionality (AKA Dual Stick mode)
+## Twin Stick functionality (AKA Enhanced mode)
 
-![Enhanced mode](https://lh3.googleusercontent.com/pw/AM-JKLUC6pvyoJ5v5Zb4HNQwBlbUCCKL5IPrZnrTz9S9P-Pkw1AoWjl48LQBmVagog591bUTDwPFaQorr_J9UtaWRldUpNClSc5ZZvX3DfNI5YQKOOwSIawdGMCHQeYWu-ne6RW_BdvlK10seuz1kvvnElMxaw=h360-no)
+![Twin Stick mode](https://lh3.googleusercontent.com/pw/AIL4fc_MqBokDp6iNP9CjfJVIDPorKzkewVF6r139qHNmiq8C2hoTpbLyT_4TRiVXIMbtde3fxuOmS_Ag-RMR6G5KzQKheq6ewwZp-DuR4hjCAeTwgByG_CtxPKVF-rIbSLw0tm3waibuNuze19TpGmP3JacMQ=w512-no)
 
 When in "Enhanced mode", you control the two joysticks with only one gamepad.
 The mappings are:

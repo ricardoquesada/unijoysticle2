@@ -2,12 +2,12 @@
 
 [![discord](https://img.shields.io/discord/775177861665521725.svg)](https://discord.gg/r5aMn6Cw5q)
 
-This guide is valid for Unijoysticle 2, Unijoysticle 2+, Unijoysticle 2 A500 and Unijoysticle 2 C64 models.
-Features that are only applicable for Unijoysticle 2 / 2+/ 2 A500 / 2 C64, are tagged as **[v2 only]** / **[v2+ only]** / **[A500 only]** / **[C64 only]** / **[800XL only]** respectively.
+This guide is valid for Unijoysticle 2 models.
+Features that are only applicable for Unijoysticle 2 / 2+/ 2 A500 / 2 C64 / 2 800XL, are tagged as **[v2 only]** / **[v2+ only]** / **[A500 only]** / **[C64 only]** / **[800XL only]** respectively.
 
 ## What is a Unijoysticle
 
-Unijoysticle is that device that allows you to use modern Bluetooth gamepads and mice in retro computers.
+Unijoysticle is that device that allows you to use modern Bluetooth controllers (gamepads, mice, balance board) in retro computers.
 
 ## Models
 
@@ -15,14 +15,15 @@ Comparison between the different Unijoysticle 2 models:
 
 |   | 800XL | C64 | A500 | 2+ | 2 |
 | - | ----- | -------------- | --------------- | ------------------- | ------------------ |
-| Top | | ![uni2c64_photo_front] | ![uni2a500_photo_front] | ![uni2plus_photo_front] | ![uni2_photo_front] |
-| Bottom | | ![uni2c64_photo_back] | ![uni2a500_photo_back] | ![uni2plus_photo_back] | ![uni2_photo_back] |
+| Top | ![uni2800xl_photo_front] | ![uni2c64_photo_front] | ![uni2a500_photo_front] | ![uni2plus_photo_front] | ![uni2_photo_front] |
+| Bottom | ![uni2800xl_photo_back] | ![uni2c64_photo_back] | ![uni2a500_photo_back] | ![uni2plus_photo_back] | ![uni2_photo_back] |
 | Release date | July 2023 | March 2023 | July 2022 | October 2021 | April 2019
 | Best for | Atari 800XL / 600XL | C64 / C128 | Amiga | Mega65 / Foenix A2560X | -
 | Good for | Atari 400 / 800 / Amiga / AtariST | Amiga / AtariST | C64 / AtariST / Atari 8bit | C64 / Amiga / AtariST / Atari 8bit | C64 / Amiga / AtariST / Atari 8bit
 | Status | Active / Supported | Active / Supported | Active / Supported | Discontinued / Supported | Discontinued / Supported
-| Amiga / AtariST 2nd & 3rd button support | Both in Port 1 and 2 | No | Both in Port 1 and 2 | Both in Port 1 and 2 | Only in Port 1
-| Amiga / AtariST mouse support | Yes | Yes (3) | Yes | Yes | Yes
+| Amiga / AtariST mouse support | Yes | No | Yes | Yes | Yes
+| Amiga / AtariST 2nd & 3rd button support | No | No | Yes | Yes | Only in Port 1
+| Atari 8-bit 2nd & 3rd button support (5) | Yes| No | No | No | No
 | C64 2nd & 3rd button support (Pot buttons) | No | Yes | No | No | No
 | C64 4th and 5th button support (4) | No | Yes | No | No | No
 | C64 Paddle support | No | Might (1) | No | No | No
@@ -42,13 +43,17 @@ Comparison between the different Unijoysticle 2 models:
 | USB connector | Micro USB | Micro USB | Micro USB | Micro USB | Micro USB
 
 
-
 Notes:
 
-- (1): Hardware physically connected, but needs testing.
+- (1): Hardware physically connected, but firmware is still WIP.
 - (2): Some C64 games can turn on/off rumble on gamepads. See: [Rambo], and [Lemans] ([video][rumble_video])
 - (3): Right and Middle mouse buttons not supported in C64.
 - (4): Based on [CrystalCT 5 buttons joystick][crystalct/5plusbuttonsJoystick], [video][5_buttons_video]
+- (5): Based on [Ascrnet Joy 2B+][atari_joy2bplus]
+
+Unijoysticle 2 allows you to use modern Bluetooth gamepads. E.g. DualSense controller in retro computers like the Commodore 64, Amiga and AtariST.
+
+It also supports mice (for Amiga / AtariST only).
 
 [issue_17]: https://gitlab.com/ricardoquesada/unijoysticle2/-/issues/17
 [uni2_photo_front]: https://lh3.googleusercontent.com/pw/AM-JKLUphquTBg9JoV-L7wuMtze_aKIJ8LvfokTakuBKSVFClziLWCViggcrlNZtqGUMgv6u6yYpZ_RuE2jdGSn3Q0oYl0jOQzzGcutRt-JiMjLZY_oAvK4LehrawNj_aNbthCJ-VEJzsW3dywhJNekjhTsfNQ=-no
@@ -60,10 +65,14 @@ Notes:
 [bluepad32-fw]: https://gitlab.com/ricardoquesada/bluepad32
 [uni2c64_photo_front]: https://lh3.googleusercontent.com/pw/AMWts8AzoDnIOIiM-50UpjAqY8OgdsM6pzM3BuYWb2ZOg4K_o4TxygtSjuZvrKI92lrl4Qqf8sLT6PtLYsXzDbragTDgoeX4yTpymqoc450FiyjiBT1YHxRbLBtGWgUOQHezXUxKCORs5aOcxPwowfrgR4PcQw=-no
 [uni2c64_photo_back]: https://lh3.googleusercontent.com/pw/AMWts8C_vxauz3FAOv8NGAh64LGTExHwCj0N0bX73xsWIeDyR3efFPPUQb3JJQK5S8Qcm9B8bx3r_yio6WWAML1si4u8E9FejXP9DL8vxSCg_TR7rLi5aPiwisQaIptN8hJdfz3Zoh_B4cqiRE9vMi9t50R_gw=-no
+[uni2800xl_photo_front]: https://lh3.googleusercontent.com/pw/AIL4fc9fcgdY3Gka6iSZmyUlBTA1Q9ABujo-9v_4qE85St2GdW-2TBzzLNx-pc25o0rFloL0ghWZDDVW_kGWpQjcXaP-SJf9NWPnNw-2jpc_8tcVKp8gzLH7fxnFd7DBEV1ahWYLy97WvthAy7p193wtZ7uM4w=-no
+[uni2800xl_photo_back]: https://lh3.googleusercontent.com/pw/AIL4fc9PNSKKiA7PHsUTLKXGF1O9ywK-qLHS0nw2-Y6FxWQcgmtZJjajQh9Uch0aqZ2Pw-grH_Vg05IKYZilissF6nxUJPDszew0ouzGu91golm1RYJJpPS0CDANAfk3_O4qbwN_gam6dgGnafzsk4u0Xke0uw=-no
 [Rambo]: https://gitlab.com/ricardoquesada/c64-rambo
 [Lemans]: https://gitlab.com/ricardoquesada/c64-lemans
+[crystalct/5plusbuttonsJoystick]: https://github.com/crystalct/5plusbuttonsJoystick/
 [5_buttons_video]: https://www.youtube.com/watch?v=9Em_kUAHEuA
 [rumble_video]: https://www.youtube.com/watch?v=vCj45OX43JE
+[atari_joy2bplus]: https://github.com/ascrnet/Joy2Bplus
 
 ## Quick starting guide
 
@@ -291,22 +300,25 @@ Super Mario Bros, Mayhem in Monsterland, etc.
 - Button Y / Triangle: 3nd button (Amiga / Atari ST only)
 - Button shoulder-right: autofire
 
-### Enhanced mode (AKA Dual Stick or Twin Stick)
+### Twin Stick mode (AKA Enhanced mode)
 
-![enhanced mode](https://lh3.googleusercontent.com/pw/AM-JKLUC6pvyoJ5v5Zb4HNQwBlbUCCKL5IPrZnrTz9S9P-Pkw1AoWjl48LQBmVagog591bUTDwPFaQorr_J9UtaWRldUpNClSc5ZZvX3DfNI5YQKOOwSIawdGMCHQeYWu-ne6RW_BdvlK10seuz1kvvnElMxaw=h360-no)
+![twin stick mode](https://lh3.googleusercontent.com/pw/AIL4fc_MqBokDp6iNP9CjfJVIDPorKzkewVF6r139qHNmiq8C2hoTpbLyT_4TRiVXIMbtde3fxuOmS_Ag-RMR6G5KzQKheq6ewwZp-DuR4hjCAeTwgByG_CtxPKVF-rIbSLw0tm3waibuNuze19TpGmP3JacMQ=-h330-no?authuser=0)
 
-In *Enhanced mode*, you control both joysticks from only one gamepad.
+In *Twin Stick mode*, you control both joysticks from only one gamepad.
 Since "Button B" is mapped to "J1 fire" this is great for games like:
+
+You can also these Twin Stick games:
+
+* [Commando 2084][commando2084]
+* [Robotron 2084][robotron2084]
+
+But also valid for any game that uses "space", like:
 
 * [Commando][commando] to throw grenades
 * [1942][1942] to do rolls
 * [Turbo Outrun][turbo_outrun] to press "turbo"
 * and many others
 
-You can also play games that requires dual-stick like:
-
-* [Commando 2084][commando2084]
-* [Robotron 2084][robotron2084]
 
 - Left joypad / d-pad: control Joystick 2 movements
 - Right joypad: control Joystick 1 movements
