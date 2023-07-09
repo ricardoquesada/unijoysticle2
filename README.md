@@ -22,7 +22,7 @@ Unijoysticle 2 models:
 | C64 Paddle support | No | Might (1) | No | No | No
 | Rumble (2) | No | Yes | No | No | No
 | Fits | 800XL / 600XL | C64 / C128 | Amiga 500 / 1200 | C64 / C128 | C64 / C128
-| Buttons | Reset, Mode, Swap | Reset, Mode, Swap | Reset, Mode,  Swap | Reset, Enhanced | Reset, Enhanced
+| Buttons | Reset, Mode, Swap | Reset, Mode, Swap | Reset, Mode,  Swap | Reset, Mode | Reset, Mode 
 | LEDs | Port 1, 2, Bluetooth, Power | Port 1, 2, Bluetooth, Power | Port 1, 2, Bluetooth, Power | Port 1, 2, Power | Port 1, 2, Power
 | Filter noise for C128 ([Issue #17][issue_17]) | Yes | Yes | Yes | Yes | No
 | Case friendly | Yes | Yes | Yes | Yes | No
@@ -41,7 +41,7 @@ Notes:
 - (1): Hardware physically connected, but firmware is still WIP.
 - (2): Some C64 games can turn on/off rumble on gamepads. See: [Rambo], and [Lemans] ([video][rumble_video])
 - (3): Right and Middle mouse buttons not supported in C64.
-- (4): Based on [CrystalCT 5 buttons joystick][crystalct/5plusbuttonsJoystick], [video][5_buttons_video]
+- (4): Based on [CrystalCT 5 buttons joystick][crystalct/5plusbuttonsJoystick] ([video][5_buttons_video])
 - (5): Based on [Ascrnet Joy 2B+][atari_joy2bplus]
 
 Unijoysticle 2 allows you to use modern Bluetooth gamepads. E.g. DualSense controller in retro computers like the Commodore 64, Amiga and AtariST.
@@ -116,6 +116,8 @@ throw grenades / roll by pressing Button B.
 - Nintendo Wii U
 - Nintendo Wii + accesories
 - Xbox Wireless controller (model 1708)
+- Steam
+- Stadia
 - Android gamepads
 - PC/Windows gamepads
 - 8BitDo controllers

@@ -11,7 +11,7 @@ Unijoysticle is that device that allows you to use modern Bluetooth controllers 
 
 ## Models
 
-Comparison between the different Unijoysticle 2 models:
+Unijoysticle 2 models:
 
 |   | 800XL | C64 | A500 | 2+ | 2 |
 | - | ----- | -------------- | --------------- | ------------------- | ------------------ |
@@ -29,7 +29,7 @@ Comparison between the different Unijoysticle 2 models:
 | C64 Paddle support | No | Might (1) | No | No | No
 | Rumble (2) | No | Yes | No | No | No
 | Fits | 800XL / 600XL | C64 / C128 | Amiga 500 / 1200 | C64 / C128 | C64 / C128
-| Buttons | Reset, Mode, Swap | Reset, Mode, Swap | Reset, Mode,  Swap | Reset, Enhanced | Reset, Enhanced
+| Buttons | Reset, Mode, Swap | Reset, Mode, Swap | Reset, Mode,  Swap | Reset, Mode | Reset, Mode 
 | LEDs | Port 1, 2, Bluetooth, Power | Port 1, 2, Bluetooth, Power | Port 1, 2, Bluetooth, Power | Port 1, 2, Power | Port 1, 2, Power
 | Filter noise for C128 ([Issue #17][issue_17]) | Yes | Yes | Yes | Yes | No
 | Case friendly | Yes | Yes | Yes | Yes | No
@@ -48,7 +48,7 @@ Notes:
 - (1): Hardware physically connected, but firmware is still WIP.
 - (2): Some C64 games can turn on/off rumble on gamepads. See: [Rambo], and [Lemans] ([video][rumble_video])
 - (3): Right and Middle mouse buttons not supported in C64.
-- (4): Based on [CrystalCT 5 buttons joystick][crystalct/5plusbuttonsJoystick], [video][5_buttons_video]
+- (4): Based on [CrystalCT 5 buttons joystick][crystalct/5plusbuttonsJoystick] ([video][5_buttons_video])
 - (5): Based on [Ascrnet Joy 2B+][atari_joy2bplus]
 
 Unijoysticle 2 allows you to use modern Bluetooth gamepads. E.g. DualSense controller in retro computers like the Commodore 64, Amiga and AtariST.
@@ -130,7 +130,7 @@ Note: It is safe to plug the two / three of them at the same time, but that won'
 
 | 800XL | C64 | A500 | 2+   | 2   |
 | --    | --  | ---  | ---- | --- |
-|       | ![uni_c64_self_powered_photo] | ![uni_a500_self_powered_photo] | ![uni2plus_self_powered_photo] | ![uni2_self_powered_photo] |
+| ![uni_800xl_self_powered_photo] | ![uni_c64_self_powered_photo] | ![uni_a500_self_powered_photo] | ![uni2plus_self_powered_photo] | ![uni2_self_powered_photo] |
 
 - Gets current directly from the joystick ports. No extra cables needed.
 - [v2 only] "Self-powered" switch must be "ON", otherwise the ESP32 won't receive current.
@@ -141,6 +141,7 @@ Note: It is safe to plug the two / three of them at the same time, but that won'
   - SX-64 + Unijoysticle 2
   - Atari ST 1040F + Unijoysticle 2
   - Amiga 1200 + Unijoysticle 2 A500
+  - Atari 800XL + Unijoysticle 2 800XL
 
 Note: The Amiga 500 doesn't provide enough current to power the Unijoysticle.
 You should power the Unijoysticle through the USB port.
@@ -154,14 +155,15 @@ Unijoysticle 2+ / Unijoysticle 2 A500 revisions.
 [uni2plus_self_powered_photo]: https://lh3.googleusercontent.com/pw/AM-JKLUXjhjUsPDIVH1C_i8310k5ERQT-IQc71w2ibmBWCHoKC5uEIHjHBdp52ydb0XBZoKqftGv8JIonAn9tfuxXnoo00BypKL62ZTk_kbOLEQwdXG7QM3FDhrHm41NAbP9dhAxn9N4M5pTxUMiOJ_T2oHgSw=-no
 [uni_a500_self_powered_photo]: https://lh3.googleusercontent.com/pw/AM-JKLUtRVviFYcUu_4RKifSOg3kyJziTpd3GLBE-e0frWdwAB1F0ZUNqEkGM3Hwqipi70lXpFAIv-mv6_u58-9bnSyI5JyPT_jNpRSQbV5D71nT31c45nqDhSkW2k6cELocLjm22cTwwM0zNROfESVJgAoKOA=-no
 [uni_c64_self_powered_photo]: https://lh3.googleusercontent.com/pw/AMWts8DAFSd1iqibcNFXnPkfKRICopugSYzP9YGy8gMeAqWyCzyV61yhsCcLeKK0ahP8rROQThGEd7MqJUvvyZwHhB4L1Mcx5z92Za34J4GyMu_m2wa4-K3oY1Zx3cWlVzv42YNLLmBJuVjcqME6B7BefZ1xyg=-no
+[uni_800xl_self_powered_photo]: https://lh3.googleusercontent.com/pw/AIL4fc9AaTOQnQFTKaaGbHhyUZgO7H9PgAwFvMjDRFJPqZKZhQP8YR3x0D22Gp7PeF48RvQsnCiXdsayCW9CJgZukAguxavTUvQC91agpEEDc-LbWM8N4FKp_qd1EE1cyCMW-_fcn1pFvW_XPWv0saxnJRWByg=-no
 [disk_drive_power]: https://gitlab.com/ricardoquesada/unijoysticle2/-/blob/main/docs/amiga_500_usb_cable.md
 [changelog_board]: https://gitlab.com/ricardoquesada/unijoysticle2/blob/master/CHANGELOG.board.md
 
 ### USB-powered
 
-| v2 | v2+ | A500 | C64 |
-| -- | --- | ---- | --- |
-| ![uni2_usb_powered] | ![uni2plus_usb_powered] | ![uni2a500_usb_powered] | ![uni2c64_usb_powered] |
+| 800XL | C64 | A500 | 2+   | 2 
+| -- | -- | --- | ---- | ---
+| ![uni2800xl_usb_powered] | ![uni2c64_usb_powered] | ![uni2a500_usb_powered] | ![uni2plus_usb_powered] | ![uni2_usb_powered]
 
 - Use a micro-USB cable to connect the Unijosyticle device to your computer or socket.
 - Ideal for debugging: you can see the Unijoysticle console by attaching a terminal to it.
@@ -172,6 +174,7 @@ Unijoysticle 2+ / Unijoysticle 2 A500 revisions.
 [uni2plus_usb_powered]: https://lh3.googleusercontent.com/pw/AM-JKLXXbxm4umDQfC-xYt9AzvAWIXsGQaYrpQUFnDpYwE0F5SanC8DgjQu9Uu7s9nj2dAd1dVWq4WD8EWxifGM8t73bT0Mz-yiFPCXn8dyUgNXkW2FA2SA00PfL_kdCBbVpXKLRu1Ez7hnaMBSmlUiufBncxw=-no
 [uni2a500_usb_powered]: https://lh3.googleusercontent.com/pw/AM-JKLUekMUSSBPmg3XLniMY1ykeDqYs7NBES2_Y4Q-ld2w0CkQNBWakbI6w-Vu0HiSDhFstachOMwOcS6CH-Cm9fYB7WcWWObe3MBBUhD0E-OC2CbqKIWCjF4V4lZxLLA4OCjwUUimj7zExnekBjYWOZCfG8g=-no
 [uni2c64_usb_powered]: https://lh3.googleusercontent.com/pw/AMWts8CFRhwQWFVujIpi5U4ucUAWYyEYYBwoBSXAZwc8h4fzOm18BaolGFL3R7pNVUVJYV0bz-WgzEZ4wLE8FZfvtz1GLaK2YdkYQy8_YU3x966TSuEA5E60XTRI0bdOmQEcDcsXSFfYtpynDd1nrIeBsOuJgA=-no
+[uni2800xl_usb_powered]: https://lh3.googleusercontent.com/pw/AIL4fc9ciKYc2fC19xQLuo-LiLVxl6PsW3BcCK4SmjJ2WCBZAdYOd8tUVoRZ-wLNIdhNnflVXOhuMioV8Z1rj1UZNFL-4r7VWwBidbIM_zEl44qd1AKfGnpIspZS2hpsG4GBc-ysaDeBW56UJTMsaoP7lbmkKg=-no
 
 ### Jack Barrel-powered [v2 only]
 
@@ -185,11 +188,11 @@ Unijoysticle 2+ / Unijoysticle 2 A500 revisions.
 
 ## Unijoysticle Buttons and LEDs
 
-### A500 / C64 models
+### 800XL / C64 / A500 models
 
-| A500 | C64 |
-| ---- | --- |
-| ![uni2_a500_buttons_photo][uni2_a500_buttons_photo] | ![uni2_c64_buttons_photo][uni2_c64_buttons_photo] |
+| 800XL | C64 | A500
+| --- | --- | ---
+| ![uni2_800xl_buttons_photo][uni2_800xl_buttons_photo] | ![uni2_c64_buttons_photo][uni2_c64_buttons_photo] | ![uni2_a500_buttons_photo][uni2_a500_buttons_photo]
 
 LEDs:
 
@@ -213,18 +216,19 @@ Buttons:
     control joystick 1
 * Mode button: Changes the "mode" of the connected gamepad. Modes:
   * Basic mode: Connected gamepad controls one joystick
-  * Mouse mode: Connected gamepad controls one mouse **[A500 only]**
-  * Enhanced mode: Connected gamepad controls two joysticks at the same time
+  * Mouse mode: Connected gamepad controls one mouse **[800XL] / [A500 only]**
+  * Twin Stick mode: Connected gamepad controls two joysticks at the same time
 
 To know in which "mode" it is, the Bluetooth LED (Blue) will blink:
   * 1 blink: It is in "Basic mode"
   * 2 blinks: in "mouse mode"
-  * 3 blinks: in "enhanced mode"
+  * 3 blinks: in "twin stick mode"
 
 See below for further details about gamepad modes.
 
 [uni2_a500_buttons_photo]: https://lh3.googleusercontent.com/pw/AM-JKLULCdDRyDWDQ8R2v0Ab_HjcxOxOtNOTlaj0OrrFvEyEr9zNo8DBBCgVrOGWran1PLX3Ja3LvcpdmU0vw1MnnEZUrv5JQglA7grNkS08wlwpkU6Pt7nnmK5k2sDy-ag2VxVBRJWRpx930hPqtNl1fQ664Q=h360-no
-[uni2_c64_buttons_photo]: https://lh3.googleusercontent.com/pw/AMWts8BLrqDjE_ZWreEFw-cU4iQtUnFR5CPL0PEJwbHsmPZHsgwGgepQseeV5Q74Hf3vNOmEaAfgpKjvkn5IBW5XlvhnChfOo6qKD9iBK58ACph9fCVpb1NZiw1eGLztZshWWpy0I5oAmd48-yFZtFtt44DF3g=-no
+[uni2_c64_buttons_photo]: https://lh3.googleusercontent.com/pw/AMWts8BLrqDjE_ZWreEFw-cU4iQtUnFR5CPL0PEJwbHsmPZHsgwGgepQseeV5Q74Hf3vNOmEaAfgpKjvkn5IBW5XlvhnChfOo6qKD9iBK58ACph9fCVpb1NZiw1eGLztZshWWpy0I5oAmd48-yFZtFtt44DF3g=h360-no
+[uni2_800xl_buttons_photo]:  https://lh3.googleusercontent.com/pw/AIL4fc8j5MhVkI9E2Xp96LRjCcXvZTypFJQgdugg58a2aPZRw4PRE1EjWRrEg5-311VJVXKQUuixVI07x7cNy5plkpAdIUec8DBfDbT0Xb7_P7IoHsHr-KKXtUTqC3c87C6os0gHjN3K7KC5tHLY5OaAl-q0YQ=h360-no
 
 ### V2 / V2+ only
 
@@ -245,7 +249,7 @@ LEDs:
 Buttons:
 
 * Reset button: Restart the firmware. Connected gamepads/mice will get disconnected.
-* Enhanced Mode button: Switches between "Enhanced mode" and "Basic mode"
+* Enhanced Mode button: Switches between "Twin Stick mode" and "Basic mode"
   * Basic mode: Connected gamepad controls one joystick
   * Enhanced mode: Connected gamepad controls two joysticks at the same time
 
@@ -277,8 +281,8 @@ If two gamepads are connected, then both controllers must press the "swap" butto
 The gamepad could be in three possible modes:
 
 - Basic mode: one gamepad controls one joystick.
-- Enhanced mode: one gamepad controls the two joysticks.
-- [A500 only] Mouse mode: one gamepad controls one mouse.
+- Twin Stick mode: one gamepad controls the two joysticks.
+- **[800XL] / [A500 only]:** Mouse mode: one gamepad controls one mouse.
 
 To switch modes you can press:
 
@@ -305,14 +309,13 @@ Super Mario Bros, Mayhem in Monsterland, etc.
 ![twin stick mode](https://lh3.googleusercontent.com/pw/AIL4fc_MqBokDp6iNP9CjfJVIDPorKzkewVF6r139qHNmiq8C2hoTpbLyT_4TRiVXIMbtde3fxuOmS_Ag-RMR6G5KzQKheq6ewwZp-DuR4hjCAeTwgByG_CtxPKVF-rIbSLw0tm3waibuNuze19TpGmP3JacMQ=-h330-no?authuser=0)
 
 In *Twin Stick mode*, you control both joysticks from only one gamepad.
-Since "Button B" is mapped to "J1 fire" this is great for games like:
 
-You can also these Twin Stick games:
+Ideal for Twin Stick games like:
 
 * [Commando 2084][commando2084]
 * [Robotron 2084][robotron2084]
 
-But also valid for any game that uses "space", like:
+And since "Button B" is mapped to "J1 fire" this is great for games that use "space", like:
 
 * [Commando][commando] to throw grenades
 * [1942][1942] to do rolls
@@ -348,7 +351,7 @@ In *Mouse mode* you control the mouse from a gamepad.
 - Button B / Circle: right button
 - Button X / Square: middle button
 
-Note: Mouse emulation only works on Atari ST / Amiga computers.
+Note: Mouse emulation only works on Atari 8-bit / Atari ST / Amiga computers.
 
 ## Gamepad buttons **[C64 only]**
 
@@ -401,6 +404,7 @@ This is a non-comprehensive list of all supported controllers.
 - Nintendo Wii
 - Nintendo Balance Board
 - Stadia
+- Steam
 - Android gamepads
 - PC/Window gamepads
 - 8BitDo
@@ -415,7 +419,7 @@ For a complete list, see:
 
 ![Supported mice](https://lh3.googleusercontent.com/pw/AM-JKLW1uSIck7GkC2YmalJdDoPwxmnD_NynS7tAiiIsn5N2UQnYtBAMCkZBeR8LMFUe8W4Fqbzo7JW1t7i_77sn-y3wYtw-Xbv3wYGhd4sSejTz3ec1T-HCLOguJ5NJMnv0h9fTlj4Wz2ytlPzXotm__bZW2A=h420-no)
 
-Mouse emulation is only avaiable for **Amiga and Atari ST** computers.
+Mouse emulation is only avaiable for **Amiga, Atari ST and Atari 8-bit** computers.
 
 For a detailed list of supported mice, see here:
 
@@ -488,7 +492,7 @@ There are many useful commands. The most "common" ones are:
 * `set_gamepad_mode  <mode>`: `normal`, `enhanced` or `mouse`
   * `normal`: One gamepad controls just one joystick.
   * `mouse`: Gamepad behaves like a mouse. Usefule in Amiga / AtariST
-  * `enhanced`: AKA Dual Stick. One gamepad controls both joysticks at the same time. Good for games that uses dual stick, like [Commando 2084][commando2084]
+  * `twinstick`: One gamepad controls both joysticks at the same time. Good Twin Stick games like [Commando 2084][commando2084]
 * `set_c64_pot_mode`: `3buttons`, `5buttons` or `rumble`
   * `3buttons`: Default mode. 2nd and 3rd pot buttons are enabled.
   * `5buttons`: In addition to the 2nd and 3rd buttons, it also enables 4th and 5th buttons. See [crystalct/5plusbuttonsJoystick] for further info.
@@ -496,8 +500,8 @@ There are many useful commands. The most "common" ones are:
   * [Collection of C64 games that are known to work with more than one button, or in rumble mode][c64_collection]
 * `get_gamepad_mode`: Returns the gamepad mode.
 * `set_mouse_emulation  <emulation>`: `amiga`, `atarist`
-  * `amiga`: (default) Emulates an Amiga mouse
-  * `atarist`: Emulates an Atari ST mouse
+  * `amiga`: Emulates an Amiga mouse (default for A500, v2, v2+)
+  * `atarist`: Emulates an Atari ST mouse (default for 800XL)
 * `get_mouse_emulation`: Returns mouse emulation mode
 * `set_autofire_cps  <cps>` Sets the autofire 'clicks per second' (cps)
 * `get_autofire_cps`: Returns the autofire 'clicks per second' (cps)
