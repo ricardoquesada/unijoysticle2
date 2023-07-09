@@ -13,34 +13,34 @@ Unijoysticle is that device that allows you to use modern Bluetooth controllers 
 
 Unijoysticle 2 models:
 
-|   | 800XL | C64 | A500 | 2+ | 2 |
-| - | ----- | -------------- | --------------- | ------------------- | ------------------ |
-| Top | ![uni2800xl_photo_front] | ![uni2c64_photo_front] | ![uni2a500_photo_front] | ![uni2plus_photo_front] | ![uni2_photo_front] |
-| Bottom | ![uni2800xl_photo_back] | ![uni2c64_photo_back] | ![uni2a500_photo_back] | ![uni2plus_photo_back] | ![uni2_photo_back] |
-| Release date | July 2023 | March 2023 | July 2022 | October 2021 | April 2019
-| Best for | Atari 800XL / 600XL | C64 / C128 | Amiga | Mega65 / Foenix A2560X | -
-| Good for | Atari 400 / 800 / Amiga / AtariST | Amiga / AtariST | C64 / AtariST / Atari 8bit | C64 / Amiga / AtariST / Atari 8bit | C64 / Amiga / AtariST / Atari 8bit
-| Status | Active / Supported | Active / Supported | Active / Supported | Discontinued / Supported | Discontinued / Supported
-| Amiga / AtariST mouse support | Yes | No | Yes | Yes | Yes
-| Amiga / AtariST 2nd & 3rd button support | No | No | Yes | Yes | Only in Port 1
-| Atari 8-bit 2nd & 3rd button support (5) | Yes| No | No | No | No
-| C64 2nd & 3rd button support (Pot buttons) | No | Yes | No | No | No
-| C64 4th and 5th button support (4) | No | Yes | No | No | No
-| C64 Paddle support | No | Might (1) | No | No | No
-| Rumble (2) | No | Yes | No | No | No
-| Fits | 800XL / 600XL | C64 / C128 | Amiga 500 / 1200 | C64 / C128 | C64 / C128
-| Buttons | Reset, Mode, Swap | Reset, Mode, Swap | Reset, Mode,  Swap | Reset, Mode | Reset, Mode 
-| LEDs | Port 1, 2, Bluetooth, Power | Port 1, 2, Bluetooth, Power | Port 1, 2, Bluetooth, Power | Port 1, 2, Power | Port 1, 2, Power
-| Filter noise for C128 ([Issue #17][issue_17]) | Yes | Yes | Yes | Yes | No
-| Case friendly | Yes | Yes | Yes | Yes | No
-| Easy to solder | No. Most components are SMD | No. Most components are SMD | No. Most components are SMD | No. Most components are SMD | Yes. All components are through-hole
-| Self-powered | Yes | Yes | Yes | Yes | Yes, can be turned on/off with switch
-| External power | Yes | Only USB | Only USB | Only USB | Both USB and Barrel Jack 5V+
-| Total Size (mm) | 72 x 68 x 13.6 | 72 x 68 x 13.6 | 67 x 72 x 13.6 | 64 x 64 x 13.6 | 63 x 66 x 17
-| PCB Size (mm) | 63 x 60 x 1.6 | 63 x 60 x 1.6 | 52 x 67 x 1.6 | 49 x 62 x 1.6 | 46 x 57 x 1.6
-| Weight (gr) | 29 | 27.1 | 25.6 | 24 | 37
-| Current (mA) | ~96 | ~96 | ~96 | ~96 | ~100
-| USB connector | Micro USB | Micro USB | Micro USB | Micro USB | Micro USB
+|                                          | 800XL                       | C64                         | A500                        | 2+                                 | 2                                     |
+| ---------------------------------------- | --------------------------- | --------------------------- | --------------------------- | ---------------------------------- | ------------------------------------- |
+| Top                                      | ![uni2800xl_photo_front]    | ![uni2c64_photo_front]      | ![uni2a500_photo_front]     | ![uni2plus_photo_front]            | ![uni2_photo_front]                   |
+| Bottom                                   | ![uni2800xl_photo_back]     | ![uni2c64_photo_back]       | ![uni2a500_photo_back]      | ![uni2plus_photo_back]             | ![uni2_photo_back]                    |
+| Release date                             | July 2023                   | March 2023                  | July 2022                   | October 2021                       | April 2019                            |
+| Best for                                 | Atari 800XL / 600XL         | C64 / C128                  | Amiga                       | -                                  | -                                     |
+| Good for                                 | Atari 400 / Amiga / AtariST | Amiga / AtariST             | C64 / AtariST / Atari 8bit  | C64 / Amiga / AtariST / Atari 8bit | C64 / Amiga / AtariST / Atari 8bit    |
+| Status                                   | Active / Supported          | Active / Supported          | Active / Supported          | Discontinued / Supported           | Discontinued / Supported              |
+| Amiga / AtariST mouse support            | Yes                         | No                          | Yes                         | Yes                                | Yes                                   |
+| Amiga / AtariST 2nd & 3rd button support | No                          | No                          | Yes                         | Yes                                | Only in Port 1                        |
+| Atari 8-bit 2nd & 3rd button support (5) | Yes                         | No                          | No                          | No                                 | No                                    |
+| C64 2nd & 3rd button support             | No                          | Yes                         | No                          | No                                 | No                                    |
+| C64 4th and 5th button support (4)       | No                          | Yes                         | No                          | No                                 | No                                    |
+| C64 Paddle support                       | No                          | Might (1)                   | No                          | No                                 | No                                    |
+| Rumble (2)                               | No                          | Yes                         | No                          | No                                 | No                                    |
+| Fits                                     | 800XL / 600XL               | C64 / C128                  | Amiga 500 / 1200            | C64 / C128                         | C64 / C128                            |
+| Buttons                                  | Reset, Mode, Swap           | Reset, Mode, Swap           | Reset, Mode,  Swap          | Reset, Mode                        | Reset, Mode                           |
+| LEDs                                     | Port 1, 2, Bluetooth, Power | Port 1, 2, Bluetooth, Power | Port 1, 2, Bluetooth, Power | Port 1, 2, Power                   | Port 1, 2, Power                      |
+| Filter noise ([Issue #17][issue_17])     | Yes                         | Yes                         | Yes                         | Yes                                | No                                    |
+| Case friendly                            | Yes                         | Yes                         | Yes                         | Yes                                | No                                    |
+| Easy to solder                           | No. Most components are SMD | No. Most components are SMD | No. Most components are SMD | No. Most components are SMD        | Yes. All components are through-hole  |
+| Self-powered                             | Yes                         | Yes                         | Yes                         | Yes                                | Yes, can be turned on/off with switch |
+| External power                           | USB                         | USB                         | USB                         | USB                                | Both USB and Barrel Jack 5V+          |
+| Total Size (mm)                          | 72 x 68 x 13.6              | 72 x 68 x 13.6              | 67 x 72 x 13.6              | 64 x 64 x 13.6                     | 63 x 66 x 17                          |
+| PCB Size (mm)                            | 63 x 60 x 1.6               | 63 x 60 x 1.6               | 52 x 67 x 1.6               | 49 x 62 x 1.6                      | 46 x 57 x 1.6                         |
+| Weight (gr)                              | 29                          | 27.1                        | 25.6                        | 24                                 | 37                                    |
+| Current (mA)                             | ~96                         | ~96                         | ~96                         | ~96                                | ~100                                  |
+| USB connector                            | Micro USB                   | Micro USB                   | Micro USB                   | Micro USB                          | Micro USB                             |
 
 
 Notes:
@@ -118,18 +118,18 @@ See: [firmware_setup.md][firmware_setup]
 
 There are multiple ways to power on the device
 
-|   | v2 | v2+ | A500 | C64 | 800XL |
-| - | -- | --- | ---- | --- | ----- |
+|              | v2                                               | v2+            | A500           | C64            | 800XL          |
+| ------------ | ------------------------------------------------ | -------------- | -------------- | -------------- | -------------- |
 | Self-powered | Yes, requires the "Self powered" switch to be On | Yes, always On | Yes, always On | Yes, always On | Yes, always On |
-| USB powered | Yes | Yes | Yes | Yes | Yes |
-| External 5V+ | Yes, using the Barrel jack | No | No | No | No |
+| USB powered  | Yes                                              | Yes            | Yes            | Yes            | Yes            |
+| External 5V+ | Yes, using the Barrel jack                       | No             | No             | No             | No             |
 
 Note: It is safe to plug the two / three of them at the same time, but that won't give you any additional benefit.
 
 ### Self-powered
 
-| 800XL | C64 | A500 | 2+   | 2   |
-| --    | --  | ---  | ---- | --- |
+| 800XL                           | C64                           | A500                           | 2+                             | 2                          |
+| ------------------------------- | ----------------------------- | ------------------------------ | ------------------------------ | -------------------------- |
 | ![uni_800xl_self_powered_photo] | ![uni_c64_self_powered_photo] | ![uni_a500_self_powered_photo] | ![uni2plus_self_powered_photo] | ![uni2_self_powered_photo] |
 
 - Gets current directly from the joystick ports. No extra cables needed.
@@ -161,9 +161,9 @@ Unijoysticle 2+ / Unijoysticle 2 A500 revisions.
 
 ### USB-powered
 
-| 800XL | C64 | A500 | 2+   | 2 
-| -- | -- | --- | ---- | ---
-| ![uni2800xl_usb_powered] | ![uni2c64_usb_powered] | ![uni2a500_usb_powered] | ![uni2plus_usb_powered] | ![uni2_usb_powered]
+| 800XL                    | C64                    | A500                    | 2+                      | 2                   |
+| ------------------------ | ---------------------- | ----------------------- | ----------------------- | ------------------- |
+| ![uni2800xl_usb_powered] | ![uni2c64_usb_powered] | ![uni2a500_usb_powered] | ![uni2plus_usb_powered] | ![uni2_usb_powered] |
 
 - Use a micro-USB cable to connect the Unijosyticle device to your computer or socket.
 - Ideal for debugging: you can see the Unijoysticle console by attaching a terminal to it.
@@ -190,9 +190,9 @@ Unijoysticle 2+ / Unijoysticle 2 A500 revisions.
 
 ### 800XL / C64 / A500 models
 
-| 800XL | C64 | A500
-| --- | --- | ---
-| ![uni2_800xl_buttons_photo][uni2_800xl_buttons_photo] | ![uni2_c64_buttons_photo][uni2_c64_buttons_photo] | ![uni2_a500_buttons_photo][uni2_a500_buttons_photo]
+| 800XL                                                 | C64                                               | A500                                                |
+| ----------------------------------------------------- | ------------------------------------------------- | --------------------------------------------------- |
+| ![uni2_800xl_buttons_photo][uni2_800xl_buttons_photo] | ![uni2_c64_buttons_photo][uni2_c64_buttons_photo] | ![uni2_a500_buttons_photo][uni2_a500_buttons_photo] |
 
 LEDs:
 
@@ -232,8 +232,8 @@ See below for further details about gamepad modes.
 
 ### V2 / V2+ only
 
-| V2 | V2+ |
-| -- | --- |
+| V2                                        | V2+                                               |
+| ----------------------------------------- | ------------------------------------------------- |
 | ![uni2_buttons_photo][uni2_buttons_photo] | ![uni2plus_buttons_photo][uni2plus_buttons_photo] |
 
 LEDs:
@@ -322,6 +322,7 @@ And since "Button B" is mapped to "J1 fire" this is great for games that use "sp
 * [Turbo Outrun][turbo_outrun] to press "turbo"
 * and many others
 
+Mappings:
 
 - Left joypad / d-pad: control Joystick 2 movements
 - Right joypad: control Joystick 1 movements
@@ -360,9 +361,9 @@ In addition to the regular 3-button mode, Unijoysticle2 C64 supports two special
 * "5 buttons mode" that allows to use 5 buttons (instead of the regular 3).
 * "rumble mode" that allows the game to send "rumble events" to the gamepad
 
-| 3-button mode (default mode) | 5-button mode | rumble mode |
-| ---------------------------- | ------------- | ----------- |
-| ![3-button-mode-png] | ![5-button-mode-png] | ![rumble-mode-png] |
+| 3-button mode (default mode) | 5-button mode        | rumble mode        |
+| ---------------------------- | -------------------- | ------------------ |
+| ![3-button-mode-png]         | ![5-button-mode-png] | ![rumble-mode-png] |
 
 
 
