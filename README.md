@@ -2,6 +2,8 @@
 
 [![discord](https://img.shields.io/discord/775177861665521725.svg)](https://discord.gg/r5aMn6Cw5q)
 
+![logo][uni_logo]
+
 Unijoysticle is a device that allows you to use modern Bluetooth gamepads and mice in retro computers.
 
 Unijoysticle 2 models:
@@ -66,6 +68,7 @@ It also supports mice (for Amiga / AtariST only).
 [5_buttons_video]: https://www.youtube.com/watch?v=9Em_kUAHEuA
 [rumble_video]: https://www.youtube.com/watch?v=vCj45OX43JE
 [atari_joy2bplus]: https://github.com/ascrnet/Joy2Bplus
+[uni_logo]: https://lh3.googleusercontent.com/pw/AIL4fc_k4CtBs9deXjMuCJOotXbNoRwON1CdYCMshG41PpEf2v-7xc2IcIPFvYCOFeLriESlXEJhm5nK72st8v1E04ZzyqawW8x5DPJt2ug6ZzhGXdnJvasD577CX1YbHRWDtmlz1JtyhDNHE_BeBeNnVb92vg=-w200-no?authuser=0
 
 ## Basic functionality
 
