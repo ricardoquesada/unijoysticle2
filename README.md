@@ -31,9 +31,9 @@ Unijoysticle 2 models:
 | Easy to solder                           | No. Most components are SMD | No. Most components are SMD | No. Most components are SMD | No. Most components are SMD        | Yes. All components are through-hole  |
 | Self-powered                             | Yes                         | Yes                         | Yes                         | Yes                                | Yes, can be turned on/off with switch |
 | External power                           | USB                         | USB                         | USB                         | USB                                | Both USB and Barrel Jack 5V+          |
-| Total Size (mm)                          | 72 x 68 x 13.6              | 72 x 68 x 13.6              | 67 x 72 x 13.6              | 64 x 64 x 13.6                     | 63 x 66 x 17                          |
-| PCB Size (mm)                            | 63 x 60 x 1.6               | 63 x 60 x 1.6               | 52 x 67 x 1.6               | 49 x 62 x 1.6                      | 46 x 57 x 1.6                         |
-| Weight (gr)                              | 29                          | 27.1                        | 25.6                        | 24                                 | 37                                    |
+| Total Size (mm)                          | 65 x 75 x 13.6              | 72 x 68 x 13.6              | 67 x 72 x 13.6              | 64 x 64 x 13.6                     | 63 x 66 x 17                          |
+| PCB Size (mm)                            | 53 x 72 x 1.6               | 63 x 60 x 1.6               | 52 x 67 x 1.6               | 49 x 62 x 1.6                      | 46 x 57 x 1.6                         |
+| Weight (gr)                              | 27                          | 27.1                        | 25.6                        | 24                                 | 37                                    |
 | Current (mA)                             | ~96                         | ~96                         | ~96                         | ~96                                | ~100                                  |
 | USB connector                            | Micro USB                   | Micro USB                   | Micro USB                   | Micro USB                          | Micro USB                             |
 
