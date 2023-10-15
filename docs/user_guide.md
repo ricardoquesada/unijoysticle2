@@ -108,7 +108,7 @@ That includes, but not limited to:
 - [A2560 Foenix][a2560] (tested by the community)
 - [Mega 65][mega65] (tested by the community)
 
-[cable]: https://www.aliexpress.com/item/33012270252.html?spm=a2g0s.9042311.0.0.74394c4diOD0iB
+[cable]: https://www.aliexpress.us/item/3256802837275209.html
 [vampirev4]: http://www.apollo-core.com/v4.html
 [a2560]: https://c256foenix.com/
 [mega65]: https://mega65.org/
