@@ -491,26 +491,24 @@ $ minicom -D /dev/ttyUSB0
 There are many useful commands. The most "common" ones are:
 
 * `list_devices`:  Get information about connected devices
-* `get_mouse_scale`:  Get global mouse scale factor
-* `set_mouse_scale  <value>`: Set global mouse scale factor
-* `set_bluetooth_enabled  <0 | 1>`: To enable/disable Bluetooth discovery mode
+* `list_bluetooth_keys`: List Bluetooth bond keys
+* `del_bluetooth_keys`: Delete stored Bluetooth bond keys. Useful if you are having reconnect issues.
+* `incoming_connections_enable <0 | 1>`: To enable/disable Bluetooth incoming connections.
 * `swap_ports`: Swaps joystick ports
-* `set_gamepad_mode  <mode>`: `normal`, `enhanced` or `mouse`
+* `gamepad_mode  <mode>`: `normal`, `twinstick` or `mouse`
   * `normal`: One gamepad controls just one joystick.
   * `mouse`: Gamepad behaves like a mouse. Usefule in Amiga / AtariST
   * `twinstick`: One gamepad controls both joysticks at the same time. Good Twin Stick games like [Commando 2084][commando2084]
-* `set_c64_pot_mode`: `3buttons`, `5buttons` or `rumble`
+* `c64_pot_mode`: `3buttons`, `5buttons` or `rumble`
   * `3buttons`: Default mode. 2nd and 3rd pot buttons are enabled.
   * `5buttons`: In addition to the 2nd and 3rd buttons, it also enables 4th and 5th buttons. See [crystalct/5plusbuttonsJoystick] for further info.
   * `rumble`: Allows games (e.g: [Rambo], [Lemans]) to send "rumble" feedback. 2nd and 3rd buttons are disabled.
   * [Collection of C64 games that are known to work with more than one button, or in rumble mode][c64_collection]
-* `get_gamepad_mode`: Returns the gamepad mode.
-* `set_mouse_emulation  <emulation>`: `amiga`, `atarist`
+* `mouse_emulation  <emulation>`: `amiga`, `atarist`
   * `amiga`: Emulates an Amiga mouse (default for A500, v2, v2+)
   * `atarist`: Emulates an Atari ST mouse (default for 800XL)
-* `get_mouse_emulation`: Returns mouse emulation mode
-* `set_autofire_cps  <cps>` Sets the autofire 'clicks per second' (cps)
-* `get_autofire_cps`: Returns the autofire 'clicks per second' (cps)
+* `mouse_scale  <value>`: Set/get global mouse scale factor
+* `autofire_cps  <cps>` Sets the autofire 'clicks per second' (cps)
 * `version` Gets the Unijoysticle version info
 * `help`: Print the list of registered commands
 
