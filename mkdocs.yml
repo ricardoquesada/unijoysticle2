@@ -1,0 +1,5 @@
+site_name: Unijoysticle
+site_url: https://retro.moe/
+nav:
+  - Home: index.md
+  - User Guide: user_guide.md
