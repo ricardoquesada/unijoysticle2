@@ -1,7 +1,12 @@
 site_name: Unijoysticle
 site_url: https://retro.moe/
+theme:
+  name: readthedocs
+  highlightjs: true
+  hljs_languages:
+    - yaml
+  analytics:
+    gtag: G-8QS6NSDYEM
 nav:
   - Home: index.md
   - User Guide: user_guide.md
-theme:
-  name: readthedocs
