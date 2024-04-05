@@ -21,6 +21,7 @@ You can also get Unijoysticle-like device from these other makers / vendors:
 | Vendor: SukkoPera<br>Description: Fits in the Amiga 500<br>Price: Free, DIY<br>Further info: [Project page][sukkopera_store] <br> | ![image][sukkopera_image] |
 | Vendor: Hyvax<br>Description: For NeoGeo<br>Price: Free, DIY<br>Further info: [Project page][hyvax_store] | ![image][hyvax_image] |
 | Vendor: CBMRetro<br>Description: For the C64, with case<br>Price: Commercial<br>Further info:[CBMRetro][cbmretro_store] | ![image][cbmretro_image] |
+| Vendor: Albert Herranz<br>Description: For the MSX, with optional acrylic case<br>Price: Free, DIY<br>Further info: [Project page][herraa1_store] <br> | ![image][herraa1_image] |
 
 [kopsec_store]: https://www.ebay.es/itm/Unijoysticle-2-in-case-Use-modern-Bluetooth-gamepads-in-your-Commodore-64-128-/233557376702
 [kopsec_image]: https://lh3.googleusercontent.com/pw/ACtC-3c3XC07S03WVHKnlZhrbDd7g9YkG5QHW35Gv-PgX62odPKok5A56Jc3drYu_W2yBhXJ1k_8Qs5S2I1sKtcqXm_IgPiof5d-7Ztjrj_EIfTfWidgIg9KifyYBrLJJnKS0KcBHzLaxti-tnJdMmQ_YKEV_Q=-no-w350
@@ -37,6 +38,8 @@ You can also get Unijoysticle-like device from these other makers / vendors:
 [hyvax_image]: https://lh3.googleusercontent.com/pw/AM-JKLUoGfsqpTawu8hHNKW7fS_aZSv0JAx0VG82fqxsmhryK5XkRFE5g9dNY9QJgMAVyVyg_bjyClJHQ7zlahdeSEVSyDnlK2BBPZ-eCefoBb2Ttzut3vnSTUPMoKhofdyt5t4wXDLvMOMtnTv2wp59E-P_Rw=w350-no?authuser=0
 [cbmretro_store]: https://cbmretro.fi/product/bluetooth-controller-adapter/
 [cbmretro_image]: https://lh3.googleusercontent.com/pw/AM-JKLVdFl9R70hd7A9zvulx5vRModyWT6h1j7CjL_m5m72dsKSNOU2gV44EL9KVvziwdt6mwo2y91wzan6BKhsql0ZbWUPoP3ZXOTLojcKsjJrCVjpFnQK7iJ1JXyjIdp1zd2XhFkR82ImZV-9Vr_3soAez3A=w350-no?authuser=0
+[herraa1_store]: https://github.com/herraa1/msx-joyblue-v2
+[herraa1_image]: https://raw.githubusercontent.com/herraa1/msx-joyblue-v2/main/images/msx-joyblue-v2-build2b-front-render-350w.png
 
 Did you create a remix? Are you selling Unijoysticle-like devices? Send a Pull-request and add yourself to this page! (See below)
 
