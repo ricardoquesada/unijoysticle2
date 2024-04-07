@@ -15,3 +15,8 @@ Aakko:
 
 Goblin Hero:
   - Case for Unijoysticle 2 A500
+
+Albert Herranz:
+  - MSX boards
+    * [msx-joyblue-v1](https://github.com/herraa1/msx-joyblue-v1)
+    * [msx-joyblue-v2](https://github.com/herraa1/msx-joyblue-v2)
