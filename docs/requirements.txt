@@ -110,5 +110,5 @@ watchdog==3.0.0
     # via mkdocs
 wcmatch==8.5
     # via mkdocs-include-markdown-plugin
-zipp==3.17.0
+zipp==3.19.1
     # via importlib-metadata
