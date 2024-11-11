@@ -3,6 +3,7 @@ Contributions by the community.
 
 Kopsec C64:
  - c64/ Unijoysticle 2 - REV E / REV H
+ - c64/ Unijoysticle 2 - Rev A1, based on new Unijoysticle C64 model
 
 Eduardo Casino:
  - C16/Plus4 board

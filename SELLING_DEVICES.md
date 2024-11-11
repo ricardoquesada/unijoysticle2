@@ -25,7 +25,7 @@ You can also get Unijoysticle-like device from these other makers / vendors:
 
 [kopsec_store]: https://www.ebay.es/itm/Unijoysticle-2-in-case-Use-modern-Bluetooth-gamepads-in-your-Commodore-64-128-/233557376702
 [kopsec_image]: https://lh3.googleusercontent.com/pw/ACtC-3c3XC07S03WVHKnlZhrbDd7g9YkG5QHW35Gv-PgX62odPKok5A56Jc3drYu_W2yBhXJ1k_8Qs5S2I1sKtcqXm_IgPiof5d-7Ztjrj_EIfTfWidgIg9KifyYBrLJJnKS0KcBHzLaxti-tnJdMmQ_YKEV_Q=-no-w350
-[kopsec_store_2]: https://www.ebay.com/itm/234098469225?hash=item36815b2969:g:XZAAAOSwqZ9gqRBV
+[kopsec_store_2]: https://www.ebay.es/itm/233604333629
 [kopsec_image_2]: https://lh3.googleusercontent.com/pw/AM-JKLVrpAojqCiWSkTNUB5eoIpwqwBYiJoVIrUoYUF-AdfGDXaBMCN6D88mDG2xQLi3iXRD1v_9iStIxBxhHoT7EmrvMS-lTvlOMxmksSDtOuEcffDZZVzxIo4XMyD4qd21WuseRUxk0IstAqKljqmnoBu56Q=-no-w350
 [arananet_store]: https://www.arananet.net/pedidos/product/unijoy2amiga-db9-to-bluetooth-adapter-for-amiga
 [arananet_image]: https://lh3.googleusercontent.com/pw/ACtC-3c9fxhjTgrKxflOyt39B3czHvLyBthrH7tFVWgUPfYTpQF_kaiuQ4wD4eUnSknf4_GLummIaJBroMAi5l4rZbXd_M0exZCglngv4BroeP6ua4UJhe1xYUWoXCNocr1NgHmINu67gSTNSu3Yf_k8YeV_lA=-no-w350
