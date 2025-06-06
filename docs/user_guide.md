@@ -107,11 +107,13 @@ That includes, but not limited to:
 - [Vampire v4 Stand Alone][vampirev4] (tested by the community)
 - [A2560 Foenix][a2560] (tested by the community)
 - [Mega 65][mega65] (tested by the community)
+- [Ultimate 64 Elite MK2][ultimate64_mk2] (tested by the community)
 
 [cable]: https://www.aliexpress.us/item/3256802837275209.html
 [vampirev4]: http://www.apollo-core.com/v4.html
 [a2560]: https://c256foenix.com/
 [mega65]: https://mega65.org/
+[ultimate64_mk2]: https://ultimate64.com/Ultimate-64-Elite-MK2
 
 ## Flashing the firmware
 
