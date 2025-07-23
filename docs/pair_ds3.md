@@ -64,7 +64,7 @@ For MacOS, Windows: I don't know, you are in your own.
 
 * Compile the "sixaxis pairer":
 
-Get the firmware source code from https://gitlab.com/ricardoquesada/bluepad32
+Get the firmware source code from https://github.com/ricardoquesada/bluepad32
 
 ```sh
 $ cd /.../bluepad32/tools

@@ -66,13 +66,13 @@ It also supports mice (for Amiga / AtariST only).
 [uni2plus_photo_back]: https://lh3.googleusercontent.com/pw/AM-JKLWs_G63eJRX8WuVVRoKKur8UQ-VcWTNbmkjFumwZYvDRhgjqamVa-X9CROAnoPyK3sHDmfwtqAtJiI1DHiwlINBPCgiEY4yWFYWl8SlHA_QOG7LmVKuOKy1UQa-5dALC2r0FBfhS9He6utE7Kz5nWAXiw=-no
 [uni2a500_photo_front]: https://lh3.googleusercontent.com/pw/AM-JKLU1BbKnbuLE7Oa_VOY3AnBjYwNVcAPKJcmYa7WUnCK5gMM1bHZyK3lTZ1Mo0NtS30ogeeSqxySx3Qi2ux3AGOlocQnQe9a87NoiKz5tnmHV_IGf3hPln0qsr8t5yfD5biKKVbGlRJ6vN2IbmI8H2Wg6iw=-no
 [uni2a500_photo_back]: https://lh3.googleusercontent.com/pw/AM-JKLXMUngI6ctahY5clP-76UBjUem9L4Eehj4GFsEwUJwtZ3-MuZCV2nOsxiN3Go1PKvoc9sJbLRY8hCZ9TcV4cq5AtcAtscdjH1LiNzltFSgQY4IQEwSiPHfvhjhZCDezhgHKQDrmmA3EGFM7kJ4MKNxtig=-no
-[bluepad32-fw]: https://gitlab.com/ricardoquesada/bluepad32
+[bluepad32-fw]: https://github.com/ricardoquesada/bluepad32
 [uni2c64_photo_front]: https://lh3.googleusercontent.com/pw/AMWts8AzoDnIOIiM-50UpjAqY8OgdsM6pzM3BuYWb2ZOg4K_o4TxygtSjuZvrKI92lrl4Qqf8sLT6PtLYsXzDbragTDgoeX4yTpymqoc450FiyjiBT1YHxRbLBtGWgUOQHezXUxKCORs5aOcxPwowfrgR4PcQw=-no
 [uni2c64_photo_back]: https://lh3.googleusercontent.com/pw/AMWts8C_vxauz3FAOv8NGAh64LGTExHwCj0N0bX73xsWIeDyR3efFPPUQb3JJQK5S8Qcm9B8bx3r_yio6WWAML1si4u8E9FejXP9DL8vxSCg_TR7rLi5aPiwisQaIptN8hJdfz3Zoh_B4cqiRE9vMi9t50R_gw=-no
 [uni2800xl_photo_front]: https://lh3.googleusercontent.com/pw/AIL4fc9fcgdY3Gka6iSZmyUlBTA1Q9ABujo-9v_4qE85St2GdW-2TBzzLNx-pc25o0rFloL0ghWZDDVW_kGWpQjcXaP-SJf9NWPnNw-2jpc_8tcVKp8gzLH7fxnFd7DBEV1ahWYLy97WvthAy7p193wtZ7uM4w=-no
 [uni2800xl_photo_back]: https://lh3.googleusercontent.com/pw/AIL4fc9PNSKKiA7PHsUTLKXGF1O9ywK-qLHS0nw2-Y6FxWQcgmtZJjajQh9Uch0aqZ2Pw-grH_Vg05IKYZilissF6nxUJPDszew0ouzGu91golm1RYJJpPS0CDANAfk3_O4qbwN_gam6dgGnafzsk4u0Xke0uw=-no
-[Rambo]: https://gitlab.com/ricardoquesada/c64-rambo
-[Lemans]: https://gitlab.com/ricardoquesada/c64-lemans
+[Rambo]: https://github.com/ricardoquesada/c64-rambo
+[Lemans]: https://github.com/ricardoquesada/c64-lemans
 [crystalct/5plusbuttonsJoystick]: https://github.com/crystalct/5plusbuttonsJoystick/
 [5_buttons_video]: https://www.youtube.com/watch?v=9Em_kUAHEuA
 [rumble_video]: https://www.youtube.com/watch?v=vCj45OX43JE
@@ -119,7 +119,7 @@ That includes, but not limited to:
 
 See: [firmware_setup.md][firmware_setup]
 
-[firmware_setup]: https://gitlab.com/ricardoquesada/bluepad32/-/blob/main/docs/firmware_setup.md
+[firmware_setup]: https://bluepad32.readthedocs.io/en/latest/firmware_setup/
 
 ## How to power on the device
 
@@ -163,8 +163,8 @@ Unijoysticle 2+ / Unijoysticle 2 A500 revisions.
 [uni_a500_self_powered_photo]: https://lh3.googleusercontent.com/pw/AM-JKLUtRVviFYcUu_4RKifSOg3kyJziTpd3GLBE-e0frWdwAB1F0ZUNqEkGM3Hwqipi70lXpFAIv-mv6_u58-9bnSyI5JyPT_jNpRSQbV5D71nT31c45nqDhSkW2k6cELocLjm22cTwwM0zNROfESVJgAoKOA=-no
 [uni_c64_self_powered_photo]: https://lh3.googleusercontent.com/pw/AMWts8DAFSd1iqibcNFXnPkfKRICopugSYzP9YGy8gMeAqWyCzyV61yhsCcLeKK0ahP8rROQThGEd7MqJUvvyZwHhB4L1Mcx5z92Za34J4GyMu_m2wa4-K3oY1Zx3cWlVzv42YNLLmBJuVjcqME6B7BefZ1xyg=-no
 [uni_800xl_self_powered_photo]: https://lh3.googleusercontent.com/pw/AIL4fc9AaTOQnQFTKaaGbHhyUZgO7H9PgAwFvMjDRFJPqZKZhQP8YR3x0D22Gp7PeF48RvQsnCiXdsayCW9CJgZukAguxavTUvQC91agpEEDc-LbWM8N4FKp_qd1EE1cyCMW-_fcn1pFvW_XPWv0saxnJRWByg=-no
-[disk_drive_power]: https://gitlab.com/ricardoquesada/unijoysticle2/-/blob/main/docs/amiga_500_usb_cable.md
-[changelog_board]: https://gitlab.com/ricardoquesada/unijoysticle2/blob/master/CHANGELOG.board.md
+[disk_drive_power]: https://github.com/ricardoquesada/unijoysticle2/blob/main/docs/amiga_500_usb_cable.md
+[changelog_board]: https://github.com/ricardoquesada/unijoysticle2/blob/main/CHANGELOG.md
 
 ### USB-powered
 
@@ -433,7 +433,7 @@ For a detailed list of supported mice, see here:
 
 * [Supported mice][supported_mice]
 
-[supported_mice]:  https://gitlab.com/ricardoquesada/bluepad32/blob/develop/docs/supported_mice.md
+[supported_mice]: https://bluepad32.readthedocs.io/en/latest/supported_mice/
 
 ## Console
 
@@ -515,7 +515,7 @@ There are many useful commands. The most "common" ones are:
 * `help`: Print the list of registered commands
 
 [crystalct/5plusbuttonsJoystick]: https://github.com/crystalct/5plusbuttonsJoystick/
-[c64_collection]: https://gitlab.com/ricardoquesada/c64-games-unijoysticle
+[c64_collection]: https://github.com/ricardoquesada/c64-games-unijoysticle
 
 ## Troubleshooting
 
@@ -573,7 +573,7 @@ If none of the above works, file a bug (see below).
 
 ## Filing bugs
 
-File bug here: https://gitlab.com/ricardoquesada/unijoysticle2/issues
+File bug here: https://github.com/ricardoquesada/unijoysticle2/issues
 
 When you file a bug, make sure that you include as much information as possible:
 
