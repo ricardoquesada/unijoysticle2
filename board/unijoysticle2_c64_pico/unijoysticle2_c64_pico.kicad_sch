@@ -13,7 +13,7 @@
 		(comment 2 "Full C64 Joystick, 1351 Mouse, and 1311/1312 Paddle Emulation")
 	)
 	(lib_symbols)
-	(text "Unijoysticle 2 C64 - Clean-Sheet Pico 2 W Architecture\n- MCU: Raspberry Pi Pico 2 W (RP2350 + CYW43439, Dual BR/EDR + BLE, PIO State Machines)\n- Power: <45mA from C64 +5V via 250mA PTC Polyfuse + Ferrite Pi-Filter + DMG2305UX Ideal Diode\n- Analog Emulation: 5.1k POTX/POTY pull-ups + 6.8k/22k (3.24V) 5V-safe SYNC dividers + 74HCT05"
+	(text "Unijoysticle 2 C64 - Clean-Sheet Pico 2 W Architecture\n- MCU: Raspberry Pi Pico 2 W (RP2350 + CYW43439, Dual BR/EDR + BLE, PIO State Machines)\n- Power: <45mA from C64 +5V via 250mA PTC Polyfuse + Ferrite Pi-Filter + DMG2305UX Ideal Diode\n- Analog Emulation: 10k POTX/POTY pull-ups + 10k/22k (2.62V) 5V-safe SYNC dividers + 74HCT05"
 		(exclude_from_sim no)
 		(at 62.23 48.26 0)
 		(effects

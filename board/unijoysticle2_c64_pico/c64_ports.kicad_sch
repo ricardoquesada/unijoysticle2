@@ -2325,7 +2325,7 @@
 		)
 		(uuid "72d664e0-7c90-4a10-8774-6fce88b89055")
 	)
-	(text "5V-SAFE SID SYNC DIVIDERS (6.8k / 22k -> 3.24V MAX)"
+	(text "5V-SAFE SID SYNC DIVIDERS (10k / 22k -> 2.62V HIGH / 0.45V LOW)"
 		(exclude_from_sim no)
 		(at 130.81 126.746 0)
 		(effects
@@ -2364,7 +2364,7 @@
 		)
 		(uuid "9cbd8d10-4b6a-4ddc-baff-eb9535bed949")
 	)
-	(text "6.8k series + 22k pull-down divides C64 5V POTY\nto 3.24V max (<3.6V absolute max), zero ESD diode injection."
+	(text "10k series + 22k pull-down divides C64 POTY to 2.62V HIGH\nand <=0.45V LOW during SID discharge (540mV V_IL margin)."
 		(exclude_from_sim no)
 		(at 130.81 134.62 0)
 		(effects
@@ -2375,7 +2375,7 @@
 		)
 		(uuid "c36c9a20-8554-49d4-8db3-5936d61630b4")
 	)
-	(text "5.1k POTX/POTY Pull-Ups (1351 Mouse & 1311/1312 Paddles)"
+	(text "10k POTX/POTY Pull-Ups (1351 Mouse & 1311/1312 Paddles)"
 		(exclude_from_sim no)
 		(at 35.433 104.648 0)
 		(effects
@@ -7751,7 +7751,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "5K1"
+		(property "Value" "10K"
 			(at 38.1 97.0279 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7832,7 +7832,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "5K1"
+		(property "Value" "10K"
 			(at 73.66 97.0279 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8499,7 +8499,7 @@
 				)
 			)
 		)
-		(property "Value" "6K8"
+		(property "Value" "10K"
 			(at 151.13 165.735 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8735,7 +8735,7 @@
 				)
 			)
 		)
-		(property "Value" "6K8"
+		(property "Value" "10K"
 			(at 151.13 145.415 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8973,7 +8973,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "5K1"
+		(property "Value" "10K"
 			(at 62.23 97.0279 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9442,7 +9442,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "5K1"
+		(property "Value" "10K"
 			(at 49.53 97.0279 0)
 			(show_name no)
 			(do_not_autoplace no)
