@@ -1587,7 +1587,7 @@
 		)
 		(uuid "82000001-0000-4000-8000-000000000001")
 	)
-	(text "ZERO-DROP P-FET IDEAL DIODE + USB VBUS OR-ING\n(Pico 2 W Datasheet Section 3.4, Figure 10, p. 16)\n- When USB is unplugged (VBUS=0V): R3 pulls Q1 Gate to GND,\n  turning Q1 fully ON (Rds_on = 52mOhm, <3mV drop at 45mA).\n- When USB is plugged in (VBUS=5V): Q1 Gate is pulled to 5V,\n  turning Q1 OFF to block back-feeding into C64 +5V rail."
+	(text "ZERO-DROP P-FET IDEAL DIODE + USB VBUS OR-ING\n(Pico 2 W Datasheet Section 3.5, Figure 10, pp. 15-16)\n- When USB is unplugged (VBUS=0V): R3 (+ Pico internal 20k) pulls Q1 Gate to GND,\n  turning Q1 fully ON (Rds_on = 52mOhm, <3mV drop at 45mA).\n- When USB is plugged in (VBUS=5V): Q1 Gate is pulled to 5V, turning Q1 OFF\n  to block back-feeding into C64 +5V while Pico onboard D1 powers VSYS."
 		(exclude_from_sim no)
 		(at 35.56 114.3 0)
 		(effects
@@ -1621,12 +1621,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "80000001-0000-4000-8000-000000000004")
-	)
-	(junction
-		(at 109.22 71.12)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "80000001-0000-4000-8000-000000000005")
 	)
 	(junction
 		(at 119.38 71.12)
@@ -1838,36 +1832,6 @@
 	)
 	(wire
 		(pts
-			(xy 91.44 81.28) (xy 96.52 81.28)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "81000001-0000-4000-8000-000000000020")
-	)
-	(wire
-		(pts
-			(xy 101.6 81.28) (xy 109.22 81.28)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "81000001-0000-4000-8000-000000000021")
-	)
-	(wire
-		(pts
-			(xy 109.22 81.28) (xy 109.22 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "81000001-0000-4000-8000-000000000022")
-	)
-	(wire
-		(pts
 			(xy 99.06 66.04) (xy 99.06 71.12)
 		)
 		(stroke
@@ -1878,23 +1842,13 @@
 	)
 	(wire
 		(pts
-			(xy 99.06 71.12) (xy 109.22 71.12)
+			(xy 99.06 71.12) (xy 119.38 71.12)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "81000001-0000-4000-8000-000000000024")
-	)
-	(wire
-		(pts
-			(xy 109.22 71.12) (xy 119.38 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "81000001-0000-4000-8000-000000000025")
 	)
 	(wire
 		(pts
@@ -2998,84 +2952,6 @@
 			(project "unijoysticle2_c64_pico"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/93281dcd-2548-47fa-896a-a960429efc33"
 					(reference "#PWR025")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:D_Schottky_Small")
-		(at 99.06 81.28 180)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "84000001-0000-4000-8000-000000000014")
-		(property "Reference" "D2"
-			(at 99.06 77.47 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1N5819"
-			(at 99.06 85.09 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
-			(at 99.06 81.28 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 99.06 81.28 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 99.06 81.28 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "84000001-0000-4000-8000-000000001401")
-		)
-		(pin "2"
-			(uuid "84000001-0000-4000-8000-000000001402")
-		)
-		(instances
-			(project "unijoysticle2_c64_pico"
-				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/93281dcd-2548-47fa-896a-a960429efc33"
-					(reference "D2")
 					(unit 1)
 				)
 			)
