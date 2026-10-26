@@ -872,7 +872,7 @@
 					)
 				)
 			)
-			(property "Footprint" "MCU_RaspberryPi_and_Boards:RPi_Pico_SMD_TH"
+			(property "Footprint" "Unijoysticle:RPi_Pico_2_W_SMD_TH"
 				(at 0 0 90)
 				(show_name no)
 				(do_not_autoplace no)
@@ -4031,7 +4031,7 @@
 				)
 			)
 		)
-		(property "Footprint" "MCU_RaspberryPi_and_Boards:RPi_Pico_SMD_TH"
+		(property "Footprint" "Unijoysticle:RPi_Pico_2_W_SMD_TH"
 			(at 114.3 88.9 90)
 			(hide yes)
 			(show_name no)

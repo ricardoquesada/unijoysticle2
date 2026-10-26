@@ -4607,7 +4607,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.54mm_EdgePinOffset9.40mm"
+		(property "Footprint" "Connector_Dsub:DSUB-9_Socket_Horizontal_P2.77x2.54mm_EdgePinOffset9.40mm"
 			(at 45.212 47.752 0)
 			(hide yes)
 			(show_name no)
@@ -4707,7 +4707,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Dsub:DSUB-9_Female_Horizontal_P2.77x2.54mm_EdgePinOffset9.40mm"
+		(property "Footprint" "Connector_Dsub:DSUB-9_Socket_Horizontal_P2.77x2.54mm_EdgePinOffset9.40mm"
 			(at 62.992 47.752 0)
 			(hide yes)
 			(show_name no)
