@@ -5,9 +5,9 @@
 	(uuid "1e0fa736-c93b-4f04-ac49-f38ac4164c62")
 	(paper "A4")
 	(title_block
-		(title "Unijoysticle 2 C64 (DB9 Ports, 74HCT05 & SID SYNC)")
+		(title "Unipad C64 (Control Ports, 74HCT05 & SID SYNC)")
 		(date "2026-10-26")
-		(rev "D")
+		(rev "A")
 		(company "Ricardo Quesada")
 		(comment 1 "License: CC BY-NC-SA 4.0 (Attribution-NonCommercial-ShareAlike 4.0)")
 	)
@@ -4668,7 +4668,7 @@
 			(uuid "0930f8b6-8164-4dec-be90-eff1f076eded")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "J2")
 					(unit 1)
@@ -4768,7 +4768,7 @@
 			(uuid "5733f094-cb08-430f-917a-0f2777ffaf01")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "J3")
 					(unit 1)
@@ -4915,7 +4915,7 @@
 			(uuid "9820123e-ee0b-406e-85c4-628830c0a33b")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "U4")
 					(unit 1)
@@ -5062,7 +5062,7 @@
 			(uuid "1bc35a90-2e1e-44d4-9386-2d78925a343d")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "U4")
 					(unit 2)
@@ -5209,7 +5209,7 @@
 			(uuid "8453f1e4-b149-4ae2-bf9e-acab2d130aec")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "U4")
 					(unit 3)
@@ -5356,7 +5356,7 @@
 			(uuid "c6f97db1-bd9f-48f9-8319-b9c28cd9d415")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "U4")
 					(unit 4)
@@ -5503,7 +5503,7 @@
 			(uuid "b383c70b-9e1e-4a51-bee7-e095a1aeab9d")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "U4")
 					(unit 5)
@@ -5652,7 +5652,7 @@
 			(uuid "0dce4d9a-8b71-4ef9-b855-5483c7e1a26e")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "U4")
 					(unit 7)
@@ -5799,7 +5799,7 @@
 			(uuid "617f513f-16c9-4ee5-8499-a80fee4befb0")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "U5")
 					(unit 1)
@@ -5946,7 +5946,7 @@
 			(uuid "d91a4fdc-cb6c-480e-b8d8-dd206df07e25")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "U5")
 					(unit 2)
@@ -6093,7 +6093,7 @@
 			(uuid "ecce1b4b-2f35-4960-a3a2-67d028c5537e")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "U5")
 					(unit 3)
@@ -6240,7 +6240,7 @@
 			(uuid "6e1d1e59-1073-4fbf-923b-7b5d39d9ebe9")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "U5")
 					(unit 4)
@@ -6387,7 +6387,7 @@
 			(uuid "5b0b21fd-11c5-4e82-8759-f47478eae7f7")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "U5")
 					(unit 5)
@@ -6534,7 +6534,7 @@
 			(uuid "778baa15-bbc4-490a-bc83-22c45515365a")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "U6")
 					(unit 6)
@@ -6681,7 +6681,7 @@
 			(uuid "2fd41904-d28e-46e7-ad9d-acd50c604b0d")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "U6")
 					(unit 5)
@@ -6830,7 +6830,7 @@
 			(uuid "7421e96b-ff24-4627-8806-f89536017991")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "U5")
 					(unit 7)
@@ -6941,7 +6941,7 @@
 			(uuid "cd01550f-83aa-4c6e-987b-39ed321cfd6c")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "D5")
 					(unit 1)
@@ -7052,7 +7052,7 @@
 			(uuid "8fae6204-f081-4a3a-877b-32ca9fce4a19")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "D6")
 					(unit 1)
@@ -7163,7 +7163,7 @@
 			(uuid "ee1d941c-05d6-4efd-ac4b-dcb90a778e65")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "SW3")
 					(unit 1)
@@ -7274,7 +7274,7 @@
 			(uuid "d9a2ccef-eedc-4933-8e6b-95a0d28ba876")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "R8")
 					(unit 1)
@@ -7385,7 +7385,7 @@
 			(uuid "65f86fc6-9bc9-4c66-8236-6138ff1c75ac")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "C13")
 					(unit 1)
@@ -7496,7 +7496,7 @@
 			(uuid "45778a39-fdf1-4ac0-ad62-cc403d498a4b")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "C12")
 					(unit 1)
@@ -7607,7 +7607,7 @@
 			(uuid "efd0e98e-7fa8-4dcd-948e-e05a61b22235")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "C11")
 					(unit 1)
@@ -7718,7 +7718,7 @@
 			(uuid "83ce4cf4-d5e5-4c90-a5a8-b00151d0aa8f")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "D4")
 					(unit 1)
@@ -7829,7 +7829,7 @@
 			(uuid "11cf9ef7-2888-4a88-899c-918983d92781")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "R7")
 					(unit 1)
@@ -7940,7 +7940,7 @@
 			(uuid "a7ae20af-18e4-4270-bb9c-bca515401b6b")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "R9")
 					(unit 1)
@@ -8087,7 +8087,7 @@
 			(uuid "d05e5bb8-2fc4-4d16-87a5-4e0682effe41")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "U6")
 					(unit 1)
@@ -8234,7 +8234,7 @@
 			(uuid "3a4a57e1-b585-4938-941e-dbf75ba575c5")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "U6")
 					(unit 2)
@@ -8381,7 +8381,7 @@
 			(uuid "b70ca9ce-a03c-4efe-8374-40481681c812")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "U6")
 					(unit 7)
@@ -8495,7 +8495,7 @@
 			(uuid "ffcea8de-c868-4d91-865a-943b5bc17736")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "R13")
 					(unit 1)
@@ -8609,7 +8609,7 @@
 			(uuid "f54ca6cf-5bd2-490a-b332-2739de3c1dd9")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "R17")
 					(unit 1)
@@ -8686,7 +8686,7 @@
 			(uuid "8f722a4f-dd66-41f1-828b-152f98f88e4e")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "#PWR037")
 					(unit 1)
@@ -8763,7 +8763,7 @@
 			(uuid "a24b47e6-2db1-4791-9819-e8ae671e0047")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "#PWR039")
 					(unit 1)
@@ -8840,7 +8840,7 @@
 			(uuid "b7ed1064-10e4-4cf9-b498-2ab2b7977457")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "#PWR027")
 					(unit 1)
@@ -8917,7 +8917,7 @@
 			(uuid "821642d5-81bb-471b-833a-1563395d0666")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "#PWR030")
 					(unit 1)
@@ -9064,7 +9064,7 @@
 			(uuid "b383c70b-9e1e-4a51-bee7-e095a1aeab9e")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "U4")
 					(unit 6)
@@ -9175,7 +9175,7 @@
 			(uuid "1bc5891f-b4fb-4096-a7c6-00a9002ac9bd")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "SW4")
 					(unit 1)
@@ -9252,7 +9252,7 @@
 			(uuid "df9d05f9-4b53-41d2-9e40-e557f5f041b8")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "#PWR036")
 					(unit 1)
@@ -9363,7 +9363,7 @@
 			(uuid "088e7ec8-eeb1-4c3e-9900-3f62d85c86ba")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "R22")
 					(unit 1)
@@ -9477,7 +9477,7 @@
 			(uuid "088e7ec8-eeb1-4c3e-9900-3f62d85c86bb")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "R23")
 					(unit 1)
@@ -9554,7 +9554,7 @@
 			(uuid "945cad1f-afc2-4b0c-b71d-b8488b0c21a2")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "#PWR043")
 					(unit 1)
@@ -9665,7 +9665,7 @@
 			(uuid "2ea1ed65-0b27-4ea3-92be-143c75bd163d")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "R19")
 					(unit 1)
@@ -9779,7 +9779,7 @@
 			(uuid "2ea1ed65-0b27-4ea3-92be-143c75bd163e")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "R20")
 					(unit 1)
@@ -9856,7 +9856,7 @@
 			(uuid "36ba1cb1-876c-4d8a-9f00-3c6cba004181")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "#PWR042")
 					(unit 1)
@@ -9970,7 +9970,7 @@
 			(uuid "7290483c-9496-4367-a2f9-6ade2c26ed60")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "R16")
 					(unit 1)
@@ -10083,7 +10083,7 @@
 			(uuid "4f437e65-cf36-4095-9ff7-26f76e447324")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "R10")
 					(unit 1)
@@ -10160,7 +10160,7 @@
 			(uuid "ef5e1760-0b06-48c8-86e8-68381890707d")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "#PWR028")
 					(unit 1)
@@ -10237,7 +10237,7 @@
 			(uuid "3e21b9eb-60de-4304-9703-bddaac0257b7")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "#PWR041")
 					(unit 1)
@@ -10314,7 +10314,7 @@
 			(uuid "a730b2e7-1ab8-4a3b-a779-5cbcf0f5fe97")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "#PWR035")
 					(unit 1)
@@ -10391,7 +10391,7 @@
 			(uuid "980ec574-594d-4282-9cc0-36159403b213")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "#PWR034")
 					(unit 1)
@@ -10505,7 +10505,7 @@
 			(uuid "d269ff01-6676-4746-b81c-2fb7cbbda62a")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "R14")
 					(unit 1)
@@ -10582,7 +10582,7 @@
 			(uuid "dc1d4383-ceee-4a44-ad99-36fe7a175193")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "#FLG02")
 					(unit 1)
@@ -10729,7 +10729,7 @@
 			(uuid "b383c70b-9e1e-4a51-bee7-e095a1aeab9f")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "U5")
 					(unit 6)
@@ -10842,7 +10842,7 @@
 			(uuid "b5aa53eb-8eb1-432a-961e-7d873908bbd2")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "R11")
 					(unit 1)
@@ -10989,7 +10989,7 @@
 			(uuid "3a4a57e1-b585-4938-941e-dbf75ba575c6")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "U6")
 					(unit 3)
@@ -11066,7 +11066,7 @@
 			(uuid "b40ba425-9738-4257-b638-ebc54fab9f84")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "#PWR029")
 					(unit 1)
@@ -11143,7 +11143,7 @@
 			(uuid "d0caacc2-a537-4594-ab45-d8a51faa86b6")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "#PWR040")
 					(unit 1)
@@ -11220,7 +11220,7 @@
 			(uuid "f56ab7ce-0e5e-48e9-b245-ac382fb6c779")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "#PWR032")
 					(unit 1)
@@ -11367,7 +11367,7 @@
 			(uuid "3a4a57e1-b585-4938-941e-dbf75ba575c7")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "U6")
 					(unit 4)
@@ -11444,7 +11444,7 @@
 			(uuid "e3ce10ae-028a-4901-9a82-424e6736e440")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "#PWR033")
 					(unit 1)
@@ -11521,7 +11521,7 @@
 			(uuid "2de1cee9-4bb3-4557-bb08-b29d9fa8798f")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "#PWR026")
 					(unit 1)
@@ -11598,7 +11598,7 @@
 			(uuid "01caf0cc-55f3-465a-b3c2-2cdb770fd4e8")
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd/1e0fa736-c93b-4f04-ac49-f38ac4164c62"
 					(reference "#PWR025")
 					(unit 1)

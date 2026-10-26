@@ -500,7 +500,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "unijoysticle2_c64_pico.kicad_pro",
+    "filename": "unipad_c64.kicad_pro",
     "version": 3
   },
   "net_settings": {
@@ -723,14 +723,14 @@
     },
     "net_format_name": "Pcbnew",
     "page_layout_descr_file": "",
-    "plot_directory": "../../docs/schematic_unijoysticle2_c64_pico.pdf",
+    "plot_directory": "../../docs/schematic_unipad_c64.pdf",
     "reuse_designators": true,
     "subpart_first_id": 65,
     "subpart_id_separator": 0,
     "top_level_sheets": [
       {
-        "filename": "unijoysticle2_c64_pico.kicad_sch",
-        "name": "unijoysticle2_c64_pico",
+        "filename": "unipad_c64.kicad_sch",
+        "name": "unipad_c64",
         "uuid": "0e6b6c40-efab-4794-bc88-ed2592ffa1bd"
       }
     ],
@@ -740,7 +740,7 @@
   "sheets": [
     [
       "0e6b6c40-efab-4794-bc88-ed2592ffa1bd",
-      "unijoysticle2_c64_pico"
+      "unipad_c64"
     ],
     [
       "4c2fb79c-207e-4f92-8ea1-7543e9ed400d",

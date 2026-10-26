@@ -5,16 +5,16 @@
 	(uuid "0e6b6c40-efab-4794-bc88-ed2592ffa1bd")
 	(paper "A4")
 	(title_block
-		(title "Unijoysticle 2 C64 (Pico 2 W Edition)")
+		(title "Unipad C64")
 		(date "2026-10-26")
-		(rev "D")
+		(rev "A")
 		(company "Ricardo Quesada")
-		(comment 1 "Clean-sheet design with Raspberry Pi Pico 2 W (RP2350 + CYW43439)")
-		(comment 2 "Full C64 Joystick, 1351 Mouse, and 1311/1312 Paddle Emulation")
+		(comment 1 "Wireless Gamepad, Paddle & 1351 Mouse Adapter for Commodore 64")
+		(comment 2 "Raspberry Pi Pico 2 W (RP2350 + CYW43439) - Low-Power & CIA/SID-Protected")
 		(comment 3 "License: CC BY-NC-SA 4.0 (Attribution-NonCommercial-ShareAlike 4.0)")
 	)
 	(lib_symbols)
-	(text "Unijoysticle 2 C64 - Clean-Sheet Pico 2 W Architecture\n- MCU: Raspberry Pi Pico 2 W (RP2350 + CYW43439, Dual BR/EDR + BLE, PIO State Machines)\n- Power: <45mA from C64 +5V via 250mA PTC Polyfuse + Ferrite Pi-Filter + DMG2305UX Ideal Diode\n- Analog Emulation: 10k POTX/POTY pull-ups + 10k/22k (2.62V) 5V-safe SYNC dividers + 74HCT05"
+	(text "Unipad C64 - Hardware Architecture\n- Wireless Inputs: Bluetooth Gamepads, C64 1351 Analog Mouse, 1311/1312 Paddles & Rumble\n- MCU: Raspberry Pi Pico 2 W (RP2350 + CYW43439, Dual BR/EDR + BLE, PIO State Machines)\n- Power: <45mA from C64 +5V via 250mA PTC Polyfuse + Ferrite Pi-Filter + DMG2305UX Ideal Diode\n- Analog Emulation: 10k POTX/POTY pull-ups + 10k/22k (2.62V) 5V-safe SYNC dividers + 74HCT05"
 		(exclude_from_sim no)
 		(at 62.23 48.26 0)
 		(effects
@@ -64,7 +64,7 @@
 			)
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd"
 					(page "4")
 				)
@@ -110,7 +110,7 @@
 			)
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd"
 					(page "2")
 				)
@@ -156,7 +156,7 @@
 			)
 		)
 		(instances
-			(project "unijoysticle2_c64_pico"
+			(project "unipad_c64"
 				(path "/0e6b6c40-efab-4794-bc88-ed2592ffa1bd"
 					(page "3")
 				)

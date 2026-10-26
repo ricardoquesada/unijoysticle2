@@ -1,11 +1,11 @@
-Unijoysticle 2 C64 (Pico 2 W Edition) — Hardware Design License
+Unipad C64 — Hardware Design License
 =======================================================================
 
 Copyright (c) 2026 Ricardo Quesada
 SPDX-License-Identifier: CC-BY-NC-SA-4.0
 
 SCOPE & REPOSITORY LICENSE OVERRIDE:
-All hardware design files in this directory (`board/unijoysticle2_c64_pico/`),
+All hardware design files in this directory (`board/unipad_c64/`),
 including schematics (`.kicad_sch`), PCB layout (`.kicad_pcb`), project
 configuration, Bill of Materials (BOM), Component Placement Lists (CPL), and
 Gerber/drill fabrication outputs, are licensed exclusively under the Creative
@@ -14,9 +14,9 @@ Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License
 
 This directory-level license explicitly overrides the repository root
 Solderpad Hardware License v2.1 (`LICENSE` in the repository root) for the
-Unijoysticle 2 C64 (Pico 2 W Edition) hardware design. Commercial manufacture,
-distribution, or sale of this board or derivatives thereof without a separate
-written commercial license from Ricardo Quesada is strictly prohibited.
+Unipad C64 hardware design. Commercial manufacture, distribution, or sale of
+this board or derivatives thereof without a separate written commercial
+license from Ricardo Quesada is strictly prohibited.
 
 =======================================================================
 

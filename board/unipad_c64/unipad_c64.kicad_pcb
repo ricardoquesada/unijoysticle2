@@ -8,11 +8,11 @@
 	)
 	(paper "A4")
 	(title_block
-		(title "Unijoysticle 2 C64 (Pico 2 W Edition)")
+		(title "Unipad C64")
 		(date "2026-10-26")
-		(rev "D")
+		(rev "A")
 		(company "Ricardo Quesada")
-		(comment 1 "4-Layer PCB (F.Cu / In1.Cu GND / In2.Cu GND / B.Cu) - Raspberry Pi Pico 2 W")
+		(comment 1 "4-Layer PCB - Wireless Gamepad, Paddle & 1351 Mouse Adapter for Commodore 64")
 		(comment 2 "License: CC BY-NC-SA 4.0 (Attribution-NonCommercial-ShareAlike 4.0)")
 	)
 	(layers
@@ -18875,8 +18875,8 @@
 			)
 		)
 	)
-	(gr_text "JOY1"
-		(at 91.7 106.24 0)
+	(gr_text "PORT1"
+		(at 92.65 106.24 0)
 		(layer "F.SilkS")
 		(uuid "71ab2f51-c363-4f7c-8b66-108f0352e1b7")
 		(effects
@@ -18886,8 +18886,8 @@
 			)
 		)
 	)
-	(gr_text "JOY2"
-		(at 91.7 110.53 0)
+	(gr_text "PORT2"
+		(at 92.65 110.53 0)
 		(layer "F.SilkS")
 		(uuid "a119aef0-f971-4e74-a0fe-ddde8215aa44")
 		(effects
@@ -18930,8 +18930,19 @@
 			)
 		)
 	)
-	(gr_text "PORT JOY #1"
-		(at 94.5 97.2 0)
+	(gr_text "Unipad C64"
+		(at 110.8 93.7 0)
+		(layer "F.SilkS")
+		(uuid "cc400000-0000-4000-8000-000000000901")
+		(effects
+			(font
+				(size 1.15 1.15)
+				(thickness 0.19)
+			)
+		)
+	)
+	(gr_text "PORT #1"
+		(at 95.8 97.45 0)
 		(layer "F.SilkS")
 		(uuid "865c71f7-e915-4887-93d3-e4348e6b4477")
 		(effects
@@ -18941,8 +18952,8 @@
 			)
 		)
 	)
-	(gr_text "PORT JOY #2"
-		(at 126 97.2 0)
+	(gr_text "PORT #2"
+		(at 127 97.45 0)
 		(layer "F.SilkS")
 		(uuid "61754ac9-e7d5-4787-87db-b6bda6136358")
 		(effects
@@ -18953,7 +18964,7 @@
 		)
 	)
 	(gr_text "(c) 2026 Ricardo Quesada"
-		(at 127 131.6 0)
+		(at 128 131.65 0)
 		(layer "B.SilkS")
 		(uuid "9703bfc4-754b-4660-83a7-5b984f635336")
 		(effects
@@ -18965,7 +18976,7 @@
 		)
 	)
 	(gr_text "retro.moe  -  CC BY-NC-SA 4.0"
-		(at 127 133.8 0)
+		(at 128 133.85 0)
 		(layer "B.SilkS")
 		(uuid "bf8690e8-8784-4ecc-b354-02c3c90b6541")
 		(effects
@@ -18976,26 +18987,26 @@
 			(justify mirror)
 		)
 	)
-	(gr_text "Rev. D  -  RP2350 + CYW43439"
-		(at 127 129 0)
+	(gr_text "Rev. A - Gamepad · Paddle · Mouse"
+		(at 128 129.25 0)
 		(layer "B.SilkS")
 		(uuid "c2b1fa58-1ab0-4840-9a16-bd8df75f584f")
 		(effects
 			(font
-				(size 0.85 0.85)
-				(thickness 0.14)
+				(size 0.8 0.8)
+				(thickness 0.13)
 			)
 			(justify mirror)
 		)
 	)
-	(gr_text "Unijoysticle 2 C64 Pico"
-		(at 127 126.2 0)
+	(gr_text "Unipad C64"
+		(at 128 126.2 0)
 		(layer "B.SilkS")
 		(uuid "29ec455e-b7f8-4f6d-8de8-ae1c9ca31d7d")
 		(effects
 			(font
-				(size 1.25 1.25)
-				(thickness 0.2)
+				(size 1.45 1.45)
+				(thickness 0.24)
 			)
 			(justify mirror)
 		)
