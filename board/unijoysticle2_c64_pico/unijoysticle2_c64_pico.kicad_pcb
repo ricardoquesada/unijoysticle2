@@ -216,11 +216,35 @@
 				)
 			)
 		)
-		(property "LCSC" ""
+		(property "LCSC" "C2297"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "e3fb7d30-ea1c-4cab-8bcc-0fd2feb361db")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "KT-0805G"
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "92000005-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Hubei KENTO Elec"
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "92000005-0000-4000-8000-000000000003")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -410,6 +434,42 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "7eebf94d-fe87-4fe2-a594-d150385a3e02")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" ""
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "93000001-0000-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "PTS645VH39-2 LFS"
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "93000001-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "C&K"
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "93000001-0000-4000-8000-000000000003")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -821,11 +881,35 @@
 				)
 			)
 		)
-		(property "LCSC" ""
+		(property "LCSC" "C49678"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "42a69fea-0935-4d93-95aa-f7c91b0cc98f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "CC0805KRX7R9BB104"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000013-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "YAGEO"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000013-0000-4000-8000-000000000003")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -966,6 +1050,42 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "cbf1ae32-db17-4a79-8d05-ff870434ff23")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" ""
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "93000003-0000-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "PTS645VH39-2 LFS"
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "93000003-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "C&K"
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "93000003-0000-4000-8000-000000000003")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1377,11 +1497,35 @@
 				)
 			)
 		)
-		(property "LCSC" ""
+		(property "LCSC" "C49678"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "f53c4316-c7e0-4965-a11c-0a145fbddeba")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "CC0805KRX7R9BB104"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000011-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "YAGEO"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000011-0000-4000-8000-000000000003")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1537,6 +1681,42 @@
 				)
 			)
 		)
+		(property "LCSC" "C17414"
+			(at 0 0 270)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000001-0000-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "0805W8F1002T5E"
+			(at 0 0 270)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000001-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "UNI-ROYAL"
+			(at 0 0 270)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000001-0000-4000-8000-000000000003")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/70000001-0000-4000-8000-000000000005")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
@@ -1685,11 +1865,35 @@
 				)
 			)
 		)
-		(property "LCSC" ""
+		(property "LCSC" "C49678"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "105a967b-4766-412c-8360-60b73fd28c4b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "CC0805KRX7R9BB104"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000012-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "YAGEO"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000012-0000-4000-8000-000000000003")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2571,6 +2775,42 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "a94acfba-4558-4131-8f98-3e470ce74a85")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" ""
+			(at 0 0 270)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "94000001-0000-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "SC1633"
+			(at 0 0 270)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "94000001-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Raspberry Pi"
+			(at 0 0 270)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "94000001-0000-4000-8000-000000000003")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5223,6 +5463,42 @@
 				)
 			)
 		)
+		(property "LCSC" "C17560"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000023-0000-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "0805W8F2202T5E"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000023-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "UNI-ROYAL"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000023-0000-4000-8000-000000000003")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/846cf709-f752-4268-b13b-a0c9d1d1d60f")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
@@ -5367,6 +5643,42 @@
 			(effects
 				(font
 					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C49678"
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000001-0000-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "CC0805KRX7R9BB104"
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000001-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "YAGEO"
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000001-0000-4000-8000-000000000003")
+			(effects
+				(font
+					(size 1.27 1.27)
 					(thickness 0.15)
 				)
 			)
@@ -5519,6 +5831,42 @@
 				)
 			)
 		)
+		(property "LCSC" "C17414"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000019-0000-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "0805W8F1002T5E"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000019-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "UNI-ROYAL"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000019-0000-4000-8000-000000000003")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/847230fd-d980-4b1c-bb48-72a3d739cd9a")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
@@ -5667,6 +6015,42 @@
 				)
 			)
 		)
+		(property "LCSC" "C15850"
+			(at 0 0 270)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000005-0000-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "CL21A106KAYNNNE"
+			(at 0 0 270)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000005-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Samsung Electro-Mechanics"
+			(at 0 0 270)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000005-0000-4000-8000-000000000003")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/70000001-0000-4000-8000-000000000007")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
@@ -5811,6 +6195,42 @@
 			(effects
 				(font
 					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C144153"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "96000003-0000-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "DMG2305UX-13"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "96000003-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Diodes Incorporated"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "96000003-0000-4000-8000-000000000003")
+			(effects
+				(font
+					(size 1.27 1.27)
 					(thickness 0.15)
 				)
 			)
@@ -6183,11 +6603,35 @@
 				)
 			)
 		)
-		(property "LCSC" ""
+		(property "LCSC" "C26010"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "a5f5cd6d-f2b3-4fec-8f18-9b7e96343050")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "0805W8F3301T5E"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000007-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "UNI-ROYAL"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000007-0000-4000-8000-000000000003")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6343,6 +6787,42 @@
 				)
 			)
 		)
+		(property "LCSC" "C17414"
+			(at 0 0 270)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000011-0000-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "0805W8F1002T5E"
+			(at 0 0 270)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000011-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "UNI-ROYAL"
+			(at 0 0 270)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000011-0000-4000-8000-000000000003")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/be9e9028-963a-4929-8fac-f94bd4c325ff")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
@@ -6487,6 +6967,42 @@
 			(effects
 				(font
 					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C1017"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "96000002-0000-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "GZ2012D601TF"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "96000002-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Sunlord"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "96000002-0000-4000-8000-000000000003")
+			(effects
+				(font
+					(size 1.27 1.27)
 					(thickness 0.15)
 				)
 			)
@@ -6639,6 +7155,42 @@
 				)
 			)
 		)
+		(property "LCSC" "C17414"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000014-0000-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "0805W8F1002T5E"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000014-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "UNI-ROYAL"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000014-0000-4000-8000-000000000003")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/bad5d889-426b-4457-9d52-6803cffd316f")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
@@ -6787,11 +7339,35 @@
 				)
 			)
 		)
-		(property "LCSC" ""
+		(property "LCSC" "C49188197"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "a21c9116-2775-4b01-b0f5-8650d65fcf90")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "EM74HCT05D"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "94000004-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "EnergyMath"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "94000004-0000-4000-8000-000000000003")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7488,6 +8064,42 @@
 				)
 			)
 		)
+		(property "LCSC" "C149504"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000003-0000-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "0805W8F1003T5E"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000003-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "UNI-ROYAL"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000003-0000-4000-8000-000000000003")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/84000001-0000-4000-8000-000000000012")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
@@ -7636,11 +8248,35 @@
 				)
 			)
 		)
-		(property "LCSC" ""
+		(property "LCSC" "C49188197"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "d589cd80-1ed7-47f8-bd2b-d8b8fc05fa58")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "EM74HCT05D"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "94000005-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "EnergyMath"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "94000005-0000-4000-8000-000000000003")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8054,6 +8690,42 @@
 				)
 			)
 		)
+		(property "LCSC" "C124129"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000007-0000-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "GRM21BR61A476ME15L"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000007-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Murata Electronics"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000007-0000-4000-8000-000000000003")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/84000001-0000-4000-8000-000000000006")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
@@ -8202,11 +8874,35 @@
 				)
 			)
 		)
-		(property "LCSC" ""
+		(property "LCSC" "C26010"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "72c9b8e5-7690-4d55-ac92-2515bbb69108")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "0805W8F3301T5E"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000009-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "UNI-ROYAL"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000009-0000-4000-8000-000000000003")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8362,6 +9058,42 @@
 				)
 			)
 		)
+		(property "LCSC" "C20608679"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "96000001-0000-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "0805L025/36XR"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "96000001-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "LUTE"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "96000001-0000-4000-8000-000000000003")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/84000001-0000-4000-8000-000000000002")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
@@ -8510,6 +9242,42 @@
 				)
 			)
 		)
+		(property "LCSC" "C49678"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000008-0000-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "CC0805KRX7R9BB104"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000008-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "YAGEO"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000008-0000-4000-8000-000000000003")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/84000001-0000-4000-8000-000000000008")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
@@ -8654,6 +9422,42 @@
 			(effects
 				(font
 					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C17414"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000016-0000-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "0805W8F1002T5E"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000016-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "UNI-ROYAL"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000016-0000-4000-8000-000000000003")
+			(effects
+				(font
+					(size 1.27 1.27)
 					(thickness 0.15)
 				)
 			)
@@ -8952,6 +9756,42 @@
 				)
 			)
 		)
+		(property "LCSC" "C17560"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000020-0000-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "0805W8F2202T5E"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000020-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "UNI-ROYAL"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000020-0000-4000-8000-000000000003")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/847230fd-d980-4b1c-bb48-72a3d739cd9b")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
@@ -9100,6 +9940,42 @@
 				)
 			)
 		)
+		(property "LCSC" "C49678"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000010-0000-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "CC0805KRX7R9BB104"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000010-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "YAGEO"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000010-0000-4000-8000-000000000003")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/84000001-0000-4000-8000-000000000017")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
@@ -9244,6 +10120,42 @@
 			(effects
 				(font
 					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C2297"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "92000001-0000-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "KT-0805G"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "92000001-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Hubei KENTO Elec"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "92000001-0000-4000-8000-000000000003")
+			(effects
+				(font
+					(size 1.27 1.27)
 					(thickness 0.15)
 				)
 			)
@@ -9445,11 +10357,35 @@
 				)
 			)
 		)
-		(property "LCSC" ""
+		(property "LCSC" "C84259"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "e7012396-7669-4f89-a4c8-2af9ee4625aa")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "NCD0805B2"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "92000004-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Foshan NationStar Optoelectronics"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "92000004-0000-4000-8000-000000000003")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9654,6 +10590,42 @@
 				)
 			)
 		)
+		(property "LCSC" "C15850"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000006-0000-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "CL21A106KAYNNNE"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000006-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Samsung Electro-Mechanics"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000006-0000-4000-8000-000000000003")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/84000001-0000-4000-8000-000000000003")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
@@ -9798,6 +10770,42 @@
 			(effects
 				(font
 					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C15850"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000009-0000-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "CL21A106KAYNNNE"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000009-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Samsung Electro-Mechanics"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000009-0000-4000-8000-000000000003")
+			(effects
+				(font
+					(size 1.27 1.27)
 					(thickness 0.15)
 				)
 			)
@@ -9950,11 +10958,35 @@
 				)
 			)
 		)
-		(property "LCSC" ""
+		(property "LCSC" "C26010"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "2f3bb785-4eb7-45c4-a297-3708f4dcaade")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "0805W8F3301T5E"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000008-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "UNI-ROYAL"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000008-0000-4000-8000-000000000003")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10106,6 +11138,42 @@
 			(effects
 				(font
 					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C26010"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000002-0000-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "0805W8F3301T5E"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000002-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "UNI-ROYAL"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000002-0000-4000-8000-000000000003")
+			(effects
+				(font
+					(size 1.27 1.27)
 					(thickness 0.15)
 				)
 			)
@@ -10998,6 +12066,42 @@
 				)
 			)
 		)
+		(property "LCSC" "C17414"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000010-0000-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "0805W8F1002T5E"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000010-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "UNI-ROYAL"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000010-0000-4000-8000-000000000003")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/91bef707-4e1d-4eff-9ca6-8385d9994ce3")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
@@ -11142,6 +12246,42 @@
 			(effects
 				(font
 					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C49678"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000004-0000-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "CC0805KRX7R9BB104"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000004-0000-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "YAGEO"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "95000004-0000-4000-8000-000000000003")
+			(effects
+				(font
+					(size 1.27 1.27)
 					(thickness 0.15)
 				)
 			)
@@ -11481,6 +12621,42 @@
 			(effects
 				(font
 					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C49188197"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "94000006-0001-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "EM74HCT05D"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "94000006-0002-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "EnergyMath"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "94000006-0003-4000-8000-000000000003")
+			(effects
+				(font
+					(size 1.27 1.27)
 					(thickness 0.15)
 				)
 			)
@@ -11891,6 +13067,42 @@
 				)
 			)
 		)
+		(property "LCSC" "C17414"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000022-0001-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "0805W8F1002T5E"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000022-0002-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "UNI-ROYAL"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000022-0003-4000-8000-000000000003")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/846cf709-f752-4268-b13b-a0c9d1d1d60e")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
@@ -12039,11 +13251,35 @@
 				)
 			)
 		)
-		(property "LCSC" ""
+		(property "LCSC" "C84256"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "cee894d0-2aea-419b-bb2d-e918c930092b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "NCD0805R1"
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "92000006-0002-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Foshan NationStar Optoelectronics"
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "92000006-0003-4000-8000-000000000003")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12233,6 +13469,42 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "25013a1d-ff33-4236-aeec-3e309b457d81")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" ""
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "93000004-0001-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "PTS645VH39-2 LFS"
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "93000004-0002-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "C&K"
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "93000004-0003-4000-8000-000000000003")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12644,6 +13916,42 @@
 				)
 			)
 		)
+		(property "LCSC" "C17414"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000013-0001-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "0805W8F1002T5E"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000013-0002-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "UNI-ROYAL"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000013-0003-4000-8000-000000000003")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/41ac9821-1466-4a8f-8b89-c4966dafedbf")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
@@ -12788,6 +14096,42 @@
 			(effects
 				(font
 					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C17414"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000017-0001-4000-8000-000000000001")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "0805W8F1002T5E"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000017-0002-4000-8000-000000000002")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "UNI-ROYAL"
+			(at 0 0 180)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "91000017-0003-4000-8000-000000000003")
+			(effects
+				(font
+					(size 1.27 1.27)
 					(thickness 0.15)
 				)
 			)
