@@ -6,9 +6,10 @@
 	(paper "A4")
 	(title_block
 		(title "Unijoysticle 2 C64 (DB9 Ports, 74HCT05 & SID SYNC)")
-		(date "2026-10-23")
+		(date "2026-10-26")
 		(rev "D")
 		(company "Ricardo Quesada")
+		(comment 1 "License: CC BY-NC-SA 4.0 (Attribution-NonCommercial-ShareAlike 4.0)")
 	)
 	(lib_symbols
 		(symbol "74xx:74LS05"

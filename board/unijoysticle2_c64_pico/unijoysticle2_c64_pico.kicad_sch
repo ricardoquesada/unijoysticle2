@@ -6,11 +6,12 @@
 	(paper "A4")
 	(title_block
 		(title "Unijoysticle 2 C64 (Pico 2 W Edition)")
-		(date "2026-10-23")
+		(date "2026-10-26")
 		(rev "D")
 		(company "Ricardo Quesada")
 		(comment 1 "Clean-sheet design with Raspberry Pi Pico 2 W (RP2350 + CYW43439)")
 		(comment 2 "Full C64 Joystick, 1351 Mouse, and 1311/1312 Paddle Emulation")
+		(comment 3 "License: CC BY-NC-SA 4.0 (Attribution-NonCommercial-ShareAlike 4.0)")
 	)
 	(lib_symbols)
 	(text "Unijoysticle 2 C64 - Clean-Sheet Pico 2 W Architecture\n- MCU: Raspberry Pi Pico 2 W (RP2350 + CYW43439, Dual BR/EDR + BLE, PIO State Machines)\n- Power: <45mA from C64 +5V via 250mA PTC Polyfuse + Ferrite Pi-Filter + DMG2305UX Ideal Diode\n- Analog Emulation: 10k POTX/POTY pull-ups + 10k/22k (2.62V) 5V-safe SYNC dividers + 74HCT05"
