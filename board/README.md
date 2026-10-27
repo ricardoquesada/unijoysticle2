@@ -1,6 +1,6 @@
 # Unipad™ models
 
-* Unipad C64 (2026)
+Unipad boards have moved to their own dedicated repository: [ricardoquesada/unipad](https://github.com/ricardoquesada/unipad).
 
 # Unijoysticle™ 2 models
 
